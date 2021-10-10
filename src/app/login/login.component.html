@@ -1,14 +1,21 @@
 <div class="row justify-content-center bg-base-color login mx-0">
+  <div class="col-12">
+    <div class="row justify-content-end">
+      <!-- <kendo-dropdownlist [data]="listOfLang" [textField]="'value'" [valueField]="'key'" [valuePrimitive]="true"
+        (valueChange)="useLanguage($event)"> </kendo-dropdownlist> -->
+
+    </div>
+  </div>
   <div class="col-3 bg-light rounded box">
     <div class="row py-5">
       <div class="col-12 form-group">
-        <input type="text" class="form-control" placeholder="User Name">
+        <input type="text" class="form-control" [placeholder]="'User Name'| translate">
       </div>
       <div class="col-12 form-group">
-        <input type="text" class="form-control" placeholder="Password">
+        <input type="text" class="form-control" [placeholder]="'Password'|translate">
       </div>
       <div class="col-12 form-group">
-        <button class="btn btn-secondary w-25" (click)="login()" translate>Login</button>
+        <button class="btn btn-secondary w-25" (click)="login()" translate>{{'Login'|translate}}</button>
       </div>
     </div>
   </div>

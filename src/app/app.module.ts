@@ -8,7 +8,6 @@ import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
-import { KendoUiModule } from './shared/modules/kendo-ui.module';
 import { NotificationMessageService } from './shared/services/notification.message.service';
 import { SecurityService } from './shared/services/security.service';
 import { LoadingComponent } from './shared/components/loading/loading.component'
@@ -19,6 +18,11 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { IssuerComponent } from './issuer/issuer.component';
+
+import { CovalentLayoutModule } from '@covalent/core/layout';
+import { CovalentStepsModule } from '@covalent/core/steps';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TeraDataModule } from './shared/modules/teradata.module';
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -39,14 +43,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    KendoUiModule,
+    TeraDataModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule
 
   ],
   providers: [
