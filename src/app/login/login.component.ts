@@ -1,6 +1,7 @@
 // angular modules
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   // #region declare variables
 
-  listOfLang: {}[];
+  listOfLang: IMenuItem[];
 
   // #endregion
 
@@ -25,8 +26,8 @@ export class LoginComponent implements OnInit {
   ) {
     // init variables
     this.listOfLang = [
-      { key: 'ar', value: 'العربية' },
-      { key: 'en', value: 'English' }
+      { action: 'ar', text: 'العربية' },
+      { action: 'en', text: 'English' }
     ];
   }
 
@@ -46,6 +47,10 @@ export class LoginComponent implements OnInit {
 
   useLanguage(language: string): void {
     this.translate.use(language);
+  }
+
+  setTriggerText(title: string, icon?: string): IMenuTrigger {
+    return { text: title, icon };
   }
 
   // #endregion

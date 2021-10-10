@@ -1,10 +1,11 @@
 {
+  "Lang": "Lang",
   "Login": "Login",
   "Alico": "Alico",
-  "Item": "Item",
+  "Items": "Items",
   "Items List": "Items List",
   "Add Item": "Add Item",
-  "Invoice": "Invoice",
+  "Invoices": "Invoices",
   "Invoices List": "Invoices List",
   "Add Invoice": "Add Invoice",
   "User Name": "User Name",
