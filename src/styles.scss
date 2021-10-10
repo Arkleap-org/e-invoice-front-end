@@ -11,3 +11,18 @@
 .text-white {
   color: #ffff !important;
 }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-toolbar.mat-primary {
+  background: $base-color !important;
+  color: #fff !important;
+}

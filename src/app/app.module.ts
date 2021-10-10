@@ -19,6 +19,11 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { IssuerComponent } from './issuer/issuer.component';
 
+import { CovalentLayoutModule } from '@covalent/core/layout';
+import { CovalentStepsModule } from '@covalent/core/steps';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TeraDataModule } from './shared/modules/teradata.module';
+
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -38,13 +43,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    TeraDataModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule
 
   ],
   providers: [
