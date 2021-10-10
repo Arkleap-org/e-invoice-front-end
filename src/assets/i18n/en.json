@@ -1,4 +1,10 @@
 {
-  "Translation demo": "Translation demo",
-  "This is a simple demonstration app for ngx-translate": "This is a simple demonstration app for ngx-translate"
+  "Login": "Login",
+  "Alico": "Alico",
+  "Item": "Item",
+  "Items List": "Items List",
+  "Add Item": "Add Item",
+  "Invoice": "Invoice",
+  "Invoices List": "Invoices List",
+  "Add Invoice": "Add Invoice"
 }

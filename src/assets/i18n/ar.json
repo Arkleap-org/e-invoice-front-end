@@ -1,4 +1,10 @@
 {
-  "Translation demo": "مثــــــــال توضيحي للترجمة",
-  "This is a simple demonstration app for ngx-translate": "هذا تطبيق بسيط على باكدج الترجمة"
+  "Login": "تسجيل الدخول",
+  "Alico": "أليـــكو",
+  "Item": "منتج",
+  "Items List": "قائمة المنتجات",
+  "Add Item": "إضافة منتج",
+  "Invoice": "فاتورة",
+  "Invoices List": "قائمة الفواتير",
+  "Add Invoice": "إضافة فاتورة"
 }

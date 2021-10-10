@@ -1,0 +1,22 @@
+// .login {
+//   height: 100%;
+//   .vertical-center {
+//     margin: 0;
+//     position: absolute;
+//     top: 50%;
+//     -ms-transform: translateY(-50%);
+//     transform: translateY(-50%);
+//   }
+// }
+.login {
+  height: 100vh;
+
+  .box {
+    height: 200px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+}

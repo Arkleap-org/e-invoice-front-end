@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/scss/variables.scss';
+
+.border-box-sizing {
+  box-sizing: border-box;
+}
+
+.bg-base-color {
+  background-color: $base-color;
+}
+
+.text-white {
+  color: #ffff !important;
+}

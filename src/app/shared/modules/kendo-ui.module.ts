@@ -21,6 +21,7 @@ import {
   RowFilterModule as TreeRowFilterModule,
   HeaderModule as TreeHeaderModule
 } from '@progress/kendo-angular-treelist';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 // import { SchedulerModule } from "@progress/kendo-angular-scheduler";
 
 @NgModule({
@@ -46,6 +47,7 @@ import {
     ContextMenuModule,
     TooltipModule,
     TreeListModule,
+    BrowserAnimationsModule,
     TreeExcelModule,
     TreeBodyModule,
     TreeFilterMenuModule,
@@ -74,6 +76,7 @@ import {
     ContextMenuModule,
     TooltipModule,
     TreeListModule,
+    BrowserAnimationsModule,
     TreeExcelModule,
     TreeBodyModule,
     TreeFilterMenuModule,

@@ -15,6 +15,10 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { LayoutComponent } from './layout/layout.component';
+import { LoginComponent } from './login/login.component';
+import { IssuerComponent } from './issuer/issuer.component';
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -24,7 +28,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeaderComponent,
+    LayoutComponent,
+    LoginComponent,
+    IssuerComponent,
   ],
   imports: [
     CommonModule,

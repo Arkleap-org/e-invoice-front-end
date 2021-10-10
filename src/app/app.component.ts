@@ -8,15 +8,21 @@ import { LoaderService } from './shared/services/loader.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  dropDownItems = [
-    { key: 1, value: "first Item" },
-    { key: 2, value: "second Item" }
-  ];
+
+  // #region declare variables
+
+  listOfSideMenu: any;
+
+  // #endregion
+
+  // #region constructor
+
   constructor(
     private elem: ElementRef,
     public loaderService: LoaderService,
     public translate: TranslateService,
   ) {
+
     translate.setDefaultLang('en');
 
     // deactivate autocomplete in all app forms
@@ -30,9 +36,9 @@ export class AppComponent {
         input.setAttribute('autocomplete', 'new-password');
       });
     });
+
   }
 
-  useLanguage(language: string): void {
-    this.translate.use(language);
-  }
+  // #endregion
+
 }

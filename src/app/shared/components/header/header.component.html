@@ -1,0 +1,35 @@
+<div class="bg-base-color row py-4 header vw-100 mx-0 ">
+  <h3 class="col-1 pl-3 text-white pt-2" translate>Alico</h3>
+  <kendo-menu class="col-5 text-white">
+
+    <kendo-menu-item [text]="'Item'|translate" cssClass="text-white" translate>
+      <kendo-menu-item [text]="'Items List'|translate" value="home/item/list" translate>
+        <ng-template kendoMenuItemLinkTemplate let-item="item" let-index="index">
+          <a class="text-dark m-3 decorator-none" routerLink="item/list"> {{ item.text }} </a>
+        </ng-template>
+      </kendo-menu-item>
+      <kendo-menu-item [text]="'Add Item'|translate" translate>
+        <ng-template kendoMenuItemLinkTemplate let-item="item" let-index="index">
+          <a class="text-dark m-3 decorator-none" routerLink="item/add"> {{ item.text }} </a>
+        </ng-template>
+      </kendo-menu-item>
+    </kendo-menu-item>
+
+    <kendo-menu-item [text]="'Invoice'|translate" cssClass="text-white" translate>
+      <kendo-menu-item [text]="'Invoices List'|translate" translate>
+        <ng-template kendoMenuItemLinkTemplate let-item="item" let-index="index">
+          <a class="text-dark m-3 decorator-none" routerLink="invoice/list"> {{ item.text }} </a>
+        </ng-template>
+      </kendo-menu-item>
+      <kendo-menu-item [text]="'Add Invoice'|translate" translate>
+        <ng-template kendoMenuItemLinkTemplate let-item="item" let-index="index">
+          <a class="text-dark m-3 decorator-none" routerLink="invoice/add"> {{ item.text }} </a>
+        </ng-template>
+      </kendo-menu-item>
+    </kendo-menu-item>
+  </kendo-menu>
+  <div class="col-6 row justify-content-end">
+    <kendo-dropdownlist [data]="listOfLang" [textField]="'value'" [valueField]="'key'" [valuePrimitive]="true"
+      (valueChange)="useLanguage($event)" [defaultItem]="{key:'en',value:'English'}"> </kendo-dropdownlist>
+  </div>
+</div>
