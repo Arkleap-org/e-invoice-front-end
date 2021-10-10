@@ -1,3 +1,4 @@
+// angular module
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -9,17 +10,33 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class HeaderComponent implements OnInit {
 
+  // #region declare variables
+
   listOfLang: {}[];
+
+  // #endregion
+
+  // #region constructor
 
   constructor(
     public translate: TranslateService,
   ) {
     // init variables
-    this.listOfLang = [{ key: 'ar', value: 'العربية' }];
+    this.listOfLang = [
+      { key: 'ar', value: 'العربية' },
+      { key: 'en', value: 'English' }
+    ];
   }
 
+  // #endregion
+
+  // #region ngOnInit
+
   ngOnInit(): void {
+    console.log(this.translate)
   }
+
+  // #endregion
 
   // #region main actions
 

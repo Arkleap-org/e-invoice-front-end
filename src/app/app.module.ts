@@ -8,7 +8,6 @@ import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
-import { KendoUiModule } from './shared/modules/kendo-ui.module';
 import { NotificationMessageService } from './shared/services/notification.message.service';
 import { SecurityService } from './shared/services/security.service';
 import { LoadingComponent } from './shared/components/loading/loading.component'
@@ -39,7 +38,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    KendoUiModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
