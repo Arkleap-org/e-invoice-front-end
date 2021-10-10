@@ -1,19 +1,36 @@
 <div class="bg-base-color row py-4 header vw-100 mx-0 ">
-  <h2 class="col-1 pl-2 text-white pt-2" translate>Alico</h2>
+  <h2 class="col-1 pl-2 text-white pt-2" ngx-translate>Alico</h2>
 
-  <td-dynamic-menu class="col-1 text-white pt-2" [trigger]="setTriggerText('Items')" [items]="itemList"
-    (itemClicked)="navigateToScreen($event)">
-  </td-dynamic-menu>
+  <!-- items dropdown -->
+  <mat-menu #items="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item routerLink="item/list">{{'Items List' | translate}}</button>
+      <button mat-menu-item routerLink="item/add">{{'Add Item' | translate}}</button>
+    </ng-template>
+  </mat-menu>
+  <div class="col-1 text-white pt-2">
+    <button mat-icon-button [matMenuTriggerFor]="items">
+      {{'Items' | translate}}
+    </button>
+  </div>
 
-  <td-dynamic-menu class="col-1 text-white pt-2" [trigger]="setTriggerText('Invoices')" [items]="invoiceList"
-    (itemClicked)="navigateToScreen($event)">
-  </td-dynamic-menu>
+  <!-- invoices dropdown -->
+  <mat-menu #invoices="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item routerLink="invoice/list">{{'Invoices List' | translate}}</button>
+      <button mat-menu-item routerLink="invoice/add">{{'Add Invoice' | translate}}</button>
+    </ng-template>
+  </mat-menu>
+  <div class="col-1 text-white pt-2">
+    <button mat-icon-button [matMenuTriggerFor]="invoices">
+      {{'Invoices' | translate}}
+    </button>
+  </div>
 
+  <!-- language dropdown -->
   <div class="col-9 pt-2 row justify-content-end">
-    <td-dynamic-menu class="col-2 text-white text-right" [trigger]="setTriggerText('Lang','arrow_drop_down')"
+    <td-dynamic-menu class="col-2 text-white text-right" [trigger]="setTriggerText('Lang'|translate,'arrow_drop_down')"
       [items]="listOfLang" (itemClicked)="useLanguage($event.action)">
     </td-dynamic-menu>
-    <!-- <kendo-dropdownlist [data]="listOfLang" [textField]="'value'" [valueField]="'key'" [valuePrimitive]="true"
-      (valueChange)="useLanguage($event)" > </kendo-dropdownlist> -->
   </div>
 </div>
