@@ -16,5 +16,9 @@
   "Email Address": "البريد إلكتروني",
   "Enter password": "كلمة السر",
   "Change password?": "تغيير كلمة السر؟",
-  "Don't have an account?": "لا تملك حساب؟"
+  "Don't have an account?": "لا تملك حساب؟",
+  "Sign up": "إنشاء حساب",
+  "First Name": "الاسم الأول",
+  "Last Name": "الاسم الأخير",
+  "Repeat your password": "اعد كتابة كلمة السر"
 }
