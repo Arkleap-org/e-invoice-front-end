@@ -23,6 +23,7 @@ import { CovalentLayoutModule } from '@covalent/core/layout';
 import { CovalentStepsModule } from '@covalent/core/steps';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TeraDataModule } from './shared/modules/teradata.module';
+import { RegisterComponent } from './register/register.component';
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -37,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     LayoutComponent,
     LoginComponent,
     IssuerComponent,
+    RegisterComponent,
   ],
   imports: [
     CommonModule,

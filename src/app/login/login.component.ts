@@ -53,6 +53,10 @@ export class LoginComponent implements OnInit {
     return { text: title, icon };
   }
 
+  register() {
+    this.router.navigate(['/register']);
+  }
+
   // #endregion
 
 }
