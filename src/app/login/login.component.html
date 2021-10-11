@@ -8,17 +8,61 @@
 
     </div>
   </div>
-  <div class="col-3 bg-light rounded box">
-    <div class="row py-5">
-      <div class="col-12 form-group">
-        <input type="text" class="form-control" [placeholder]="'User Name'| translate">
+  <div class="col-3">
+    <!--  -->
+    <div class="card">
+      <div class="card_img">
+        <img src="../../assets/images/login.png" alt="user-image">
+
       </div>
-      <div class="col-12 form-group">
-        <input type="text" class="form-control" [placeholder]="'Password'|translate">
-      </div>
-      <div class="col-12 form-group">
-        <button class="btn btn-secondary" (click)="login()" translate>{{'Login'|translate}}</button>
+
+      <br>
+      <div class="card_info">
+        <div class="row">
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1" style="height: 34px;">
+                  <mat-icon>perm_identity</mat-icon>
+                </span>
+              </div>
+              <input type="text" class="form-control font-size-cls" [placeholder]="'User Name'| translate">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1" style="height: 34px;">
+                  <mat-icon>lock</mat-icon>
+                </span>
+              </div>
+              <input type="text" class="form-control font-size-cls" [placeholder]="'Password'|translate">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 form-group">
+              <button class="btn btn-outline-secondary font-size-cls" translate>{{'Register'|translate}}</button>
+            </div>
+
+            <div class="col-6 form-group">
+              <button class="btn btn-outline-secondary font-size-cls" (click)="login()"
+                translate>{{'Login'|translate}}</button>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <a href="#" class="text-primary">{{'Change Password'|translate}}</a>
+          </div>
+
+        </div>
       </div>
     </div>
+    <!--  -->
+
   </div>
+
+
 </div>
