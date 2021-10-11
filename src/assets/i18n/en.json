@@ -11,5 +11,10 @@
   "User Name": "User Name",
   "Password": "Password",
   "Change Password": "Change Password",
-  "Register": "Register"
+  "Register": "Register",
+  "Enter a valid email address": "Enter a valid email address",
+  "Email Address": "Email Address",
+  "Enter password": "Enter password",
+  "Change password?": "Change password?",
+  "Don't have an account?": "Don't have an account?"
 }

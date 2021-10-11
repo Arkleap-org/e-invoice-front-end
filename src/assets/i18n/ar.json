@@ -11,5 +11,10 @@
   "User Name": "اسم المستخدم",
   "Password": "كلمة السر",
   "Change Password": "تغيير كلمة السر",
-  "Register": "تسجيل"
+  "Register": "إنشاء حساب",
+  "Enter a valid email address": "برجاء إدخال بريد إلكتروني صحيح",
+  "Email Address": "البريد إلكتروني",
+  "Enter password": "كلمة السر",
+  "Change password?": "تغيير كلمة السر؟",
+  "Don't have an account?": "لا تملك حساب؟"
 }
