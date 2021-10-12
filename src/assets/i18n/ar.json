@@ -10,5 +10,13 @@
   "Add Invoice": "إضافة فاتورة",
   "User Name": "اسم المستخدم",
   "Password": "كلمة السر",
-  "Create Issuer": "انشاء شركة"
+  "Create Issuer": "انشاء شركة",
+  "Issuer Name": "اسم الشركة",
+  "Registration Number": "رقم التسجيل",
+  "Type" : "نوع",
+  "Activity Code": "كود النشاط",
+  "Client ID": "",
+  "Client Secret 1": "",
+  "Client Secret 2": "",
+  "Address": "العنوان"
 }

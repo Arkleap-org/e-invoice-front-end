@@ -10,5 +10,13 @@
   "Add Invoice": "Add Invoice",
   "User Name": "User Name",
   "Password": "Password",
-  "Create Issuer": "Create Issuer"
+  "Create Issuer": "Create Issuer",
+  "Issuer Name": "Issuer Name",
+  "Registration Number": "Registration Number",
+  "Type": "Type",
+  "Activity Code": "Activity Code",
+  "Client ID": "Client ID",
+  "Client Secret 1": "Client Secret 1",
+  "Client Secret 2": "Client Secret 2",
+  "Address": "Address"
 }

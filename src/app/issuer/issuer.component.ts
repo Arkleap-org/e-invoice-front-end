@@ -1,3 +1,4 @@
+// angular core
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,11 +6,34 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './issuer.component.html',
   styleUrls: ['./issuer.component.scss']
 })
+
 export class IssuerComponent implements OnInit {
 
-  constructor() { }
+  // #region declare variables
+
+  issuerType: any[];
+
+  // #endregion
+
+  // #region constructor
+
+  constructor() {
+    this.issuerType = [
+      'Business', 'Nature Person', 'Foreigner'
+    ]
+  }
+
+  // #endregion
+
+  // #region ngOnInit
 
   ngOnInit(): void {
   }
+
+  // #endregion
+
+  // #region main actions
+
+  // #endregion
 
 }

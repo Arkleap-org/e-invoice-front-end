@@ -1,16 +1,87 @@
-<section>
-  <div class="container">
+<!-- card title -->
+<mat-card-title>{{'Create Issuer'|translate}}</mat-card-title>
+<br>
+<!-- card content -->
+<!-- issuer data -->
+<mat-card-content>
+  <form class="form">
+    <!-- first row -->
     <div class="row">
-      <div class="pt-5">
-        <mat-card>
-          <mat-card-title>{{'Create Issuer'|translate}}</mat-card-title>
-          <mat-card-content></mat-card-content>
-          <mat-card-actions class="text-center">
-            <button mat-button class="btn-secondary text-light">Cancel</button>
-            <button mat-button class="btn-info text-light">Create</button>
-          </mat-card-actions>
-        </mat-card>
+      <!-- issuer name -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>{{'Issuer Name'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Issuer Name'|translate}}">
+        </div>
+      </div>
+      <!-- issuer registration number -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>{{'Registration Number'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Registration Number'|translate}}">
+        </div>
       </div>
     </div>
-  </div>
-</section>
+
+    <!-- second row -->
+    <div class="row">
+      <!-- type -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option *ngFor="let type of issuerType">{{type}}</option>
+          </select>
+        </div>
+      </div>
+      <!-- activity code -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">{{'Activity Code' | translate}}<span
+              class="text-danger">*</span></label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option value="">Should call an api here</option>
+            <option *ngFor="let type of issuerType">{{type}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- third row -->
+    <div class="row">
+      <!-- client id -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Client ID'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Client ID'|translate}}">
+        </div>
+      </div>
+      <!-- client secret 1 -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Client Secret 1'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Client Secret 1'|translate}}">
+        </div>
+      </div>
+      <!-- client secret 2 -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Client Secret 2'|translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'Client Secret 2'|translate}}">
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-card-content>
+<hr>
+<!-- address form -->
+<mat-card-title>{{'Address'|translate}}</mat-card-title>
+<mat-card-content>
+
+</mat-card-content>
+
+<!-- card actions -->
+<mat-card-actions class="text-center">
+  <button mat-button class="btn btn-secondary text-light">Cancel</button>
+  <button mat-button class="btn btn-info text-light">Create</button>
+</mat-card-actions>
