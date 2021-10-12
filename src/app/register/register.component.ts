@@ -1,16 +1,14 @@
-// angular modules
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   // #region declare variables
 
@@ -41,10 +39,6 @@ export class LoginComponent implements OnInit {
 
   // #region main actions
 
-  login() {
-    this.router.navigate(['/home'])
-  }
-
   useLanguage(language: string): void {
     this.translate.use(language);
   }
@@ -53,8 +47,8 @@ export class LoginComponent implements OnInit {
     return { text: title, icon };
   }
 
-  register() {
-    this.router.navigate(['/register']);
+  registeredToLogin() {
+    this.router.navigate(['/'])
   }
 
   // #endregion

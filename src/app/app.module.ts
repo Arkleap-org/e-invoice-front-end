@@ -8,6 +8,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { IssuerComponent } from './issuer/issuer.component';
 
+import { CovalentLayoutModule } from '@covalent/core/layout';
+import { CovalentStepsModule } from '@covalent/core/steps';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TeraDataModule } from './shared/modules/teradata.module';
+import { RegisterComponent } from './register/register.component';
+
 
 import { AddUserComponent } from './add-user/add-user.component';
 import { HomeComponent } from './home/home.component';
@@ -27,12 +33,14 @@ import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.compon
     LayoutComponent,
     LoginComponent,
     IssuerComponent,
+    RegisterComponent,
     AddUserComponent,
     HomeComponent,
     ItemDetailsComponent,
     ItemListComponent,
     InvoiceDetailsComponent,
     InvoiceListComponent,
+
   ],
   imports: [
     SharedModule,
