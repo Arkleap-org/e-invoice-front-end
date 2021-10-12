@@ -18,5 +18,16 @@
   "Client ID": "",
   "Client Secret 1": "",
   "Client Secret 2": "",
-  "Address": "العنوان"
+  "Address": "العنوان",
+  "Branch ID": "Branch ID",
+  "Country": "Country",
+  "Governate": "Governate",
+  "Region City": "Region City",
+  "Street": "Street",
+  "Building Number": "Building Number",
+  "Postal Code": "Postal Code",
+  "Floor": "Floor",
+  "Room": "Room",
+  "Landmark": "Landmark",
+  "Additional Information": "Additional Information"
 }
