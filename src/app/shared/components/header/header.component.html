@@ -1,4 +1,4 @@
-<div class="bg-base-color row py-4 header vw-100 mx-0 ">
+<div class="bg-base-color row py-4 header mx-0 ">
   <h2 class="col-1 pl-2 text-white pt-2" ngx-translate>Alico</h2>
 
   <!-- items dropdown -->
@@ -11,6 +11,7 @@
   <div class="col-1 text-white pt-2">
     <button mat-icon-button [matMenuTriggerFor]="items">
       {{'Items' | translate}}
+      <mat-icon>arrow_drop_down</mat-icon>
     </button>
   </div>
 
@@ -24,13 +25,35 @@
   <div class="col-1 text-white pt-2">
     <button mat-icon-button [matMenuTriggerFor]="invoices">
       {{'Invoices' | translate}}
+      <mat-icon>arrow_drop_down</mat-icon>
     </button>
   </div>
 
-  <!-- language dropdown -->
-  <div class="col-9 pt-2 row justify-content-end">
-    <td-dynamic-menu class="col-2 text-white text-right" [trigger]="setTriggerText('Lang'|translate,'arrow_drop_down')"
-      [items]="listOfLang" (itemClicked)="useLanguage($event.action)">
-    </td-dynamic-menu>
+  <div class="col-9 pt-2">
+    <div class="row justify-content-end">
+
+      <!-- language dropdown -->
+      <td-dynamic-menu class="col-2 text-white" [trigger]="setTriggerText('Lang'|translate,'arrow_drop_down')"
+        [items]="listOfLang" (itemClicked)="useLanguage($event.action)">
+      </td-dynamic-menu>
+
+      <!-- invoices dropdown -->
+      <mat-menu #profileMenu="matMenu">
+        <ng-template matMenuContent>
+          <button mat-menu-item routerLink="issuer">{{'Edit Profile' | translate}}</button>
+          <button mat-menu-item routerLink="user">{{'Add User' | translate}}</button>
+          <!-- <button mat-menu-item routerLink="invoice/list">{{'Settings' | translate}}</button> -->
+          <button mat-menu-item routerLink="">{{'Logout' | translate}}</button>
+        </ng-template>
+      </mat-menu>
+      <div class="col-3 text-white">
+        <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+          <mat-icon>person</mat-icon>
+          {{'Welcome Admin' | translate}}
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+      </div>
+
+    </div>
   </div>
 </div>
