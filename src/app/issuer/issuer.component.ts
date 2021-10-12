@@ -17,7 +17,7 @@ export class IssuerComponent implements OnInit {
 
   // #region declare variables
 
-  issuerType: any[];
+  issuerType: { label: string, value: string }[];
 
   // #endregion
 
@@ -28,7 +28,18 @@ export class IssuerComponent implements OnInit {
   ) {
     // init variables
     this.issuerType = [
-      'Business', 'Nature Person', 'Foreigner'
+      {
+        label: 'Business',
+        value: 'B'
+      },
+      {
+        label: 'Natural Preson',
+        value: 'NP'
+      },
+      {
+        label: 'Foreigner',
+        value: 'F'
+      }
     ]
   }
 

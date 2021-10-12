@@ -30,9 +30,12 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
-          <select class="form-control" id="exampleFormControlSelect1">
+          <!-- <select class="form-control" id="exampleFormControlSelect1">
             <option *ngFor="let type of issuerType">{{type}}</option>
-          </select>
+          </select> -->
+          <ng-select [items]="issuerType" bindLabel="label" bindValue="value" [searchable]="true" clearAllText="Clear"
+            formControlName="account">
+          </ng-select>
         </div>
       </div>
       <!-- activity code -->
