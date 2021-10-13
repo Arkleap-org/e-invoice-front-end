@@ -24,8 +24,11 @@ import { CovalentLayoutModule } from '@covalent/core/layout';
 import { CovalentDataTableModule } from '@covalent/core/data-table';
 import { CovalentSearchModule } from '@covalent/core/search';
 import { CovalentPagingModule } from '@covalent/core/paging';
-// import {  MatSelectModule } from '@angular/material';
 import { MatOptionModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -54,6 +57,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CovalentPagingModule,
     MatListModule,
     MatOptionModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
     MatAutocompleteModule,
     NgSelectModule,
   ], // modules needed to run this module
@@ -82,6 +90,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CovalentPagingModule,
     MatListModule,
     MatOptionModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
     MatAutocompleteModule,
     NgSelectModule,
   ]
