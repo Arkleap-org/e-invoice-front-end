@@ -8,12 +8,11 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-issuer',
-  templateUrl: './issuer.component.html',
-  styleUrls: ['./issuer.component.scss']
+  templateUrl: './issuer-details.component.html',
+  styleUrls: ['./issuer-details.component.scss']
 })
 
-export class IssuerComponent implements OnInit {
+export class IssuerDetailsComponent implements OnInit {
 
   // #region declare variables
 

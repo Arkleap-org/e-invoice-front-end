@@ -66,5 +66,7 @@
   "Create Item": "Create Item",
   "Code Type": "Code Type",
   "Tax Type": "Tax Type",
-  "Tax Rate": "Tax Rate"
+  "Tax Rate": "Tax Rate",
+  "Issuer": "Issuer",
+  "Add Address": "Add Address"
 }

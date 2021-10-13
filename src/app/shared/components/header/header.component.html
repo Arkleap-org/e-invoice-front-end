@@ -37,15 +37,21 @@
         [items]="listOfLang" (itemClicked)="useLanguage($event.action)">
       </td-dynamic-menu>
 
-      <!-- invoices dropdown -->
+      <!-- issuer dropdown -->
       <mat-menu #profileMenu="matMenu">
         <ng-template matMenuContent>
-          <button mat-menu-item routerLink="issuer">{{'Edit Profile' | translate}}</button>
+          <button mat-menu-item [matMenuTriggerFor]="issuer">{{'Issuer' | translate}}</button>
           <button mat-menu-item routerLink="user">{{'Add User' | translate}}</button>
-          <!-- <button mat-menu-item routerLink="invoice/list">{{'Settings' | translate}}</button> -->
           <button mat-menu-item routerLink="">{{'Logout' | translate}}</button>
         </ng-template>
       </mat-menu>
+
+      <!-- issuer submenu -->
+      <mat-menu #issuer="matMenu">
+        <button mat-menu-item routerLink="issuer/details">{{'Edit Profile' | translate}}</button>
+        <button mat-menu-item routerLink="issuer/address">{{'Add Address' | translate}}</button>
+      </mat-menu>
+
       <div class="col-3 text-white">
         <button mat-icon-button [matMenuTriggerFor]="profileMenu">
           <mat-icon>person</mat-icon>

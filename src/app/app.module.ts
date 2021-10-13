@@ -7,12 +7,8 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
 import { HeaderComponent } from './shared/components/header/header.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
-import { IssuerComponent } from './issuer/issuer.component';
+import { IssuerDetailsComponent } from './issuer/issuer-details/issuer-details.component';
 
-import { CovalentLayoutModule } from '@covalent/core/layout';
-import { CovalentStepsModule } from '@covalent/core/steps';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TeraDataModule } from './shared/modules/teradata.module';
 import { RegisterComponent } from './register/register.component';
 
 
@@ -25,6 +21,7 @@ import { ItemListComponent } from './item/item-list/item-list.component';
 
 import { InvoiceDetailsComponent } from './invoice/invoice-details/invoice-details.component';
 import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
+import { IssuerAddressComponent } from './issuer/issuer-address/issuer-address.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +30,7 @@ import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.compon
     HeaderComponent,
     LayoutComponent,
     LoginComponent,
-    IssuerComponent,
+    IssuerDetailsComponent,
     RegisterComponent,
     AddUserComponent,
     HomeComponent,
@@ -41,6 +38,7 @@ import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.compon
     ItemListComponent,
     InvoiceDetailsComponent,
     InvoiceListComponent,
+    IssuerAddressComponent,
 
   ],
   imports: [

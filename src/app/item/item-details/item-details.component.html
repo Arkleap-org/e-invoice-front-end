@@ -1,90 +1,92 @@
-<!-- card title -->
-<mat-card-title>{{'Create Item'|translate}}</mat-card-title>
-<br>
-<!-- card content -->
-<mat-card-content>
-  <form class="form">
-    <!-- first row -->
-    <div class="row">
-      <!-- Name -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>{{'Name' | translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Name'|translate}}">
+<mat-card>
+  <!-- card title -->
+  <mat-card-title>{{'Create Item'|translate}}</mat-card-title>
+  <br>
+  <!-- card content -->
+  <mat-card-content>
+    <form class="form">
+      <!-- first row -->
+      <div class="row">
+        <!-- Name -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Name' | translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="{{'Name'|translate}}">
+          </div>
+        </div>
+        <!-- description -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Description' | translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Description'|translate}}">
+          </div>
         </div>
       </div>
-      <!-- description -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>{{'Description' | translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Description'|translate}}">
+      <!-- second row -->
+      <div class="row">
+        <!-- internal code -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Internal Code' | translate}}<span class="text-danger">*</span></label>
+            <ng-select [items]="listOfInternalCodes" bindLabel="internalCode" bindValue="id" [searchable]="true"
+              placeholder="{{'Internal Code'|translate}}">
+            </ng-select>
+          </div>
+        </div>
+        <!-- unit type -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Unit Type' | translate}}<span class="text-danger">*</span></label>
+            <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" [searchable]="true"
+              placeholder="{{'Unit Type'|translate}}">
+            </ng-select>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- second row -->
-    <div class="row">
-      <!-- internal code -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>{{'Internal Code' | translate}}<span class="text-danger">*</span></label>
-          <ng-select [items]="listOfInternalCodes" bindLabel="internalCode" bindValue="id" [searchable]="true"
-            placeholder="{{'Internal Code'|translate}}">
-          </ng-select>
+      <!-- third row -->
+      <div class="row">
+        <!-- code type -->
+        <!-- type -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Type' | translate}}</label>
+            <ng-select [items]="listOfTypes" [searchable]="true" placeholder="{{'Code Type'|translate}}">
+            </ng-select>
+          </div>
+        </div>
+        <!-- code -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Code' | translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Code'|translate}}">
+          </div>
         </div>
       </div>
-      <!-- unit type -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>{{'Unit Type' | translate}}<span class="text-danger">*</span></label>
-          <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" [searchable]="true"
-            placeholder="{{'Unit Type'|translate}}">
-          </ng-select>
+      <!-- forth row -->
+      <div class="row">
+        <!-- tax type -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Tax Type' | translate}}</label>
+            <ng-select [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id" [searchable]="true"
+              placeholder="{{'Tax Type'|translate}}">
+            </ng-select>
+          </div>
+        </div>
+        <!-- tax rate -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Tax Rate' | translate}}</label>
+            <input type="number" class="form-control" placeholder="{{'Tax Rate'|translate}}">
+          </div>
         </div>
       </div>
-    </div>
-    <!-- third row -->
-    <div class="row">
-      <!-- code type -->
-      <!-- type -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>{{'Type' | translate}}</label>
-          <ng-select [items]="listOfTypes" [searchable]="true" placeholder="{{'Code Type'|translate}}">
-          </ng-select>
-        </div>
-      </div>
-      <!-- code -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>{{'Code' | translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Code'|translate}}">
-        </div>
-      </div>
-    </div>
-    <!-- forth row -->
-    <div class="row">
-      <!-- tax type -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>{{'Tax Type' | translate}}</label>
-          <ng-select [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id" [searchable]="true"
-            placeholder="{{'Tax Type'|translate}}">
-          </ng-select>
-        </div>
-      </div>
-      <!-- tax rate -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>{{'Tax Rate' | translate}}</label>
-          <input type="number" class="form-control" placeholder="{{'Tax Rate'|translate}}">
-        </div>
-      </div>
-    </div>
-  </form>
-</mat-card-content>
-<br>
-<!-- card actions -->
-<mat-card-actions class="text-center">
-  <button mat-button class="btn btn-secondary text-light" (click)="cancel()">Cancel</button>
-  <button mat-button class="btn btn-info text-light">Create</button>
-</mat-card-actions>
+    </form>
+  </mat-card-content>
+  <br>
+  <!-- card actions -->
+  <mat-card-actions class="text-center">
+    <button mat-button class="btn btn-secondary text-light" (click)="cancel()">Cancel</button>
+    <button mat-button class="btn btn-info text-light">Create</button>
+  </mat-card-actions>
+</mat-card>

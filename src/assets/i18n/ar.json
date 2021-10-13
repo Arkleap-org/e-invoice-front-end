@@ -66,5 +66,7 @@
   "Create Item": "انشاء منتج",
   "Code Type": "Code Type",
   "Tax Type": "Tax Type",
-  "Tax Rate": "Tax Rate"
+  "Tax Rate": "Tax Rate",
+  "Issuer": "الشركة",
+  "Add Address": "إضافة عنوان"
 }
