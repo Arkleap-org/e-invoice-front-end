@@ -30,11 +30,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
-          <!-- <select class="form-control" id="exampleFormControlSelect1">
-            <option *ngFor="let type of issuerType">{{type}}</option>
-          </select> -->
-          <ng-select [items]="issuerType" bindLabel="label" bindValue="value" [searchable]="true" clearAllText="Clear"
-            formControlName="account">
+          <ng-select [items]="issuerTypeSource" bindLabel="label" bindValue="value" [searchable]="true"
+            placeholder="{{'Issuer Type'|translate}}">
           </ng-select>
         </div>
       </div>
@@ -43,10 +40,9 @@
         <div class="form-group">
           <label for="exampleFormControlSelect1">{{'Activity Code' | translate}}<span
               class="text-danger">*</span></label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option value="">Should call an api here</option>
-            <option *ngFor="let type of issuerType">{{type}}</option>
-          </select>
+          <ng-select [items]="listOfActivityCodes" bindLabel="activityCode" bindValue="id" [searchable]="true"
+            placeholder="{{'Should call an api here'|translate}}">
+          </ng-select>
         </div>
       </div>
     </div>

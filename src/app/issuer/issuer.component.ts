@@ -1,8 +1,9 @@
 // angular core
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 // angular router
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 // sweetalert
 import Swal from 'sweetalert2';
@@ -17,17 +18,20 @@ export class IssuerComponent implements OnInit {
 
   // #region declare variables
 
-  issuerType: { label: string, value: string }[];
+  issuerTypeSource: { label: string, value: string }[];
+  listOfActivityCodes: {}[]
+
 
   // #endregion
 
   // #region constructor
 
   constructor(
-    private router: Router
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     // init variables
-    this.issuerType = [
+    this.issuerTypeSource = [
       {
         label: 'Business',
         value: 'B'
@@ -40,7 +44,23 @@ export class IssuerComponent implements OnInit {
         label: 'Foreigner',
         value: 'F'
       }
-    ]
+    ];
+
+    this.listOfActivityCodes = [
+      {
+        id: 1,
+        activityCode: "activity 1"
+      },
+      {
+        id: 2,
+        activityCode: "activity 2"
+      },
+      {
+        id: 3,
+        activityCode: "activity 3"
+      }
+    ];
+
   }
 
   // #endregion
@@ -53,6 +73,7 @@ export class IssuerComponent implements OnInit {
   // #endregion
 
   // #region main actions
+
 
   cancel() {
     Swal.fire({

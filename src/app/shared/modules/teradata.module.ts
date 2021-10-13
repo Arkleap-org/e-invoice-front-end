@@ -1,5 +1,4 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,20 +18,22 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CovalentDynamicMenuModule } from '@covalent/core/dynamic-menu';
-
-
 import { CovalentSidesheetModule } from '@covalent/core/sidesheet';
-
 import { CovalentStepsModule } from '@covalent/core/steps';
 import { CovalentLayoutModule } from '@covalent/core/layout';
+import { CovalentDataTableModule } from '@covalent/core/data-table';
+import { CovalentSearchModule } from '@covalent/core/search';
+import { CovalentPagingModule } from '@covalent/core/paging';
+// import {  MatSelectModule } from '@angular/material';
+import { MatOptionModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+
 @NgModule({
   declarations: [],
   imports: [
-    BrowserAnimationsModule,
-    CommonModule,
     FormsModule,
-    BrowserModule,
-    HttpClientModule,
     CovalentLayoutModule,
     CovalentStepsModule,
     MatButtonModule,
@@ -48,30 +49,19 @@ import { CovalentLayoutModule } from '@covalent/core/layout';
     CovalentLayoutModule,
     CovalentSidesheetModule,
     CovalentDynamicMenuModule,
-    MatFormFieldModule,
-    // CovalentExpansionPanelModule,
-    // CovalentNotificationsModule,
-    // CovalentMenuModule,
-    // CovalentMediaModule,
-    // CovalentHttpModule.forRoot(),
-    // CovalentHighlightModule,
-    // CovalentMarkdownModule,
-    // CovalentDynamicFormsModule,
-    // ToolbarModule,
-
-    // SidenavContentModule,
-    // ContentContainerModule,
-    // appRoutes,
-    // CovalentFileModule,
+    CovalentDataTableModule,
+    CovalentSearchModule,
+    CovalentPagingModule,
+    MatListModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    NgSelectModule,
   ], // modules needed to run this module
-  providers: [], // additional providers needed for this module
+  providers: [
+  ], // additional providers needed for this module
   bootstrap: [],
   exports: [
-    BrowserAnimationsModule,
-    CommonModule,
     FormsModule,
-    BrowserModule,
-    HttpClientModule,
     CovalentLayoutModule,
     CovalentStepsModule,
     MatButtonModule,
@@ -87,7 +77,13 @@ import { CovalentLayoutModule } from '@covalent/core/layout';
     CovalentLayoutModule,
     CovalentSidesheetModule,
     CovalentDynamicMenuModule,
-    MatFormFieldModule,
+    CovalentDataTableModule,
+    CovalentSearchModule,
+    CovalentPagingModule,
+    MatListModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    NgSelectModule,
   ]
 })
 export class TeraDataModule { }
