@@ -62,5 +62,9 @@
   "Unit Type": "Unit Type",
   "Update": "تعديل",
   "Create User": "إضافة مستخدم",
-  "Save": "حفظ"
+  "Save": "حفظ",
+  "Create Item": "انشاء منتج",
+  "Code Type": "Code Type",
+  "Tax Type": "Tax Type",
+  "Tax Rate": "Tax Rate"
 }

@@ -62,5 +62,9 @@
   "Unit Type": "Unit Type",
   "Update": "Update",
   "Create User": "Create User",
-  "Save": "Save"
+  "Save": "Save",
+  "Create Item": "Create Item",
+  "Code Type": "Code Type",
+  "Tax Type": "Tax Type",
+  "Tax Rate": "Tax Rate"
 }
