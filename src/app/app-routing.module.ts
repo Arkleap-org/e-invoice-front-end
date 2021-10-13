@@ -9,9 +9,11 @@ import { ItemDetailsComponent } from './item/item-details/item-details.component
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
+  { path: "register", component: RegisterComponent },
   {
     path: "",
     component: LayoutComponent,

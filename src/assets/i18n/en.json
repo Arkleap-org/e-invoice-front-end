@@ -29,5 +29,16 @@
   "Floor": "Floor",
   "Room": "Room",
   "Landmark": "Landmark",
-  "Additional Information": "Additional Information"
+  "Additional Information": "Additional Information",
+  "Change Password": "Change Password",
+  "Register": "Register",
+  "Enter a valid email address": "Enter a valid email address",
+  "Email Address": "Email Address",
+  "Enter password": "Enter password",
+  "Change password?": "Change password?",
+  "Don't have an account?": "Don't have an account?",
+  "Sign up": "Sign up",
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Repeat your password": "Repeat your password"
 }
