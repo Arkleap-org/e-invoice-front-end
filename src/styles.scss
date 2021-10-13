@@ -33,6 +33,18 @@ body {
   color: #fff !important;
 }
 
-.form-control, .btn, * {
+.form-control,
+.btn,
+* {
   font-size: medium;
+}
+
+table {
+  width: 100%;
+  // min-height: 500px;
+}
+
+tr.mat-row,
+tr.mat-footer-row {
+  height: 60px !important;
 }
