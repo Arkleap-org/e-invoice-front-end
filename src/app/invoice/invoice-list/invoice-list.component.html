@@ -1,1 +1,71 @@
-<p>invoice-list works!</p>
+<mat-card>
+  <mat-card-title>{{'Invoices List' | translate}}</mat-card-title>
+  <mat-form-field appearance="standard">
+    <mat-label>{{'Search' | translate}}</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="invoiceDataSource" matSort>
+
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'#' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Invoice #' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Customer Name' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Date Time Issued' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Total Amout' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="internal_code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Invoice Status' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.internal_code}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="unit_type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Portal Status' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.unit_type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-button class="btn btn-primary" [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>{{'View Invoice' | translate}}</button>
+            <button mat-menu-item>{{'Print Invoice' | translate}}</button>
+            <button mat-menu-item>{{'Cancel' | translate}}</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" colspan="4">{{'No data to show' | translate}}</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</mat-card>

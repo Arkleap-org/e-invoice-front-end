@@ -33,10 +33,13 @@ body {
   color: #fff !important;
 }
 
-.form-control, .btn, * {
+.form-control,
+.btn,
+* {
   font-size: medium;
 }
 
+<<<<<<< HEAD
 fieldset {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -49,3 +52,14 @@ fieldset {
 .border-left{
   border-left: 2px solid gray;
 }
+=======
+table {
+  width: 100%;
+  // min-height: 500px;
+}
+
+tr.mat-row,
+tr.mat-footer-row {
+  height: 60px !important;
+}
+>>>>>>> fd4dbf84ba687faaf7560acc85a894920895db71

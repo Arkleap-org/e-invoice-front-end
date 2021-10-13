@@ -17,7 +17,7 @@ export class ItemListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemDataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['number', 'name', 'description', 'type', 'code', 'internal_code', 'unit_type', 'actions'];
 
   // #endregion
 
@@ -25,7 +25,7 @@ export class ItemListComponent implements OnInit {
 
   constructor() {
     // init variables
-    this.itemDataSource = new MatTableDataSource();
+    this.itemDataSource = new MatTableDataSource([{ name: "item 1" }, { name: "item 2" }]);
   }
 
   // #endregion

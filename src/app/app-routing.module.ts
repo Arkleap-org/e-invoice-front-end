@@ -4,7 +4,8 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { HomeComponent } from './home/home.component';
 import { InvoiceDetailsComponent } from './invoice/invoice-details/invoice-details.component';
 import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
-import { IssuerComponent } from './issuer/issuer.component';
+import { IssuerAddressComponent } from './issuer/issuer-address/issuer-address.component';
+import { IssuerDetailsComponent } from './issuer/issuer-details/issuer-details.component';
 import { ItemDetailsComponent } from './item/item-details/item-details.component';
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -23,13 +24,13 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: "issuer",
-        component: IssuerComponent
-      },
-      {
         path: "user",
         component: AddUserComponent
       },
+
+      { path: "issuer/details", component: IssuerDetailsComponent },
+      { path: "issuer/address", component: IssuerAddressComponent },
+
 
       { path: "item/list", component: ItemListComponent },
       { path: "item/add", component: ItemDetailsComponent },

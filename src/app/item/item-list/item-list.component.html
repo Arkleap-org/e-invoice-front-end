@@ -1,43 +1,64 @@
-<mat-form-field appearance="standard">
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-</mat-form-field>
+<mat-card>
+  <mat-card-title>{{'Items List' | translate}}</mat-card-title>
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
 
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="itemDataSource" matSort>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="itemDataSource" matSort>
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let row"> {{row.position}} </td>
-    </ng-container>
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'#' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.number}} </td>
+      </ng-container>
 
-    <!-- Progress Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-      <td mat-cell *matCellDef="let row"> {{row.name}}% </td>
-    </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Name' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let row"> {{row.weight}} </td>
-    </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Description' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+      </ng-container>
 
-    <!-- Fruit Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
-      <td mat-cell *matCellDef="let row"> {{row.symbol}} </td>
-    </ng-container>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Type' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Code' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+      </ng-container>
 
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data to show</td>
-    </tr>
-  </table>
+      <ng-container matColumnDef="internal_code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Internal Code' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.internal_code}} </td>
+      </ng-container>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-</div>
+      <ng-container matColumnDef="unit_type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Unit Type' | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row.unit_type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
+        <td mat-cell *matCellDef="let row">
+          <button type="button" class="btn btn-outline-primary"> {{'Update' | translate}} </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" colspan="4">{{'No data to show' | translate}}</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</mat-card>
