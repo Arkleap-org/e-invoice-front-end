@@ -19,7 +19,7 @@ export class IssuerComponent implements OnInit {
   // #region declare variables
 
   issuerTypeSource: { label: string, value: string }[];
-  listOfActivityCodes: {}[]
+  listOfActivityCodes: {}[];
 
 
   // #endregion
