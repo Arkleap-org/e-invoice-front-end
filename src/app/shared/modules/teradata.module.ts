@@ -19,6 +19,11 @@ import { CovalentSearchModule } from '@covalent/core/search';
 import { CovalentPagingModule } from '@covalent/core/paging';
 // import {  MatSelectModule } from '@angular/material';
 import { MatOptionModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [],
@@ -44,6 +49,11 @@ import { MatOptionModule } from '@angular/material/core';
     CovalentPagingModule,
     MatListModule,
     MatOptionModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule
   ], // modules needed to run this module
   providers: [
   ], // additional providers needed for this module
@@ -70,6 +80,11 @@ import { MatOptionModule } from '@angular/material/core';
     CovalentPagingModule,
     MatListModule,
     MatOptionModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule
   ]
 })
 export class TeraDataModule { }
