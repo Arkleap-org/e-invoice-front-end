@@ -1,9 +1,8 @@
 // angular core
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // angular router
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 // sweetalert
 import Swal from 'sweetalert2';
@@ -27,8 +26,7 @@ export class IssuerComponent implements OnInit {
   // #region constructor
 
   constructor(
-    private router: Router,
-    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router
   ) {
     // init variables
     this.issuerTypeSource = [

@@ -40,5 +40,14 @@
   "Sign up": "Sign up",
   "First Name": "First Name",
   "Last Name": "Last Name",
-  "Repeat your password": "Repeat your password"
+  "Repeat your password": "Repeat your password",
+  "Create Item": "Create Item",
+  "Name": "Name",
+  "Description": "Description",
+  "Code Type": "Code Type",
+  "Code": "Code",
+  "Internal Code": "Internal Code",
+  "Unit Type": "Unit Type",
+  "Tax Type": "Tax Type",
+  "Tax Rate": "Tax Rate"
 }

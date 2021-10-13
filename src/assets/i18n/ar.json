@@ -40,5 +40,14 @@
   "Sign up": "إنشاء حساب",
   "First Name": "الاسم الأول",
   "Last Name": "الاسم الأخير",
-  "Repeat your password": "اعد كتابة كلمة السر"
+  "Repeat your password": "اعد كتابة كلمة السر",
+  "Create Item": "انشاء منتج",
+  "Name": "اسم",
+  "Description": "Description",
+  "Code Type": "Code Type",
+  "Code": "Code",
+  "Internal Code": "Internal Code",
+  "Unit Type": "Unit Type",
+  "Tax Type": "Tax Type",
+  "Tax Rate": "Tax Rate"
 }
