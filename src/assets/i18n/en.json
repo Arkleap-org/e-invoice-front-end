@@ -68,5 +68,13 @@
   "Tax Type": "Tax Type",
   "Tax Rate": "Tax Rate",
   "Issuer": "Issuer",
-  "Add Address": "Add Address"
+  "Add Address": "Add Address",
+
+  "New Receiver": "New Receiver",
+  "Existing Receiver": "Existing Receiver",
+  "Receiver": "Receiver",
+  "Receiver Name": "Receiver Name",
+  "Receiver Type": "Receiver Type",
+  "National ID": "National ID",
+  "Issued Date": "Issued Date"
 }
