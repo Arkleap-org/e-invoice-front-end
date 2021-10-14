@@ -18,20 +18,20 @@
           <img src="../../assets/images/login-img.png" class="img-fluid" alt="Sample image">
         </div>
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form>
+          <div>
 
             <!-- Email input -->
             <div class="form-outline mb-4">
               <label class="form-label" for="form3Example3">{{'Email Address'|translate}}</label>
               <input type="email" id="form3Example3" class="form-control form-control-lg"
-                placeholder="{{'Enter a valid email address'|translate}}" />
+                placeholder="{{'Enter a valid email address'|translate}}" [(ngModel)]="model.username" />
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-3">
               <label class="form-label" for="form3Example4">{{'Password'|translate}}</label>
               <input type="password" id="form3Example4" class="form-control form-control-lg"
-                placeholder="{{'Enter password'|translate}}" />
+                placeholder="{{'Enter password'|translate}}" [(ngModel)]="model.password" />
             </div>
 
             <div class="d-flex justify-content-between align-items-center">
@@ -43,13 +43,13 @@
 
             <div class="text-center text-lg-start mt-4 pt-2">
               <button type="button" class="btn btn-danger btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;"
-                (click)="login()">{{'Login'|translate}}</button>
+                (click)="userLogin(model)">{{'Login'|translate}}</button>
               <p class="small mt-2 pt-1 mb-0">{{"Don't have an account?"|translate}} <a routerLink="/register"
                   class="link-light">{{'Register'|translate}}</a>
               </p>
             </div>
 
-          </form>
+          </div>
         </div>
       </div>
     </div>

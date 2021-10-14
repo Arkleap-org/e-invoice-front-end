@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // angular router
 import { Router } from '@angular/router';
-
-// sweetalert
-import Swal from 'sweetalert2';
+import { DialogService } from '../../shared/services/dialog.service';
 
 @Component({
   templateUrl: './issuer-details.component.html',
@@ -25,7 +23,8 @@ export class IssuerDetailsComponent implements OnInit {
   // #region constructor
 
   constructor(
-    private router: Router
+    private router: Router,
+    private dialogService: DialogService
   ) {
     // init variables
     this.issuerTypeSource = [
@@ -72,20 +71,8 @@ export class IssuerDetailsComponent implements OnInit {
   // #region main actions
 
 
-  cancel() {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "$success",
-      cancelButtonColor: "$secondary",
-      confirmButtonText: "Yes, I am sure!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.router.navigate(["/home"]);
-      }
-    });
+  cancelAndRouteBack() {
+    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
   }
 
   // #endregion

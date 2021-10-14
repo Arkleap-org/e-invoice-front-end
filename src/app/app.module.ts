@@ -1,27 +1,32 @@
-import { NgModule } from '@angular/core';
+// angular module
+import { NgModule } from "@angular/core";
 
+// components
+import { AppComponent } from "./app.component";
+import { LoadingComponent } from "./shared/components/loading/loading.component"
+import { HeaderComponent } from "./shared/components/header/header.component";
+import { LayoutComponent } from "./layout/layout.component";
+import { LoginComponent } from "./login/login.component";
+import { IssuerDetailsComponent } from "./issuer/issuer-details/issuer-details.component";
+import { RegisterComponent } from "./register/register.component";
+import { AddUserComponent } from "./add-user/add-user.component";
+import { HomeComponent } from "./home/home.component";
+import { ItemDetailsComponent } from "./item/item-details/item-details.component";
+import { ItemListComponent } from "./item/item-list/item-list.component";
+import { InvoiceDetailsComponent } from "./invoice/invoice-details/invoice-details.component";
+import { InvoiceListComponent } from "./invoice/invoice-list/invoice-list.component";
+import { IssuerAddressComponent } from "./issuer/issuer-address/issuer-address.component";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoadingComponent } from './shared/components/loading/loading.component'
-import { HeaderComponent } from './shared/components/header/header.component';
-import { LayoutComponent } from './layout/layout.component';
-import { LoginComponent } from './login/login.component';
-import { IssuerDetailsComponent } from './issuer/issuer-details/issuer-details.component';
+// modules
+import { AppRoutingModule } from "./app-routing.module";
+import { SharedModule } from "./shared/modules/shared.module";
 
-import { RegisterComponent } from './register/register.component';
-
-
-import { AddUserComponent } from './add-user/add-user.component';
-import { HomeComponent } from './home/home.component';
-import { SharedModule } from './shared/modules/shared.module';
-
-import { ItemDetailsComponent } from './item/item-details/item-details.component';
-import { ItemListComponent } from './item/item-list/item-list.component';
-
-import { InvoiceDetailsComponent } from './invoice/invoice-details/invoice-details.component';
-import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
-import { IssuerAddressComponent } from './issuer/issuer-address/issuer-address.component';
+// services
+import { AuthService } from "./shared/services/auth.service";
+import { LocalStorageService } from "./shared/services/local-storage.service";
+import { AuthGuardService } from "./shared/services/auth.guard.service";
+import { SecurityService } from "./shared/services/security.service";
+import { SessionStorageService } from "./shared/services/session-storage.service";
 
 @NgModule({
   declarations: [
@@ -45,7 +50,13 @@ import { IssuerAddressComponent } from './issuer/issuer-address/issuer-address.c
     SharedModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    LocalStorageService,
+    AuthGuardService,
+    SecurityService,
+    SessionStorageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

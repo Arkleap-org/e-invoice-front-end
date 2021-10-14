@@ -11,6 +11,7 @@ import { ItemListComponent } from './item/item-list/item-list.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuardService } from './shared/services/auth.guard.service';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   {
     path: "",
     component: LayoutComponent,
+    canActivate: [AuthGuardService],
     children: [
       {
         path: "home",

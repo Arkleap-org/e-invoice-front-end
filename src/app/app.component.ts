@@ -1,6 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LoaderService } from './shared/services/loader.service';
+import { LocalStorageService } from './shared/services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +22,14 @@ export class AppComponent {
     private elem: ElementRef,
     public loaderService: LoaderService,
     public translate: TranslateService,
+    private localStorageService: LocalStorageService
   ) {
-
-    translate.setDefaultLang('en');
+    const lang = this.localStorageService.retrieve('lang');
+    if (lang) this.translate.use(lang);
+    else {
+      this.localStorageService.store('lang', 'en');
+      this.translate.setDefaultLang('en');
+    }
 
     // deactivate autocomplete in all app forms
     this.loaderService.addAfterAllRequestsHandler(() => {

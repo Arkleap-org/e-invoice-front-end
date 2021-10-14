@@ -46,7 +46,8 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
         <td mat-cell *matCellDef="let row">
-          <button type="button" class="btn btn-outline-primary"> {{'Update' | translate}} </button>
+          <button type="button" class="btn btn-outline-primary" [routerLink]="['/item/update', row.id||0]"> {{'Update' |
+            translate}} </button>
         </td>
       </ng-container>
 

@@ -13,7 +13,7 @@ export class SecurityService {
 
   // #region private constant
 
-  private tokenStorageKey = "jwt-token";
+  private tokenStorageKey = "token";
 
   // #endregion
 
@@ -44,32 +44,6 @@ export class SecurityService {
 
   // #region actions
 
-  getApplicationUser() {
-    const url = `Security/GetApplicationUser`;
-    return this.http.get(url).subscribe((data) => {
-      if (data === null) {
-        this.unauthorized();
-      } else {
-        // set app-user
-
-        // save app-user in local storage
-
-        // redirect
-        this.router.navigateByUrl("/home");
-      }
-    });
-  }
-
-  getApplicationMenu(permissionType: string) {
-    const url = `Security/GetListOfAuthorizedMenu/${permissionType}`;
-    return this.http.get(url).subscribe((data) => {
-      // set app-menu
-
-      // save app-menu in local storage
-    });
-  }
-
-
   logout() {
 
     // remove all storage
@@ -78,13 +52,9 @@ export class SecurityService {
     // reset private properties
 
     // redirect to login page
-    this.router.navigate(["/login"], { skipLocationChange: true });
+    this.router.navigate(["/"], { skipLocationChange: true });
   }
 
-  unauthorized() {
-    // redirect to unauthorized page
-    this.router.navigateByUrl("/unauthorized");
-  }
 
   // #endregion
 

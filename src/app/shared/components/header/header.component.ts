@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
+    private localStorageService: LocalStorageService,
   ) {
     // init variables
     this.listOfLang = [
@@ -35,9 +37,7 @@ export class HeaderComponent implements OnInit {
 
   // #region ngOnInit
 
-  ngOnInit(): void {
-    console.log(this.translate)
-  }
+  ngOnInit(): void { }
 
   // #endregion
 
@@ -45,6 +45,7 @@ export class HeaderComponent implements OnInit {
 
   useLanguage(language: string): void {
     this.translate.use(language);
+    this.localStorageService.store('lang', language);
   }
 
   setTriggerText(title: string, icon?: string): IMenuTrigger {

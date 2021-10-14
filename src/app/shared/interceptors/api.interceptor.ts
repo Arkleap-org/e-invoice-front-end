@@ -7,7 +7,7 @@ import { environment } from "../../../environments/environment";
 export class ApiInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!req.url.startsWith('http') || !req.url.startsWith('https')) {
+    if (!req.url.startsWith('http') && !req.url.startsWith('https') && !req.url.includes('assets')) {
       const baseUrl = environment.baseUrl;
       const apiReq = req.clone({ url: `${baseUrl}${req.url}` });
       return next.handle(apiReq);
