@@ -1,1 +1,102 @@
-<p>issuer-address works!</p>
+<mat-card>
+  <!-- address  -->
+  <mat-card-title>{{'Address'|translate}}</mat-card-title>
+  <br>
+  <mat-card-content>
+    <form class="form">
+      <!-- first row -->
+      <div class="row">
+        <!-- branch id -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Branch ID'|translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}">
+          </div>
+        </div>
+        <!-- country -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
+            <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
+              placeholder="{{'Country'|translate}}">
+            </ng-select>
+          </div>
+        </div>
+        <!-- governate-->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="{{'Governate'|translate}}">
+          </div>
+        </div>
+        <!-- region city-->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="{{'Region City'|translate}}">
+          </div>
+        </div>
+        <!-- street -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="{{'Street'|translate}}">
+          </div>
+        </div>
+        <!-- building number -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}">
+          </div>
+        </div>
+      </div>
+      <!-- second row -->
+      <div class="row">
+        <!-- Postal Code -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Postal Code'|translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}">
+          </div>
+        </div>
+        <!-- Floor -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Floor'|translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Floor'|translate}}">
+          </div>
+        </div>
+        <!-- Room -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Room'|translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Room'|translate}}">
+          </div>
+        </div>
+        <!-- landmark -->
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>{{'Landmark'|translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Landmark'|translate}}">
+          </div>
+        </div>
+        <!-- Additional Information -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>{{'Additional Information'|translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Additional Information'|translate}}">
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+  <!-- card actions -->
+  <br>
+  <mat-card-actions class="text-center">
+    <button mat-button class="btn btn-secondary text-light" (click)="cancel()">Cancel</button>
+    <button mat-button class="btn btn-info text-light">Create</button>
+  </mat-card-actions>
+</mat-card>

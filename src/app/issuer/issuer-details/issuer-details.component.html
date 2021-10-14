@@ -77,7 +77,7 @@
   </mat-card-content>
 </mat-card>
 <br>
-<mat-card class="pt-5">
+<mat-card>
   <!-- address  -->
   <mat-card-title>{{'Address'|translate}}</mat-card-title>
   <br>
@@ -96,7 +96,9 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Country'|translate}}">
+            <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
+              placeholder="{{'Country'|translate}}">
+            </ng-select>
           </div>
         </div>
         <!-- governate-->
@@ -177,3 +179,4 @@
     <button mat-button class="btn btn-info text-light">Create</button>
   </mat-card-actions>
 </mat-card>
+<br>
