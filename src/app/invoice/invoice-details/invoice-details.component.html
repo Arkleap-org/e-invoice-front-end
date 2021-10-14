@@ -118,8 +118,78 @@
 
 <!-- invoice form -->
 <mat-card>
+  <mat-card-title>{{'Invoice'|translate}}</mat-card-title>
+  <br>
+  <form class="form">
+    <!-- first row -->
+    <div class="row">
+      <!-- document type -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Document Type'|translate}}<span class="text-danger">*</span></label>
+          <ng-select [items]="listOfDocumentTypes" bindLabel="label" bindValue="value" [searchable]="true"
+            placeholder="{{'Document Type'|translate}}">
+          </ng-select>
+        </div>
+      </div>
+      <!-- document type version -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
+          <ng-select [items]="listOfDocumentTypeVersions" [searchable]="true"
+            placeholder="{{'Document Type Version'|translate}}">
+          </ng-select>
+        </div>
+      </div>
+      <!-- Internal ID -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}">
+        </div>
+      </div>
+    </div>
+
+    <!-- second row -->
+    <div class="row">
+      <!-- Items -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
+          <ng-select [items]="listOfItems" bindLabel="name" bindValue="id" [searchable]="true"
+            placeholder="{{'Items'|translate}}">
+          </ng-select>
+        </div>
+      </div>
+      <!-- Quantity -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}">
+        </div>
+      </div>
+      <!-- Total Amount -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Total Amount'|translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'Total Amount'|translate}}">
+        </div>
+      </div>
+    </div>
+    <!-- description -->
+    <div class="form-group">
+      <label>{{'Description'|translate}}</label>
+      <input type="number" class="form-control" placeholder="{{'Description'|translate}}">
+    </div>
+
+  </form>
+
 
 </mat-card>
 <br>
 
 <!-- card actions -->
+<mat-card-actions class="text-center">
+  <button mat-button class="btn btn-secondary text-light">Cancel</button>
+  <button mat-button class="btn btn-info text-light">Create</button>
+</mat-card-actions>

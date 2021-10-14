@@ -76,5 +76,8 @@
   "Receiver Name": "Receiver Name",
   "Receiver Type": "Receiver Type",
   "National ID": "National ID",
-  "Issued Date": "Issued Date"
+  "Issued Date": "Issued Date",
+  "Invoice": "Invoice",
+  "Document Type": "Document Type",
+  "Document Type Version": "Document Type Version"
 }

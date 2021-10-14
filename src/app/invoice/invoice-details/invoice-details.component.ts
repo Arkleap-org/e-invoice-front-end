@@ -15,6 +15,9 @@ export class InvoiceDetailsComponent implements OnInit {
   listOfReceivers: {}[];
   listOfReceiverType: { label: string, value: string }[];
   listOfCountries: { code: string, en_name: string, ar_name: string }[];
+  listOfDocumentTypes: { label: string, value: string }[];
+  listOfDocumentTypeVersions: string[];
+  listOfItems: { id: number, name: string }[];
 
 
   // #endregion
@@ -55,6 +58,36 @@ export class InvoiceDetailsComponent implements OnInit {
         code: 'UK',
         en_name: 'United Kingdom',
         ar_name: 'المملكة المتحدة'
+      }
+    ];
+
+    this.listOfDocumentTypes = [
+      {
+        label: "Invoice",
+        value: "I"
+      },
+      {
+        label: "Credit Memo",
+        value: "C"
+      },
+      {
+        label: "Debit Memo",
+        value: "D"
+      }
+    ];
+
+    this.listOfDocumentTypeVersions = [
+      '0.9', '1.0'
+    ];
+
+    this.listOfItems = [
+      {
+        id: 1,
+        name: "item 1"
+      },
+      {
+        id: 2,
+        name: "item 2"
       }
     ];
   }
