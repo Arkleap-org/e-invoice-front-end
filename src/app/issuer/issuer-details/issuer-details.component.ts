@@ -16,6 +16,7 @@ export class IssuerDetailsComponent implements OnInit {
 
   issuerTypeSource: { label: string, value: string }[];
   listOfActivityCodes: {}[];
+  listOfCountries: { code: string, en_name: string, ar_name: string }[];
 
 
   // #endregion
@@ -54,6 +55,19 @@ export class IssuerDetailsComponent implements OnInit {
       {
         id: 3,
         activityCode: "activity 3"
+      }
+    ];
+
+    this.listOfCountries = [
+      {
+        code: 'EG',
+        en_name: 'Egypt',
+        ar_name: 'مصر'
+      },
+      {
+        code: 'UK',
+        en_name: 'United Kingdom',
+        ar_name: 'المملكة المتحدة'
       }
     ];
 

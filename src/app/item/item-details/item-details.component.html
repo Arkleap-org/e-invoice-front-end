@@ -28,9 +28,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Internal Code' | translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfInternalCodes" bindLabel="internalCode" bindValue="id" [searchable]="true"
-              placeholder="{{'Internal Code'|translate}}">
-            </ng-select>
+            <input type="text" class="form-control" placeholder="{{'Internal Code'|translate}}">
           </div>
         </div>
         <!-- unit type -->
@@ -83,10 +81,11 @@
       </div>
     </form>
   </mat-card-content>
-  <br>
-  <!-- card actions -->
-  <mat-card-actions class="text-center">
-    <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-    <button mat-button class="btn btn-info text-light">Create</button>
-  </mat-card-actions>
 </mat-card>
+<br>
+
+<!-- card actions -->
+<mat-card-actions class="text-center">
+  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
+  <button mat-button class="btn btn-info text-light">Create</button>
+</mat-card-actions>

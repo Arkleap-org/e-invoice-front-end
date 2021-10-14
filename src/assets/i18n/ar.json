@@ -69,5 +69,15 @@
   "Tax Type": "Tax Type",
   "Tax Rate": "Tax Rate",
   "Issuer": "الشركة",
-  "Add Address": "إضافة عنوان"
+  "Add Address": "إضافة عنوان",
+   "New Receiver": "New Receiver",
+  "Existing Receiver": "Existing Receiver",
+  "Receiver": "Receiver",
+  "Receiver Name": "Receiver Name",
+  "Receiver Type": "Receiver Type",
+  "National ID": "National ID",
+  "Issued Date": "Issued Date",
+  "Invoice": "Invoice",
+  "Document Type": "Document Type",
+  "Document Type Version": "Document Type Version"
 }

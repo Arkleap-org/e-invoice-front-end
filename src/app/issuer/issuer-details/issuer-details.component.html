@@ -75,7 +75,9 @@
 
     </form>
   </mat-card-content>
-  <hr>
+</mat-card>
+<br>
+<mat-card>
   <!-- address  -->
   <mat-card-title>{{'Address'|translate}}</mat-card-title>
   <br>
@@ -94,7 +96,9 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Country'|translate}}">
+            <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
+              placeholder="{{'Country'|translate}}">
+            </ng-select>
           </div>
         </div>
         <!-- governate-->
@@ -168,10 +172,11 @@
     </form>
   </mat-card-content>
 
-  <!-- card actions -->
-  <br>
-  <mat-card-actions class="text-center">
-    <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-    <button mat-button class="btn btn-info text-light">Create</button>
-  </mat-card-actions>
 </mat-card>
+<br>
+
+<!-- card actions -->
+<mat-card-actions class="text-center">
+  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
+  <button mat-button class="btn btn-info text-light">Create</button>
+</mat-card-actions>

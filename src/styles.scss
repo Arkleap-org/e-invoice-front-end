@@ -39,6 +39,18 @@ body {
   font-size: medium;
 }
 
+fieldset {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  box-shadow: 0 0 5px #AAAAAA;
+}
+
+.border-left{
+  border-left: 2px solid gray;
+}
 table {
   width: 100%;
   // min-height: 500px;
