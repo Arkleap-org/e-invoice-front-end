@@ -16,9 +16,9 @@ export class AuthInterceptor implements HttpInterceptor {
       const authReq = request.clone({
         headers: request.headers
           .set("Authorization", `Bearer ${this.securityService.jwtToken}`)
-          .set("Content-Type", "application/json")
-          .set("Cache-Control", "no-cache")
-          .set("Pragma", "no-cache")
+        // .set("Content-Type", "application/json")
+        // .set("Cache-Control", "no-cache")
+        // .set("Pragma", "no-cache")
       });
       // pass on the cloned request instead of the original request.
       return next.handle(authReq);

@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { takeUntil } from 'rxjs/operators';
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
 import { InvoiceService } from 'src/app/shared/services/invoice.service';
 
 
@@ -18,7 +19,8 @@ export class InvoiceListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   invoiceDataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['number', 'name', 'description', 'type', 'code', 'internal_code', 'unit_type', 'actions'];
+  displayedColumns: string[] = ['number', 'internal_id', 'receiver_name', 'date_time_issued',
+    'total_amount', 'invoice_status', 'portal_status', 'actions'];
 
   // #endregion
 
@@ -28,7 +30,7 @@ export class InvoiceListComponent implements OnInit {
     private invoiceService: InvoiceService
   ) {
     // init variables
-    this.invoiceDataSource = new MatTableDataSource([{ name: "invoice 1" }, { name: "invoice 2" }]);
+    this.invoiceDataSource = new MatTableDataSource();
   }
 
   // #endregion
@@ -66,9 +68,9 @@ export class InvoiceListComponent implements OnInit {
   listInvoices() {
     this.invoiceService.listInvoices()
       .subscribe(
-        (response) => {
+        (response: ResponseDto) => {
           console.log('invoices list ', response);
-
+          this.invoiceDataSource.data = response.data;
         }
       );
   }
