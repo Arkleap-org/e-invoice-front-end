@@ -79,5 +79,11 @@
   "Issued Date": "Issued Date",
   "Invoice": "Invoice",
   "Document Type": "Document Type",
-  "Document Type Version": "Document Type Version"
+  "Document Type Version": "Document Type Version",
+  "Valid Invoices": "Valid Invoices",
+  "Invalid Invoices": "Invalid Invoices",
+  "Dashboard": "Dashboard",
+  "Recent Invoices": "Recent Invoices",
+  "Date Received": "Date Received",
+  "Reject Invoice": "Reject Invoice"
 }
