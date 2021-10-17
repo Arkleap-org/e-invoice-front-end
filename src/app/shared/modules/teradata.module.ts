@@ -31,6 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CovalentMessageModule } from '@covalent/core/message';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatSortModule,
     MatAutocompleteModule,
     NgSelectModule,
+    CovalentMessageModule,
   ], // modules needed to run this module
   providers: [
   ], // additional providers needed for this module
@@ -97,6 +99,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatSortModule,
     MatAutocompleteModule,
     NgSelectModule,
+    CovalentMessageModule,
   ]
 })
 export class TeraDataModule { }
