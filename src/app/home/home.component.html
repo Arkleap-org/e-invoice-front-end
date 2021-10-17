@@ -1,8 +1,12 @@
 <mat-card>
+  <h2>{{'Dashboard'|translate}}</h2>
+</mat-card>
+<br>
+<mat-card>
   <div class="container">
     <!-- cards -->
     <div class="row">
-      <h2 class="text-secondary">{{'Dashboard'|translate}}</h2>
+
       <div class="d-flex justify-content-between">
         <div class="col-3">
           <mat-card class="text-white bg-success">
@@ -21,7 +25,7 @@
 <!-- recent invoices -->
 <br>
 <mat-card>
-  <mat-card-title>{{'Recent Invoices' | translate}}</mat-card-title>
+  <mat-card-title class="text-secondary">{{'Recent Invoices' | translate}}</mat-card-title>
   <mat-form-field appearance="standard">
     <mat-label>{{'Search' | translate}}</mat-label>
     <input matInput (keyup)="applyFilter($event)" #input>
