@@ -27,6 +27,7 @@ import { LocalStorageService } from "./shared/services/local-storage.service";
 import { AuthGuardService } from "./shared/services/auth.guard.service";
 import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
+import { ItemsService } from "./shared/services/items.service";
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { SessionStorageService } from "./shared/services/session-storage.service
     LocalStorageService,
     AuthGuardService,
     SecurityService,
-    SessionStorageService
+    SessionStorageService,
+    ItemsService
   ],
   bootstrap: [AppComponent]
 })

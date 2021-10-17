@@ -27,3 +27,17 @@ export class CreateItemResponseDto {
     sub_tax_type: string | undefined;
 }
 
+export class ListItemsResponseDto {
+
+    id: number | undefined;
+    item_name: string | undefined;
+    item_desc: string | undefined;
+    item_type: string | undefined;
+    item_code: string | undefined;
+    internal_code: number | undefined;
+    sub_tax_rate: number | undefined;
+    price_include_tax: number | undefined;
+    unit_type: string | undefined;
+    sub_tax_type: string | undefined;
+
+}

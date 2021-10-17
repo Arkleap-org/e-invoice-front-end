@@ -2,9 +2,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { from } from "rxjs";
+import { ReactiveFormsModule, } from '@angular/forms';
 
 // models 
-import { CreateItemRequestDto, CreateItemResponseDto } from "../models/items.model";
+import { CreateItemRequestDto, CreateItemResponseDto, ListItemsResponseDto } from "../models/items.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +18,10 @@ export class ItemsService {
     const url = `issuer/item/create/`;
     return this.http.post<CreateItemResponseDto>(url, model);
   }
+
+  listItems() {
+    const url = `issuer/item/list/`
+    return this.http.get<ListItemsResponseDto>(url)
+  }
+
 }

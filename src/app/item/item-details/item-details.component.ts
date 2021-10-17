@@ -10,7 +10,7 @@ import { ItemsService } from 'src/app/shared/services/items.service';
 
 // sweetalert
 import Swal from 'sweetalert2';
-import { CreateItemRequestDto } from 'src/app/shared/models/items.model';
+import { CreateItemRequestDto, CreateItemResponseDto } from 'src/app/shared/models/items.model';
 
 @Component({
   selector: 'app-item-details',
@@ -26,6 +26,8 @@ export class ItemDetailsComponent implements OnInit {
   listOfInternalCodes: {}[];
   listOfUnitTypes: {}[];
   listOfTaxTypes: {}[];
+  model: CreateItemRequestDto;
+
 
   // #endregion
 
@@ -56,36 +58,24 @@ export class ItemDetailsComponent implements OnInit {
         "internalCode": "internal code 3"
       }
     ];
-
+    // waiting for api 
     this.listOfUnitTypes = [
       {
-        "id": 1,
+        "id": "EA",
         "unitType": "unit type 1"
       },
-      {
-        "id": 2,
-        "unitType": "unit type 2"
-      },
-      {
-        "id": 3,
-        "unitType": "unit type 3"
-      }
+
     ];
 
     this.listOfTaxTypes = [
       {
-        "id": 1,
+        "id": "V009",
         "taxType": "tax type 1"
       },
-      {
-        "id": 2,
-        "taxType": "tax type 2"
-      },
-      {
-        "id": 3,
-        "taxType": "tax type 3"
-      }
+
     ];
+    this.model = new CreateItemRequestDto;
+
   }
 
   // #region end
@@ -93,7 +83,15 @@ export class ItemDetailsComponent implements OnInit {
   // #region form actions
 
   createItem(model: CreateItemRequestDto) {
-    this.itemService.createItem(model)
+    console.log('create item')
+    this.itemService.createItem(model).subscribe((res: CreateItemResponseDto) => {
+
+      this.dialogService.successAndRouteBack("/item/list");
+
+
+
+
+    });
   }
 
   // #region end 

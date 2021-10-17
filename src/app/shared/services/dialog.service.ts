@@ -1,4 +1,4 @@
-// amgular
+// angular
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 
@@ -23,6 +23,16 @@ export class DialogService {
       cancelButtonColor: "$secondary",
       confirmButtonText: "Yes, I am sure!",
     }).then((result) => { if (result.isConfirmed) this.router.navigate([route]); });
+  }
+  successAndRouteBack(route: string) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.router.navigate([route]);
   }
 
 }
