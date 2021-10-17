@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { takeUntil } from 'rxjs/operators';
+import { InvoiceService } from 'src/app/shared/services/invoice.service';
 
 
 @Component({
@@ -22,7 +24,9 @@ export class InvoiceListComponent implements OnInit {
 
   // #region constructor
 
-  constructor() {
+  constructor(
+    private invoiceService: InvoiceService
+  ) {
     // init variables
     this.invoiceDataSource = new MatTableDataSource([{ name: "invoice 1" }, { name: "invoice 2" }]);
   }
@@ -31,7 +35,9 @@ export class InvoiceListComponent implements OnInit {
 
   // #region ngOnInit
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.listInvoices();
+  }
 
   // #endregion
 
@@ -46,6 +52,7 @@ export class InvoiceListComponent implements OnInit {
 
   // #region main action
 
+  // filter table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.invoiceDataSource.filter = filterValue.trim().toLowerCase();
@@ -54,6 +61,18 @@ export class InvoiceListComponent implements OnInit {
       this.invoiceDataSource.paginator.firstPage();
     }
   }
+
+  // get invoices list
+  listInvoices() {
+    this.invoiceService.listInvoices()
+      .subscribe(
+        (response) => {
+          console.log('invoices list ', response);
+
+        }
+      );
+  }
+
 
   // #endregion
 

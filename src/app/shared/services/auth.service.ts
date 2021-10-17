@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   userLogin(model: LoginRequestDto) {
-    const url = `token`;
+    const url = `token/`;
     return this.http.post<LoginResponseDto>(url, model);
   }
 
