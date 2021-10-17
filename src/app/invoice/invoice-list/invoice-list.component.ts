@@ -69,7 +69,7 @@ export class InvoiceListComponent implements OnInit {
     this.invoiceService.listInvoices()
       .subscribe(
         (response: ResponseDto) => {
-          console.log('invoices list ', response);
+          console.log('invoiceee ', response.data)
           this.invoiceDataSource.data = response.data;
         }
       );

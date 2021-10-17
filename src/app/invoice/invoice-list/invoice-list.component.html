@@ -50,7 +50,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>{{'View Invoice' | translate}}</button>
+            <button mat-menu-item [routerLink]="['/invoice/view', row.id]">{{'View Invoice' | translate}}</button>
             <button mat-menu-item>{{'Print Invoice' | translate}}</button>
             <button mat-menu-item>{{'Cancel' | translate}}</button>
           </mat-menu>

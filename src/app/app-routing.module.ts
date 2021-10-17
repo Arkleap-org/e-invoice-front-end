@@ -4,6 +4,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { HomeComponent } from './home/home.component';
 import { InvoiceDetailsComponent } from './invoice/invoice-details/invoice-details.component';
 import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
+import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
 import { IssuerAddressComponent } from './issuer/issuer-address/issuer-address.component';
 import { IssuerDetailsComponent } from './issuer/issuer-details/issuer-details.component';
 import { ItemDetailsComponent } from './item/item-details/item-details.component';
@@ -40,7 +41,7 @@ const routes: Routes = [
 
       { path: "invoice/list", component: InvoiceListComponent },
       { path: "invoice/add", component: InvoiceDetailsComponent },
-      { path: "invoice/update/:id", component: InvoiceDetailsComponent },
+      { path: "invoice/view/:id", component: InvoiceViewComponent },
     ]
   }
 ];
