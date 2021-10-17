@@ -10,6 +10,7 @@ import { TeraDataModule } from './teradata.module';
 import { ApiInterceptor } from '../interceptors/api.interceptor';
 import { AuthInterceptor } from '../interceptors/auth.interceptor';
 import { LoaderInterceptor } from '../interceptors/loader.interceptor';
+import { ErrorInterceptor } from '../interceptors/error.interceptor';
 import { NotificationMessageService } from '../services/notification.message.service';
 import { SecurityService } from '../services/security.service';
 
@@ -40,7 +41,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
   ],
   exports: [
