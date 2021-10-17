@@ -5,8 +5,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from '../../shared/services/dialog.service';
 
+//services 
+import { ItemsService } from 'src/app/shared/services/items.service';
+
 // sweetalert
 import Swal from 'sweetalert2';
+import { CreateItemRequestDto } from 'src/app/shared/models/items.model';
 
 @Component({
   selector: 'app-item-details',
@@ -29,7 +33,8 @@ export class ItemDetailsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private itemService: ItemsService
   ) {
 
     // init variables
@@ -84,6 +89,14 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   // #region end
+
+  // #region form actions
+
+  createItem(model: CreateItemRequestDto) {
+    this.itemService.createItem(model)
+  }
+
+  // #region end 
 
   // #region ngOnInit
 

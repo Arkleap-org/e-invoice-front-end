@@ -11,14 +11,15 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Name' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Name'|translate}}">
+            <input type="text" class="form-control" formControlName="item_name" placeholder="{{'Name'|translate}}">
           </div>
         </div>
         <!-- description -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Description' | translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Description'|translate}}">
+            <input type="text" class="form-control" formControlName="item_desc"
+              placeholder="{{'Description'|translate}}">
           </div>
         </div>
       </div>
@@ -28,12 +29,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Internal Code' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Internal Code'|translate}}">
+            <input type="text" class="form-control" formControlName="internal_code"
+              placeholder="{{'Internal Code'|translate}}">
           </div>
         </div>
         <!-- unit type -->
         <div class="col-md-6">
-          <div class="form-group">
+          <div class="form-group" formControlName="unit_type">
             <label>{{'Unit Type' | translate}}<span class="text-danger">*</span></label>
             <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" [searchable]="true"
               placeholder="{{'Unit Type'|translate}}">
@@ -48,7 +50,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Type' | translate}}</label>
-            <ng-select [items]="listOfTypes" [searchable]="true" placeholder="{{'Code Type'|translate}}">
+            <ng-select formControlName="item_type" [items]="listOfTypes" [searchable]="true"
+              placeholder="{{'Code Type'|translate}}">
             </ng-select>
           </div>
         </div>
@@ -56,7 +59,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Code' | translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Code'|translate}}">
+            <input formControlName="item_code" type="text" class="form-control" placeholder="{{'Code'|translate}}">
           </div>
         </div>
       </div>
@@ -66,8 +69,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Type' | translate}}</label>
-            <ng-select [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id" [searchable]="true"
-              placeholder="{{'Tax Type'|translate}}">
+            <ng-select formControlName="sub_tax_type" [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id"
+              [searchable]="true" placeholder="{{'Tax Type'|translate}}">
             </ng-select>
           </div>
         </div>
@@ -75,7 +78,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Rate' | translate}}</label>
-            <input type="number" class="form-control" placeholder="{{'Tax Rate'|translate}}">
+            <input formControlName="sub_tax_rate" type="number" class="form-control"
+              placeholder="{{'Tax Rate'|translate}}">
           </div>
         </div>
       </div>
