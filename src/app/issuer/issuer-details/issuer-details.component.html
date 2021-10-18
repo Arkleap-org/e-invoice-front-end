@@ -1,26 +1,28 @@
 <mat-card>
   <!-- card title -->
-  <mat-card-title>{{'Create Issuer'|translate}}</mat-card-title>
+  <mat-card-title>{{issuerDetails.id?'Update Issuer':'Create Issuer'|translate}}</mat-card-title>
   <br>
   <!-- card content -->
 
   <!-- issuer data -->
   <mat-card-content>
-    <form class="form">
+    <div class="form">
       <!-- first row -->
       <div class="row">
         <!-- issuer name -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Issuer Name'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Issuer Name'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Issuer Name'|translate}}"
+              [(ngModel)]="issuerDetails.name">
           </div>
         </div>
         <!-- issuer registration number -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Registration Number'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Registration Number'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Registration Number'|translate}}"
+              [(ngModel)]="issuerDetails.reg_num">
           </div>
         </div>
       </div>
@@ -32,7 +34,7 @@
           <div class="form-group">
             <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
             <ng-select [items]="issuerTypeSource" bindLabel="label" bindValue="value" [searchable]="true"
-              placeholder="{{'Issuer Type'|translate}}">
+              placeholder="{{'Issuer Type'|translate}}" [(ngModel)]="issuerDetails.type">
             </ng-select>
           </div>
         </div>
@@ -54,26 +56,29 @@
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Client ID'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Client ID'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Client ID'|translate}}"
+              [(ngModel)]="issuerDetails.client_id">
           </div>
         </div>
         <!-- client secret 1 -->
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Client Secret 1'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Client Secret 1'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Client Secret 1'|translate}}"
+              [(ngModel)]="issuerDetails.clientSecret1">
           </div>
         </div>
         <!-- client secret 2 -->
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Client Secret 2'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Client Secret 2'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Client Secret 2'|translate}}"
+              [(ngModel)]="issuerDetails.clientSecret2">
           </div>
         </div>
       </div>
 
-    </form>
+    </div>
   </mat-card-content>
 </mat-card>
 <br>
@@ -81,15 +86,16 @@
   <!-- address  -->
   <mat-card-title>{{'Address'|translate}}</mat-card-title>
   <br>
-  <mat-card-content>
-    <form class="form">
+  <mat-card-content *ngFor="let address of issuerDetails.issuer_addresses">
+    <div class="form">
       <!-- first row -->
       <div class="row">
         <!-- branch id -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Branch ID'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}"
+              [(ngModel)]="address.branch_id">
           </div>
         </div>
         <!-- country -->
@@ -97,7 +103,7 @@
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
             <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
-              placeholder="{{'Country'|translate}}">
+              placeholder="{{'Country'|translate}}" [(ngModel)]="address.country">
             </ng-select>
           </div>
         </div>
@@ -105,28 +111,31 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Governate'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Governate'|translate}}"
+              [(ngModel)]="address.governate">
           </div>
         </div>
         <!-- region city-->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Region City'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
+              [(ngModel)]="address.regionCity">
           </div>
         </div>
         <!-- street -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Street'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Street'|translate}}" [(ngModel)]="address.street">
           </div>
         </div>
         <!-- building number -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
+              [(ngModel)]="address.buildingNumber">
           </div>
         </div>
       </div>
@@ -136,40 +145,43 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Postal Code'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}"
+              [(ngModel)]="address.postalCode">
           </div>
         </div>
         <!-- Floor -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Floor'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Floor'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Floor'|translate}}" [(ngModel)]="address.floor">
           </div>
         </div>
         <!-- Room -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Room'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Room'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Room'|translate}}" [(ngModel)]="address.room">
           </div>
         </div>
         <!-- landmark -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Landmark'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Landmark'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Landmark'|translate}}"
+              [(ngModel)]="address.landmark">
           </div>
         </div>
         <!-- Additional Information -->
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Additional Information'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Additional Information'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Additional Information'|translate}}"
+              [(ngModel)]="address.additionalInformation">
           </div>
         </div>
       </div>
 
-    </form>
+    </div>
   </mat-card-content>
 
 </mat-card>
