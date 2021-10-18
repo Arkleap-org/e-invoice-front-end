@@ -27,6 +27,7 @@ import { LocalStorageService } from "./shared/services/local-storage.service";
 import { AuthGuardService } from "./shared/services/auth.guard.service";
 import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
+import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { SessionStorageService } from "./shared/services/session-storage.service
     InvoiceDetailsComponent,
     InvoiceListComponent,
     IssuerAddressComponent,
+    InvoiceViewComponent,
 
   ],
   imports: [
