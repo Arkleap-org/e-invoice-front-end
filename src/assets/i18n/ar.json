@@ -87,5 +87,11 @@
   "Item Code": "Item Code",
   "Quantity": "Quantity",
   "Amount EGP": "Amount EGP",
-  "Total Amount": "Total Amount"
+  "Total Amount": "Total Amount",
+  "Valid Invoices": "Valid Invoices",
+  "Invalid Invoices": "Invalid Invoices",
+  "Dashboard": "Dashboard",
+  "Recent Invoices": "Recent Invoices",
+  "Date Received": "Date Received",
+  "Reject Invoice": "Reject Invoice"
 }

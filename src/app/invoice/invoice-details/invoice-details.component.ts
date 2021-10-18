@@ -1,5 +1,6 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 
 @Component({
   selector: 'app-invoice-details',
@@ -24,7 +25,9 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // #region constructor
 
-  constructor() {
+  constructor(
+    private dialogService: DialogService,
+  ) {
     // init variables
     this.isNewReceiver = false;
     this.listOfReceivers = [
@@ -102,6 +105,10 @@ export class InvoiceDetailsComponent implements OnInit {
   // #endregion
 
   // #region main actions
+
+  cancelAndRouteBack() {
+    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
+  }
 
   // #end region
 
