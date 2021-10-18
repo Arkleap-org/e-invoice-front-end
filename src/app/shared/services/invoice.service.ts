@@ -12,7 +12,12 @@ export class InvoiceService {
   ) { }
 
   listInvoices() {
-    const url = 'invoice/list/';
+    const url = `invoice/list`;
     return this.http.get<ResponseDto>(url)
+  }
+
+  getInvoiceById(id: number) {
+    const url = `invoice/get/${id}`;
+    return this.http.get<ResponseDto>(url);
   }
 }

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // baseUrl: "http://147.182.248.230:8081/e-invoice/api/"
-  baseUrl: "http://ee3d-41-47-178-200.ngrok.io/api/"
+  baseUrl: "http://147.182.248.230:8081/e-invoice/api/"
+  // baseUrl: "http://ee3d-41-47-178-200.ngrok.io/api/"
 };
 
 /*
