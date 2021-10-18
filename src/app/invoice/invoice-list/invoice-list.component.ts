@@ -38,7 +38,20 @@ export class InvoiceListComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
-    this.listInvoices();
+    this.loadControls();
+  }
+
+  // #endregion
+  
+  // #region load controls
+  
+  loadControls(){
+      this.listInvoices();
+  }
+
+   // get invoices list
+  listInvoices() {
+    this.invoiceService.listInvoices().subscribe((response: ResponseDto) =>  this.invoiceDataSource.data = response.data );
   }
 
   // #endregion
@@ -63,18 +76,6 @@ export class InvoiceListComponent implements OnInit {
       this.invoiceDataSource.paginator.firstPage();
     }
   }
-
-  // get invoices list
-  listInvoices() {
-    this.invoiceService.listInvoices()
-      .subscribe(
-        (response: ResponseDto) => {
-          console.log('invoiceee ', response.data)
-          this.invoiceDataSource.data = response.data;
-        }
-      );
-  }
-
 
   // #endregion
 
