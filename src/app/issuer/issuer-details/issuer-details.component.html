@@ -43,8 +43,8 @@
           <div class="form-group">
             <label for="exampleFormControlSelect1">{{'Activity Code' | translate}}<span
                 class="text-danger">*</span></label>
-            <ng-select [items]="listOfActivityCodes" bindLabel="activityCode" bindValue="id" [searchable]="true"
-              placeholder="{{'Should call an api here'|translate}}">
+            <ng-select [items]="listOfActivityCodes" bindLabel="desc_en" bindValue="code" [searchable]="true"
+              placeholder="{{'Activity Code'|translate}}" [(ngModel)]="issuerDetails.activity_code">
             </ng-select>
           </div>
         </div>

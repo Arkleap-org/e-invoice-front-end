@@ -13,7 +13,13 @@ export class ListsService {
 
   // countries list
   listCountries() {
-    const url = `/codes/country-codes/list`;
+    const url = `codes/country-codes/list`;
+    return this.http.get<ResponseDto>(url);
+  }
+
+  // activity codes list
+  listActivityCodes() {
+    const url = `codes/activity-types/list`;
     return this.http.get<ResponseDto>(url);
   }
 }

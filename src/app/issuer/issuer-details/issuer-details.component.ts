@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // angular router
 import { Router } from '@angular/router';
+import { ActivityCodeDto } from 'src/app/shared/models/activity-code.model';
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
 import { CountryDto } from 'src/app/shared/models/country.model';
 import { IssuerDto } from 'src/app/shared/models/issuer.model';
@@ -20,7 +21,7 @@ export class IssuerDetailsComponent implements OnInit {
   // #region declare variables
 
   issuerTypeSource: { label: string, value: string }[];
-  listOfActivityCodes: {}[];
+  listOfActivityCodes: ActivityCodeDto[];
   listOfCountries!: CountryDto[];
   issuerDetails: IssuerDto;
 
@@ -51,25 +52,11 @@ export class IssuerDetailsComponent implements OnInit {
       }
     ];
 
-    this.listOfActivityCodes = [
-      {
-        id: 1,
-        activityCode: "activity 1"
-      },
-      {
-        id: 2,
-        activityCode: "activity 2"
-      },
-      {
-        id: 3,
-        activityCode: "activity 3"
-      }
-    ];
+    this.listOfActivityCodes = [];
 
-    // this.listOfCountries = new CountryDto;
+    this.listOfCountries = [];
 
     this.issuerDetails = new IssuerDto;
-    this.listCountries();
 
   }
 
@@ -78,6 +65,16 @@ export class IssuerDetailsComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
+    this.loadControls();
+  }
+
+  // #endregion
+
+  // #region load controls
+
+  loadControls() {
+    this.listCountries();
+    this.listActivityCodes();
     this.getIssuer();
   }
 
@@ -101,12 +98,25 @@ export class IssuerDetailsComponent implements OnInit {
     this.listsService.listCountries()
       .subscribe(
         (response: ResponseDto) => {
-          console.log('countriessss ', response);
+          // console.log('countriessss ', response);
           this.listOfCountries = response.data
         }
       );
   }
 
+  // list activity codes
+  listActivityCodes() {
+    this.listsService.listActivityCodes()
+      .subscribe(
+        (response: ResponseDto) => {
+          console.log('activityyy ', response);
+          this.listOfActivityCodes = response.data;
+
+        }
+      );
+  }
+
+  // save issuer data in update and create
   saveIssuer() {
     if (this.issuerDetails.id) {
       // update
