@@ -19,6 +19,7 @@ export class ItemListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemDataSource: MatTableDataSource<any>;
+  tableData: any;
   displayedColumns: string[] = ['number', 'name', 'description', 'type', 'code', 'internal_code', 'unit_type', 'actions'];
 
   // #endregion
@@ -43,7 +44,7 @@ export class ItemListComponent implements OnInit {
 
     this.itemService.listItems().subscribe((res: ListItemsResponseDto) => {
 
-
+      this.tableData = res;
 
 
 
