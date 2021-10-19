@@ -3,8 +3,12 @@
   <mat-card-title class="text-secondary">{{'Invoice'|translate}}</mat-card-title>
   <fieldset>
     <div class="col-md-6">
-      <div><label><strong>{{'Invoice'|translate}} # </strong></label> <span> hii</span></div>
-      <div><label><strong>{{'Status'|translate}}</strong></label> <span> Submitted</span></div>
+      <div><label><strong>{{'Invoice'|translate}} # </strong></label> <span> {{invoiceDetails.internal_id}}</span></div>
+      <div><label><strong>{{'Invoice Status'|translate}}</strong></label> <span>
+          {{invoiceDetails.invoice_status}}</span></div>
+      <div><label><strong>{{'Portal Status'|translate}}</strong></label> <span>
+          {{invoiceDetails.portal_status}}</span></div>
+
     </div>
     <div class="col-md-6">
       <div><label><strong>{{'UUID'|translate}} </strong></label> <span> hii</span></div>
@@ -18,11 +22,14 @@
   <mat-card-title class="text-secondary">{{'Receiver'|translate}}</mat-card-title>
   <fieldset>
     <div class="col-md-6">
-      <div><label><strong>{{'Name'|translate}}</strong></label> <span> hii</span></div>
-      <div><label><strong>{{'Registration Number'|translate}}</strong></label> <span> Submitted</span></div>
+      <div><label><strong>{{'Name'|translate}}</strong></label> <span> {{invoiceDetails.receiver_name}}</span></div>
+      <div><label><strong>{{'Registration Number'|translate}}</strong></label> <span>
+          {{invoiceDetails.receiver_reg_num}}</span></div>
     </div>
     <div class="col-md-6">
-      <div><label><strong>{{'Address'|translate}} </strong></label> <span> hii</span></div>
+      <div><label><strong>{{'Address'|translate}} </strong></label> <span> {{invoiceDetails.receiver_buildingNumber}},
+          {{invoiceDetails.receiver_street}}, {{invoiceDetails.receiver_governate}},
+          {{invoiceDetails.receiver_country}}</span></div>
     </div>
   </fieldset>
 </mat-card>
@@ -45,13 +52,13 @@
     </thead>
     <tbody>
       <!-- loop on tr-->
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+      <tr *ngFor="let line of invoiceDetails.lines">
+        <th scope="row"></th>
+        <td></td>
+        <td>{{line.description}}</td>
+        <td>{{line.quantity}}</td>
+        <td>{{line.amount_egp}}</td>
+        <td>{{line.total_amount}}</td>
       </tr>
     </tbody>
   </table>
