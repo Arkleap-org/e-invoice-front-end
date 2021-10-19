@@ -17,8 +17,9 @@ export class IssuerService {
     return this.http.get<ResponseDto>(url);
   }
 
-  createIssuer() {
-
+  createIssuer(issuer: IssuerDto) {
+    const url = `issuer/create`;
+    return this.http.post<ResponseDto>(url, issuer);
   }
 
   updateIssuer(issuer: IssuerDto) {

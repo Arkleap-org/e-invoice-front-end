@@ -1,12 +1,13 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
 
-// angular router
-import { Router } from '@angular/router';
+// models
 import { ActivityCodeDto } from 'src/app/shared/models/activity-code.model';
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
 import { CountryDto } from 'src/app/shared/models/country.model';
 import { IssuerDto } from 'src/app/shared/models/issuer.model';
+
+// services
 import { IssuerService } from 'src/app/shared/services/issuer.service';
 import { ListsService } from 'src/app/shared/services/lists.service';
 import { DialogService } from '../../shared/services/dialog.service';
@@ -25,13 +26,11 @@ export class IssuerDetailsComponent implements OnInit {
   listOfCountries!: CountryDto[];
   issuerDetails: IssuerDto;
 
-
   // #endregion
 
   // #region constructor
 
   constructor(
-    private router: Router,
     private dialogService: DialogService,
     private issuerService: IssuerService,
     private listsService: ListsService
@@ -87,7 +86,6 @@ export class IssuerDetailsComponent implements OnInit {
     this.issuerService.getIssuer()
       .subscribe(
         (response: ResponseDto) => {
-          console.log('issuer ', response.data);
           this.issuerDetails = response.data;
         }
       );
@@ -98,7 +96,6 @@ export class IssuerDetailsComponent implements OnInit {
     this.listsService.listCountries()
       .subscribe(
         (response: ResponseDto) => {
-          // console.log('countriessss ', response);
           this.listOfCountries = response.data
         }
       );
@@ -130,6 +127,12 @@ export class IssuerDetailsComponent implements OnInit {
     }
     else {
       // create
+      this.issuerService.createIssuer(this.issuerDetails)
+        .subscribe(
+          (response) => {
+            this.dialogService.savedSuccessfully('Issuer has been created successfully.');
+          }
+        )
     }
   }
 
