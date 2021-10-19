@@ -87,7 +87,7 @@ export class IssuerDetailsComponent implements OnInit {
     this.issuerService.getIssuer()
       .subscribe(
         (response: ResponseDto) => {
-          console.log('issuer ', response.data)
+          console.log('issuer ', response.data);
           this.issuerDetails = response.data;
         }
       );
@@ -123,7 +123,7 @@ export class IssuerDetailsComponent implements OnInit {
       this.issuerService.updateIssuer(this.issuerDetails)
         .subscribe(
           (response: ResponseDto) => {
-            console.log('creattttteee ', response)
+            this.dialogService.savedSuccessfully('Issuer has been updated successfully.');
           }
         );
 
