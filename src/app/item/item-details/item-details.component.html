@@ -4,22 +4,21 @@
   <br>
   <!-- card content -->
   <mat-card-content>
-    <form class="form">
+    <div class="form">
       <!-- first row -->
       <div class="row">
         <!-- Name -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Name' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" [(ngModel)]="model.item_name" name="item_name"
-              placeholder="{{'Name'|translate}}">
+            <input type="text" class="form-control" [(ngModel)]="model.item_name" placeholder="{{'Name'|translate}}">
           </div>
         </div>
         <!-- description -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Description' | translate}}</label>
-            <input type="text" class="form-control" name="item_desc" [(ngModel)]="model.item_desc"
+            <input type="text" class="form-control" [(ngModel)]="model.item_desc"
               placeholder="{{'Description'|translate}}">
           </div>
         </div>
@@ -30,7 +29,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Internal Code' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" [(ngModel)]="model.internal_code" name="internal_name"
+            <input type="text" class="form-control" [(ngModel)]="model.internal_code"
               placeholder="{{'Internal Code'|translate}}">
           </div>
         </div>
@@ -39,7 +38,7 @@
           <div class="form-group">
             <label>{{'Unit Type' | translate}}<span class="text-danger">*</span></label>
             <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" [(ngModel)]="model.unit_type"
-              name="unit_type" [searchable]="true" placeholder="{{'Unit Type'|translate}}">
+              [searchable]="true" placeholder="{{'Unit Type'|translate}}">
             </ng-select>
           </div>
         </div>
@@ -51,7 +50,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Type' | translate}}</label>
-            <ng-select [(ngModel)]="model.item_type" name="item_type" [items]="listOfTypes" [searchable]="true"
+            <ng-select [(ngModel)]="model.item_type" [items]="listOfTypes" [searchable]="true"
               placeholder="{{'Code Type'|translate}}">
             </ng-select>
           </div>
@@ -60,8 +59,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Code' | translate}}</label>
-            <input [(ngModel)]="model.item_code" type="text" name="item_code" class="form-control"
-              placeholder="{{'Code'|translate}}">
+            <input [(ngModel)]="model.item_code" type="text" class="form-control" placeholder="{{'Code'|translate}}">
           </div>
         </div>
       </div>
@@ -71,21 +69,21 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Type' | translate}}</label>
-            <ng-select [(ngModel)]="model.sub_tax_type" name="sub_tax_type" [items]="listOfTaxTypes" bindLabel="taxType"
-              bindValue="id" [searchable]="true" placeholder="{{'Tax Type'|translate}}">
+            <ng-select [(ngModel)]="model.sub_tax_type" [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id"
+              [searchable]="true" [ngModelOptions]="{standalone: true}" placeholder="{{'Tax Type'|translate}}">
             </ng-select>
           </div>
         </div>
         <!-- tax rate -->
         <div class="col-md-6">
-          <div class="form-group" [(ngModel)]="model.sub_tax_rate">
+          <div class="form-group">
             <label>{{'Tax Rate' | translate}}</label>
-            <input name="sub_tax_rate" formControlName="sub_tax_rate" type="number" class="form-control"
+            <input type="number" class="form-control" [(ngModel)]="model.sub_tax_rate"
               placeholder="{{'Tax Rate'|translate}}">
           </div>
         </div>
       </div>
-    </form>
+    </div>
   </mat-card-content>
 </mat-card>
 <br>

@@ -11,6 +11,7 @@ import { ItemsService } from 'src/app/shared/services/items.service';
 // sweetalert
 import Swal from 'sweetalert2';
 import { CreateItemRequestDto, CreateItemResponseDto } from 'src/app/shared/models/items.model';
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
 
 @Component({
   selector: 'app-item-details',
@@ -84,7 +85,7 @@ export class ItemDetailsComponent implements OnInit {
 
   createItem(model: CreateItemRequestDto) {
     console.log('create item')
-    this.itemService.createItem(model).subscribe((res: CreateItemResponseDto) => {
+    this.itemService.createItem(model).subscribe((res: ResponseDto) => {
 
       this.dialogService.successAndRouteBack("/item/list");
 
