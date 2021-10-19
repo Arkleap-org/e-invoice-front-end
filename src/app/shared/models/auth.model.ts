@@ -1,9 +1,9 @@
 export class LoginRequestDto {
-  username: string | undefined;
-  password: string | undefined;
+  username!: string;
+  password!: string;
 }
 
 export class LoginResponseDto {
-  access: string | undefined;
-  refresh: string | undefined;
+  access!: string;
+  refresh!: string;
 }

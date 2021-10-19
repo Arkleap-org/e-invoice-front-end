@@ -1,5 +1,5 @@
 export class ActivityCodeDto {
-    code: string | undefined;
-    desc_ar: string | undefined;
-    desc_en: string | undefined;
+    code!: string;
+    desc_ar!: string;
+    desc_en!: string;
 }
