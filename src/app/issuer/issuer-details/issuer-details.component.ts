@@ -4,8 +4,10 @@ import { Component, OnInit } from '@angular/core';
 // angular router
 import { Router } from '@angular/router';
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { CountryDto } from 'src/app/shared/models/country.model';
 import { IssuerDto } from 'src/app/shared/models/issuer.model';
 import { IssuerService } from 'src/app/shared/services/issuer.service';
+import { ListsService } from 'src/app/shared/services/lists.service';
 import { DialogService } from '../../shared/services/dialog.service';
 
 @Component({
@@ -19,7 +21,7 @@ export class IssuerDetailsComponent implements OnInit {
 
   issuerTypeSource: { label: string, value: string }[];
   listOfActivityCodes: {}[];
-  listOfCountries: { code: string, en_name: string, ar_name: string }[];
+  listOfCountries!: CountryDto[];
   issuerDetails: IssuerDto;
 
 
@@ -30,7 +32,8 @@ export class IssuerDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private dialogService: DialogService,
-    private issuerService: IssuerService
+    private issuerService: IssuerService,
+    private listsService: ListsService
   ) {
     // init variables
     this.issuerTypeSource = [
@@ -63,20 +66,10 @@ export class IssuerDetailsComponent implements OnInit {
       }
     ];
 
-    this.listOfCountries = [
-      {
-        code: 'EG',
-        en_name: 'Egypt',
-        ar_name: 'مصر'
-      },
-      {
-        code: 'UK',
-        en_name: 'United Kingdom',
-        ar_name: 'المملكة المتحدة'
-      }
-    ];
+    // this.listOfCountries = new CountryDto;
 
     this.issuerDetails = new IssuerDto;
+    this.listCountries();
 
   }
 
@@ -92,6 +85,7 @@ export class IssuerDetailsComponent implements OnInit {
 
   // #region main actions
 
+  // get current issuer data
   getIssuer() {
     this.issuerService.getIssuer()
       .subscribe(
@@ -100,6 +94,33 @@ export class IssuerDetailsComponent implements OnInit {
           this.issuerDetails = response.data;
         }
       );
+  }
+
+  // list countries
+  listCountries() {
+    this.listsService.listCountries()
+      .subscribe(
+        (response: ResponseDto) => {
+          console.log('countriessss ', response);
+          this.listOfCountries = response.data
+        }
+      );
+  }
+
+  saveIssuer() {
+    if (this.issuerDetails.id) {
+      // update
+      this.issuerService.updateIssuer(this.issuerDetails)
+        .subscribe(
+          (response: ResponseDto) => {
+            console.log('creattttteee ', response)
+          }
+        );
+
+    }
+    else {
+      // create
+    }
   }
 
 

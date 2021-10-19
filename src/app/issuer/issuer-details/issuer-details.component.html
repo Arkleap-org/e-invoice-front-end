@@ -102,7 +102,7 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
+            <ng-select [items]="listOfCountries" bindLabel="desc_en" bindValue="code" [searchable]="true"
               placeholder="{{'Country'|translate}}" [(ngModel)]="address.country">
             </ng-select>
           </div>
@@ -189,6 +189,7 @@
 
 <!-- card actions -->
 <mat-card-actions class="text-center">
-  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-  <button mat-button class="btn btn-info text-light">Create</button>
+  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">{{'Cancel'|translate}}</button>
+  <button mat-button class="btn btn-info text-light"
+    (click)="saveIssuer()">{{issuerDetails.id?'Update':'Create'|translate}}</button>
 </mat-card-actions>

@@ -1,28 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResponseDto } from '../models/api-response.model';
-import { IssuerDto } from '../models/issuer.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class IssuerService {
+export class ListsService {
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getIssuer() {
-    const url = `issuer/get`;
+  // countries list
+  listCountries() {
+    const url = `/codes/country-codes/list`;
     return this.http.get<ResponseDto>(url);
-  }
-
-  createIssuer() {
-
-  }
-
-  updateIssuer(issuer: IssuerDto) {
-    const url = `issuer/update`;
-    return this.http.put<ResponseDto>(url, issuer)
   }
 }
