@@ -20,9 +20,18 @@ export class ItemsService {
     return this.http.post<ResponseDto>(url, model);
   }
 
+  updateItem(model: CreateItemRequestDto) {
+    const url = `issuer/item/update/${model.id}`;
+    return this.http.put<ResponseDto>(url, model);
+  }
+
   listItems() {
     const url = `issuer/item/list`
     return this.http.get<ResponseDto>(url)
   }
 
+  getItemById(id: number) {
+    const url = `issuer/item/get/${id}`;
+    return this.http.get<ResponseDto>(url)
+  }
 }

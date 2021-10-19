@@ -1,12 +1,13 @@
 export class CreateItemRequestDto {
-    item_name: string | undefined;
-    item_desc: string | undefined;
-    unit_type: string | undefined;
-    item_type: string | undefined;
-    item_code: string | undefined;
-    internal_code: string | undefined;
-    sub_tax_rate: string | undefined;
-    sub_tax_type: string | undefined;
+    id!: number;
+    item_name!: string;
+    item_desc!: string;
+    unit_type!: string;
+    item_type!: string;
+    item_code!: string;
+    internal_code!: string;
+    sub_tax_rate!: string;
+    sub_tax_type!: string;
 
 }
 
@@ -15,29 +16,29 @@ export class CreateItemRequestDto {
 export class CreateItemResponseDto {
 
 
-    id: number | undefined;
-    item_name: string | undefined;
-    item_desc: number | undefined;
-    item_type: string | undefined;
-    item_code: number | undefined;
-    internal_code: string | undefined;
-    sub_tax_rate: number | undefined;
-    price_include_tax: boolean | undefined;
-    unit_type: string | undefined;
-    sub_tax_type: string | undefined;
+    id!: number;
+    item_name!: string;
+    item_desc!: number;
+    item_type!: string;
+    item_code!: number;
+    internal_code!: string;
+    sub_tax_rate!: number;
+    price_include_tax!: boolean;
+    unit_type!: string;
+    sub_tax_type!: string;
 }
 
 export class ListItemsResponseDto {
 
-    id: number | undefined;
-    item_name: string | undefined;
-    item_desc: string | undefined;
-    item_type: string | undefined;
-    item_code: string | undefined;
-    internal_code: number | undefined;
-    sub_tax_rate: number | undefined;
-    price_include_tax: number | undefined;
-    unit_type: string | undefined;
-    sub_tax_type: string | undefined;
+    id!: number;
+    item_name!: string;
+    item_desc!: string;
+    item_type!: string;
+    item_code!: string;
+    internal_code!: number;
+    sub_tax_rate!: number;
+    price_include_tax!: number;
+    unit_type!: string;
+    sub_tax_type!: string;
 
 }

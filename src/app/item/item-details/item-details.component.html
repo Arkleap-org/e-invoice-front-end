@@ -1,24 +1,25 @@
 <mat-card>
   <!-- card title -->
-  <mat-card-title>{{'Create Item'|translate}}</mat-card-title>
+  <mat-card-title>{{model.id? ('Update Item'|translate ) : ('Create Item'|translate)}}</mat-card-title>
   <br>
   <!-- card content -->
   <mat-card-content>
-    <div class="form">
+    <div class="form" [formGroup]="itemsForm">
       <!-- first row -->
       <div class="row">
         <!-- Name -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Name' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" [(ngModel)]="model.item_name" placeholder="{{'Name'|translate}}">
+            <input type="text" class="form-control" formControlName="item_name" [(ngModel)]="model.item_name"
+              placeholder="{{'Name'|translate}}">
           </div>
         </div>
         <!-- description -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Description' | translate}}</label>
-            <input type="text" class="form-control" [(ngModel)]="model.item_desc"
+            <label>{{'Description' | translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="item_desc" [(ngModel)]="model.item_desc"
               placeholder="{{'Description'|translate}}">
           </div>
         </div>
@@ -29,7 +30,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Internal Code' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" [(ngModel)]="model.internal_code"
+            <input type="text" class="form-control" formControlName="internal_code" [(ngModel)]="model.internal_code"
               placeholder="{{'Internal Code'|translate}}">
           </div>
         </div>
@@ -37,8 +38,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Unit Type' | translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" [(ngModel)]="model.unit_type"
-              [searchable]="true" placeholder="{{'Unit Type'|translate}}">
+            <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" formControlName="unit_type"
+              [(ngModel)]="model.unit_type" [searchable]="true" placeholder="{{'Unit Type'|translate}}">
             </ng-select>
           </div>
         </div>
@@ -50,8 +51,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Type' | translate}}</label>
-            <ng-select [(ngModel)]="model.item_type" [items]="listOfTypes" [searchable]="true"
-              placeholder="{{'Code Type'|translate}}">
+            <ng-select [(ngModel)]="model.item_type" [items]="listOfTypes" formControlName="item_type"
+              [searchable]="true" placeholder="{{'Code Type'|translate}}">
             </ng-select>
           </div>
         </div>
@@ -59,7 +60,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Code' | translate}}</label>
-            <input [(ngModel)]="model.item_code" type="text" class="form-control" placeholder="{{'Code'|translate}}">
+            <input [(ngModel)]="model.item_code" type="text" class="form-control" formControlName="item_code"
+              placeholder="{{'Code'|translate}}">
           </div>
         </div>
       </div>
@@ -70,15 +72,15 @@
           <div class="form-group">
             <label>{{'Tax Type' | translate}}</label>
             <ng-select [(ngModel)]="model.sub_tax_type" [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id"
-              [searchable]="true" [ngModelOptions]="{standalone: true}" placeholder="{{'Tax Type'|translate}}">
+              [searchable]="true" formControlName="sub_tax_type" placeholder="{{'Tax Type'|translate}}">
             </ng-select>
           </div>
         </div>
         <!-- tax rate -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Rate' | translate}}</label>
-            <input type="number" class="form-control" [(ngModel)]="model.sub_tax_rate"
+            <label>{{'Tax Rate' | translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" formControlName="sub_tax_rate" [(ngModel)]="model.sub_tax_rate"
               placeholder="{{'Tax Rate'|translate}}">
           </div>
         </div>
@@ -91,5 +93,7 @@
 <!-- card actions -->
 <mat-card-actions class="text-center">
   <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-  <button mat-button class="btn btn-info text-light" type="submit" (click)="createItem(model)">Create</button>
+  <button mat-button class="btn btn-info text-light" type="submit"
+    (click)="model.id?  updateItem(model) : createItem(model)">{{model.id? ('Update'|translate ) :
+    ('Create '|translate)}}</button>
 </mat-card-actions>

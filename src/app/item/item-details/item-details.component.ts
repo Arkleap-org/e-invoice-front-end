@@ -2,8 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 
 // angular router
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from '../../shared/services/dialog.service';
+
+// reactive form
+
+import { FormGroup, FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
+
+
 
 //services 
 import { ItemsService } from 'src/app/shared/services/items.service';
@@ -30,12 +37,31 @@ export class ItemDetailsComponent implements OnInit {
   model: CreateItemRequestDto;
 
 
+  // #region init form
+
+  itemsForm = new FormGroup({
+    item_name: new FormControl(''),
+    item_desc: new FormControl(''),
+    unit_type: new FormControl(''),
+    item_type: new FormControl(''),
+    item_code: new FormControl(''),
+    internal_code: new FormControl(''),
+    sub_tax_rate: new FormControl(''),
+    sub_tax_type: new FormControl(''),
+
+  });
+
+  // #endregion
+
+
+
   // #endregion
 
   // #region constructor
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private dialogService: DialogService,
     private itemService: ItemsService
   ) {
@@ -81,6 +107,16 @@ export class ItemDetailsComponent implements OnInit {
 
   // #region end
 
+  // #region ngOnInit
+
+  ngOnInit(): void {
+    this.model.id = this.route.snapshot.params["id"];
+    this.getItemById(this.model.id)
+
+  }
+
+  // #endregion
+
   // #region form actions
 
   createItem(model: CreateItemRequestDto) {
@@ -95,14 +131,34 @@ export class ItemDetailsComponent implements OnInit {
     });
   }
 
-  // #region end 
+  updateItem(model: CreateItemRequestDto) {
+    this.itemService.updateItem(model).subscribe((res: ResponseDto) => {
 
-  // #region ngOnInit
+      this.dialogService.successAndRouteBack("/item/list");
 
-  ngOnInit(): void {
+
+
+
+    });
+
   }
 
-  // #endregion
+  getItemById(id: number) {
+
+    this.itemService.getItemById(id).subscribe((res: ResponseDto) => {
+
+      this.model = res.data;
+
+
+
+
+
+    });
+
+  }
+  // #region end 
+
+
 
   // #region main actions
 
