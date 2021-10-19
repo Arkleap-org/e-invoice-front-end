@@ -8,6 +8,10 @@ export class IssuerDto {
     name: string | undefined;
     reg_num: string | undefined;
     type: string | undefined;
+
+    constructor() {
+        this.issuer_addresses = []
+    }
 }
 
 export class IssuerAddressDto {
