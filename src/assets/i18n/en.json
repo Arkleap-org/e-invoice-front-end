@@ -94,6 +94,20 @@
   "Dashboard": "Dashboard",
   "Recent Invoices": "Recent Invoices",
   "Date Received": "Date Received",
-  "Reject Invoice": "Reject Invoice"
-  
+  "Reject Invoice": "Reject Invoice",
+  "Update Issuer": "Update Issuer",
+  "Name is required":"Name is required",
+  "Registration Number is required": "Registration Number is required",
+  "Type is required": "Type is required",
+  "Activity Code is required": "Activity Code is required",
+  "Client ID is required": "Client ID is required",
+  "Client Secret 1 is required": "Client Secret 1 is required",
+
+  "Branch ID is required": "Branch ID is required",
+  "Country is required": "Country is required",
+  "Governate is required": "Governate is required",
+  "Region City is required": "Region City is required",
+  "Street is required": "Street is required",
+  "Building Number is required": "Building Number is required",
+  "Postal Code is required": "Postal Code is required"
 }

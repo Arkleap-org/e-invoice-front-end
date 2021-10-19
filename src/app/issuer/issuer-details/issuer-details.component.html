@@ -1,26 +1,34 @@
 <mat-card>
   <!-- card title -->
-  <mat-card-title>{{'Create Issuer'|translate}}</mat-card-title>
+  <mat-card-title>{{issuerDetails.id?'Update Issuer':'Create Issuer'|translate}}</mat-card-title>
   <br>
   <!-- card content -->
 
   <!-- issuer data -->
   <mat-card-content>
-    <form class="form">
+    <div [formGroup]="issuerForm" class="form">
       <!-- first row -->
       <div class="row">
         <!-- issuer name -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Issuer Name'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Issuer Name'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Issuer Name'|translate}}"
+              [(ngModel)]="issuerDetails.name" formControlName="name">
+            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('name')?.hasError('required')">
+              {{'Name is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- issuer registration number -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Registration Number'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Registration Number'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Registration Number'|translate}}"
+              [(ngModel)]="issuerDetails.reg_num" formControlName="reg_num">
+            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('reg_num')?.hasError('required')">
+              {{'Registration Number is required'|translate}}.
+            </small>
           </div>
         </div>
       </div>
@@ -31,9 +39,12 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="issuerTypeSource" bindLabel="label" bindValue="value" [searchable]="true"
-              placeholder="{{'Issuer Type'|translate}}">
+            <ng-select [items]="listOfIssuerTypes" bindLabel="label" bindValue="value" [searchable]="true"
+              placeholder="{{'Issuer Type'|translate}}" [(ngModel)]="issuerDetails.type" formControlName="type">
             </ng-select>
+            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('type')?.hasError('required')">
+              {{'Type is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- activity code -->
@@ -41,9 +52,13 @@
           <div class="form-group">
             <label for="exampleFormControlSelect1">{{'Activity Code' | translate}}<span
                 class="text-danger">*</span></label>
-            <ng-select [items]="listOfActivityCodes" bindLabel="activityCode" bindValue="id" [searchable]="true"
-              placeholder="{{'Should call an api here'|translate}}">
+            <ng-select [items]="listOfActivityCodes" bindLabel="desc_en" bindValue="code" [searchable]="true"
+              placeholder="{{'Activity Code'|translate}}" [(ngModel)]="issuerDetails.activity_code"
+              formControlName="activity_code">
             </ng-select>
+            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('activity_code')?.hasError('required')">
+              {{'Activity Code is required'|translate}}.
+            </small>
           </div>
         </div>
       </div>
@@ -54,26 +69,35 @@
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Client ID'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Client ID'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Client ID'|translate}}"
+              [(ngModel)]="issuerDetails.client_id" formControlName="client_id">
+            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('client_id')?.hasError('required')">
+              {{'Client ID is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- client secret 1 -->
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Client Secret 1'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Client Secret 1'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Client Secret 1'|translate}}"
+              [(ngModel)]="issuerDetails.clientSecret1" formControlName="clientSecret1">
+            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('clientSecret1')?.hasError('required')">
+              {{'Client Secret 1 is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- client secret 2 -->
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Client Secret 2'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Client Secret 2'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Client Secret 2'|translate}}"
+              [(ngModel)]="issuerDetails.clientSecret2" formControlName="clientSecret2">
           </div>
         </div>
       </div>
 
-    </form>
+    </div>
   </mat-card-content>
 </mat-card>
 <br>
@@ -82,51 +106,74 @@
   <mat-card-title>{{'Address'|translate}}</mat-card-title>
   <br>
   <mat-card-content>
-    <form class="form">
+    <div [formGroup]="addressForm" class="form">
       <!-- first row -->
       <div class="row">
         <!-- branch id -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Branch ID'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}"
+              [(ngModel)]="issuerAddress.branch_id" formControlName="branch_id">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('branch_id')?.hasError('required')">
+              {{'Branch ID is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- country -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
-              placeholder="{{'Country'|translate}}">
+            <ng-select [items]="listOfCountries" bindLabel="desc_en" bindValue="code" [searchable]="true"
+              placeholder="{{'Country'|translate}}" [(ngModel)]="issuerAddress.country" formControlName="country">
             </ng-select>
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('country')?.hasError('required')">
+              {{'Country is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- governate-->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Governate'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Governate'|translate}}"
+              [(ngModel)]="issuerAddress.governate" formControlName="governate">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('governate')?.hasError('required')">
+              {{'Governate is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- region city-->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Region City'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
+              [(ngModel)]="issuerAddress.regionCity" formControlName="regionCity">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('regionCity')?.hasError('required')">
+              {{'Region City is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- street -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Street'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Street'|translate}}"
+              [(ngModel)]="issuerAddress.street" formControlName="street">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('street')?.hasError('required')">
+              {{'Street is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- building number -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
+              [(ngModel)]="issuerAddress.buildingNumber" formControlName="buildingNumber">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('buildingNumber')?.hasError('required')">
+              {{'Building Number is required'|translate}}.
+            </small>
           </div>
         </div>
       </div>
@@ -136,40 +183,48 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Postal Code'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}"
+              [(ngModel)]="issuerAddress.postalCode" formControlName="postalCode">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('postalCode')?.hasError('required')">
+              {{'Postal Code is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- Floor -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Floor'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Floor'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Floor'|translate}}"
+              [(ngModel)]="issuerAddress.floor" formControlName="floor">
           </div>
         </div>
         <!-- Room -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Room'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Room'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Room'|translate}}" [(ngModel)]="issuerAddress.room"
+              formControlName="room">
           </div>
         </div>
         <!-- landmark -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Landmark'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Landmark'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Landmark'|translate}}"
+              [(ngModel)]="issuerAddress.landmark" formControlName="landmark">
           </div>
         </div>
         <!-- Additional Information -->
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Additional Information'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Additional Information'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Additional Information'|translate}}"
+              [(ngModel)]="issuerAddress.additionalInformation" formControlName="additionalInformation">
           </div>
         </div>
       </div>
 
-    </form>
+    </div>
   </mat-card-content>
 
 </mat-card>
@@ -177,6 +232,7 @@
 
 <!-- card actions -->
 <mat-card-actions class="text-center">
-  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-  <button mat-button class="btn btn-info text-light">Create</button>
+  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">{{'Cancel'|translate}}</button>
+  <button mat-button class="btn btn-info text-light"
+    (click)="saveIssuer()">{{issuerDetails.id?'Update':'Create'|translate}}</button>
 </mat-card-actions>
