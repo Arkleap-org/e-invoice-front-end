@@ -7,10 +7,8 @@ import { DialogService } from '../../shared/services/dialog.service';
 
 // reactive form
 
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-
-
 
 //services 
 import { ItemsService } from 'src/app/shared/services/items.service';
@@ -35,21 +33,13 @@ export class ItemDetailsComponent implements OnInit {
   listOfUnitTypes: {}[];
   listOfTaxTypes: {}[];
   model: CreateItemRequestDto;
+  isValid: boolean;
+  itemDetails: CreateItemRequestDto;
 
-
+  itemsForm!: FormGroup;
   // #region init form
 
-  itemsForm = new FormGroup({
-    item_name: new FormControl(''),
-    item_desc: new FormControl(''),
-    unit_type: new FormControl(''),
-    item_type: new FormControl(''),
-    item_code: new FormControl(''),
-    internal_code: new FormControl(''),
-    sub_tax_rate: new FormControl(''),
-    sub_tax_type: new FormControl(''),
-
-  });
+  isSubmitted: boolean;
 
   // #endregion
 
@@ -63,7 +53,8 @@ export class ItemDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialogService: DialogService,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    private formBuilder: FormBuilder
   ) {
 
     // init variables
@@ -102,7 +93,10 @@ export class ItemDetailsComponent implements OnInit {
 
     ];
     this.model = new CreateItemRequestDto;
-
+    this.isValid = false;
+    this.isSubmitted = false;
+    this.itemDetails = new CreateItemRequestDto;
+    this.initForm();
   }
 
   // #region end
@@ -111,35 +105,65 @@ export class ItemDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.model.id = this.route.snapshot.params["id"];
-    this.getItemById(this.model.id)
+    if (this.model.id) this.getItemById(this.model.id)
 
+  }
+
+  // #endregion
+
+  // #region init forms
+
+  initForm() {
+
+    this.itemsForm = this.formBuilder.group({
+      item_name: ['', Validators.required],
+      item_desc: ['', Validators.required],
+      unit_type: [''],
+      item_type: [''],
+      item_code: ['', Validators.required],
+      internal_code: [''],
+      sub_tax_rate: ['', [Validators.min(0), Validators.max(100)]],
+      sub_tax_type: [''],
+
+    });
+
+  }
+
+  // form controls
+  get itemsFormControls() {
+    return this.itemsForm.controls;
   }
 
   // #endregion
 
   // #region form actions
 
+
   createItem(model: CreateItemRequestDto) {
-    console.log('create item')
-    this.itemService.createItem(model).subscribe((res: ResponseDto) => {
 
-      this.dialogService.successAndRouteBack("/item/list");
+    this.isSubmitted = true;
+    console.log(this.isSubmitted)
+
+    if (this.itemsForm.valid)
+      this.itemService.createItem(model).subscribe((res: ResponseDto) => {
+        this.dialogService.successAndRouteBack("/item/list");
+      });
 
 
 
-
-    });
   }
 
   updateItem(model: CreateItemRequestDto) {
-    this.itemService.updateItem(model).subscribe((res: ResponseDto) => {
+    this.isSubmitted = true;
+    if (this.itemsForm.valid)
+      this.itemService.updateItem(model).subscribe((res: ResponseDto) => {
 
-      this.dialogService.successAndRouteBack("/item/list");
+        this.dialogService.successAndRouteBack("/item/list");
 
 
 
 
-    });
+      });
 
   }
 

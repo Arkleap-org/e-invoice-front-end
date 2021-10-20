@@ -33,7 +33,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CovalentMessageModule } from '@covalent/core/message';
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -68,11 +67,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
-<<<<<<< HEAD
     ReactiveFormsModule
-=======
-    ReactiveFormsModule,
->>>>>>> 02307626e13d9f534c5e43a1eee6967a6b78bc17
   ], // modules needed to run this module
   providers: [
   ], // additional providers needed for this module
@@ -107,12 +102,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
-<<<<<<< HEAD
     ReactiveFormsModule
 
-=======
-    ReactiveFormsModule,
->>>>>>> 02307626e13d9f534c5e43a1eee6967a6b78bc17
   ]
 })
 export class TeraDataModule { }
