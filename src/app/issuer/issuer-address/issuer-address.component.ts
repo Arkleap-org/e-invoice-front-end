@@ -1,6 +1,9 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
 
+// angular forms
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 // models
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
 import { CountryDto } from 'src/app/shared/models/country.model';
@@ -22,8 +25,16 @@ export class IssuerAddressComponent implements OnInit {
 
   // #region declare variables
 
+  isSubmitted: boolean;
+
+  // names of lists
   listOfCountries: CountryDto[];
+
+  // names of models
   addressDetails: IssuerAddressDto;
+
+  // names of forms
+  addressForm!: FormGroup;
 
   // #endregion
 
@@ -32,12 +43,17 @@ export class IssuerAddressComponent implements OnInit {
   constructor(
     private listsService: ListsService,
     private dialogService: DialogService,
-    private addressService: IssuerAddressService
+    private addressService: IssuerAddressService,
+    private formBuilder: FormBuilder
   ) {
 
     // init variables
     this.listOfCountries = [];
     this.addressDetails = new IssuerAddressDto;
+    this.isSubmitted = false;
+
+    // init forms
+    this.initForms();
   }
 
   // #endregion
@@ -66,12 +82,42 @@ export class IssuerAddressComponent implements OnInit {
 
   // #endregion
 
+  // #region init forms
+
+  initForms() {
+    this.initAddressForm();
+  }
+
+  initAddressForm() {
+    this.addressForm = this.formBuilder.group({
+      branch_id: ['', Validators.required],
+      country: ['', Validators.required],
+      governate: ['', Validators.required],
+      regionCity: ['', Validators.required],
+      street: ['', Validators.required],
+      buildingNumber: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      floor: [''],
+      room: [''],
+      landmark: [''],
+      additionalInformation: ['']
+    });
+  }
+
+  // #endregion
+
   // #region main actions
 
   createAddress() {
-    this.addressService.createAddress(this.addressDetails).subscribe((response: ResponseDto) => {
-      this.dialogService.savedSuccessfully('Address saved successfully.')
-    });
+    this.isSubmitted = true;
+
+    if (this.addressForm.valid) {
+      this.addressService.createAddress(this.addressDetails).subscribe((response: ResponseDto) => {
+        this.addressForm.reset();
+        this.isSubmitted = false;
+        this.dialogService.savedSuccessfully('Address saved successfully.')
+      });
+    }
   }
 
   cancelAndRouteBack() {

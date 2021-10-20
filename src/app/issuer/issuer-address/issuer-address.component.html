@@ -3,7 +3,7 @@
   <mat-card-title>{{'Address'|translate}}</mat-card-title>
   <br>
   <mat-card-content>
-    <div class="form">
+    <div [formGroup]="addressForm" class="form">
       <!-- first row -->
       <div class="row">
         <!-- branch id -->
@@ -11,7 +11,10 @@
           <div class="form-group">
             <label>{{'Branch ID'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}"
-              [(ngModel)]="addressDetails.branch_id">
+              [(ngModel)]="addressDetails.branch_id" formControlName="branch_id">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('branch_id')?.hasError('required')">
+              {{'Branch ID is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- country -->
@@ -19,8 +22,11 @@
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
             <ng-select [items]="listOfCountries" bindLabel="desc_en" bindValue="code" [searchable]="true"
-              placeholder="{{'Country'|translate}}" [(ngModel)]="addressDetails.country">
+              placeholder="{{'Country'|translate}}" [(ngModel)]="addressDetails.country" formControlName="country">
             </ng-select>
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('country')?.hasError('required')">
+              {{'Country is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- governate-->
@@ -28,7 +34,10 @@
           <div class="form-group">
             <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Governate'|translate}}"
-              [(ngModel)]="addressDetails.governate">
+              [(ngModel)]="addressDetails.governate" formControlName="governate">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('governate')?.hasError('required')">
+              {{'Governate is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- region city-->
@@ -36,7 +45,10 @@
           <div class="form-group">
             <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
-              [(ngModel)]="addressDetails.regionCity">
+              [(ngModel)]="addressDetails.regionCity" formControlName="regionCity">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('regionCity')?.hasError('required')">
+              {{'Region City is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- street -->
@@ -44,7 +56,10 @@
           <div class="form-group">
             <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Street'|translate}}"
-              [(ngModel)]="addressDetails.street">
+              [(ngModel)]="addressDetails.street" formControlName="street">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('street')?.hasError('required')">
+              {{'Street is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- building number -->
@@ -52,7 +67,10 @@
           <div class="form-group">
             <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
-              [(ngModel)]="addressDetails.buildingNumber">
+              [(ngModel)]="addressDetails.buildingNumber" formControlName="buildingNumber">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('buildingNumber')?.hasError('required')">
+              {{'Building Number is required'|translate}}.
+            </small>
           </div>
         </div>
       </div>
@@ -63,7 +81,10 @@
           <div class="form-group">
             <label>{{'Postal Code'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}"
-              [(ngModel)]="addressDetails.postalCode">
+              [(ngModel)]="addressDetails.postalCode" formControlName="postalCode">
+            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('postalCode')?.hasError('required')">
+              {{'Postal Code is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- Floor -->
@@ -71,15 +92,15 @@
           <div class="form-group">
             <label>{{'Floor'|translate}}</label>
             <input type="text" class="form-control" placeholder="{{'Floor'|translate}}"
-              [(ngModel)]="addressDetails.floor">
+              [(ngModel)]="addressDetails.floor" formControlName="floor">
           </div>
         </div>
         <!-- Room -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Room'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Room'|translate}}"
-              [(ngModel)]="addressDetails.room">
+            <input type="text" class="form-control" placeholder="{{'Room'|translate}}" [(ngModel)]="addressDetails.room"
+              formControlName="room">
           </div>
         </div>
         <!-- landmark -->
@@ -87,7 +108,7 @@
           <div class="form-group">
             <label>{{'Landmark'|translate}}</label>
             <input type="text" class="form-control" placeholder="{{'Landmark'|translate}}"
-              [(ngModel)]="addressDetails.landmark">
+              [(ngModel)]="addressDetails.landmark" formControlName="landmark">
           </div>
         </div>
         <!-- Additional Information -->
@@ -95,7 +116,7 @@
           <div class="form-group">
             <label>{{'Additional Information'|translate}}</label>
             <input type="text" class="form-control" placeholder="{{'Additional Information'|translate}}"
-              [(ngModel)]="addressDetails.additionalInformation">
+              [(ngModel)]="addressDetails.additionalInformation" formControlName="additionalInformation">
           </div>
         </div>
       </div>
