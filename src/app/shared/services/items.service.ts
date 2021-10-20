@@ -1,8 +1,6 @@
 // angular modules
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { from } from "rxjs";
-import { ReactiveFormsModule, } from '@angular/forms';
 
 // models 
 import { CreateItemRequestDto, CreateItemResponseDto, ListItemsResponseDto } from "../models/items.model";
