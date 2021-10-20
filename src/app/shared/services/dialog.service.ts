@@ -25,4 +25,14 @@ export class DialogService {
     }).then((result) => { if (result.isConfirmed) this.router.navigate([route]); });
   }
 
+
+  savedSuccessfully(title: string) {
+    Swal.fire({
+      icon: 'success',
+      title: title,
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+
 }

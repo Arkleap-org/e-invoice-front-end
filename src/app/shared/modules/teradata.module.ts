@@ -1,8 +1,9 @@
+// angular core
 import { NgModule } from '@angular/core';
+
+// forms
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 // angular material modules
@@ -66,6 +67,7 @@ import { CovalentMessageModule } from '@covalent/core/message';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
+    ReactiveFormsModule,
   ], // modules needed to run this module
   providers: [
   ], // additional providers needed for this module
@@ -100,6 +102,7 @@ import { CovalentMessageModule } from '@covalent/core/message';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
+    ReactiveFormsModule,
   ]
 })
 export class TeraDataModule { }
