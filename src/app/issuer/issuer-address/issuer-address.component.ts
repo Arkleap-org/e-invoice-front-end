@@ -104,6 +104,11 @@ export class IssuerAddressComponent implements OnInit {
     });
   }
 
+  // form controls
+  get addressFormControls() {
+    return this.addressForm.controls;
+  }
+
   // #endregion
 
   // #region main actions

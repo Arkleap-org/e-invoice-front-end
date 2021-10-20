@@ -112,6 +112,16 @@ export class IssuerDetailsComponent implements OnInit {
     });
   }
 
+  // get issuer form controls
+  get issuerFormControls() {
+    return this.issuerForm.controls;
+  }
+
+  // get address form controls
+  get addressFormControls() {
+    return this.addressForm.controls;
+  }
+
   // #endregion
 
   // #region load controls
