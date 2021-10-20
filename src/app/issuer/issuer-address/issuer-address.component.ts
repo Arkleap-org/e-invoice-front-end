@@ -1,11 +1,16 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
 
-// angular router
-import { Router } from '@angular/router';
+// models
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { CountryDto } from 'src/app/shared/models/country.model';
+import { IssuerAddressDto } from 'src/app/shared/models/issuer.model';
 
-// sweetalert
-import Swal from 'sweetalert2';
+// services
+import { DialogService } from 'src/app/shared/services/dialog.service';
+import { IssuerAddressService } from 'src/app/shared/services/issuer-address.service';
+import { ListsService } from 'src/app/shared/services/lists.service';
+
 
 @Component({
   selector: 'app-issuer-address',
@@ -17,29 +22,22 @@ export class IssuerAddressComponent implements OnInit {
 
   // #region declare variables
 
-  listOfCountries: { code: string, en_name: string, ar_name: string }[];
+  listOfCountries: CountryDto[];
+  addressDetails: IssuerAddressDto;
 
   // #endregion
 
   // #region constructor
 
   constructor(
-    private router: Router
+    private listsService: ListsService,
+    private dialogService: DialogService,
+    private addressService: IssuerAddressService
   ) {
 
     // init variables
-    this.listOfCountries = [
-      {
-        code: 'EG',
-        en_name: 'Egypt',
-        ar_name: 'مصر'
-      },
-      {
-        code: 'UK',
-        en_name: 'United Kingdom',
-        ar_name: 'المملكة المتحدة'
-      }
-    ];
+    this.listOfCountries = [];
+    this.addressDetails = new IssuerAddressDto;
   }
 
   // #endregion
@@ -47,26 +45,37 @@ export class IssuerAddressComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
+    this.loadControls();
+  }
+
+  // #endregion
+
+  // #region load controls
+
+  // load controls
+  loadControls() {
+    this.listCountries();
+  }
+
+  // list countries
+  listCountries() {
+    this.listsService.listCountries().subscribe((response: ResponseDto) => {
+      this.listOfCountries = response.data
+    });
   }
 
   // #endregion
 
   // #region main actions
 
-  cancel() {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "$success",
-      cancelButtonColor: "$secondary",
-      confirmButtonText: "Yes, I am sure!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.router.navigate(["/home"]);
-      }
+  createAddress() {
+    this.addressService.createAddress(this.addressDetails).subscribe((response: ResponseDto) => {
+      this.dialogService.savedSuccessfully('Address saved successfully.')
     });
+  }
+
+  cancelAndRouteBack() {
+    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
   }
 
   // #endregion
