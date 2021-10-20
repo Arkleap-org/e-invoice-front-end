@@ -135,63 +135,63 @@
 <mat-card>
   <h3><strong>Your Addresses</strong></h3>
   <!-- create a loop here -->
-  <fieldset>
+  <fieldset class="mb-3" *ngFor="let address of listOfIssuerAddresses">
 
     <div class="row">
       <!-- branch id -->
       <div class="col-md-2">
         <label>{{'Branch ID'|translate}}:</label>
-        <span> 15236</span>
+        <span> {{address.branch_id}}</span>
       </div>
       <!-- country -->
       <div class="col-md-2">
         <label>{{'Country'|translate}}:</label>
-        <span> Egypt</span>
+        <span> {{address.country}}</span>
       </div>
       <!-- Governate -->
       <div class="col-md-2">
         <label>{{'Governate'|translate}}:</label>
-        <span> Alexandria</span>
+        <span> {{address.governate}}</span>
       </div>
       <!-- Region City -->
       <div class="col-md-2">
         <label>{{'Region City'|translate}}:</label>
-        <span> Alex</span>
+        <span> {{address.regionCity}}</span>
       </div>
       <!-- Street -->
       <div class="col-md-2">
         <label>{{'Street'|translate}}:</label>
-        <span> fawzi moaz</span>
+        <span> {{address.street}}</span>
       </div>
       <!-- Building Number -->
       <div class="col-md-2">
         <label>{{'Building Number'|translate}}:</label>
-        <span> 1</span>
+        <span> {{address.buildingNumber}}</span>
       </div>
       <!-- postal code -->
       <div class="col-md-2">
         <label>{{'Postal Code'|translate}}:</label>
-        <span> 2400</span>
+        <span> {{address.postalCode}}</span>
       </div>
       <!-- floor -->
       <div class="col-md-2">
         <label>{{'Floor'|translate}}:</label>
-        <span> 10</span>
+        <span> {{address.floor}}</span>
       </div>
       <!-- room -->
       <div class="col-md-2">
         <label>{{'Room'|translate}}:</label>
-        <span> 4</span>
+        <span> {{address.room}}</span>
       </div>
       <!-- landmark -->
       <div class="col-md-2">
         <label>{{'Landmark'|translate}}:</label>
-        <span> 2400</span>
+        <span> {{address.landmark}}</span>
       </div>
       <!-- additional info -->
       <div class="col-md-3">
         <label>{{'Additional Information'|translate}}:</label>
-        <span> additional info</span>
+        <span> {{address.additionalInformation}}</span>
       </div>
     </div>
   </fieldset>

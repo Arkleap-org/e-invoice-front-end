@@ -29,6 +29,7 @@ export class IssuerAddressComponent implements OnInit {
 
   // names of lists
   listOfCountries: CountryDto[];
+  listOfIssuerAddresses: IssuerAddressDto[];
 
   // names of models
   addressDetails: IssuerAddressDto;
@@ -51,6 +52,7 @@ export class IssuerAddressComponent implements OnInit {
     this.listOfCountries = [];
     this.addressDetails = new IssuerAddressDto;
     this.isSubmitted = false;
+    this.listOfIssuerAddresses = [];
 
     // init forms
     this.initForms();
@@ -62,25 +64,11 @@ export class IssuerAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadControls();
+    this.loadData();
   }
 
   // #endregion
 
-  // #region load controls
-
-  // load controls
-  loadControls() {
-    this.listCountries();
-  }
-
-  // list countries
-  listCountries() {
-    this.listsService.listCountries().subscribe((response: ResponseDto) => {
-      this.listOfCountries = response.data
-    });
-  }
-
-  // #endregion
 
   // #region init forms
 
@@ -111,6 +99,37 @@ export class IssuerAddressComponent implements OnInit {
 
   // #endregion
 
+  // #region load controls
+
+  // load controls
+  loadControls() {
+    this.listCountries();
+  }
+
+  // list countries
+  listCountries() {
+    this.listsService.listCountries().subscribe((response: ResponseDto) => {
+      this.listOfCountries = response.data
+    });
+  }
+
+  // #endregion
+
+  // #region load data
+
+  loadData() {
+    this.listAddresses();
+  }
+
+  listAddresses() {
+    this.addressService.listAddresses().subscribe((response: ResponseDto) => {
+      console.log(response);
+      this.listOfIssuerAddresses = response.data
+    });
+  }
+
+  // #endregion
+
   // #region main actions
 
   createAddress() {
@@ -120,6 +139,7 @@ export class IssuerAddressComponent implements OnInit {
       this.addressService.createAddress(this.addressDetails).subscribe((response: ResponseDto) => {
         this.addressForm.reset();
         this.isSubmitted = false;
+        this.listAddresses();
         this.dialogService.savedSuccessfully('Address saved successfully.')
       });
     }

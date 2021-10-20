@@ -23,4 +23,9 @@ export class IssuerAddressService {
     return this.http.post<ResponseDto>(url, address);
 
   }
+
+  listAddresses() {
+    const url = `issuer/address/list`;
+    return this.http.get<ResponseDto>(url);
+  }
 }
