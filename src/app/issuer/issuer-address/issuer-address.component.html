@@ -3,51 +3,74 @@
   <mat-card-title>{{'Address'|translate}}</mat-card-title>
   <br>
   <mat-card-content>
-    <form class="form">
+    <div [formGroup]="addressForm" class="form">
       <!-- first row -->
       <div class="row">
         <!-- branch id -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Branch ID'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}"
+              [(ngModel)]="addressDetails.branch_id" formControlName="branch_id">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.branch_id.errors?.required">
+              {{'Branch ID is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- country -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
-              placeholder="{{'Country'|translate}}">
+            <ng-select [items]="listOfCountries" bindLabel="desc_en" bindValue="code" [searchable]="true"
+              placeholder="{{'Country'|translate}}" [(ngModel)]="addressDetails.country" formControlName="country">
             </ng-select>
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.country.errors?.required">
+              {{'Country is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- governate-->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Governate'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Governate'|translate}}"
+              [(ngModel)]="addressDetails.governate" formControlName="governate">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.governate.errors?.required">
+              {{'Governate is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- region city-->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Region City'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
+              [(ngModel)]="addressDetails.regionCity" formControlName="regionCity">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.regionCity.errors?.required">
+              {{'Region City is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- street -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Street'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Street'|translate}}"
+              [(ngModel)]="addressDetails.street" formControlName="street">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.street.errors?.required">
+              {{'Street is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- building number -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
+              [(ngModel)]="addressDetails.buildingNumber" formControlName="buildingNumber">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.buildingNumber.errors?.required">
+              {{'Building Number is required'|translate}}.
+            </small>
           </div>
         </div>
       </div>
@@ -57,40 +80,46 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Postal Code'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}"
+              [(ngModel)]="addressDetails.postalCode" formControlName="postalCode">
+
           </div>
         </div>
         <!-- Floor -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Floor'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Floor'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Floor'|translate}}"
+              [(ngModel)]="addressDetails.floor" formControlName="floor">
           </div>
         </div>
         <!-- Room -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Room'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Room'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Room'|translate}}" [(ngModel)]="addressDetails.room"
+              formControlName="room">
           </div>
         </div>
         <!-- landmark -->
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Landmark'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Landmark'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Landmark'|translate}}"
+              [(ngModel)]="addressDetails.landmark" formControlName="landmark">
           </div>
         </div>
         <!-- Additional Information -->
         <div class="col-md-4">
           <div class="form-group">
             <label>{{'Additional Information'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Additional Information'|translate}}">
+            <input type="text" class="form-control" placeholder="{{'Additional Information'|translate}}"
+              [(ngModel)]="addressDetails.additionalInformation" formControlName="additionalInformation">
           </div>
         </div>
       </div>
 
-    </form>
+    </div>
   </mat-card-content>
 
 
@@ -98,71 +127,71 @@
 <!-- card actions -->
 <br>
 <mat-card-actions class="text-center">
-  <button mat-button class="btn btn-secondary text-light" (click)="cancel()">Cancel</button>
-  <button mat-button class="btn btn-info text-light">Create</button>
+  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
+  <button mat-button class="btn btn-info text-light" (click)="createAddress()">Create</button>
 </mat-card-actions>
 
 <br>
 <mat-card>
   <h3><strong>Your Addresses</strong></h3>
   <!-- create a loop here -->
-  <fieldset>
+  <fieldset class="mb-3" *ngFor="let address of listOfIssuerAddresses">
 
     <div class="row">
       <!-- branch id -->
       <div class="col-md-2">
         <label>{{'Branch ID'|translate}}:</label>
-        <span> 15236</span>
+        <span> {{address.branch_id}}</span>
       </div>
       <!-- country -->
       <div class="col-md-2">
         <label>{{'Country'|translate}}:</label>
-        <span> Egypt</span>
+        <span> {{address.country}}</span>
       </div>
       <!-- Governate -->
       <div class="col-md-2">
         <label>{{'Governate'|translate}}:</label>
-        <span> Alexandria</span>
+        <span> {{address.governate}}</span>
       </div>
       <!-- Region City -->
       <div class="col-md-2">
         <label>{{'Region City'|translate}}:</label>
-        <span> Alex</span>
+        <span> {{address.regionCity}}</span>
       </div>
       <!-- Street -->
       <div class="col-md-2">
         <label>{{'Street'|translate}}:</label>
-        <span> fawzi moaz</span>
+        <span> {{address.street}}</span>
       </div>
       <!-- Building Number -->
       <div class="col-md-2">
         <label>{{'Building Number'|translate}}:</label>
-        <span> 1</span>
+        <span> {{address.buildingNumber}}</span>
       </div>
       <!-- postal code -->
       <div class="col-md-2">
         <label>{{'Postal Code'|translate}}:</label>
-        <span> 2400</span>
+        <span> {{address.postalCode}}</span>
       </div>
       <!-- floor -->
       <div class="col-md-2">
         <label>{{'Floor'|translate}}:</label>
-        <span> 10</span>
+        <span> {{address.floor}}</span>
       </div>
       <!-- room -->
       <div class="col-md-2">
         <label>{{'Room'|translate}}:</label>
-        <span> 4</span>
+        <span> {{address.room}}</span>
       </div>
       <!-- landmark -->
       <div class="col-md-2">
         <label>{{'Landmark'|translate}}:</label>
-        <span> 2400</span>
+        <span> {{address.landmark}}</span>
       </div>
       <!-- additional info -->
       <div class="col-md-3">
         <label>{{'Additional Information'|translate}}:</label>
-        <span> additional info</span>
+        <span> {{address.additionalInformation}}</span>
       </div>
     </div>
   </fieldset>

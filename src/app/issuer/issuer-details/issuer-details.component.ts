@@ -104,12 +104,22 @@ export class IssuerDetailsComponent implements OnInit {
       regionCity: ['', Validators.required],
       street: ['', Validators.required],
       buildingNumber: ['', Validators.required],
-      postalCode: ['', Validators.required],
+      postalCode: [''],
       floor: [''],
       room: [''],
       landmark: [''],
       additionalInformation: ['']
     });
+  }
+
+  // get issuer form controls
+  get issuerFormControls() {
+    return this.issuerForm.controls;
+  }
+
+  // get address form controls
+  get addressFormControls() {
+    return this.addressForm.controls;
   }
 
   // #endregion

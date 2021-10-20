@@ -1,11 +1,19 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
 
-// angular router
-import { Router } from '@angular/router';
+// angular forms
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-// sweetalert
-import Swal from 'sweetalert2';
+// models
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { CountryDto } from 'src/app/shared/models/country.model';
+import { IssuerAddressDto } from 'src/app/shared/models/issuer.model';
+
+// services
+import { DialogService } from 'src/app/shared/services/dialog.service';
+import { IssuerAddressService } from 'src/app/shared/services/issuer-address.service';
+import { ListsService } from 'src/app/shared/services/lists.service';
+
 
 @Component({
   selector: 'app-issuer-address',
@@ -17,29 +25,37 @@ export class IssuerAddressComponent implements OnInit {
 
   // #region declare variables
 
-  listOfCountries: { code: string, en_name: string, ar_name: string }[];
+  isSubmitted: boolean;
+
+  // names of lists
+  listOfCountries: CountryDto[];
+  listOfIssuerAddresses: IssuerAddressDto[];
+
+  // names of models
+  addressDetails: IssuerAddressDto;
+
+  // names of forms
+  addressForm!: FormGroup;
 
   // #endregion
 
   // #region constructor
 
   constructor(
-    private router: Router
+    private listsService: ListsService,
+    private dialogService: DialogService,
+    private addressService: IssuerAddressService,
+    private formBuilder: FormBuilder
   ) {
 
     // init variables
-    this.listOfCountries = [
-      {
-        code: 'EG',
-        en_name: 'Egypt',
-        ar_name: 'مصر'
-      },
-      {
-        code: 'UK',
-        en_name: 'United Kingdom',
-        ar_name: 'المملكة المتحدة'
-      }
-    ];
+    this.listOfCountries = [];
+    this.addressDetails = new IssuerAddressDto;
+    this.isSubmitted = false;
+    this.listOfIssuerAddresses = [];
+
+    // init forms
+    this.initForms();
   }
 
   // #endregion
@@ -47,26 +63,90 @@ export class IssuerAddressComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
+    this.loadControls();
+    this.loadData();
+  }
+
+  // #endregion
+
+
+  // #region init forms
+
+  initForms() {
+    this.initAddressForm();
+  }
+
+  initAddressForm() {
+    this.addressForm = this.formBuilder.group({
+      branch_id: ['', Validators.required],
+      country: ['', Validators.required],
+      governate: ['', Validators.required],
+      regionCity: ['', Validators.required],
+      street: ['', Validators.required],
+      buildingNumber: ['', Validators.required],
+      postalCode: [''],
+      floor: [''],
+      room: [''],
+      landmark: [''],
+      additionalInformation: ['']
+    });
+  }
+
+  // form controls
+  get addressFormControls() {
+    return this.addressForm.controls;
+  }
+
+  // #endregion
+
+  // #region load controls
+
+  // load controls
+  loadControls() {
+    this.listCountries();
+  }
+
+  // list countries
+  listCountries() {
+    this.listsService.listCountries().subscribe((response: ResponseDto) => {
+      this.listOfCountries = response.data
+    });
+  }
+
+  // #endregion
+
+  // #region load data
+
+  loadData() {
+    this.listAddresses();
+  }
+
+  listAddresses() {
+    this.addressService.listAddresses().subscribe((response: ResponseDto) => {
+      console.log(response);
+      this.listOfIssuerAddresses = response.data
+    });
   }
 
   // #endregion
 
   // #region main actions
 
-  cancel() {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "$success",
-      cancelButtonColor: "$secondary",
-      confirmButtonText: "Yes, I am sure!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.router.navigate(["/home"]);
-      }
-    });
+  createAddress() {
+    this.isSubmitted = true;
+
+    if (this.addressForm.valid) {
+      this.addressService.createAddress(this.addressDetails).subscribe((response: ResponseDto) => {
+        this.addressForm.reset();
+        this.isSubmitted = false;
+        this.listAddresses();
+        this.dialogService.savedSuccessfully('Address saved successfully.')
+      });
+    }
+  }
+
+  cancelAndRouteBack() {
+    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
   }
 
   // #endregion
