@@ -185,9 +185,6 @@
             <label>{{'Postal Code'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}"
               [(ngModel)]="issuerAddress.postalCode" formControlName="postalCode">
-            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.postalCode.errors?.required">
-              {{'Postal Code is required'|translate}}.
-            </small>
           </div>
         </div>
         <!-- Floor -->

@@ -96,7 +96,7 @@ export class IssuerAddressComponent implements OnInit {
       regionCity: ['', Validators.required],
       street: ['', Validators.required],
       buildingNumber: ['', Validators.required],
-      postalCode: ['', Validators.required],
+      postalCode: [''],
       floor: [''],
       room: [''],
       landmark: [''],
