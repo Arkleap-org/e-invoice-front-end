@@ -1,0 +1,34 @@
+export class RecentInvoices {
+    id!: number;
+    publicUrl!: string;
+    uuid!: string;
+    submissionUUID!: string;
+    longId!: string;
+    internalId!: string;
+    typeName!: string;
+    documentTypeNamePrimaryLang!: string;
+    documentTypeNameSecondaryLang!: string;
+    typeVersionName!: number;
+    issuerId!: number;
+    issuerName!: string;
+    receiverId!: number;
+    receiverName!: string;
+    dateTimeIssued!: Date;
+    dateTimeReceived!: Date;
+    totalSales!: number;
+    totalDiscount!: number;
+    netAmount!: number;
+    total!: number;
+    maxPercision!: number;
+    invoiceLineItemCodes!: string;
+    cancelRequestDate!: string;
+    rejectRequestDate!: string;
+    cancelRequestDelayedDate!: string;
+    rejectRequestDelayedDate!: string;
+    declineCancelRequestDate!: string;
+    declineRejectRequestDate!: string;
+    documentStatusReason!: string;
+    status!: string;
+    createdByUserId!: string;
+    issuer!: number
+}

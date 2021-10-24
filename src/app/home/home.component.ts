@@ -3,6 +3,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ResponseDto } from '../shared/models/api-response.model';
+import { DashboardDto } from '../shared/models/dashboard.model';
+import { RecentInvoices } from '../shared/models/recent-invoices.model';
+import { DashboardService } from '../shared/services/dashboard.service';
 
 @Component({
   selector: 'app-home',
@@ -17,17 +21,22 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   invoiceDataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['issuer', 'receiver', 'type', 'date_issued', 'date_received', 'total', 'actions'];
+  displayedColumns: string[] = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
+  // displayedColumns: string[] = Object.keys({ ...RecentInvoices });
+  dashboardCounts: DashboardDto
 
   // #endregion
 
   // #region constructor
 
-  constructor() {
+  constructor(
+    private dashboardService: DashboardService
+  ) {
     // init variables
-    this.invoiceDataSource = new MatTableDataSource([
-      { issuer: "issuer 1", receiver: "receiver 1", type: "Invoice", total: 50000 },
-      { issuer: "issuer 2" }]);
+    this.invoiceDataSource = new MatTableDataSource();
+    this.dashboardCounts = new DashboardDto;
+    console.log(RecentInvoices)
+    console.log(new RecentInvoices)
   }
 
   // #endregion
@@ -44,6 +53,29 @@ export class HomeComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
+    this.loadControls()
+  }
+
+  // #endregion
+
+  // #region load controls
+
+  loadControls() {
+    this.getIssuer()
+    this.listRecentInvoices()
+  }
+
+  getIssuer() {
+    this.dashboardService.getCounts().subscribe((response: ResponseDto) => {
+      this.dashboardCounts = response.data;
+
+    });
+  }
+
+  listRecentInvoices() {
+    this.dashboardService.listRecentInvoices().subscribe((response: ResponseDto) => {
+      this.invoiceDataSource.data = response.data;
+    });
   }
 
   // #endregion
