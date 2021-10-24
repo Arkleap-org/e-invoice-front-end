@@ -101,7 +101,6 @@ export class RegisterComponent implements OnInit {
     if (form.value.password === form.value.password2) {
       if (form.valid) {
         this.authService.userRegisteration(form.value).subscribe((response: ResponseDto) => {
-          console.log(response);
           this.isSubmitted = false;
           this.passwordMisMatch = false;
           this.dialogService.saveAndRouteTo('User has been Registerd SuccessFully! Please Login.', '/');
