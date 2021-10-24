@@ -3,9 +3,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+
+// models
 import { ResponseDto } from '../shared/models/api-response.model';
 import { DashboardDto } from '../shared/models/dashboard.model';
-import { RecentInvoices } from '../shared/models/recent-invoices.model';
+
+// services
 import { DashboardService } from '../shared/services/dashboard.service';
 
 @Component({
@@ -22,8 +25,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   invoiceDataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
-  // displayedColumns: string[] = Object.keys({ ...RecentInvoices });
-  dashboardCounts: DashboardDto
+  dashboardCounts: DashboardDto;
 
   // #endregion
 
@@ -35,8 +37,15 @@ export class HomeComponent implements OnInit {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
     this.dashboardCounts = new DashboardDto;
-    console.log(RecentInvoices)
-    console.log(new RecentInvoices)
+  }
+
+  // #endregion
+
+
+  // #region ngOnInit
+
+  ngOnInit(): void {
+    this.loadControls()
   }
 
   // #endregion
@@ -46,14 +55,6 @@ export class HomeComponent implements OnInit {
   ngAfterViewInit() {
     this.invoiceDataSource.paginator = this.paginator;
     this.invoiceDataSource.sort = this.sort;
-  }
-
-  // #endregion
-
-  // #region ngOnInit
-
-  ngOnInit(): void {
-    this.loadControls()
   }
 
   // #endregion
@@ -68,7 +69,6 @@ export class HomeComponent implements OnInit {
   getIssuer() {
     this.dashboardService.getCounts().subscribe((response: ResponseDto) => {
       this.dashboardCounts = response.data;
-
     });
   }
 
