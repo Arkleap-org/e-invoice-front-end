@@ -1,6 +1,6 @@
 <mat-card>
   <!-- address  -->
-  <mat-card-title>{{'Address'|translate}}</mat-card-title>
+  <mat-card-title>{{'Issuer Address'|translate}}</mat-card-title>
   <br>
   <mat-card-content>
     <div [formGroup]="addressForm" class="form">
@@ -85,7 +85,7 @@
         <!-- Postal Code -->
         <div class="col-md-2">
           <div class="form-group">
-            <label>{{'Postal Code'|translate}}<span class="text-danger">*</span></label>
+            <label>{{'Postal Code'|translate}}</label>
             <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}"
               [(ngModel)]="addressDetails.postalCode" formControlName="postalCode">
 
@@ -144,9 +144,9 @@
 <mat-card>
   <h3><strong>Your Addresses</strong></h3>
   <!-- create a loop here -->
-  <fieldset class="mb-3" *ngFor="let address of listOfIssuerAddresses">
+  <fieldset class="mb-3 p-0" *ngFor="let address of listOfIssuerAddresses">
 
-    <div class="row">
+    <div class="row m-0 p-3" [ngClass]="{'active':addressId && address.id == addressId}">
       <div class="col-11">
         <div class="row">
           <!-- branch id -->
