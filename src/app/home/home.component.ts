@@ -21,8 +21,8 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   invoiceDataSource: MatTableDataSource<any>;
-  // displayedColumns: string[] = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
-  displayedColumns: string[] = Object.keys({ ...RecentInvoices });
+  displayedColumns: string[] = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
+  // displayedColumns: string[] = Object.keys({ ...RecentInvoices });
   dashboardCounts: DashboardDto
 
   // #endregion
