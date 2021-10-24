@@ -91,10 +91,6 @@ export class RegisterComponent implements OnInit {
     return { text: title, icon };
   }
 
-  registeredToLogin() {
-    this.router.navigate(['/'])
-  }
-
   userRegisteration(form: FormGroup) {
     this.isSubmitted = true;
     this.passwordMisMatch = false;
@@ -103,7 +99,7 @@ export class RegisterComponent implements OnInit {
         this.authService.userRegisteration(form.value).subscribe((response: ResponseDto) => {
           this.isSubmitted = false;
           this.passwordMisMatch = false;
-          this.dialogService.saveAndRouteTo('User has been Registerd SuccessFully! Please Login.', '/');
+          this.dialogService.successAndRouteTo('User has been Registerd SuccessFully! Please Login.', '/');
         });
       }
     } else {
