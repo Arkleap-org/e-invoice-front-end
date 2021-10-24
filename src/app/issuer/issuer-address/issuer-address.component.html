@@ -134,7 +134,9 @@
 <br>
 <mat-card-actions class="text-center">
   <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-  <button mat-button class="btn btn-info text-light" (click)="createAddress()">Create</button>
+  <button mat-button class="btn btn-info text-light" (click)="createAddress()" *ngIf="!addressId">Create</button>
+  <button mat-button class="btn btn-info text-light" *ngIf="addressId">Update</button>
+
 </mat-card-actions>
 
 <br>
@@ -213,7 +215,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="getAddressOnUpdate(address.id)">
             <mat-icon>edit</mat-icon>
             <span>{{'Update'|translate}}</span>
           </button>

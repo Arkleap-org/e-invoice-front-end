@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // angular forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 // models
@@ -38,6 +39,9 @@ export class IssuerAddressComponent implements OnInit {
   // names of forms
   addressForm!: FormGroup;
 
+  // names of params
+  addressId!: number;
+
   // #endregion
 
   // #region constructor
@@ -47,7 +51,9 @@ export class IssuerAddressComponent implements OnInit {
     private dialogService: DialogService,
     private addressService: IssuerAddressService,
     private formBuilder: FormBuilder,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
 
     // init variables
@@ -65,8 +71,11 @@ export class IssuerAddressComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
+    this.addressId = this.route.snapshot.params["id"];
+
     this.loadControls();
     this.listAddresses();
+    if (this.addressId) this.getAddressById(this.addressId);
   }
 
   // #endregion
@@ -144,6 +153,16 @@ export class IssuerAddressComponent implements OnInit {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
   }
 
+  getAddressById(id: number) {
+    this.addressService.getAddressById(id).subscribe((response) => {
+      this.addressDetails = response.data;
+    });
+  }
+
+  getAddressOnUpdate(id: number) {
+    this.router.navigate([`/issuer/address/${id}`]);
+    this.getAddressById(id)
+  }
   // #endregion
 
 }
