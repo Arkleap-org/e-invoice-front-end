@@ -7,3 +7,4 @@ export class LoginResponseDto {
   access!: string;
   refresh!: string;
 }
+

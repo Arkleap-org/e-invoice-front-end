@@ -2,11 +2,21 @@
 import { Component, OnInit } from '@angular/core';
 
 // angular router
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from '../../shared/services/dialog.service';
+
+// reactive form
+
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+
+//services 
+import { ItemsService } from 'src/app/shared/services/items.service';
 
 // sweetalert
 import Swal from 'sweetalert2';
+import { CreateItemRequestDto, CreateItemResponseDto } from 'src/app/shared/models/items.model';
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
 
 @Component({
   selector: 'app-item-details',
@@ -18,10 +28,25 @@ export class ItemDetailsComponent implements OnInit {
 
   // #region declare variables
 
+  // name of lists
   listOfTypes: string[];
   listOfInternalCodes: {}[];
   listOfUnitTypes: {}[];
   listOfTaxTypes: {}[];
+  isSubmitted: boolean;
+
+  //name of model
+
+  model: CreateItemRequestDto;
+  itemDetails: CreateItemRequestDto;
+  itemsForm!: FormGroup;
+
+  // #region init form
+
+
+  // #endregion
+
+
 
   // #endregion
 
@@ -29,7 +54,10 @@ export class ItemDetailsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private dialogService: DialogService
+    private route: ActivatedRoute,
+    private dialogService: DialogService,
+    private itemService: ItemsService,
+    private formBuilder: FormBuilder
   ) {
 
     // init variables
@@ -51,36 +79,26 @@ export class ItemDetailsComponent implements OnInit {
         "internalCode": "internal code 3"
       }
     ];
-
+    // waiting for api 
     this.listOfUnitTypes = [
       {
-        "id": 1,
+        "id": "EA",
         "unitType": "unit type 1"
       },
-      {
-        "id": 2,
-        "unitType": "unit type 2"
-      },
-      {
-        "id": 3,
-        "unitType": "unit type 3"
-      }
+
     ];
 
     this.listOfTaxTypes = [
       {
-        "id": 1,
+        "id": "V009",
         "taxType": "tax type 1"
       },
-      {
-        "id": 2,
-        "taxType": "tax type 2"
-      },
-      {
-        "id": 3,
-        "taxType": "tax type 3"
-      }
+
     ];
+    this.model = new CreateItemRequestDto;
+    this.isSubmitted = false;
+    this.itemDetails = new CreateItemRequestDto;
+    this.initForm();
   }
 
   // #region end
@@ -88,16 +106,69 @@ export class ItemDetailsComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
+    this.model.id = this.route.snapshot.params["id"];
+    if (this.model.id) this.getItemById(this.model.id)
+  }
+
+  // #endregion
+
+  // #region init forms
+
+  initForm() {
+    this.itemsForm = this.formBuilder.group({
+      item_name: ['', Validators.required],
+      item_desc: ['', Validators.required],
+      unit_type: [''],
+      item_type: [''],
+      item_code: ['', Validators.required],
+      internal_code: [''],
+      sub_tax_rate: ['', [Validators.min(0), Validators.max(100)]],
+      sub_tax_type: [''],
+    });
+  }
+
+  // form controls
+
+  get itemsFormControls() {
+    return this.itemsForm.controls;
   }
 
   // #endregion
 
   // #region main actions
 
+  createItem(model: CreateItemRequestDto) {
+    this.isSubmitted = true;
+    if (this.itemsForm.valid)
+      this.itemService.createItem(model).subscribe((res: ResponseDto) => {
+        this.dialogService.successAndRouteBack("/item/list");
+      });
+  }
+
+  updateItem(model: CreateItemRequestDto) {
+    this.isSubmitted = true;
+    if (this.itemsForm.valid)
+      this.itemService.updateItem(model).subscribe((res: ResponseDto) => {
+        this.dialogService.successAndRouteBack("/item/list");
+      });
+
+  }
+
+  getItemById(id: number) {
+    this.itemService.getItemById(id).subscribe((res: ResponseDto) => {
+      this.model = res.data;
+    });
+  }
+
+  itemSubmitAction(updateId: number) {
+    if (updateId) this.updateItem(this.model)
+    else this.createItem(this.model)
+  }
+
   cancelAndRouteBack() {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/item/list");
   }
 
-  // #endregion
+  // #region end 
 
 }

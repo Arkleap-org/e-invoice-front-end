@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { ListItemsResponseDto } from 'src/app/shared/models/items.model';
+import { ItemsService } from 'src/app/shared/services/items.service';
 
 
 @Component({
@@ -17,22 +20,44 @@ export class ItemListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemDataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['number', 'name', 'description', 'type', 'code', 'internal_code', 'unit_type', 'actions'];
+  displayedColumns: string[] = ['id', 'item_name', 'item_desc', 'item_type', 'item_code', 'internal_code', 'unit_type', 'actions'];
 
   // #endregion
 
   // #region constructor
 
-  constructor() {
+  constructor(private itemService: ItemsService) {
     // init variables
-    this.itemDataSource = new MatTableDataSource([{ name: "item 1" }, { name: "item 2" }]);
+    this.itemDataSource = new MatTableDataSource();
   }
 
   // #endregion
 
   // #region ngOnInit
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+    this.listItems();
+  }
+
+  // #endregion
+
+  // #region load table
+  listItems() {
+
+    this.itemService.listItems().subscribe((res: ResponseDto) => {
+
+      this.itemDataSource = res.data;
+
+
+
+
+    });
+  }
+
+
+
+
 
   // #endregion
 

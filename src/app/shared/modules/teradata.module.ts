@@ -67,7 +67,7 @@ import { CovalentMessageModule } from '@covalent/core/message';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ], // modules needed to run this module
   providers: [
   ], // additional providers needed for this module
@@ -102,7 +102,8 @@ import { CovalentMessageModule } from '@covalent/core/message';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
+
   ]
 })
 export class TeraDataModule { }
