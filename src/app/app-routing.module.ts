@@ -33,6 +33,8 @@ const routes: Routes = [
 
       { path: "issuer/details", component: IssuerDetailsComponent },
       { path: "issuer/address", component: IssuerAddressComponent },
+      { path: "issuer/address/:id", component: IssuerAddressComponent },
+
 
 
       { path: "item/list", component: ItemListComponent },

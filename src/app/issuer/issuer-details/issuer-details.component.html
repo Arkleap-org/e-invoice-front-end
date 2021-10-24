@@ -15,7 +15,7 @@
             <label>{{'Issuer Name'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Issuer Name'|translate}}"
               [(ngModel)]="issuerDetails.name" formControlName="name">
-            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('name')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && issuerFormControls.name.errors?.required">
               {{'Name is required'|translate}}.
             </small>
           </div>
@@ -26,7 +26,7 @@
             <label>{{'Registration Number'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Registration Number'|translate}}"
               [(ngModel)]="issuerDetails.reg_num" formControlName="reg_num">
-            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('reg_num')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && issuerFormControls.reg_num.errors?.required">
               {{'Registration Number is required'|translate}}.
             </small>
           </div>
@@ -42,7 +42,7 @@
             <ng-select [items]="listOfIssuerTypes" bindLabel="label" bindValue="value" [searchable]="true"
               placeholder="{{'Issuer Type'|translate}}" [(ngModel)]="issuerDetails.type" formControlName="type">
             </ng-select>
-            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('type')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && issuerFormControls.type.errors?.required">
               {{'Type is required'|translate}}.
             </small>
           </div>
@@ -52,11 +52,15 @@
           <div class="form-group">
             <label for="exampleFormControlSelect1">{{'Activity Code' | translate}}<span
                 class="text-danger">*</span></label>
-            <ng-select [items]="listOfActivityCodes" bindLabel="desc_en" bindValue="code" [searchable]="true"
-              placeholder="{{'Activity Code'|translate}}" [(ngModel)]="issuerDetails.activity_code"
-              formControlName="activity_code">
+            <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfActivityCodes" bindLabel="desc_en"
+              bindValue="code" [searchable]="true" placeholder="{{'Activity Code'|translate}}"
+              [(ngModel)]="issuerDetails.activity_code" formControlName="activity_code">
             </ng-select>
-            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('activity_code')?.hasError('required')">
+            <ng-select *ngIf="translate.currentLang === 'ar'" [items]="listOfActivityCodes" bindLabel="desc_ar"
+              bindValue="code" [searchable]="true" placeholder="{{'Activity Code'|translate}}"
+              [(ngModel)]="issuerDetails.activity_code" formControlName="activity_code">
+            </ng-select>
+            <small class="text-danger" *ngIf="isSubmitted && issuerFormControls.activity_code.errors?.required">
               {{'Activity Code is required'|translate}}.
             </small>
           </div>
@@ -71,7 +75,7 @@
             <label>{{'Client ID'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Client ID'|translate}}"
               [(ngModel)]="issuerDetails.client_id" formControlName="client_id">
-            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('client_id')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && issuerFormControls.client_id.errors?.required">
               {{'Client ID is required'|translate}}.
             </small>
           </div>
@@ -82,7 +86,7 @@
             <label>{{'Client Secret 1'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Client Secret 1'|translate}}"
               [(ngModel)]="issuerDetails.clientSecret1" formControlName="clientSecret1">
-            <small class="text-danger" *ngIf="isSubmitted && issuerForm.get('clientSecret1')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && issuerFormControls.clientSecret1.errors?.required">
               {{'Client Secret 1 is required'|translate}}.
             </small>
           </div>
@@ -115,7 +119,7 @@
             <label>{{'Branch ID'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Branch ID'|translate}}"
               [(ngModel)]="issuerAddress.branch_id" formControlName="branch_id">
-            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('branch_id')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.branch_id.errors?.required">
               {{'Branch ID is required'|translate}}.
             </small>
           </div>
@@ -124,10 +128,16 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfCountries" bindLabel="desc_en" bindValue="code" [searchable]="true"
-              placeholder="{{'Country'|translate}}" [(ngModel)]="issuerAddress.country" formControlName="country">
+            <!-- for english lang -->
+            <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfCountries" [bindLabel]="'desc_en'"
+              bindValue="code" [searchable]="true" placeholder="{{'Country'|translate}}"
+              [(ngModel)]="issuerAddress.country" formControlName="country">
             </ng-select>
-            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('country')?.hasError('required')">
+            <ng-select *ngIf="translate.currentLang === 'ar'" [items]="listOfCountries" [bindLabel]="'desc_ar'"
+              bindValue="code" [searchable]="true" placeholder="{{'Country'|translate}}"
+              [(ngModel)]="issuerAddress.country" formControlName="country">
+            </ng-select>
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.country.errors?.required">
               {{'Country is required'|translate}}.
             </small>
           </div>
@@ -138,7 +148,7 @@
             <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Governate'|translate}}"
               [(ngModel)]="issuerAddress.governate" formControlName="governate">
-            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('governate')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.governate.errors?.required">
               {{'Governate is required'|translate}}.
             </small>
           </div>
@@ -149,7 +159,7 @@
             <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
               [(ngModel)]="issuerAddress.regionCity" formControlName="regionCity">
-            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('regionCity')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.regionCity.errors?.required">
               {{'Region City is required'|translate}}.
             </small>
           </div>
@@ -160,7 +170,7 @@
             <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Street'|translate}}"
               [(ngModel)]="issuerAddress.street" formControlName="street">
-            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('street')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.street.errors?.required">
               {{'Street is required'|translate}}.
             </small>
           </div>
@@ -171,7 +181,7 @@
             <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
               [(ngModel)]="issuerAddress.buildingNumber" formControlName="buildingNumber">
-            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('buildingNumber')?.hasError('required')">
+            <small class="text-danger" *ngIf="isSubmitted && addressFormControls.buildingNumber.errors?.required">
               {{'Building Number is required'|translate}}.
             </small>
           </div>
@@ -185,9 +195,6 @@
             <label>{{'Postal Code'|translate}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" placeholder="{{'Postal Code'|translate}}"
               [(ngModel)]="issuerAddress.postalCode" formControlName="postalCode">
-            <small class="text-danger" *ngIf="isSubmitted && addressForm.get('postalCode')?.hasError('required')">
-              {{'Postal Code is required'|translate}}.
-            </small>
           </div>
         </div>
         <!-- Floor -->

@@ -14,6 +14,7 @@ import { IssuerAddressDto, IssuerDto } from "../../shared/models/issuer.model";
 import { IssuerService } from "../../shared/services/issuer.service";
 import { ListsService } from "../../shared/services/lists.service";
 import { DialogService } from "../../shared/services/dialog.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   templateUrl: "./issuer-details.component.html",
@@ -47,7 +48,8 @@ export class IssuerDetailsComponent implements OnInit {
     private dialogService: DialogService,
     private issuerService: IssuerService,
     private listsService: ListsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public translate: TranslateService
   ) {
 
     // init variables
@@ -104,12 +106,22 @@ export class IssuerDetailsComponent implements OnInit {
       regionCity: ['', Validators.required],
       street: ['', Validators.required],
       buildingNumber: ['', Validators.required],
-      postalCode: ['', Validators.required],
+      postalCode: [''],
       floor: [''],
       room: [''],
       landmark: [''],
       additionalInformation: ['']
     });
+  }
+
+  // get issuer form controls
+  get issuerFormControls() {
+    return this.issuerForm.controls;
+  }
+
+  // get address form controls
+  get addressFormControls() {
+    return this.addressForm.controls;
   }
 
   // #endregion

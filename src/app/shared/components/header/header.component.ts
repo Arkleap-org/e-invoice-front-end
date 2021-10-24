@@ -31,6 +31,8 @@ export class HeaderComponent implements OnInit {
       { action: 'ar', text: 'العربية' },
       { action: 'en', text: 'English' }
     ];
+    const lang = this.localStorageService.retrieve('lang') || 'en';
+    this.translate.use(lang).subscribe(() => this.localStorageService.store('lang', lang));
   }
 
   // #endregion
@@ -44,8 +46,7 @@ export class HeaderComponent implements OnInit {
   // #region main actions
 
   useLanguage(language: string): void {
-    this.translate.use(language);
-    this.localStorageService.store('lang', language);
+    this.translate.use(language).subscribe(() => this.localStorageService.store('lang', language));
   }
 
   setTriggerText(title: string, icon?: string): IMenuTrigger {
