@@ -163,6 +163,14 @@ export class IssuerAddressComponent implements OnInit {
     this.router.navigate([`/issuer/address/${id}`]);
     this.getAddressById(id)
   }
+
+  updateAddress(id: number) {
+    this.addressService.updateAddress(id, this.addressDetails).subscribe((response) => {
+      this.router.navigate(['/issuer/address'])
+      this.listAddresses();
+      this.dialogService.savedSuccessfully('Address updated successfully.')
+    });
+  }
   // #endregion
 
 }

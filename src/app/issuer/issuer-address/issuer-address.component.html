@@ -135,7 +135,8 @@
 <mat-card-actions class="text-center">
   <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
   <button mat-button class="btn btn-info text-light" (click)="createAddress()" *ngIf="!addressId">Create</button>
-  <button mat-button class="btn btn-info text-light" *ngIf="addressId">Update</button>
+  <button mat-button class="btn btn-info text-light" (click)="updateAddress(addressId)"
+    *ngIf="addressId">Update</button>
 
 </mat-card-actions>
 
