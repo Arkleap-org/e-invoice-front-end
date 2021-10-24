@@ -6,5 +6,7 @@ export class LoginRequestDto {
 export class LoginResponseDto {
   access!: string;
   refresh!: string;
+  first_name!: string;
+  has_issuer!: boolean
 }
 

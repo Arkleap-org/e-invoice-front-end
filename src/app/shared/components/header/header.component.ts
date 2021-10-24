@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
+import { LoginResponseDto } from '../../models/auth.model';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class HeaderComponent implements OnInit {
 
   // name of lists
   listOfLang: IMenuItem[];
+  userFirstName!: string;
 
 
   // #endregion
@@ -33,6 +35,7 @@ export class HeaderComponent implements OnInit {
     ];
     const lang = this.localStorageService.retrieve('lang') || 'en';
     this.translate.use(lang).subscribe(() => this.localStorageService.store('lang', lang));
+    this.userFirstName = (this.localStorageService.retrieve('user') as LoginResponseDto).first_name;
   }
 
   // #endregion

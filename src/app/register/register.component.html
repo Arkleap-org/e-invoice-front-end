@@ -89,9 +89,14 @@
                       <label class="form-label" for="form3Example4c">{{'Password'|translate}}<span
                           class="text-danger">*</span></label>
                       <input type="password" id="form3Example4c" class="form-control"
-                        placeholder="{{'Password'|translate}}" formControlName="password" />
+                        (ngModelChange)="passwordMatched = password === password2"
+                        placeholder="{{'Password'|translate}}" formControlName="password" [(ngModel)]="password" />
                       <small class="text-danger"
                         *ngIf="isSubmitted && getRegisterationControls.password.errors?.required">
+                        {{'Password is required'|translate}}.
+                      </small>
+                      <small class="text-danger"
+                        *ngIf="isSubmitted && getRegisterationControls.password.errors?.minlength">
                         {{'Password should be 8 characters'|translate}}.
                       </small>
                     </div>
@@ -102,13 +107,14 @@
                     <div class="form-outline flex-fill mb-0">
                       <label class="form-label" for="form3Example4cd">{{'Repeat your password'|translate}}<span
                           class="text-danger">*</span></label>
-                      <input type="password" id="form3Example4cd" class="form-control"
-                        placeholder="{{'Repeat your password'|translate}}" formControlName="password2" />
+                      <input type="password" id="form3Example4cd" class="form-control" [(ngModel)]="password2"
+                        placeholder="{{'Repeat your password'|translate}}" formControlName="password2"
+                        (ngModelChange)="passwordMatched = password === password2" />
                       <small class="text-danger"
                         *ngIf="isSubmitted && getRegisterationControls.password2.errors?.required">
                         {{'Password repetition is required'|translate}}.
                       </small>
-                      <small class="text-danger" *ngIf="passwordMisMatch">
+                      <small class="text-danger" *ngIf="isSubmitted && passwordMatched == false">
                         {{'Password did not match'|translate}}.
                       </small>
 

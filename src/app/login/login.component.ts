@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
   userLogin(model: LoginRequestDto) {
     this.authService.userLogin(model).subscribe((res: LoginResponseDto) => {
       this.localStorageService.store('token', res.access);
+      this.localStorageService.store('user', { first_name: res.first_name, has_issuer: res.has_issuer });
       this.router.navigate(['/home'])
     });
   }

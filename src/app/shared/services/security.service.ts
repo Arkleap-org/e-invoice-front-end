@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 // services
 import { LocalStorageService } from "./local-storage.service";
 import { SessionStorageService } from "./session-storage.service";
+import { LoginResponseDto } from "../models/auth.model";
 
 
 @Injectable()
@@ -27,7 +28,9 @@ export class SecurityService {
 
   get jwtToken() { return this.retrieveToken(); }
 
-  get isAuthenticated() { return this.jwtToken !== null }
+  get hasIssuer() { return this.user && this.user.has_issuer }
+
+  get user() { return this.retrieveUser(); }
 
   // #endregion
 
@@ -49,8 +52,6 @@ export class SecurityService {
     // remove all storage
     this.localStorageService.removeAll();
 
-    // reset private properties
-
     // redirect to login page
     this.router.navigate(["/"], { skipLocationChange: true });
   }
@@ -64,6 +65,12 @@ export class SecurityService {
     // retrieve jwt-token
     const token = this.localStorageService.retrieve(this.tokenStorageKey);
     return typeof token !== "undefined" ? token : null;
+  }
+
+  retrieveUser() {
+    // retrieve user
+    const user = this.localStorageService.retrieve('user');
+    return typeof user && user !== "undefined" ? user as LoginResponseDto : null;
   }
 
   // #endregion

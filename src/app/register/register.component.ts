@@ -17,8 +17,10 @@ export class RegisterComponent implements OnInit {
 
   // #region declare variables
 
-  passwordMisMatch: boolean;
+  passwordMatched!: boolean;
   isSubmitted: boolean;
+  password!: string;
+  password2!: string;
 
   // names of lists
   listOfLang: IMenuItem[];
@@ -44,7 +46,6 @@ export class RegisterComponent implements OnInit {
       { action: 'en', text: 'English' }
     ];
     this.isSubmitted = false;
-    this.passwordMisMatch = false;
 
     // init forms
     this.initForms();
@@ -70,7 +71,7 @@ export class RegisterComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', Validators.required]
     });
   }
@@ -93,17 +94,11 @@ export class RegisterComponent implements OnInit {
 
   userRegisteration(form: FormGroup) {
     this.isSubmitted = true;
-    this.passwordMisMatch = false;
-    if (form.value.password === form.value.password2) {
-      if (form.valid) {
-        this.authService.userRegisteration(form.value).subscribe((response: ResponseDto) => {
-          this.isSubmitted = false;
-          this.passwordMisMatch = false;
-          this.dialogService.successAndRouteTo('User has been Registerd SuccessFully! Please Login.', '/');
-        });
-      }
-    } else {
-      this.passwordMisMatch = true;
+    if (form.valid && this.passwordMatched) {
+      this.authService.userRegisteration(form.value).subscribe((response: ResponseDto) => {
+        this.isSubmitted = false;
+        this.dialogService.successAndRouteTo('User has been Registerd SuccessFully! Please Login.', '/');
+      });
     }
   }
 

@@ -20,30 +20,31 @@ const routes: Routes = [
   {
     path: "",
     component: LayoutComponent,
-    canActivate: [AuthGuardService],
     children: [
       {
         path: "home",
+        canActivate: [AuthGuardService],
         component: HomeComponent
       },
       {
         path: "user",
+        canActivate: [AuthGuardService],
         component: AddUserComponent
       },
 
-      { path: "issuer/details", component: IssuerDetailsComponent },
-      { path: "issuer/address", component: IssuerAddressComponent },
-      { path: "issuer/address/:id", component: IssuerAddressComponent },
+      { path: "issuer/details", canActivate: [AuthGuardService], component: IssuerDetailsComponent },
+      { path: "issuer/address", canActivate: [AuthGuardService], component: IssuerAddressComponent },
+      { path: "issuer/address/:id", canActivate: [AuthGuardService], component: IssuerAddressComponent },
 
 
 
-      { path: "item/list", component: ItemListComponent },
-      { path: "item/add", component: ItemDetailsComponent },
-      { path: "item/update/:id", component: ItemDetailsComponent },
+      { path: "item/list", canActivate: [AuthGuardService], component: ItemListComponent },
+      { path: "item/add", canActivate: [AuthGuardService], component: ItemDetailsComponent },
+      { path: "item/update/:id", canActivate: [AuthGuardService], component: ItemDetailsComponent },
 
-      { path: "invoice/list", component: InvoiceListComponent },
-      { path: "invoice/add", component: InvoiceDetailsComponent },
-      { path: "invoice/view/:id", component: InvoiceViewComponent },
+      { path: "invoice/list", canActivate: [AuthGuardService], component: InvoiceListComponent },
+      { path: "invoice/add", canActivate: [AuthGuardService], component: InvoiceDetailsComponent },
+      { path: "invoice/view/:id", canActivate: [AuthGuardService], component: InvoiceViewComponent },
     ]
   }
 ];

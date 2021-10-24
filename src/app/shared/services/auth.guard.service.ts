@@ -16,11 +16,15 @@ export class AuthGuardService implements CanActivate {
 
   // activate layout if user have valid token
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.securityService.isAuthenticated) {
-      return true;
-    } else {
+    if (!this.securityService.jwtToken) {
       this.securityService.logout();
       return false;
+    }
+    else if (this.securityService.hasIssuer === false && state.url !== "/issuer/details") {
+      this.router.navigate(["/issuer/details"]);
+      return false;
+    } else {
+      return true;
     }
   }
 

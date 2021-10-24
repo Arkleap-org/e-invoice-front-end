@@ -1,4 +1,20 @@
 <div class="bg-base-color row py-4 header mx-0 ">
+
+  <!-- side menu -->
+  <mat-menu #menu="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item routerLink="/home"> {{'Dashboard' | translate}} </button>
+      <button mat-menu-item [matMenuTriggerFor]="items"> {{'Items' | translate}} </button>
+      <button mat-menu-item [matMenuTriggerFor]="invoices"> {{'Invoices' | translate}} </button>
+    </ng-template>
+  </mat-menu>
+  <div class="col-1 text-white pt-2">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <!-- logo -->
   <h2 class="col-1 pl-2 text-white pt-2 pointer" ngx-translate routerLink="home">
     <img src="../../../../assets/images/logo.png" width="40" alt="">
   </h2>
@@ -10,12 +26,6 @@
       <button mat-menu-item routerLink="item/add">{{'Add Item' | translate}}</button>
     </ng-template>
   </mat-menu>
-  <div class="col-1 text-white pt-2">
-    <button mat-icon-button [matMenuTriggerFor]="items">
-      {{'Items' | translate}}
-      <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-  </div>
 
   <!-- invoices dropdown -->
   <mat-menu #invoices="matMenu">
@@ -24,13 +34,8 @@
       <button mat-menu-item routerLink="invoice/add">{{'Add Invoice' | translate}}</button>
     </ng-template>
   </mat-menu>
-  <div class="col-1 text-white pt-2">
-    <button mat-icon-button [matMenuTriggerFor]="invoices">
-      {{'Invoices' | translate}}
-      <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-  </div>
 
+  <!-- right side for lang and user menu -->
   <div class="col-9 pt-2">
     <div class="row justify-content-end">
 
@@ -57,7 +62,7 @@
       <div class="col-3 text-white">
         <button mat-icon-button [matMenuTriggerFor]="profileMenu">
           <mat-icon>person</mat-icon>
-          {{'Welcome' | translate}} Admin
+          {{'Welcome' | translate}} {{userFirstName}}
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
       </div>
