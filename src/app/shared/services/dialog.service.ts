@@ -47,7 +47,7 @@ export class DialogService {
     })
   }
 
-  saveAndRouteTo(title: string, route: string) {
+  successAndRouteTo(title: string, route: string) {
     Swal.fire({
       position: 'center',
       icon: 'success',
