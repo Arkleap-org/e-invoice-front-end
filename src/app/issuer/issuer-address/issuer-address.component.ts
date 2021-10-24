@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // angular forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 // models
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
@@ -18,7 +19,7 @@ import { ListsService } from 'src/app/shared/services/lists.service';
 @Component({
   selector: 'app-issuer-address',
   templateUrl: './issuer-address.component.html',
-  styleUrls: ['./issuer-address.component.scss']
+  styleUrls: ['./issuer-address.component.scss'],
 })
 
 export class IssuerAddressComponent implements OnInit {
@@ -45,7 +46,8 @@ export class IssuerAddressComponent implements OnInit {
     private listsService: ListsService,
     private dialogService: DialogService,
     private addressService: IssuerAddressService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public translate: TranslateService
   ) {
 
     // init variables
