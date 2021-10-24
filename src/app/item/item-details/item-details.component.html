@@ -1,24 +1,33 @@
 <mat-card>
   <!-- card title -->
-  <mat-card-title>{{'Create Item'|translate}}</mat-card-title>
+  <mat-card-title>{{model.id? ('Update Item'|translate ) : ('Create Item'|translate)}}</mat-card-title>
   <br>
   <!-- card content -->
   <mat-card-content>
-    <form class="form">
+    <div class="form" [formGroup]="itemsForm">
       <!-- first row -->
       <div class="row">
         <!-- Name -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Name' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Name'|translate}}">
+            <input type="text" class="form-control" formControlName="item_name" [(ngModel)]="model.item_name"
+              placeholder="{{'Name'|translate}}">
+            <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.item_name.errors?.required">
+              {{'Name is required'|translate}}.
+            </small>
           </div>
+
         </div>
         <!-- description -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Description' | translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Description'|translate}}">
+            <label>{{'Description' | translate}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="item_desc" [(ngModel)]="model.item_desc"
+              placeholder="{{'Description'|translate}}">
+            <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.item_desc.errors?.required">
+              {{'Item Description is required'|translate}}.
+            </small>
           </div>
         </div>
       </div>
@@ -28,16 +37,22 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Internal Code' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Internal Code'|translate}}">
+            <input type="text" class="form-control" formControlName="internal_code" [(ngModel)]="model.internal_code"
+              placeholder="{{'Internal Code'|translate}}">
+            <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.internal_code.errors?.required">
+              {{'Name is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- unit type -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Unit Type' | translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" [searchable]="true"
-              placeholder="{{'Unit Type'|translate}}">
+            <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" formControlName="unit_type"
+              [(ngModel)]="model.unit_type" [searchable]="true" placeholder="{{'Unit Type'|translate}}">
             </ng-select>
+
+
           </div>
         </div>
       </div>
@@ -48,15 +63,21 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Type' | translate}}</label>
-            <ng-select [items]="listOfTypes" [searchable]="true" placeholder="{{'Code Type'|translate}}">
+            <ng-select [(ngModel)]="model.item_type" [items]="listOfTypes" formControlName="item_type"
+              [searchable]="true" placeholder="{{'Code Type'|translate}}">
             </ng-select>
+
           </div>
         </div>
         <!-- code -->
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Code' | translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Code'|translate}}">
+            <input [(ngModel)]="model.item_code" type="text" class="form-control" formControlName="item_code"
+              placeholder="{{'Code'|translate}}">
+            <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.item_code.errors?.required">
+              {{'Item Code is required'|translate}}.
+            </small>
           </div>
         </div>
       </div>
@@ -66,20 +87,26 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Type' | translate}}</label>
-            <ng-select [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id" [searchable]="true"
-              placeholder="{{'Tax Type'|translate}}">
+            <ng-select [(ngModel)]="model.sub_tax_type" [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id"
+              [searchable]="true" formControlName="sub_tax_type" placeholder="{{'Tax Type'|translate}}">
             </ng-select>
+
           </div>
         </div>
         <!-- tax rate -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Rate' | translate}}</label>
-            <input type="number" class="form-control" placeholder="{{'Tax Rate'|translate}}">
+            <label>{{'Tax Rate' | translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" formControlName="sub_tax_rate" [(ngModel)]="model.sub_tax_rate"
+              placeholder="{{'Tax Rate'|translate}}">
+            <small class="text-danger"
+              *ngIf="isSubmitted && (itemsFormControls.sub_tax_rate.errors?.min||itemsFormControls.sub_tax_rate.errors?.max)">
+              {{'Tax rate should be between 0 and 100'|translate}}.
+            </small>
           </div>
         </div>
       </div>
-    </form>
+    </div>
   </mat-card-content>
 </mat-card>
 <br>
@@ -87,5 +114,7 @@
 <!-- card actions -->
 <mat-card-actions class="text-center">
   <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-  <button mat-button class="btn btn-info text-light">Create</button>
+  <button mat-button class="btn btn-info text-light" type="submit"
+    (click)="model.id?  updateItem(model) : createItem(model)">{{model.id? ('Update'|translate ) :
+    ('Create '|translate)}}</button>
 </mat-card-actions>
