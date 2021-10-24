@@ -128,6 +128,7 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   // form controls
+
   get itemsFormControls() {
     return this.itemsForm.controls;
   }
@@ -163,16 +164,11 @@ export class ItemDetailsComponent implements OnInit {
     if (updateId) this.updateItem(this.model)
     else this.createItem(this.model)
   }
-  // #region end 
-
-
-
-  // #region main actions
 
   cancelAndRouteBack() {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/item/list");
   }
 
-  // #endregion
+  // #region end 
 
 }
