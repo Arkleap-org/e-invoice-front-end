@@ -28,18 +28,21 @@ export class ItemDetailsComponent implements OnInit {
 
   // #region declare variables
 
+  // name of lists
   listOfTypes: string[];
   listOfInternalCodes: {}[];
   listOfUnitTypes: {}[];
   listOfTaxTypes: {}[];
-  model: CreateItemRequestDto;
-  isValid: boolean;
-  itemDetails: CreateItemRequestDto;
+  isSubmitted: boolean;
 
+  //name of model
+
+  model: CreateItemRequestDto;
+  itemDetails: CreateItemRequestDto;
   itemsForm!: FormGroup;
+
   // #region init form
 
-  isSubmitted: boolean;
 
   // #endregion
 
@@ -93,7 +96,6 @@ export class ItemDetailsComponent implements OnInit {
 
     ];
     this.model = new CreateItemRequestDto;
-    this.isValid = false;
     this.isSubmitted = false;
     this.itemDetails = new CreateItemRequestDto;
     this.initForm();
@@ -106,7 +108,6 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.model.id = this.route.snapshot.params["id"];
     if (this.model.id) this.getItemById(this.model.id)
-
   }
 
   // #endregion
@@ -114,7 +115,6 @@ export class ItemDetailsComponent implements OnInit {
   // #region init forms
 
   initForm() {
-
     this.itemsForm = this.formBuilder.group({
       item_name: ['', Validators.required],
       item_desc: ['', Validators.required],
@@ -124,72 +124,51 @@ export class ItemDetailsComponent implements OnInit {
       internal_code: [''],
       sub_tax_rate: ['', [Validators.min(0), Validators.max(100)]],
       sub_tax_type: [''],
-
     });
-
   }
 
   // form controls
+
   get itemsFormControls() {
     return this.itemsForm.controls;
   }
 
   // #endregion
 
-  // #region form actions
-
+  // #region main actions
 
   createItem(model: CreateItemRequestDto) {
-
     this.isSubmitted = true;
-    console.log(this.isSubmitted)
-
     if (this.itemsForm.valid)
       this.itemService.createItem(model).subscribe((res: ResponseDto) => {
         this.dialogService.successAndRouteBack("/item/list");
       });
-
-
-
   }
 
   updateItem(model: CreateItemRequestDto) {
     this.isSubmitted = true;
     if (this.itemsForm.valid)
       this.itemService.updateItem(model).subscribe((res: ResponseDto) => {
-
         this.dialogService.successAndRouteBack("/item/list");
-
-
-
-
       });
 
   }
 
   getItemById(id: number) {
-
     this.itemService.getItemById(id).subscribe((res: ResponseDto) => {
-
       this.model = res.data;
-
-
-
-
-
     });
-
   }
-  // #region end 
 
-
-
-  // #region main actions
+  itemSubmitAction(updateId: number) {
+    if (updateId) this.updateItem(this.model)
+    else this.createItem(this.model)
+  }
 
   cancelAndRouteBack() {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/item/list");
   }
 
-  // #endregion
+  // #region end 
 
 }

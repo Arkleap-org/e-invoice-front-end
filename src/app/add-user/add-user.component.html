@@ -1,20 +1,40 @@
 <mat-card>
   <mat-card-title class="pb-3">{{'Create User' | translate}}</mat-card-title>
-  <div class="row pt-5">
+  <div class="row pt-5" [formGroup]="userForm">
     <div class="col-7 form-group">
       <label for="user_name">{{'User Name'|translate}}</label>
-      <input class="form-control" type="text" id="user_name">
+      <input class="form-control" type="text" formControlName="username" id="username">
+      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.username.errors?.required">
+        {{'Name is required'|translate}}.
+      </small>
+    </div>
+    <div class="col-7 form-group">
+      <label for="user_name">{{'Email'|translate}}</label>
+      <input class="form-control" type="text" formControlName="email" id="email">
+      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.email.errors?.required">
+        {{'Email is required'|translate}}.
+      </small>
     </div>
     <div class="col-7 form-group">
       <label for="password">{{'Password'|translate}}</label>
-      <input class="form-control" type="text" id="password">
+      <input class="form-control" type="password" formControlName="password" id="password">
+      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.password.errors?.required">
+        {{'Password should be 8 or more figures'|translate}}.
+      </small>
     </div>
     <div class="col-7 form-group">
       <label for="confirm_password">{{'Confirm Password'|translate}}</label>
-      <input class="form-control" type="text" id="confirm_password">
+      <input class="form-control" type="password" formControlName="password2" id="confirm_password">
+      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.password2.errors?.required">
+        {{'Password required'|translate}}.
+      </small>
+      <small class="text-danger" *ngIf="!isPasswordMatch">
+        {{'Passwords don\'t match'|translate}}.
+      </small>
+
     </div>
     <div class="col-7 form-group">
-      <button class="btn btn-primary">{{'Save'|translate}}</button>
+      <button class="btn btn-primary" (click)="createUser(userForm.value)">{{'Save'|translate}}</button>
     </div>
   </div>
 </mat-card>
