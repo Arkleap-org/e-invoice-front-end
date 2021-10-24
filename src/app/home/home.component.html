@@ -1,92 +1,101 @@
-<mat-card>
-  <h2>{{'Dashboard'|translate}}</h2>
-</mat-card>
-<br>
-<mat-card>
-  <div class="container">
-    <!-- cards -->
-    <div class="row">
+<div>
+  <mat-card>
+    <mat-card-title class="text-mb-4">{{'Dashboard'|translate}}</mat-card-title>
 
-      <div class="d-flex justify-content-between">
-        <div class="col-md-3">
-          <mat-card class="text-white bg-success">
-            <span><strong>{{'Valid Invoices'|translate}}: </strong> 30</span>
-          </mat-card>
-        </div>
-        <div class="col-md-3">
-          <mat-card class="text-white bg-danger">
-            <span><strong>{{'Invalid Invoices'|translate}}: </strong> 30</span>
-          </mat-card>
+    <br>
+    <br>
+    <div class="container">
+      <!-- cards -->
+      <div class="row mt-6 mb-6" style="height: 10rem;">
+
+        <div class="d-flex justify-content-between">
+          <div class="col-md-3">
+            <mat-card class="text-white bg-warning">
+              <span><strong>{{'Receivers Count'|translate}}: </strong>
+                {{dashboardCounts.receivers_count || 0}}</span>
+            </mat-card>
+          </div>
+          <div class="col-md-3">
+            <mat-card class="text-white bg-success">
+              <span><strong>{{'Valid Invoices'|translate}}: </strong>{{dashboardCounts.submissions_count_valid ||
+                0}}</span>
+            </mat-card>
+          </div>
+
+          <div class="col-md-3">
+            <mat-card class="text-white bg-danger">
+              <span><strong>{{'Invalid Invoices'|translate}}: </strong>
+                {{dashboardCounts.submissions_count_invalid || 0}}</span>
+            </mat-card>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</mat-card>
-<!-- recent invoices -->
-<br>
-<mat-card>
-  <mat-card-title class="text-secondary">{{'Recent Invoices' | translate}}</mat-card-title>
-  <mat-form-field appearance="standard">
-    <mat-label>{{'Search' | translate}}</mat-label>
-    <input matInput (keyup)="applyFilter($event)" #input>
-  </mat-form-field>
+    <!-- recent invoices -->
+    <br>
+    <mat-card-title class="text-secondary">{{'Recent Invoices' | translate}}</mat-card-title>
+    <mat-form-field appearance="standard">
+      <mat-label>{{'Search' | translate}}</mat-label>
+      <input matInput (keyup)="applyFilter($event)" #input>
+    </mat-form-field>
 
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="invoiceDataSource" matSort>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="invoiceDataSource" matSort>
 
-      <ng-container matColumnDef="issuer">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Issuer' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.issuer}} </td>
-      </ng-container>
+        <ng-container matColumnDef="issuerName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Issuer Name' | translate}} </th>
+          <td mat-cell *matCellDef="let row"> {{row.issuerName}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="receiver">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Receiver' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.receiver}} </td>
-      </ng-container>
+        <ng-container matColumnDef="receiverName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Receiver Name' | translate}} </th>
+          <td mat-cell *matCellDef="let row"> {{row.receiverName}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Type' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.type}} </td>
-      </ng-container>
+        <ng-container matColumnDef="documentTypeNamePrimaryLang">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Document Type' | translate}} </th>
+          <td mat-cell *matCellDef="let row"> {{row.documentTypeNamePrimaryLang}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="date_issued">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Date Issued' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.date_issued}} </td>
-      </ng-container>
+        <ng-container matColumnDef="dateTimeIssued">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Date Time Issued' | translate}} </th>
+          <td mat-cell *matCellDef="let row"> {{row.dateTimeIssued}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="date_received">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Date Received' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.code}} </td>
-      </ng-container>
+        <ng-container matColumnDef="dateTimeReceived">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Date Time Received' | translate}} </th>
+          <td mat-cell *matCellDef="let row"> {{row.dateTimeReceived}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Total' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.total}} </td>
-      </ng-container>
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Total' | translate}} </th>
+          <td mat-cell *matCellDef="let row"> {{row.total}} </td>
+        </ng-container>
 
 
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-button class="btn btn-primary" [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>{{'View Invoice' | translate}}</button>
-            <button mat-menu-item>{{'Reject Invoice' | translate}}</button>
-          </mat-menu>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-button class="btn btn-primary" [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>{{'View Invoice' | translate}}</button>
+              <button mat-menu-item>{{'Reject Invoice' | translate}}</button>
+            </mat-menu>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-      <!-- Row shown when there is no matching data. -->
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell text-center" colspan="4">{{'No data to show' | translate}}</td>
-      </tr>
-    </table>
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell text-center" colspan="4">{{'No data to show' | translate}}</td>
+        </tr>
+      </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of invoices"></mat-paginator>
-  </div>
-</mat-card>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of invoices"></mat-paginator>
+    </div>
+  </mat-card>
+</div>
