@@ -216,7 +216,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="getAddressOnUpdate(address.id)">
+          <button mat-menu-item [routerLink]="['/issuer/address/', address.id]">
             <mat-icon>edit</mat-icon>
             <span>{{'Update'|translate}}</span>
           </button>

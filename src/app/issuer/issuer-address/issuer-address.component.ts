@@ -75,7 +75,11 @@ export class IssuerAddressComponent implements OnInit {
 
     this.loadControls();
     this.listAddresses();
-    if (this.addressId) this.getAddressById(this.addressId);
+    // keep calling api while updating params
+    this.route.params.subscribe(params => {
+      this.addressId = params['id'];
+      if (this.addressId) this.getAddressById(this.addressId);
+    });
   }
 
   // #endregion
