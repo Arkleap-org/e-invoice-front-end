@@ -24,6 +24,8 @@ export class DialogService {
       confirmButtonText: "Yes, I am sure!",
     }).then((result) => { if (result.isConfirmed) this.router.navigate([route]); });
   }
+
+
   successAndRouteBack(route: string) {
     Swal.fire({
       position: 'center',
@@ -43,6 +45,17 @@ export class DialogService {
       showConfirmButton: false,
       timer: 1500
     })
+  }
+
+  saveAndRouteTo(title: string, route: string) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: title,
+      showConfirmButton: false,
+      timer: 2000
+    })
+    this.router.navigate([route]);
   }
 
 }
