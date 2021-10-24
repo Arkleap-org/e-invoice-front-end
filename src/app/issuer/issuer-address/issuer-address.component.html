@@ -138,61 +138,85 @@
   <fieldset class="mb-3" *ngFor="let address of listOfIssuerAddresses">
 
     <div class="row">
-      <!-- branch id -->
-      <div class="col-md-2">
-        <label>{{'Branch ID'|translate}}:</label>
-        <span> {{address.branch_id}}</span>
+      <div class="col-md-11">
+        <div class="row">
+          <!-- branch id -->
+          <div class="col-md-2">
+            <label>{{'Branch ID'|translate}}:</label>
+            <span> {{address.branch_id}}</span>
+          </div>
+          <!-- country -->
+          <div class="col-md-2">
+            <label>{{'Country'|translate}}:</label>
+            <span> {{address.country}}</span>
+          </div>
+          <!-- Governate -->
+          <div class="col-md-2">
+            <label>{{'Governate'|translate}}:</label>
+            <span> {{address.governate}}</span>
+          </div>
+          <!-- Region City -->
+          <div class="col-md-2">
+            <label>{{'Region City'|translate}}:</label>
+            <span> {{address.regionCity}}</span>
+          </div>
+          <!-- Street -->
+          <div class="col-md-2">
+            <label>{{'Street'|translate}}:</label>
+            <span> {{address.street}}</span>
+          </div>
+          <!-- Building Number -->
+          <div class="col-md-2">
+            <label>{{'Building Number'|translate}}:</label>
+            <span> {{address.buildingNumber}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- postal code -->
+          <div class="col-md-2">
+            <label>{{'Postal Code'|translate}}:</label>
+            <span> {{address.postalCode}}</span>
+          </div>
+          <!-- floor -->
+          <div class="col-md-2">
+            <label>{{'Floor'|translate}}:</label>
+            <span> {{address.floor}}</span>
+          </div>
+          <!-- room -->
+          <div class="col-md-2">
+            <label>{{'Room'|translate}}:</label>
+            <span> {{address.room}}</span>
+          </div>
+          <!-- landmark -->
+          <div class="col-md-2">
+            <label>{{'Landmark'|translate}}:</label>
+            <span> {{address.landmark}}</span>
+          </div>
+          <!-- additional info -->
+          <div class="col-md-4">
+            <label>{{'Additional Information'|translate}}:</label>
+            <span> {{address.additionalInformation}}</span>
+          </div>
+        </div>
+
       </div>
-      <!-- country -->
-      <div class="col-md-2">
-        <label>{{'Country'|translate}}:</label>
-        <span> {{address.country}}</span>
+      <!-- menu btn -->
+      <div class="col-md-1">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>{{'Update'|translate}}</span>
+          </button>
+        </mat-menu>
       </div>
-      <!-- Governate -->
-      <div class="col-md-2">
-        <label>{{'Governate'|translate}}:</label>
-        <span> {{address.governate}}</span>
-      </div>
-      <!-- Region City -->
-      <div class="col-md-2">
-        <label>{{'Region City'|translate}}:</label>
-        <span> {{address.regionCity}}</span>
-      </div>
-      <!-- Street -->
-      <div class="col-md-2">
-        <label>{{'Street'|translate}}:</label>
-        <span> {{address.street}}</span>
-      </div>
-      <!-- Building Number -->
-      <div class="col-md-2">
-        <label>{{'Building Number'|translate}}:</label>
-        <span> {{address.buildingNumber}}</span>
-      </div>
-      <!-- postal code -->
-      <div class="col-md-2">
-        <label>{{'Postal Code'|translate}}:</label>
-        <span> {{address.postalCode}}</span>
-      </div>
-      <!-- floor -->
-      <div class="col-md-2">
-        <label>{{'Floor'|translate}}:</label>
-        <span> {{address.floor}}</span>
-      </div>
-      <!-- room -->
-      <div class="col-md-2">
-        <label>{{'Room'|translate}}:</label>
-        <span> {{address.room}}</span>
-      </div>
-      <!-- landmark -->
-      <div class="col-md-2">
-        <label>{{'Landmark'|translate}}:</label>
-        <span> {{address.landmark}}</span>
-      </div>
-      <!-- additional info -->
-      <div class="col-md-3">
-        <label>{{'Additional Information'|translate}}:</label>
-        <span> {{address.additionalInformation}}</span>
-      </div>
+
     </div>
+
+
+
   </fieldset>
 </mat-card>

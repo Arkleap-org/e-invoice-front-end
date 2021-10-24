@@ -64,7 +64,7 @@ export class IssuerAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadControls();
-    this.loadData();
+    this.listAddresses();
   }
 
   // #endregion
@@ -115,20 +115,6 @@ export class IssuerAddressComponent implements OnInit {
 
   // #endregion
 
-  // #region load data
-
-  loadData() {
-    this.listAddresses();
-  }
-
-  listAddresses() {
-    this.addressService.listAddresses().subscribe((response: ResponseDto) => {
-      console.log(response);
-      this.listOfIssuerAddresses = response.data
-    });
-  }
-
-  // #endregion
 
   // #region main actions
 
@@ -143,6 +129,13 @@ export class IssuerAddressComponent implements OnInit {
         this.dialogService.savedSuccessfully('Address saved successfully.')
       });
     }
+  }
+
+  listAddresses() {
+    this.addressService.listAddresses().subscribe((response: ResponseDto) => {
+      console.log(response);
+      this.listOfIssuerAddresses = response.data
+    });
   }
 
   cancelAndRouteBack() {
