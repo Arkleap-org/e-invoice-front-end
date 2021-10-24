@@ -7,14 +7,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 // models
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { CountryDto } from 'src/app/shared/models/country.model';
-import { IssuerAddressDto } from 'src/app/shared/models/issuer.model';
+import { ResponseDto } from '../../shared/models/api-response.model';
+import { CountryDto } from '../../shared/models/country.model';
+import { IssuerAddressDto } from '../../shared/models/issuer.model';
 
 // services
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { IssuerAddressService } from 'src/app/shared/services/issuer-address.service';
-import { ListsService } from 'src/app/shared/services/lists.service';
+import { DialogService } from '../../shared/services/dialog.service';
+import { IssuerAddressService } from '../../shared/services/issuer-address.service';
+import { ListsService } from '../../shared/services/lists.service';
 
 
 @Component({
@@ -157,7 +157,7 @@ export class IssuerAddressComponent implements OnInit {
   }
 
   getAddressById(id: number) {
-    this.addressService.getAddressById(id).subscribe((response) => {
+    this.addressService.getAddressById(id).subscribe((response: ResponseDto) => {
       this.addressDetails = response.data;
     });
   }
@@ -168,7 +168,7 @@ export class IssuerAddressComponent implements OnInit {
   }
 
   updateAddress(id: number) {
-    this.addressService.updateAddress(id, this.addressDetails).subscribe((response) => {
+    this.addressService.updateAddress(id, this.addressDetails).subscribe((response: ResponseDto) => {
       this.router.navigate(['/issuer/address'])
       this.listAddresses();
       this.dialogService.savedSuccessfully('Address updated successfully.')
