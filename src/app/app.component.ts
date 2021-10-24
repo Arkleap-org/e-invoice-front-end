@@ -24,12 +24,8 @@ export class AppComponent {
     public translate: TranslateService,
     private localStorageService: LocalStorageService
   ) {
-    const lang = this.localStorageService.retrieve('lang');
-    if (lang) this.translate.use(lang);
-    else {
-      this.localStorageService.store('lang', 'en');
-      this.translate.setDefaultLang('en');
-    }
+    const lang = this.localStorageService.retrieve('lang') || 'en';
+    this.translate.use(lang).subscribe(() => this.localStorageService.store('lang', lang));
 
     // deactivate autocomplete in all app forms
     this.loaderService.addAfterAllRequestsHandler(() => {

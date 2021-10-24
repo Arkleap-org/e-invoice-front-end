@@ -52,9 +52,13 @@
           <div class="form-group">
             <label for="exampleFormControlSelect1">{{'Activity Code' | translate}}<span
                 class="text-danger">*</span></label>
-            <ng-select [items]="listOfActivityCodes" bindLabel="desc_en" bindValue="code" [searchable]="true"
-              placeholder="{{'Activity Code'|translate}}" [(ngModel)]="issuerDetails.activity_code"
-              formControlName="activity_code">
+            <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfActivityCodes" bindLabel="desc_en"
+              bindValue="code" [searchable]="true" placeholder="{{'Activity Code'|translate}}"
+              [(ngModel)]="issuerDetails.activity_code" formControlName="activity_code">
+            </ng-select>
+            <ng-select *ngIf="translate.currentLang === 'ar'" [items]="listOfActivityCodes" bindLabel="desc_ar"
+              bindValue="code" [searchable]="true" placeholder="{{'Activity Code'|translate}}"
+              [(ngModel)]="issuerDetails.activity_code" formControlName="activity_code">
             </ng-select>
             <small class="text-danger" *ngIf="isSubmitted && issuerFormControls.activity_code.errors?.required">
               {{'Activity Code is required'|translate}}.
@@ -124,8 +128,14 @@
         <div class="col-md-2">
           <div class="form-group">
             <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfCountries" bindLabel="desc_en" bindValue="code" [searchable]="true"
-              placeholder="{{'Country'|translate}}" [(ngModel)]="issuerAddress.country" formControlName="country">
+            <!-- for english lang -->
+            <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfCountries" [bindLabel]="'desc_en'"
+              bindValue="code" [searchable]="true" placeholder="{{'Country'|translate}}"
+              [(ngModel)]="issuerAddress.country" formControlName="country">
+            </ng-select>
+            <ng-select *ngIf="translate.currentLang === 'ar'" [items]="listOfCountries" [bindLabel]="'desc_ar'"
+              bindValue="code" [searchable]="true" placeholder="{{'Country'|translate}}"
+              [(ngModel)]="issuerAddress.country" formControlName="country">
             </ng-select>
             <small class="text-danger" *ngIf="isSubmitted && addressFormControls.country.errors?.required">
               {{'Country is required'|translate}}.

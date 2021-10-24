@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 
 // angular forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 // models
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
@@ -18,7 +20,7 @@ import { ListsService } from 'src/app/shared/services/lists.service';
 @Component({
   selector: 'app-issuer-address',
   templateUrl: './issuer-address.component.html',
-  styleUrls: ['./issuer-address.component.scss']
+  styleUrls: ['./issuer-address.component.scss'],
 })
 
 export class IssuerAddressComponent implements OnInit {
@@ -37,6 +39,9 @@ export class IssuerAddressComponent implements OnInit {
   // names of forms
   addressForm!: FormGroup;
 
+  // names of params
+  addressId!: number;
+
   // #endregion
 
   // #region constructor
@@ -45,7 +50,10 @@ export class IssuerAddressComponent implements OnInit {
     private listsService: ListsService,
     private dialogService: DialogService,
     private addressService: IssuerAddressService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public translate: TranslateService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
 
     // init variables
@@ -63,8 +71,15 @@ export class IssuerAddressComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
+    this.addressId = this.route.snapshot.params["id"];
+
     this.loadControls();
     this.listAddresses();
+    // keep calling api while updating params
+    this.route.params.subscribe(params => {
+      this.addressId = params['id'];
+      if (this.addressId) this.getAddressById(this.addressId);
+    });
   }
 
   // #endregion
@@ -133,7 +148,6 @@ export class IssuerAddressComponent implements OnInit {
 
   listAddresses() {
     this.addressService.listAddresses().subscribe((response: ResponseDto) => {
-      console.log(response);
       this.listOfIssuerAddresses = response.data
     });
   }
@@ -142,6 +156,24 @@ export class IssuerAddressComponent implements OnInit {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
   }
 
+  getAddressById(id: number) {
+    this.addressService.getAddressById(id).subscribe((response) => {
+      this.addressDetails = response.data;
+    });
+  }
+
+  getAddressOnUpdate(id: number) {
+    this.router.navigate([`/issuer/address/${id}`]);
+    this.getAddressById(id)
+  }
+
+  updateAddress(id: number) {
+    this.addressService.updateAddress(id, this.addressDetails).subscribe((response) => {
+      this.router.navigate(['/issuer/address'])
+      this.listAddresses();
+      this.dialogService.savedSuccessfully('Address updated successfully.')
+    });
+  }
   // #endregion
 
 }

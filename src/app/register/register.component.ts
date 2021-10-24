@@ -42,8 +42,7 @@ export class RegisterComponent implements OnInit {
   // #region main actions
 
   useLanguage(language: string): void {
-    this.translate.use(language);
-    this.localStorageService.store('lang', language);
+    this.translate.use(language).subscribe(() => this.localStorageService.store('lang', language));
   }
 
   setTriggerText(title: string, icon?: string): IMenuTrigger {

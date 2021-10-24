@@ -28,4 +28,14 @@ export class IssuerAddressService {
     const url = `issuer/address/list`;
     return this.http.get<ResponseDto>(url);
   }
+
+  getAddressById(id: number) {
+    const url = `issuer/address/get/${id}`;
+    return this.http.get<ResponseDto>(url);
+  }
+
+  updateAddress(id: number, data: IssuerAddressDto) {
+    const url = `issuer/address/update/${id}`;
+    return this.http.put<ResponseDto>(url, data);
+  }
 }

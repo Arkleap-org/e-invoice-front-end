@@ -47,7 +47,6 @@ export class InvoiceViewComponent implements OnInit {
     this.invoiceService.getInvoiceById(this.invoiceId)
       .subscribe(
         (response: ResponseDto) => {
-          console.log('get invoice ', response.data);
           this.invoiceDetails = response.data;
         }
       );
