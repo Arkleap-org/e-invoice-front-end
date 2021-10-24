@@ -148,7 +148,6 @@ export class IssuerAddressComponent implements OnInit {
 
   listAddresses() {
     this.addressService.listAddresses().subscribe((response: ResponseDto) => {
-      console.log(response);
       this.listOfIssuerAddresses = response.data
     });
   }

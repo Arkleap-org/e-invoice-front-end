@@ -80,7 +80,6 @@ export class AddUserComponent implements OnInit {
   createUser(model: UserRequestDto) {
 
     this.isSubmitted = true;
-    console.log('create user function')
 
     if (this.userForm.value.password === this.userForm.value.password2) {
       if (this.userForm.valid)
