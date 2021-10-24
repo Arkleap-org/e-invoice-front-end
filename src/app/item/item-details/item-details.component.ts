@@ -10,7 +10,7 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
-//services 
+//services
 import { ItemsService } from 'src/app/shared/services/items.service';
 
 // sweetalert
@@ -79,7 +79,7 @@ export class ItemDetailsComponent implements OnInit {
         "internalCode": "internal code 3"
       }
     ];
-    // waiting for api 
+    // waiting for api
     this.listOfUnitTypes = [
       {
         "id": "EA",
@@ -169,6 +169,6 @@ export class ItemDetailsComponent implements OnInit {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/item/list");
   }
 
-  // #region end 
+  // #region end
 
 }

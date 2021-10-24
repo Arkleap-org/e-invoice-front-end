@@ -72,7 +72,7 @@
         <!-- code -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Code' | translate}}</label>
+            <label>{{'Code' | translate}}<span class="text-danger">*</span></label>
             <input [(ngModel)]="model.item_code" type="text" class="form-control" formControlName="item_code"
               placeholder="{{'Code'|translate}}">
             <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.item_code.errors?.required">
