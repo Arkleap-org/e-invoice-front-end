@@ -8,7 +8,10 @@
         <div class="form-group">
           <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Receiver Name'|translate}}"
-            ([ngModel])="receiverDetails.name">
+            [(ngModel)]="receiverDetails.name" formControlName="name">
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.name.errors?.required">
+            {{'Name is required'|translate}}.
+          </small>
         </div>
       </div>
       <!-- type -->
@@ -16,8 +19,11 @@
         <div class="form-group">
           <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
           <ng-select [items]="listOfReceiverType" bindLabel="label" bindValue="value" [searchable]="true"
-            placeholder="{{'Receiver Type'|translate}}" ([ngModel])="receiverDetails.type">
+            placeholder="{{'Receiver Type'|translate}}" [(ngModel)]="receiverDetails.type" formControlName="type">
           </ng-select>
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.type.errors?.required">
+            {{'Type is required'|translate}}.
+          </small>
         </div>
       </div>
       <!-- national id -->
@@ -25,7 +31,10 @@
         <div class="form-group">
           <label>{{'National ID' | translate}}<span class="text-danger">*</span></label>
           <input type="number" class="form-control" placeholder="{{'National ID'|translate}}"
-            ([ngModel])="receiverDetails.reg_num">
+            [(ngModel)]="receiverDetails.reg_num" formControlName="reg_num">
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.reg_num.errors?.required">
+            {{'National ID is required'|translate}}.
+          </small>
         </div>
       </div>
     </div>
@@ -44,6 +53,9 @@
             bindValue="code" [searchable]="true" placeholder="{{'Country'|translate}}"
             [(ngModel)]="receiverDetails.country" formControlName="country">
           </ng-select>
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.country.errors?.required">
+            {{'Country is required'|translate}}.
+          </small>
         </div>
       </div>
       <!-- governate -->
@@ -51,7 +63,10 @@
         <div class="form-group">
           <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Governate'|translate}}"
-            ([ngModel])="receiverDetails.governate">
+            [(ngModel)]="receiverDetails.governate" formControlName="governate">
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.governate.errors?.required">
+            {{'Governate is required'|translate}}.
+          </small>
         </div>
       </div>
       <!-- region city-->
@@ -59,7 +74,10 @@
         <div class="form-group">
           <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
-            ([ngModel])="receiverDetails.regionCity">
+            [(ngModel)]="receiverDetails.regionCity" formControlName="regionCity">
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.regionCity.errors?.required">
+            {{'Region City is required'|translate}}.
+          </small>
         </div>
       </div>
     </div>
@@ -70,7 +88,10 @@
         <div class="form-group">
           <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Street'|translate}}"
-            ([ngModel])="receiverDetails.street">
+            [(ngModel)]="receiverDetails.street" formControlName="street">
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.street.errors?.required">
+            {{'Street is required'|translate}}.
+          </small>
         </div>
       </div>
       <!-- building number -->
@@ -78,7 +99,10 @@
         <div class="form-group">
           <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
-            ([ngModel])="receiverDetails.buildingNumber">
+            [(ngModel)]="receiverDetails.buildingNumber" formControlName="buildingNumber">
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.buildingNumber.errors?.required">
+            {{'Building Number is required'|translate}}.
+          </small>
         </div>
       </div>
 
@@ -89,6 +113,6 @@
 
 <mat-dialog-actions align="center">
   <button mat-button class="btn btn-secondary text-light" mat-dialog-close>{{'Cancel'|translate}}</button>
-  <button mat-button class="btn btn-info text-light" [mat-dialog-close]="true"
-    cdkFocusInitial>{{'Create'|translate}}</button>
+  <button mat-button class="btn btn-info text-light" cdkFocusInitial
+    (click)="createReceiver(receiverForm)">{{'Create'|translate}}</button>
 </mat-dialog-actions>

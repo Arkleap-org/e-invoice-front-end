@@ -10,6 +10,7 @@ import { ReceiverComponent } from 'src/app/shared/popups/receiver/receiver.compo
 // services
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { InvoiceService } from 'src/app/shared/services/invoice.service';
+import { ReceiverService } from 'src/app/shared/services/receiver.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class InvoiceDetailsComponent implements OnInit {
   constructor(
     private dialogService: DialogService,
     private invoiceService: InvoiceService,
+    private receiverService: ReceiverService,
     public dialog: MatDialog
   ) {
     // init variables
@@ -87,7 +89,7 @@ export class InvoiceDetailsComponent implements OnInit {
   // #region main actions
 
   listReceivers() {
-    this.invoiceService.listReceivers().subscribe((response: ResponseDto) => {
+    this.receiverService.listReceivers().subscribe((response: ResponseDto) => {
       this.listOfReceivers = response.data;
     });
   }
@@ -96,7 +98,7 @@ export class InvoiceDetailsComponent implements OnInit {
     const dialogRef = this.dialog.open(ReceiverComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.listReceivers();
     });
   }
 

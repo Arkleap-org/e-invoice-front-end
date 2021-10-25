@@ -1,7 +1,9 @@
 // angular core
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { InvoiceDetailsComponent } from 'src/app/invoice/invoice-details/invoice-details.component';
 import { ResponseDto } from '../../models/api-response.model';
 import { ReceiverDto } from '../../models/receiver.model';
 import { ListsService } from '../../services/lists.service';
@@ -19,6 +21,9 @@ export class ReceiverComponent implements OnInit {
 
   receiverDetails: ReceiverDto;
 
+  // names of booleans
+  isSubmitted: boolean;
+
   // names of lists
   listOfReceiverType: { label: string, value: string }[];
   listOfCountries: { code: string, en_name: string, ar_name: string }[];
@@ -35,7 +40,8 @@ export class ReceiverComponent implements OnInit {
     private formBuilder: FormBuilder,
     private listsService: ListsService,
     public translate: TranslateService,
-    private receiverService: ReceiverService
+    private receiverService: ReceiverService,
+    public dialog: MatDialog
   ) {
     // init variables
     this.listOfReceiverType = [
@@ -47,6 +53,8 @@ export class ReceiverComponent implements OnInit {
     this.listOfCountries = [];
 
     this.receiverDetails = new ReceiverDto;
+
+    this.isSubmitted = false
 
     // init forms
     this.initForms();
@@ -81,6 +89,9 @@ export class ReceiverComponent implements OnInit {
     });
   }
 
+  get receiverFormControls() {
+    return this.receiverForm.controls;
+  }
   // #endregion
 
   // #region main actions
@@ -93,6 +104,15 @@ export class ReceiverComponent implements OnInit {
   }
 
   createReceiver(form: FormGroup) {
+    console.log(form)
+    this.isSubmitted = true;
+    if (form.valid) {
+      this.receiverService.createReceiver(this.receiverDetails).subscribe((response: ResponseDto) => {
+        this.isSubmitted = false;
+        this.dialog.closeAll();
+      });
+    }
+
 
   }
 
