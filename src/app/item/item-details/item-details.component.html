@@ -48,7 +48,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Unit Type' | translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfUnitTypes" bindLabel="unitType" bindValue="id" formControlName="unit_type"
+            <ng-select [items]="listOfUnitTypes" bindLabel="desc_en" bindValue="code" formControlName="unit_type"
               [(ngModel)]="model.unit_type" [searchable]="true" placeholder="{{'Unit Type'|translate}}">
             </ng-select>
 
@@ -64,7 +64,7 @@
           <div class="form-group">
             <label>{{'Type' | translate}}</label>
             <ng-select [(ngModel)]="model.item_type" [items]="listOfTypes" formControlName="item_type"
-              [searchable]="true" placeholder="{{'Code Type'|translate}}">
+              [searchable]="true" placeholder="{{'Activity Type'|translate}}">
             </ng-select>
 
           </div>
@@ -87,7 +87,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Type' | translate}}</label>
-            <ng-select [(ngModel)]="model.sub_tax_type" [items]="listOfTaxTypes" bindLabel="taxType" bindValue="id"
+            <ng-select [(ngModel)]="model.sub_tax_type" [items]="listOfTaxTypes" bindLabel="desc_en" bindValue="code"
               [searchable]="true" formControlName="sub_tax_type" placeholder="{{'Tax Type'|translate}}">
             </ng-select>
 
