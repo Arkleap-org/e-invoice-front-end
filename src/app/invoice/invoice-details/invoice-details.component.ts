@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 // modals
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { ReceiverDto } from 'src/app/shared/models/receiver.model';
 import { ReceiverComponent } from 'src/app/shared/popups/receiver/receiver.component';
 
 // services
@@ -22,7 +23,7 @@ export class InvoiceDetailsComponent implements OnInit {
   // #region declare variables
 
   isNewReceiver: boolean;
-  listOfReceivers: {}[];
+  listOfReceivers: ReceiverDto[];
   listOfDocumentTypes: { label: string, value: string }[];
   listOfDocumentTypeVersions: string[];
   listOfItems: { id: number, name: string }[];
@@ -87,7 +88,6 @@ export class InvoiceDetailsComponent implements OnInit {
 
   listReceivers() {
     this.invoiceService.listReceivers().subscribe((response: ResponseDto) => {
-      console.log(response);
       this.listOfReceivers = response.data;
     });
   }

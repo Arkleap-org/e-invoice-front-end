@@ -1,13 +1,14 @@
 <h2 mat-dialog-title>{{'Receiver' | translate}}</h2>
 <mat-dialog-content class="mat-typography">
-  <div class="form">
+  <div class="form" [formGroup]="receiverForm">
     <!-- first row -->
     <div class="row d-flex align-items-center">
       <!-- name -->
       <div class="col-4">
         <div class="form-group">
           <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Receiver Name'|translate}}">
+          <input type="text" class="form-control" placeholder="{{'Receiver Name'|translate}}"
+            ([ngModel])="receiverDetails.name">
         </div>
       </div>
       <!-- type -->
@@ -15,7 +16,7 @@
         <div class="form-group">
           <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
           <ng-select [items]="listOfReceiverType" bindLabel="label" bindValue="value" [searchable]="true"
-            placeholder="{{'Receiver Type'|translate}}">
+            placeholder="{{'Receiver Type'|translate}}" ([ngModel])="receiverDetails.type">
           </ng-select>
         </div>
       </div>
@@ -23,7 +24,8 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>{{'National ID' | translate}}<span class="text-danger">*</span></label>
-          <input type="number" class="form-control" placeholder="{{'National ID'|translate}}">
+          <input type="number" class="form-control" placeholder="{{'National ID'|translate}}"
+            ([ngModel])="receiverDetails.reg_num">
         </div>
       </div>
     </div>
@@ -34,8 +36,13 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-          <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
-            placeholder="{{'Country'|translate}}">
+          <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfCountries" [bindLabel]="'desc_en'"
+            bindValue="code" [searchable]="true" placeholder="{{'Country'|translate}}"
+            [(ngModel)]="receiverDetails.country" formControlName="country">
+          </ng-select>
+          <ng-select *ngIf="translate.currentLang === 'ar'" [items]="listOfCountries" [bindLabel]="'desc_ar'"
+            bindValue="code" [searchable]="true" placeholder="{{'Country'|translate}}"
+            [(ngModel)]="receiverDetails.country" formControlName="country">
           </ng-select>
         </div>
       </div>
@@ -43,40 +50,38 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Governate'|translate}}">
+          <input type="text" class="form-control" placeholder="{{'Governate'|translate}}"
+            ([ngModel])="receiverDetails.governate">
         </div>
       </div>
       <!-- region city-->
       <div class="col-md-4">
         <div class="form-group">
           <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Region City'|translate}}">
+          <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
+            ([ngModel])="receiverDetails.regionCity">
         </div>
       </div>
     </div>
     <!-- third row -->
     <div class="row">
       <!-- street -->
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="form-group">
           <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Street'|translate}}">
+          <input type="text" class="form-control" placeholder="{{'Street'|translate}}"
+            ([ngModel])="receiverDetails.street">
         </div>
       </div>
       <!-- building number -->
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="form-group">
           <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}">
+          <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
+            ([ngModel])="receiverDetails.buildingNumber">
         </div>
       </div>
-      <!-- issued Date -->
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
-          <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}">
-        </div>
-      </div>
+
     </div>
 
   </div>
