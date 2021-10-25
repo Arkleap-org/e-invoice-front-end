@@ -1,0 +1,89 @@
+<h2 mat-dialog-title>{{'Receiver' | translate}}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="form">
+    <!-- first row -->
+    <div class="row d-flex align-items-center">
+      <!-- name -->
+      <div class="col-4">
+        <div class="form-group">
+          <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Receiver Name'|translate}}">
+        </div>
+      </div>
+      <!-- type -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
+          <ng-select [items]="listOfReceiverType" bindLabel="label" bindValue="value" [searchable]="true"
+            placeholder="{{'Receiver Type'|translate}}">
+          </ng-select>
+        </div>
+      </div>
+      <!-- national id -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'National ID' | translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'National ID'|translate}}">
+        </div>
+      </div>
+    </div>
+
+    <!-- second row -->
+    <div class="row">
+      <!-- country -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
+          <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
+            placeholder="{{'Country'|translate}}">
+          </ng-select>
+        </div>
+      </div>
+      <!-- governate -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Governate'|translate}}">
+        </div>
+      </div>
+      <!-- region city-->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Region City'|translate}}">
+        </div>
+      </div>
+    </div>
+    <!-- third row -->
+    <div class="row">
+      <!-- street -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Street'|translate}}">
+        </div>
+      </div>
+      <!-- building number -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}">
+        </div>
+      </div>
+      <!-- issued Date -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
+          <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-button class="btn btn-secondary text-light" mat-dialog-close>{{'Cancel'|translate}}</button>
+  <button mat-button class="btn btn-info text-light" [mat-dialog-close]="true"
+    cdkFocusInitial>{{'Create'|translate}}</button>
+</mat-dialog-actions>

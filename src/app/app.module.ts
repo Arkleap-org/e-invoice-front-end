@@ -29,6 +29,7 @@ import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
 import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
+import { ReceiverComponent } from './shared/popups/receiver/receiver.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.compon
     InvoiceListComponent,
     IssuerAddressComponent,
     InvoiceViewComponent,
+    ReceiverComponent,
 
   ],
   imports: [

@@ -1,6 +1,15 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
+// modals
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { ReceiverComponent } from 'src/app/shared/popups/receiver/receiver.component';
+
+// services
 import { DialogService } from 'src/app/shared/services/dialog.service';
+import { InvoiceService } from 'src/app/shared/services/invoice.service';
+
 
 @Component({
   selector: 'app-invoice-details',
@@ -14,8 +23,6 @@ export class InvoiceDetailsComponent implements OnInit {
 
   isNewReceiver: boolean;
   listOfReceivers: {}[];
-  listOfReceiverType: { label: string, value: string }[];
-  listOfCountries: { code: string, en_name: string, ar_name: string }[];
   listOfDocumentTypes: { label: string, value: string }[];
   listOfDocumentTypeVersions: string[];
   listOfItems: { id: number, name: string }[];
@@ -27,42 +34,13 @@ export class InvoiceDetailsComponent implements OnInit {
 
   constructor(
     private dialogService: DialogService,
+    private invoiceService: InvoiceService,
+    public dialog: MatDialog
   ) {
     // init variables
     this.isNewReceiver = false;
-    this.listOfReceivers = [
-      {
-        id: 1,
-        name: "khalaf"
-      }
-    ];
-    this.listOfReceiverType = [
-      {
-        label: 'Business',
-        value: 'B'
-      },
-      {
-        label: 'Natural Preson',
-        value: 'NP'
-      },
-      {
-        label: 'Foreigner',
-        value: 'F'
-      }
-    ];
 
-    this.listOfCountries = [
-      {
-        code: 'EG',
-        en_name: 'Egypt',
-        ar_name: 'مصر'
-      },
-      {
-        code: 'UK',
-        en_name: 'United Kingdom',
-        ar_name: 'المملكة المتحدة'
-      }
-    ];
+    this.listOfReceivers = [];
 
     this.listOfDocumentTypes = [
       {
@@ -100,11 +78,27 @@ export class InvoiceDetailsComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
+    this.listReceivers();
   }
 
   // #endregion
 
   // #region main actions
+
+  listReceivers() {
+    this.invoiceService.listReceivers().subscribe((response: ResponseDto) => {
+      console.log(response);
+      this.listOfReceivers = response.data;
+    });
+  }
+
+  openReceiverPopup() {
+    const dialogRef = this.dialog.open(ReceiverComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
   cancelAndRouteBack() {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");

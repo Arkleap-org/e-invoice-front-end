@@ -20,5 +20,10 @@ export class InvoiceService {
     const url = `invoice/get/${id}`;
     return this.http.get<ResponseDto>(url);
   }
+
+  listReceivers() {
+    const url = `issuer/receiver/list`;
+    return this.http.get<ResponseDto>(url);
+  }
 }
 
