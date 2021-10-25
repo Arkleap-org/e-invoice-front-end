@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
           <mat-card class="login-form">
-            <div [formGroup]="loginForm">
+            <div [formGroup]="loginForm"  (keyup.enter)="userLogin(model)">
 
               <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example3">{{'Email Address'|translate}}<span class="text-danger">*</span></label>
@@ -45,9 +45,9 @@
   
               <div class="text-center text-lg-start mt-4 pt-2">
                 <button type="button" class="btn btn-danger btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;"
-                  (click)="userLogin(model)">{{'Login'|translate}}</button>
+                  (click)="userLogin(model)" (submit)="userLogin(model)">{{'Login'|translate}}</button>
                 <p class="small mt-2 pt-1 mb-0">{{"Don't have an account?"|translate}} <a routerLink="/register"
-                    class="link-light">{{'Register'|translate}}</a>
+                    class="link-primary">{{'Register'|translate}}</a>
                 </p>
               </div>
   
