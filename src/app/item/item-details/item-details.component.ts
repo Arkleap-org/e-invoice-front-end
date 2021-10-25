@@ -61,7 +61,9 @@ export class ItemDetailsComponent implements OnInit {
   ) {
 
     // init variables
-    this.listOfTypes = [];
+    this.listOfTypes = [
+      'GS1', 'EGS'
+    ];
 
     this.listOfInternalCodes = [
       {
@@ -117,6 +119,7 @@ export class ItemDetailsComponent implements OnInit {
 
   // form controls
 
+
   get itemsFormControls() {
     return this.itemsForm.controls;
   }
@@ -132,11 +135,6 @@ export class ItemDetailsComponent implements OnInit {
     })
   }
 
-  listTypes(){
-    this.itemService.listTypes().subscribe((res: ResponseDto) => {
-      this.listOfTypes = res.data;
-    })
-  }
 
 
   listTaxTypes(){
@@ -147,7 +145,6 @@ export class ItemDetailsComponent implements OnInit {
 
   loadControls(){
     this.listUnitTypes();
-    this.listTypes();
     this.listTaxTypes();
   }
 

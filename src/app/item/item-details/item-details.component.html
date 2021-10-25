@@ -63,7 +63,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Type' | translate}}</label>
-            <ng-select [(ngModel)]="model.item_type"  bindLabel="desc_en" bindValue="code"[items]="listOfTypes" formControlName="item_type"
+            <ng-select [(ngModel)]="model.item_type" [items]="listOfTypes" formControlName="item_type"
               [searchable]="true" placeholder="{{'Activity Type'|translate}}">
             </ng-select>
 
