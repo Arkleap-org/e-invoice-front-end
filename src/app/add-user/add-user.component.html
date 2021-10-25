@@ -28,21 +28,26 @@
       <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.email.errors?.required">
         {{'Email is required'|translate}}.
       </small>
+      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.email.errors?.email">
+        {{'Email is not correct'|translate}}.
+      </small>
     </div>
     <div class="col-7 form-group">
       <label for="password">{{'Password'|translate}}<span class="text-danger">*</span></label>
-      <input class="form-control" type="password" formControlName="password" id="password">
-      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.password.errors?.required">
+      <input class="form-control" type="password" formControlName="password" id="password" [(ngModel)]="password"
+        (ngModelChange)="isPasswordMatch = password === password2">
+      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.password.errors?.minlength">
         {{'Password should be 8 or more figures'|translate}}.
       </small>
     </div>
     <div class="col-7 form-group">
       <label for="confirm_password">{{'Confirm Password'|translate}}<span class="text-danger">*</span></label>
-      <input class="form-control" type="password" formControlName="password2" id="confirm_password">
+      <input class="form-control" type="password" formControlName="password2" id="confirm_password"
+        [(ngModel)]="password2" (ngModelChange)="isPasswordMatch = password === password2">
       <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.password2.errors?.required">
         {{'Password required'|translate}}.
       </small>
-      <small class="text-danger" *ngIf="!isPasswordMatch">
+      <small class="text-danger" *ngIf="isSubmitted && !isPasswordMatch">
         {{'Passwords don\'t match'|translate}}.
       </small>
 
