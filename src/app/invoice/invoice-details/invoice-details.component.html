@@ -24,7 +24,7 @@
   <br>
   <!-- receiver card data -->
   <mat-card-content>
-    <div class="form">
+    <div class="form" [formGroup]="invoiceForm">
       <!-- first row -->
       <div class="row d-flex align-items-center">
         <!-- name -->
@@ -39,7 +39,10 @@
         <!-- add btn -->
         <div class="col-3">
           <div class="form-group">
-            <button type="button" class="btn btn-primary" (click)="openReceiverPopup()">add</button>
+            <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom"
+              title="{{'add receiver'|translate}}" style="padding-top: 3rem;" (click)="openReceiverPopup()">
+              <mat-icon>add</mat-icon>
+            </button>
           </div>
         </div>
       </div>
@@ -53,7 +56,7 @@
 <mat-card>
   <mat-card-title>{{'Invoice'|translate}}</mat-card-title>
   <br>
-  <form class="form">
+  <div class="form">
     <!-- first row -->
     <div class="row">
       <!-- document type -->
@@ -86,7 +89,7 @@
     <!-- second row -->
     <div class="row">
       <!-- Items -->
-      <div class="col-md-4">
+      <div class="col-3">
         <div class="form-group">
           <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
           <ng-select [items]="listOfItems" bindLabel="name" bindValue="id" [searchable]="true"
@@ -95,27 +98,29 @@
         </div>
       </div>
       <!-- Quantity -->
-      <div class="col-md-4">
+      <div class="col-3">
         <div class="form-group">
           <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
           <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}">
         </div>
       </div>
       <!-- Total Amount -->
-      <div class="col-md-4">
+      <div class="col-3">
         <div class="form-group">
           <label>{{'Total Amount'|translate}}<span class="text-danger">*</span></label>
           <input type="number" class="form-control" placeholder="{{'Total Amount'|translate}}">
         </div>
       </div>
-    </div>
-    <!-- description -->
-    <div class="form-group">
-      <label>{{'Description'|translate}}</label>
-      <input type="number" class="form-control" placeholder="{{'Description'|translate}}">
+      <!-- description -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Description'|translate}}</label>
+          <input type="number" class="form-control" placeholder="{{'Description'|translate}}">
+        </div>
+      </div>
     </div>
 
-  </form>
+  </div>
 
 
 </mat-card>
