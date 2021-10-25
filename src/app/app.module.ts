@@ -29,6 +29,7 @@ import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
 import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.compon
   imports: [
     SharedModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthService,
