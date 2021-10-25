@@ -4,6 +4,7 @@ import { Observable, throwError } from "rxjs";
 import { retry, catchError } from "rxjs/operators";
 import { SecurityService } from "../services/security.service";
 import { NotificationMessageService } from "../services/notification.message.service";
+import { ErrorDto } from "../models/api-response.model";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -15,7 +16,15 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe((retry(0)) as any,
         catchError((error: HttpErrorResponse) => {
-
+          debugger
+          const errorModel: ErrorDto = error.error;
+          // customized response
+          if (errorModel.response_id) {
+            if (errorModel.warning) { }
+          }
+          else if (typeof (error.error) === "object") { }
+          else if (typeof (error.error) === "string") { }
+          else { }
           return throwError(error);
         }));
   }
