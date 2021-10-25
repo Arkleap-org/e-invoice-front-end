@@ -2,28 +2,42 @@
   <mat-card-title class="pb-3">{{'Create User' | translate}}</mat-card-title>
   <div class="row pt-5" [formGroup]="userForm">
     <div class="col-7 form-group">
-      <label for="user_name">{{'User Name'|translate}}</label>
+      <label for="user_name">{{'User Name'|translate}}<span class="text-danger">*</span></label>
       <input class="form-control" type="text" formControlName="username" id="username">
       <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.username.errors?.required">
         {{'Name is required'|translate}}.
       </small>
     </div>
     <div class="col-7 form-group">
-      <label for="user_name">{{'Email'|translate}}</label>
-      <input class="form-control" type="text" formControlName="email" id="email">
+      <label for="first_name">{{'First Name'|translate}}<span class="text-danger">*</span></label>
+      <input class="form-control" type="text" formControlName="first_name" id="first_name">
+      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.first_name.errors?.required">
+        {{'First name is required'|translate}}.
+      </small>
+    </div>
+    <div class="col-7 form-group">
+      <label for="last_name">{{'Last Name'|translate}}<span class="text-danger">*</span></label>
+      <input class="form-control" type="text" formControlName="last_name" id="last_name">
+      <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.last_name.errors?.required">
+        {{'Last name is required'|translate}}.
+      </small>
+    </div>
+    <div class="col-7 form-group">
+      <label for="user_name">{{'Email'|translate}}<span class="text-danger">*</span></label>
+      <input class="form-control" type="email" formControlName="email" id="email">
       <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.email.errors?.required">
         {{'Email is required'|translate}}.
       </small>
     </div>
     <div class="col-7 form-group">
-      <label for="password">{{'Password'|translate}}</label>
+      <label for="password">{{'Password'|translate}}<span class="text-danger">*</span></label>
       <input class="form-control" type="password" formControlName="password" id="password">
       <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.password.errors?.required">
         {{'Password should be 8 or more figures'|translate}}.
       </small>
     </div>
     <div class="col-7 form-group">
-      <label for="confirm_password">{{'Confirm Password'|translate}}</label>
+      <label for="confirm_password">{{'Confirm Password'|translate}}<span class="text-danger">*</span></label>
       <input class="form-control" type="password" formControlName="password2" id="confirm_password">
       <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.password2.errors?.required">
         {{'Password required'|translate}}.
