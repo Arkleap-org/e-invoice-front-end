@@ -61,9 +61,7 @@ export class ItemDetailsComponent implements OnInit {
   ) {
 
     // init variables
-    this.listOfTypes = [
-      'GS1', 'EGS'
-    ];
+    this.listOfTypes = [];
 
     this.listOfInternalCodes = [
       {
@@ -80,25 +78,14 @@ export class ItemDetailsComponent implements OnInit {
       }
     ];
     // waiting for api
-    this.listOfUnitTypes = [
-      {
-        "id": "EA",
-        "unitType": "unit type 1"
-      },
+    this.listOfUnitTypes = [];
 
-    ];
-
-    this.listOfTaxTypes = [
-      {
-        "id": "V009",
-        "taxType": "tax type 1"
-      },
-
-    ];
+    this.listOfTaxTypes = [];
     this.model = new CreateItemRequestDto;
     this.isSubmitted = false;
     this.itemDetails = new CreateItemRequestDto;
     this.initForm();
+    this.loadControls();
   }
 
   // #region end
@@ -108,6 +95,7 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.model.id = this.route.snapshot.params["id"];
     if (this.model.id) this.getItemById(this.model.id)
+
   }
 
   // #endregion
@@ -131,6 +119,36 @@ export class ItemDetailsComponent implements OnInit {
 
   get itemsFormControls() {
     return this.itemsForm.controls;
+  }
+
+  // #endregion
+
+
+  // #region load controls
+
+  listUnitTypes(){
+    this.itemService.listUnitTypes().subscribe((res: ResponseDto) => {
+      this.listOfUnitTypes = res.data;
+    })
+  }
+
+  listTypes(){
+    this.itemService.listTypes().subscribe((res: ResponseDto) => {
+      this.listOfTypes = res.data;
+    })
+  }
+
+
+  listTaxTypes(){
+    this.itemService.listTaxTypes().subscribe((res: ResponseDto) => {
+      this.listOfTaxTypes = res.data;
+    })
+  }
+
+  loadControls(){
+    this.listUnitTypes();
+    this.listTypes();
+    this.listTaxTypes();
   }
 
   // #endregion

@@ -28,6 +28,25 @@ export class ItemsService {
     return this.http.get<ResponseDto>(url)
   }
 
+  listUnitTypes(){
+    const url = `codes/unit-types/list`
+    return this.http.get<ResponseDto>(url)
+
+  }
+
+  listTypes(){
+    const url = `codes/activity-types/list`
+    return this.http.get<ResponseDto>(url)
+
+  }
+
+
+  listTaxTypes(){
+    const url = `codes/tax-subtypes/list`
+    return this.http.get<ResponseDto>(url)
+
+  }
+
   getItemById(id: number) {
     const url = `issuer/item/get/${id}`;
     return this.http.get<ResponseDto>(url)
