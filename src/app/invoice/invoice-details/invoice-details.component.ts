@@ -24,10 +24,11 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // #region declare variables
 
+  documentTypeVersion!: string;
+
   // names of lists
   listOfReceivers: ReceiverDto[];
   listOfDocumentTypes: { label: string, value: string }[];
-  listOfDocumentTypeVersions: string[];
   listOfItems: { id: number, name: string }[];
 
   // names of forms
@@ -54,10 +55,6 @@ export class InvoiceDetailsComponent implements OnInit {
       { label: "Invoice", value: "I" },
       { label: "Credit Memo", value: "C" },
       { label: "Debit Memo", value: "D" }
-    ];
-
-    this.listOfDocumentTypeVersions = [
-      '0.9', '1.0'
     ];
 
     this.listOfItems = [
@@ -93,6 +90,7 @@ export class InvoiceDetailsComponent implements OnInit {
       document_type: ['', Validators.required],
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
+      date_time_issued: ['', Validators.required],
       lines: this.formBuilder.array([this.createLines()])
     });
   }
@@ -106,7 +104,8 @@ export class InvoiceDetailsComponent implements OnInit {
       sales_total: [''],
       discount_amount: [''],
       tax_amount: [''],
-      net_total: ['']
+      net_total: [''],
+      total_amount: ['']
     });
   }
 
@@ -117,6 +116,10 @@ export class InvoiceDetailsComponent implements OnInit {
 
   deleteRow(index: number) {
     this.lines.removeAt(index);
+  }
+
+  get linesControls() {
+    return (this.invoiceForm.controls.lines as FormArray).controls;
   }
 
   // #endregion
