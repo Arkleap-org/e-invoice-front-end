@@ -2,15 +2,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ItemsList } from '@ng-select/ng-select/lib/items-list';
 
 // modals
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { ListItemsResponseDto } from 'src/app/shared/models/items.model';
 import { ReceiverDto } from 'src/app/shared/models/receiver.model';
 import { ReceiverComponent } from 'src/app/shared/popups/receiver/receiver.component';
 
 // services
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { InvoiceService } from 'src/app/shared/services/invoice.service';
+import { ItemsService } from 'src/app/shared/services/items.service';
 import { ReceiverService } from 'src/app/shared/services/receiver.service';
 
 
@@ -31,7 +34,7 @@ export class InvoiceDetailsComponent implements OnInit {
   // names of lists
   listOfReceivers: ReceiverDto[];
   listOfDocumentTypes: { label: string, value: string }[];
-  listOfItems: { id: number, name: string }[];
+  listOfItems: ListItemsResponseDto[];
 
   // names of forms
   invoiceForm!: FormGroup
@@ -50,7 +53,8 @@ export class InvoiceDetailsComponent implements OnInit {
     private invoiceService: InvoiceService,
     private receiverService: ReceiverService,
     public dialog: MatDialog,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private itemsService: ItemsService
   ) {
     // init variables
 
@@ -62,16 +66,7 @@ export class InvoiceDetailsComponent implements OnInit {
       { label: "Debit Memo", value: "D" }
     ];
 
-    this.listOfItems = [
-      {
-        id: 1,
-        name: "item 1"
-      },
-      {
-        id: 2,
-        name: "item 2"
-      }
-    ];
+    this.listOfItems = [];
 
     this.receiverDetails = new ReceiverDto;
 
@@ -86,7 +81,7 @@ export class InvoiceDetailsComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
-    this.listReceivers();
+    this.loadControls();
   }
 
   // #endregion
@@ -137,6 +132,15 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // #endregion
 
+  // #region load controls
+
+  loadControls() {
+    this.listReceivers();
+    this.listItems();
+  }
+
+  // #endregion
+
   // #region main actions
 
   listReceivers() {
@@ -148,10 +152,8 @@ export class InvoiceDetailsComponent implements OnInit {
   getReceiver() {
     this.receiverService.getReciever(this.receiverId).subscribe((response: ResponseDto) => {
       this.receiverDetails = response.data;
-      console.log(this.receiverDetails);
       this.isReceiver = true;
     });
-
   }
 
   openReceiverPopup() {
@@ -164,6 +166,12 @@ export class InvoiceDetailsComponent implements OnInit {
 
   cancelAndRouteBack() {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
+  }
+
+  listItems() {
+    this.itemsService.listItems().subscribe((response: ResponseDto) => {
+      this.listOfItems = response.data
+    });
   }
 
   // #end region
