@@ -25,6 +25,8 @@ export class AddUserComponent implements OnInit {
   isSubmitted: boolean;
   userForm!: FormGroup;
   isPasswordMatch: boolean;
+  password!: string;
+  password2!: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,11 +53,12 @@ export class AddUserComponent implements OnInit {
   // #region init forms
 
   initForm() {
-
     this.userForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
-      password: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      password: ['', Validators.minLength(8)],
       password2: ['', Validators.required],
     });
   }
@@ -71,16 +74,12 @@ export class AddUserComponent implements OnInit {
 
   createUser(model: UserRequestDto) {
     this.isSubmitted = true;
-
-    if (this.userForm.value.password === this.userForm.value.password2) {
-      if (this.userForm.valid)
-        this.userService.createUser(model).subscribe((res: ResponseDto) => {
-          this.userForm.reset();
-          this.dialogService.savedSuccessfully('User saved successfully!')
-          this.isSubmitted = false;
-        });
-    }
-    else this.isPasswordMatch = false;
+    if (this.userForm.valid && this.isPasswordMatch)
+      this.userService.createUser(model).subscribe((res: ResponseDto) => {
+        this.userForm.reset();
+        this.dialogService.savedSuccessfully('User saved successfully!')
+        this.isSubmitted = false;
+      });
   }
 
   // #endregion

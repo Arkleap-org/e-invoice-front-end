@@ -14,7 +14,7 @@ export class UserService {
 
 
   createUser(model: UserRequestDto) {
-    const url = `/user/add`;
+    const url = `user/add`;
     return this.http.post<ResponseDto>(url, model);
   }
 
