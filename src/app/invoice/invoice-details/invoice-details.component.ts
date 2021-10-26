@@ -183,7 +183,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // #endregion
 
-  // #region calculations
+  // #region line calculations
 
   calculateSalesTotal(index: number) {
     this.linesDetails[index].sales_total = (this.linesDetails[index].amount_egp * this.linesDetails[index].quantity);
@@ -192,22 +192,47 @@ export class InvoiceDetailsComponent implements OnInit {
   calculateNetTotal(index: number, discount_amount: number) {
     if (this.linesDetails[index].sales_total && discount_amount) {
       this.linesDetails[index].net_total = (this.linesDetails[index].sales_total - discount_amount);
-      // console.log(this.linesDetails[index].net_total);
-
       this.calculateTaxAmount(index);
-      this.calculateTotalAmount(index);
+      this.calculateTotalLineAmount(index);
     }
   }
 
   calculateTaxAmount(index: number) {
-    // console.log('hello drug dealers');
-
     if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount = (this.linesDetails[index].net_total * (this.itemDetails.sub_tax_rate / 100));
   }
 
-  calculateTotalAmount(index: number) {
+  calculateTotalLineAmount(index: number) {
     if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount) this.linesDetails[index].total_amount = (this.linesDetails[index].net_total + this.linesDetails[index].tax_amount);
   }
+
+  // #endregion
+
+  // #region invoice summary calculations
+
+  calculateTotalSalesAmount() {
+
+  }
+
+  calculateTotalDiscountAmount() {
+
+  }
+
+  calculateTotalItemsDiscount() {
+
+  }
+
+  calculateTaxTotals() {
+
+  }
+
+  calculateExtraDiscountAmount() {
+
+  }
+
+  calculateTotalInvoiceAmount() {
+
+  }
+
 
   // #endregion
 
