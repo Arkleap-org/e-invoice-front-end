@@ -1,188 +1,210 @@
-<!-- radio buttons for receiver -->
-<mat-card>
-  <div class="row">
-    <div class="form-check col-md-6">
-      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [value]="true"
-        [(ngModel)]="isNewReceiver">
-      <label class="form-check-label" for="flexRadioDefault1">
-        {{'New Receiver'|translate}}
-      </label>
-    </div>
-    <div class="form-check col-md-6">
-      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" [value]="false"
-        [(ngModel)]="isNewReceiver" checked>
-      <label class="form-check-label" for="flexRadioDefault2">
-        {{'Existing Receiver'|translate}}
-      </label>
-    </div>
-  </div>
-</mat-card>
-<br>
-
 <!-- receiver form -->
 <mat-card>
-  <mat-card-title>{{'Receiver'|translate}}</mat-card-title>
+  <div class="row" [formGroup]="invoiceForm">
+    <div class="col-6">
+      <fieldset>
+        <mat-card-content>
+          <div class="row">
+            <!-- Internal ID -->
+            <div class="form-group">
+              <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}"
+                formControlName="internal_id">
+            </div>
+            <!-- issued date -->
+            <div class="form-group">
+              <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
+              <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}"
+                formControlName="date_time_issued">
+            </div>
+            <!-- document type -->
+            <div class="form-group">
+              <label>{{'Document Type'|translate}}<span class="text-danger">*</span></label>
+              <ng-select [items]="listOfDocumentTypes" bindLabel="label" bindValue="value" [searchable]="true"
+                placeholder="{{'Document Type'|translate}}" formControlName="document_type">
+              </ng-select>
+            </div>
+            <!-- document type version -->
+            <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
+            <div class="form-group">
+              <div class="form-check col-md-6">
+                <input class="form-check-input" type="radio" id="flexRadioDefault1" [value]="0.9"
+                  [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  {{'0.9'|translate}}
+                </label>
+              </div>
+              <div class="form-check col-md-6">
+                <input class="form-check-input" type="radio" id="flexRadioDefault2" [value]="1.0" checked
+                  [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  {{'1.0'|translate}}
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </mat-card-content>
+      </fieldset>
+    </div>
+    <div class="col-6">
+      <div class="row d-flex flex-column">
+
+        <fieldset>
+          <!-- receiver card data -->
+          <mat-card-content>
+            <div class="form">
+              <!-- first row -->
+              <div class="row d-flex align-items-center">
+                <!-- name -->
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
+                    <ng-select [items]="listOfReceivers" bindLabel="name" bindValue="id" [searchable]="true"
+                      placeholder="{{'Receiver Name'|translate}}" formControlName="receiver" [(ngModel)]="receiverId"
+                      (change)="getReceiver()">
+                    </ng-select>
+                  </div>
+                </div>
+                <!-- add btn -->
+                <div class="col-3">
+                  <div class="form-group">
+                    <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom"
+                      title="{{'add receiver'|translate}}" style="padding-top: 3rem;" (click)="openReceiverPopup()">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </mat-card-content>
+        </fieldset>
+        <br>
+        <!-- receiver data -->
+        <fieldset *ngIf="isReceiver">
+          <div>
+            <label>{{'Registration Number' | translate}}</label>:
+            <span>{{receiverDetails.reg_num}}</span>
+          </div>
+          <div>
+            <label>{{'Type' | translate}}</label>:
+            <span>{{receiverDetails.type === "P" ? 'Natural Person': receiverDetails.type === "B"? 'Business' : 'Foreigner'}}</span>
+          </div>
+          <div>
+            <label>{{'Address' | translate}}</label>:
+            <span>{{receiverDetails.buildingNumber}}, {{receiverDetails.street}}, {{receiverDetails.governate}},
+              {{receiverDetails.country}}</span>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
   <br>
-  <!-- receiver card data -->
-  <mat-card-content>
-    <form class="form">
-      <!-- first row -->
-      <div class="row">
-        <!-- name -->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Receiver Name'|translate}}" *ngIf="isNewReceiver">
-            <ng-select [items]="listOfReceivers" bindLabel="name" bindValue="id" [searchable]="true"
-              placeholder="{{'Receiver Name'|translate}}" *ngIf="!isNewReceiver">
-            </ng-select>
-          </div>
-        </div>
-        <!-- type -->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfReceiverType" bindLabel="label" bindValue="value" [searchable]="true"
-              placeholder="{{'Receiver Type'|translate}}" [readonly]="!isNewReceiver">
-            </ng-select>
-          </div>
-        </div>
-        <!-- national id -->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>{{'National ID' | translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'National ID'|translate}}"
-              [disabled]="!isNewReceiver">
-          </div>
-        </div>
-      </div>
 
-      <!-- second row -->
-      <div class="row">
-        <!-- country -->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfCountries" bindLabel="en_name" bindValue="code" [searchable]="true"
-              placeholder="{{'Country'|translate}}" [readonly]="!isNewReceiver">
-            </ng-select>
-          </div>
-        </div>
-        <!-- governate -->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Governate'|translate}}" [disabled]="!isNewReceiver">
-          </div>
-        </div>
-        <!-- region city-->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
-              [disabled]="!isNewReceiver">
-          </div>
-        </div>
-      </div>
-      <!-- third row -->
-      <div class="row">
-        <!-- street -->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Street'|translate}}" [disabled]="!isNewReceiver">
-          </div>
-        </div>
-        <!-- building number -->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
-              [disabled]="!isNewReceiver">
-          </div>
-        </div>
-        <!-- issued Date -->
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
-            <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}"
-              [disabled]="!isNewReceiver">
-          </div>
-        </div>
-      </div>
-
-    </form>
-  </mat-card-content>
 </mat-card>
 <br>
 
 <!-- invoice form -->
-<mat-card>
-  <mat-card-title>{{'Invoice'|translate}}</mat-card-title>
+<mat-card [formGroup]="invoiceForm">
+  <mat-card-title>{{'Invoice Lines'|translate}}</mat-card-title>
   <br>
-  <form class="form">
-    <!-- first row -->
-    <div class="row">
-      <!-- document type -->
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>{{'Document Type'|translate}}<span class="text-danger">*</span></label>
-          <ng-select [items]="listOfDocumentTypes" bindLabel="label" bindValue="value" [searchable]="true"
-            placeholder="{{'Document Type'|translate}}">
-          </ng-select>
+  <div class="form" formArrayName="lines">
+    <fieldset *ngFor="let line of invoiceControls.controls; let i=index;" [formGroupName]="i">
+      <div class="row">
+        <!-- Items -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
+            <ng-select [items]="listOfItems" bindLabel="item_name" bindValue="id" [searchable]="true"
+              placeholder="{{'Items'|translate}}" formControlName="item">
+            </ng-select>
+          </div>
+        </div>
+        <!-- description -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Description'|translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Description'|translate}}"
+              formControlName="description">
+          </div>
+        </div>
+        <!-- Quantity -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}" formControlName="quantity">
+          </div>
+        </div>
+        <!-- unit price -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Unit Price'|translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" placeholder="{{'Unit Price'|translate}}"
+              formControlName="unit_price">
+          </div>
         </div>
       </div>
-      <!-- document type version -->
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
-          <ng-select [items]="listOfDocumentTypeVersions" [searchable]="true"
-            placeholder="{{'Document Type Version'|translate}}">
-          </ng-select>
+      <div class="row">
+        <!-- sales_total -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Sales Total'|translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" placeholder="{{'Sales Total'|translate}}"
+              formControlName="sales_total">
+          </div>
         </div>
+        <!-- discount Amount -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Discount Amount'|translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" placeholder="{{'Discount Amount'|translate}}"
+              formControlName="discount_amount">
+          </div>
+        </div>
+        <!-- net total -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Net Total'|translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" placeholder="{{'Net Amount'|translate}}"
+              formControlName="net_total">
+          </div>
+        </div>
+        <!-- tax Amount -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Tax Amount'|translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" placeholder="{{'Tax Amount'|translate}}"
+              formControlName="tax_amount">
+          </div>
+        </div>
+        <!-- tax Amount -->
+        <div class="col-3">
+          <div class="form-group">
+            <label>{{'Total Amount'|translate}}<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" placeholder="{{'Total Amount'|translate}}"
+              formControlName="total_amount">
+          </div>
+        </div>
+
+
       </div>
-      <!-- Internal ID -->
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}">
-        </div>
+    </fieldset>
+
+    <div class="row pt-2">
+      <div class="col-1">
+
+        <button type="button" mat-button class="btn-success" data-toggle="tooltip" data-placement="bottom"
+          title="{{'add more'|translate}}" (click)="addLine()">
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
     </div>
 
-    <!-- second row -->
-    <div class="row">
-      <!-- Items -->
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
-          <ng-select [items]="listOfItems" bindLabel="name" bindValue="id" [searchable]="true"
-            placeholder="{{'Items'|translate}}">
-          </ng-select>
-        </div>
-      </div>
-      <!-- Quantity -->
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}">
-        </div>
-      </div>
-      <!-- Total Amount -->
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>{{'Total Amount'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" class="form-control" placeholder="{{'Total Amount'|translate}}">
-        </div>
-      </div>
-    </div>
-    <!-- description -->
-    <div class="form-group">
-      <label>{{'Description'|translate}}</label>
-      <input type="number" class="form-control" placeholder="{{'Description'|translate}}">
-    </div>
-
-  </form>
+    <!-- <div class="row">
+      lll
+    </div> -->
+  </div>
 
 
 </mat-card>

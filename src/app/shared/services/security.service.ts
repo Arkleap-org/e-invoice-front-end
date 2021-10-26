@@ -14,7 +14,6 @@ export class SecurityService {
 
   // #region private constant
 
-  private tokenStorageKey = "token";
 
   // #endregion
 
@@ -37,7 +36,6 @@ export class SecurityService {
   // #region constructor
 
   constructor(
-    private readonly http: HttpClient,
     private readonly router: Router,
     private readonly localStorageService: LocalStorageService,
     private readonly sessionStorageService: SessionStorageService,
@@ -63,33 +61,16 @@ export class SecurityService {
 
   retrieveToken() {
     // retrieve jwt-token
-    const token = this.localStorageService.retrieve(this.tokenStorageKey);
-    return typeof token !== "undefined" ? token : null;
+    const user = this.localStorageService.retrieve('user');
+    return user && typeof user !== "undefined" ? (user as LoginResponseDto).access : null;
   }
 
   retrieveUser() {
     // retrieve user
     const user = this.localStorageService.retrieve('user');
-    return typeof user && user !== "undefined" ? user as LoginResponseDto : null;
+    return user && typeof user !== "undefined" ? user as LoginResponseDto : null;
   }
 
   // #endregion
 
-  // #region store local storage actions
-
-  storeToken(value: string) {
-    // save jwt-token
-    this.localStorageService.store(this.tokenStorageKey, value);
-  }
-
-  // #endregion
-
-  // #region remove local storage actions
-
-  removeToken() {
-    // remove jwt-token
-    this.localStorageService.remove(this.tokenStorageKey);
-  }
-
-  // #endregion
 }

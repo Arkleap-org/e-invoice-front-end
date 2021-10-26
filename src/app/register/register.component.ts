@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
+import { ListOfLanguage } from '../shared/constants/list.constant';
 import { ResponseDto } from '../shared/models/api-response.model';
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog.service';
@@ -41,10 +42,7 @@ export class RegisterComponent implements OnInit {
     private dialogService: DialogService
   ) {
     // init variables
-    this.listOfLang = [
-      { action: 'ar', text: 'العربية' },
-      { action: 'en', text: 'English' }
-    ];
+    this.listOfLang = ListOfLanguage;
     this.isSubmitted = false;
 
     // init forms
