@@ -1,20 +1,25 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
+
+// angular forms
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+// angular material dialog
 import { MatDialog } from '@angular/material/dialog';
-import { ItemsList } from '@ng-select/ng-select/lib/items-list';
+
+// components
+import { ReceiverComponent } from '../../shared/popups/receiver/receiver.component';
 
 // modals
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { ListItemsResponseDto } from 'src/app/shared/models/items.model';
-import { ReceiverDto } from 'src/app/shared/models/receiver.model';
-import { ReceiverComponent } from 'src/app/shared/popups/receiver/receiver.component';
+import { ResponseDto } from '../../shared/models/api-response.model';
+import { ListItemsResponseDto } from '../../shared/models/items.model';
+import { ReceiverDto } from '../../shared/models/receiver.model';
 
 // services
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { InvoiceService } from 'src/app/shared/services/invoice.service';
-import { ItemsService } from 'src/app/shared/services/items.service';
-import { ReceiverService } from 'src/app/shared/services/receiver.service';
+import { DialogService } from '../../shared/services/dialog.service';
+import { InvoiceService } from '../../shared/services/invoice.service';
+import { ItemsService } from '../../shared/services/items.service';
+import { ReceiverService } from '../../shared/services/receiver.service';
 
 
 @Component({
@@ -139,15 +144,23 @@ export class InvoiceDetailsComponent implements OnInit {
     this.listItems();
   }
 
-  // #endregion
-
-  // #region main actions
-
   listReceivers() {
     this.receiverService.listReceivers().subscribe((response: ResponseDto) => {
       this.listOfReceivers = response.data;
     });
   }
+
+  listItems() {
+    this.itemsService.listItems().subscribe((response: ResponseDto) => {
+      this.listOfItems = response.data
+    });
+  }
+
+  // #endregion
+
+  // #region main actions
+
+
 
   getReceiver() {
     this.receiverService.getReciever(this.receiverId).subscribe((response: ResponseDto) => {
@@ -168,11 +181,6 @@ export class InvoiceDetailsComponent implements OnInit {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
   }
 
-  listItems() {
-    this.itemsService.listItems().subscribe((response: ResponseDto) => {
-      this.listOfItems = response.data
-    });
-  }
 
   // #end region
 
