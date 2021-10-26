@@ -9,23 +9,60 @@
       <div class="row mt-6 mb-6" style="height: 10rem;">
 
         <div class="d-flex justify-content-between">
-          <div class="col-md-3">
+          <div class="col-md-3 mb-5">
             <mat-card class="text-white bg-warning">
-              <span><strong>{{'Receivers Count'|translate}}: </strong>
-                {{dashboardCounts.receivers_count || 0}}</span>
+              <div class="row card-title">
+                <div><strong>{{'Receivers Count'|translate}} </strong></div>
+              </div>
+              <div class="row px-4">
+                <div class="col-6">
+                  <span class="material-icons card-icon">
+                    person
+                    </span>
+                </div>
+                <div class="col-6 card-count">
+                  {{dashboardCounts.receivers_count || 0}}
+                </div>
+              </div>
+             
             </mat-card>
           </div>
           <div class="col-md-3">
+
             <mat-card class="text-white bg-success">
-              <span><strong>{{'Valid Invoices'|translate}}: </strong>{{dashboardCounts.submissions_count_valid ||
-                0}}</span>
+              <div class="row card-title">
+                <div><strong>{{'Valid Invoices'|translate}} </strong></div>
+              </div>
+              <div class="row px-4">
+                <div class="col-6">
+                  <span class="material-icons card-icon">
+                    done
+                    </span>
+                </div>
+                <div class="col-6 card-count">
+                  {{dashboardCounts.submissions_count_valid ||
+                    0}}
+                </div>
+              </div>
+             
             </mat-card>
           </div>
 
           <div class="col-md-3">
             <mat-card class="text-white bg-danger">
-              <span><strong>{{'Invalid Invoices'|translate}}: </strong>
-                {{dashboardCounts.submissions_count_invalid || 0}}</span>
+              <div class="row card-title">
+                <div><strong>{{'Invalid Invoices'|translate}}</strong></div>
+              </div>
+              <div class="row px-4">
+                <div class="col-6">
+                  <span class="material-icons card-icon">
+close                    </span>
+                </div>
+                <div class="col-6 card-count">
+                  {{dashboardCounts.submissions_count_invalid || 0}}
+                </div>
+              </div>
+             
             </mat-card>
           </div>
         </div>
@@ -33,7 +70,8 @@
     </div>
     <!-- recent invoices -->
     <br>
-    <mat-card-title class="text-secondary">{{'Recent Invoices' | translate}}</mat-card-title>
+    <br>
+    <mat-card-title class="text-secondary mt-6">{{'Recent Invoices' | translate}}</mat-card-title>
     <mat-form-field appearance="standard">
       <mat-label>{{'Search' | translate}}</mat-label>
       <input matInput (keyup)="applyFilter($event)" #input>
