@@ -136,14 +136,14 @@ export class InvoiceDetailsComponent implements OnInit {
     });
   }
 
-  addLine(form: any): void {
-    this.addMore = true;
-    if (form.valid) {
+  addLine(): void {
+    // this.addMore = true;
+    // if (form.valid) {
 
-      this.lines = this.invoiceForm.get('lines') as FormArray;
-      this.lines.push(this.createLines());
-      this.addMore = false;
-    }
+    this.lines = this.invoiceForm.get('lines') as FormArray;
+    this.lines.push(this.createLines());
+    // this.addMore = false;
+    // }
   }
 
   deleteRow(index: number) {
