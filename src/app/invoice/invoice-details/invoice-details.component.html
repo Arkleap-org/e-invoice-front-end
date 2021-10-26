@@ -117,7 +117,7 @@
           <div class="form-group">
             <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
             <ng-select [items]="listOfItems" bindLabel="item_name" bindValue="id" [searchable]="true"
-              placeholder="{{'Items'|translate}}" formControlName="item">
+              placeholder="{{'Items'|translate}}" formControlName="item" [(ngModel)]="itemId" (change)="getItemById()">
             </ng-select>
           </div>
         </div>
@@ -126,7 +126,7 @@
           <div class="form-group">
             <label>{{'Description'|translate}}</label>
             <input type="text" class="form-control" placeholder="{{'Description'|translate}}"
-              formControlName="description">
+              formControlName="description" [(ngModel)]="itemDetails.item_desc" readonly='true'>
           </div>
         </div>
         <!-- Quantity -->

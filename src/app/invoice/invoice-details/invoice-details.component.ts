@@ -35,6 +35,7 @@ export class InvoiceDetailsComponent implements OnInit {
   documentTypeVersion!: string;
   receiverId!: number;
   isReceiver: boolean;
+  itemId!: number;
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -47,6 +48,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // names of details
   receiverDetails: ReceiverDto;
+  itemDetails: ListItemsResponseDto;
 
 
   // #endregion
@@ -76,6 +78,8 @@ export class InvoiceDetailsComponent implements OnInit {
     this.receiverDetails = new ReceiverDto;
 
     this.isReceiver = false;
+
+    this.itemDetails = new ListItemsResponseDto;
 
     // init forms
     this.initForms();
@@ -161,7 +165,6 @@ export class InvoiceDetailsComponent implements OnInit {
   // #region main actions
 
 
-
   getReceiver() {
     this.receiverService.getReciever(this.receiverId).subscribe((response: ResponseDto) => {
       this.receiverDetails = response.data;
@@ -179,6 +182,12 @@ export class InvoiceDetailsComponent implements OnInit {
 
   cancelAndRouteBack() {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
+  }
+
+  getItemById() {
+    this.itemsService.getItemById(this.itemId).subscribe((response: ResponseDto) => {
+      this.itemDetails = response.data;
+    });
   }
 
 
