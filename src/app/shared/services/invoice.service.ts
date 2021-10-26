@@ -20,5 +20,6 @@ export class InvoiceService {
     const url = `invoice/get/${id}`;
     return this.http.get<ResponseDto>(url);
   }
+
 }
 
