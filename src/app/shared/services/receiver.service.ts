@@ -21,4 +21,10 @@ export class ReceiverService {
     const url = `issuer/receiver/list`;
     return this.http.get<ResponseDto>(url);
   }
+
+  getReciever(id: number) {
+    const url = `issuer/receiver/get/${id}`;
+    return this.http.get<ResponseDto>(url);
+  }
+
 }

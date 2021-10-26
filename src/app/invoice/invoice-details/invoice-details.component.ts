@@ -25,6 +25,8 @@ export class InvoiceDetailsComponent implements OnInit {
   // #region declare variables
 
   documentTypeVersion!: string;
+  receiverId!: number;
+  isReceiver: boolean;
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -34,6 +36,9 @@ export class InvoiceDetailsComponent implements OnInit {
   // names of forms
   invoiceForm!: FormGroup
   lines!: FormArray;
+
+  // names of details
+  receiverDetails: ReceiverDto;
 
 
   // #endregion
@@ -67,6 +72,13 @@ export class InvoiceDetailsComponent implements OnInit {
         name: "item 2"
       }
     ];
+
+    this.receiverDetails = new ReceiverDto;
+
+    this.isReceiver = false;
+
+    // init forms
+    this.initForms();
   }
 
   // #endregion
@@ -82,12 +94,13 @@ export class InvoiceDetailsComponent implements OnInit {
   // #region init forms
 
   initForms() {
-
+    this.initInvoiceForm();
   }
 
   initInvoiceForm() {
     this.invoiceForm = this.formBuilder.group({
-      document_type: ['', Validators.required],
+      document_type: [null, Validators.required],
+      receiver: [null, Validators.required],
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
       date_time_issued: ['', Validators.required],
@@ -97,7 +110,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
   createLines(): FormGroup {
     return this.formBuilder.group({
-      item: [''],
+      item: [null],
       description: [''],
       quantity: [''],
       unit_price: [''],
@@ -109,17 +122,17 @@ export class InvoiceDetailsComponent implements OnInit {
     });
   }
 
-  addAccount(): void {
+  addLine(): void {
     this.lines = this.invoiceForm.get('lines') as FormArray;
-    this.lines.push(this.createLines())
+    this.lines.push(this.createLines());
   }
 
   deleteRow(index: number) {
     this.lines.removeAt(index);
   }
 
-  get linesControls() {
-    return (this.invoiceForm.controls.lines as FormArray).controls;
+  get invoiceControls(): FormArray {
+    return this.invoiceForm.get('lines') as FormArray;
   }
 
   // #endregion
@@ -130,6 +143,15 @@ export class InvoiceDetailsComponent implements OnInit {
     this.receiverService.listReceivers().subscribe((response: ResponseDto) => {
       this.listOfReceivers = response.data;
     });
+  }
+
+  getReceiver() {
+    this.receiverService.getReciever(this.receiverId).subscribe((response: ResponseDto) => {
+      this.receiverDetails = response.data;
+      console.log(this.receiverDetails);
+      this.isReceiver = true;
+    });
+
   }
 
   openReceiverPopup() {
