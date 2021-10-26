@@ -34,6 +34,7 @@ export class ItemDetailsComponent implements OnInit {
   listOfUnitTypes: {}[];
   listOfTaxTypes: {}[];
   isSubmitted: boolean;
+  isTaxTypeSelected:boolean;
 
   //name of model
 
@@ -86,6 +87,7 @@ export class ItemDetailsComponent implements OnInit {
     this.model = new CreateItemRequestDto;
     this.isSubmitted = false;
     this.itemDetails = new CreateItemRequestDto;
+    this.isTaxTypeSelected = false;
     this.initForm();
     this.loadControls();
   }
@@ -182,6 +184,15 @@ export class ItemDetailsComponent implements OnInit {
 
   cancelAndRouteBack() {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/item/list");
+  }
+
+  TaxTypeSelected(){
+    this.isTaxTypeSelected = true;
+  }
+
+  TaxTypeNotSelected(){
+    this.isTaxTypeSelected = false;
+
   }
 
   // #region end
