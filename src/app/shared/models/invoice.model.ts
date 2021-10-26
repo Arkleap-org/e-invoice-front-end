@@ -26,20 +26,20 @@ export class InvoiceDto {
 }
 
 export class LinesDto {
-    amount_Sold!: string;
-    amount_egp!: string;
-    currency_Sold!: string;
+    amount_Sold!: number;
+    amount_egp!: number;
+    currency_Sold!: number;
     description!: string;
-    discount_amount!: string;
-    discount_rate!: string;
-    exchange_rate!: string
+    discount_amount!: number;
+    discount_rate!: number;
+    exchange_rate!: number;
     id!: number;
     item!: number;
-    items_discount!: string;
-    net_total!: string;
-    quantity!: string;
-    sales_total!: string;
-    tax_amount!: string;
-    total_amount!: string;
-    value_difference!: string;
+    items_discount!: number;
+    net_total!: number;
+    quantity!: number;
+    sales_total!: number;
+    tax_amount!: number;
+    total_amount!: number;
+    value_difference!: number;
 }

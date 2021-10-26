@@ -37,8 +37,8 @@ export class InvoiceDetailsComponent implements OnInit {
   receiverId!: number;
   isReceiver: boolean;
   itemId!: number;
-  // check if add more is clicked and data is not filled
-  addMore: boolean;
+  hasItem: boolean
+  hasQty: boolean;
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -52,7 +52,7 @@ export class InvoiceDetailsComponent implements OnInit {
   // names of details
   receiverDetails: ReceiverDto;
   itemDetails: ListItemsResponseDto;
-  linesDetails: LinesDto;
+  linesDetails: LinesDto[];
 
 
   // #endregion
@@ -84,12 +84,13 @@ export class InvoiceDetailsComponent implements OnInit {
     this.isReceiver = false;
 
     this.itemDetails = new ListItemsResponseDto;
-    this.linesDetails = new LinesDto;
+    this.linesDetails = [];
 
     const newLine = new LinesDto;
-    // this.linesDetails.push(newLine)
+    this.linesDetails.push(newLine)
 
-    this.addMore = false;
+    this.hasItem = false;
+    this.hasQty = false;
 
     // init forms
     this.initForms();
@@ -139,7 +140,8 @@ export class InvoiceDetailsComponent implements OnInit {
   addLine(): void {
     // this.addMore = true;
     // if (form.valid) {
-
+    const newLine = new LinesDto;
+    this.linesDetails.push(newLine)
     this.lines = this.invoiceForm.get('lines') as FormArray;
     this.lines.push(this.createLines());
     // this.addMore = false;
@@ -181,6 +183,34 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // #endregion
 
+  // #region calculations
+
+  calculateSalesTotal(index: number) {
+    this.linesDetails[index].sales_total = (this.linesDetails[index].amount_egp * this.linesDetails[index].quantity);
+  }
+
+  calculateNetTotal(index: number, discount_amount: number) {
+    if (this.linesDetails[index].sales_total && discount_amount) {
+      this.linesDetails[index].net_total = (this.linesDetails[index].sales_total - discount_amount);
+      // console.log(this.linesDetails[index].net_total);
+
+      this.calculateTaxAmount(index);
+      this.calculateTotalAmount(index);
+    }
+  }
+
+  calculateTaxAmount(index: number) {
+    // console.log('hello drug dealers');
+
+    if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount = (this.linesDetails[index].net_total * (this.itemDetails.sub_tax_rate / 100));
+  }
+
+  calculateTotalAmount(index: number) {
+    if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount) this.linesDetails[index].total_amount = (this.linesDetails[index].net_total + this.linesDetails[index].tax_amount);
+  }
+
+  // #endregion
+
   // #region main actions
 
 
@@ -206,9 +236,14 @@ export class InvoiceDetailsComponent implements OnInit {
   getItemById() {
     this.itemsService.getItemById(this.itemId).subscribe((response: ResponseDto) => {
       this.itemDetails = response.data;
-      console.log(this.itemDetails);
+      // open quantity field
+      this.hasItem = true;
 
     });
+  }
+
+  openUnitPrice() {
+    this.hasQty = true;
   }
 
   createInvoice() {
@@ -216,6 +251,6 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
 
-  // #end region
+  // #endregion
 
 }
