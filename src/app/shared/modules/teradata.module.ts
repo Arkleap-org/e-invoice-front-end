@@ -33,6 +33,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CovalentMessageModule } from '@covalent/core/message';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { CovalentMessageModule } from '@covalent/core/message';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ], // modules needed to run this module
   providers: [
   ], // additional providers needed for this module
@@ -102,7 +104,8 @@ import { CovalentMessageModule } from '@covalent/core/message';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
 
   ]
 })

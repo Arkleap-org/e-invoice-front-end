@@ -17,6 +17,7 @@ import { InvoiceDetailsComponent } from "./invoice/invoice-details/invoice-detai
 import { InvoiceListComponent } from "./invoice/invoice-list/invoice-list.component";
 import { IssuerAddressComponent } from "./issuer/issuer-address/issuer-address.component";
 import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
+import { ReceiverComponent } from './shared/popups/receiver/receiver.component';
 
 // modules
 import { AppRoutingModule } from "./app-routing.module";
@@ -29,6 +30,7 @@ import { AuthGuardService } from "./shared/services/auth.guard.service";
 import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { ItemsService } from "./shared/services/items.service";
     InvoiceListComponent,
     IssuerAddressComponent,
     InvoiceViewComponent,
+    ReceiverComponent,
 
   ],
   imports: [
