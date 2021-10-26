@@ -100,7 +100,7 @@
             <input type="number" class="form-control" formControlName="sub_tax_rate" [required]="model.sub_tax_type" [(ngModel)]="model.sub_tax_rate"
               placeholder="{{'Tax Rate'|translate}}">
             <small class="text-danger"
-              *ngIf="(isSubmitted && (itemsFormControls.sub_tax_rate.errors?.min||itemsFormControls.sub_tax_rate.errors?.max ))|| model.sub_tax_type">
+              *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate.errors?.min||itemsFormControls.sub_tax_rate.errors?.max ) || model.sub_tax_type)">
               {{'Tax rate should be between 0 and 100'|translate}}.
             </small>
           </div>
