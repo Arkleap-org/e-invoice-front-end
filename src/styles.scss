@@ -1,5 +1,6 @@
 @import './assets/scss/variables.scss';
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~@ng-select/ng-select/themes/default.theme.css';
+@import './assets/css/bootstrap.min.css';
 
 .border-box-sizing {
   box-sizing: border-box;
@@ -75,3 +76,4 @@ tr.mat-footer-row {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

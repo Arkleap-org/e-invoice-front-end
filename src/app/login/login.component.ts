@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 // services
 import { AuthService } from '../shared/services/auth.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
+import { ListOfLanguage } from '../shared/constants/list.constant';
 
 @Component({
   selector: 'app-login',
@@ -46,10 +47,7 @@ export class LoginComponent implements OnInit {
 
   ) {
     // init variables
-    this.listOfLang = [
-      { action: 'ar', text: 'العربية' },
-      { action: 'en', text: 'English' }
-    ];
+    this.listOfLang = ListOfLanguage;
     this.model = new LoginRequestDto;
     this.initForm();
     this.isSubmitted = false;
@@ -64,33 +62,26 @@ export class LoginComponent implements OnInit {
 
   // #endregion
 
-    // #region init forms
+  // #region init forms
 
-    initForm() {
+  initForm() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
-      this.loginForm = this.formBuilder.group({
-    username: ['', Validators.required],
-        password: ['', Validators.required],
-      });
-    }
-  
   // #region main actions
 
   userLogin(model: LoginRequestDto) {
-
     this.isSubmitted = true;
-    
-    if (this.loginForm.valid){
-
-    
-    console.log('login function')
-    this.authService.userLogin(model).subscribe((res: LoginResponseDto) => {
-      this.localStorageService.store('token', res.access);
-      this.localStorageService.store('user', { first_name: res.first_name, has_issuer: res.has_issuer });
-      this.router.navigate(['/home'])
-      this.isSubmitted = false;
-    });
-  }
+    if (this.loginForm.valid) {
+      this.authService.userLogin(model).subscribe((res: LoginResponseDto) => {
+        this.localStorageService.store('user', res);
+        this.router.navigate(['/home']);
+        this.isSubmitted = false;
+      });
+    }
   }
 
   useLanguage(language: string): void {

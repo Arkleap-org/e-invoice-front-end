@@ -68,7 +68,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatAutocompleteModule,
     NgSelectModule,
     CovalentMessageModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     MatDialogModule
   ], // modules needed to run this module
   providers: [

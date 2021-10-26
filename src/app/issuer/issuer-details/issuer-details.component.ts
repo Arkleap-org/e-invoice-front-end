@@ -15,6 +15,9 @@ import { IssuerService } from "../../shared/services/issuer.service";
 import { ListsService } from "../../shared/services/lists.service";
 import { DialogService } from "../../shared/services/dialog.service";
 import { TranslateService } from "@ngx-translate/core";
+import { LocalStorageService } from "src/app/shared/services/local-storage.service";
+import { LoginResponseDto } from "src/app/shared/models/auth.model";
+import { Router } from "@angular/router";
 
 @Component({
   templateUrl: "./issuer-details.component.html",
@@ -45,11 +48,13 @@ export class IssuerDetailsComponent implements OnInit {
   // #region constructor
 
   constructor(
+    private router: Router,
     private dialogService: DialogService,
     private issuerService: IssuerService,
     private listsService: ListsService,
     private formBuilder: FormBuilder,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private localStorageService: LocalStorageService,
   ) {
 
     // init variables
@@ -145,7 +150,7 @@ export class IssuerDetailsComponent implements OnInit {
   // list countries
   listCountries() {
     this.listsService.listCountries().subscribe((response: ResponseDto) => {
-      this.listOfCountries = response.data
+      this.listOfCountries = response.data;
     });
   }
 
@@ -184,6 +189,10 @@ export class IssuerDetailsComponent implements OnInit {
       this.dialogService.savedSuccessfully('Issuer has been created successfully.');
       this.issuerDetails = response.data;
       this.issuerAddress = response.data.issuer_addresses[0];
+      const user = this.localStorageService.retrieve('user') as LoginResponseDto;
+      user.has_issuer = true;
+      this.localStorageService.store('user', user);
+      this.router.navigate(['/home']);
     });
 
   }
