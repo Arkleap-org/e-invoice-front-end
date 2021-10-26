@@ -184,6 +184,8 @@ export class ItemDetailsComponent implements OnInit {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/item/list");
   }
 
+
+
   // #region end
 
 }
