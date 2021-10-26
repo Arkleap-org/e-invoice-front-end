@@ -20,6 +20,7 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 import { ItemsService } from '../../shared/services/items.service';
 import { ReceiverService } from '../../shared/services/receiver.service';
+import { LinesDto } from 'src/app/shared/models/invoice.model';
 
 
 @Component({
@@ -36,6 +37,8 @@ export class InvoiceDetailsComponent implements OnInit {
   receiverId!: number;
   isReceiver: boolean;
   itemId!: number;
+  // check if add more is clicked and data is not filled
+  addMore: boolean;
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -49,6 +52,7 @@ export class InvoiceDetailsComponent implements OnInit {
   // names of details
   receiverDetails: ReceiverDto;
   itemDetails: ListItemsResponseDto;
+  linesDetails: LinesDto;
 
 
   // #endregion
@@ -80,6 +84,12 @@ export class InvoiceDetailsComponent implements OnInit {
     this.isReceiver = false;
 
     this.itemDetails = new ListItemsResponseDto;
+    this.linesDetails = new LinesDto;
+
+    const newLine = new LinesDto;
+    // this.linesDetails.push(newLine)
+
+    this.addMore = false;
 
     // init forms
     this.initForms();
@@ -114,29 +124,38 @@ export class InvoiceDetailsComponent implements OnInit {
 
   createLines(): FormGroup {
     return this.formBuilder.group({
-      item: [null],
+      item: [null, Validators.required],
       description: [''],
-      quantity: [''],
-      unit_price: [''],
+      quantity: ['', Validators.required],
+      unit_price: ['', Validators.required],
       sales_total: [''],
-      discount_amount: [''],
+      discount_amount: ['', Validators.required],
       tax_amount: [''],
       net_total: [''],
       total_amount: ['']
     });
   }
 
-  addLine(): void {
-    this.lines = this.invoiceForm.get('lines') as FormArray;
-    this.lines.push(this.createLines());
+  addLine(form: any): void {
+    this.addMore = true;
+    if (form.valid) {
+
+      this.lines = this.invoiceForm.get('lines') as FormArray;
+      this.lines.push(this.createLines());
+      this.addMore = false;
+    }
   }
 
   deleteRow(index: number) {
     this.lines.removeAt(index);
   }
 
-  get invoiceControls(): FormArray {
+  get invoiceLinesControls(): FormArray {
     return this.invoiceForm.get('lines') as FormArray;
+  }
+
+  get invoiceControls() {
+    return this.invoiceForm.controls;
   }
 
   // #endregion
@@ -187,7 +206,13 @@ export class InvoiceDetailsComponent implements OnInit {
   getItemById() {
     this.itemsService.getItemById(this.itemId).subscribe((response: ResponseDto) => {
       this.itemDetails = response.data;
+      console.log(this.itemDetails);
+
     });
+  }
+
+  createInvoice() {
+
   }
 
 

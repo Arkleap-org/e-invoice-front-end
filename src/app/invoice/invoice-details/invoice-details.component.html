@@ -110,7 +110,7 @@
   <mat-card-title>{{'Invoice Lines'|translate}}</mat-card-title>
   <br>
   <div class="form" formArrayName="lines">
-    <fieldset *ngFor="let line of invoiceControls.controls; let i=index;" [formGroupName]="i">
+    <fieldset *ngFor="let line of invoiceLinesControls.controls; let i=index;" [formGroupName]="i">
       <div class="row">
         <!-- Items -->
         <div class="col-3">
@@ -151,7 +151,7 @@
           <div class="form-group">
             <label>{{'Sales Total'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Sales Total'|translate}}"
-              formControlName="sales_total">
+              formControlName="sales_total" readonly='true'>
           </div>
         </div>
         <!-- discount Amount -->
@@ -167,7 +167,7 @@
           <div class="form-group">
             <label>{{'Net Total'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Net Amount'|translate}}"
-              formControlName="net_total">
+              formControlName="net_total" readonly="true">
           </div>
         </div>
         <!-- tax Amount -->
@@ -175,7 +175,7 @@
           <div class="form-group">
             <label>{{'Tax Amount'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Tax Amount'|translate}}"
-              formControlName="tax_amount">
+              formControlName="tax_amount" readonly='true'>
           </div>
         </div>
         <!-- tax Amount -->
@@ -183,7 +183,7 @@
           <div class="form-group">
             <label>{{'Total Amount'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Total Amount'|translate}}"
-              formControlName="total_amount">
+              formControlName="total_amount" readonly='true'>
           </div>
         </div>
 
