@@ -48,6 +48,7 @@
     <button mat-menu-item [matMenuTriggerFor]="items"> {{'Items' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="invoices"> {{'Invoices' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="receivers"> {{'Recievers' | translate}} </button>
+  
   </ng-template>
 </mat-menu>
 
@@ -63,6 +64,11 @@
 <mat-menu #receivers="matMenu">
   <ng-template matMenuContent>
     <button mat-menu-item routerLink="receivers/list">{{'Recievers List' | translate}}</button>
+    <button  mat-menu-item  data-toggle="tooltip" data-placement="bottom"
+    title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()"> {{'Add Receiver' | translate}}
+  </button>
+
+
   </ng-template>
 </mat-menu>
 

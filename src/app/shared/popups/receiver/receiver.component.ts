@@ -104,7 +104,6 @@ export class ReceiverComponent implements OnInit {
   }
 
   createReceiver(form: FormGroup) {
-    console.log(form)
     this.isSubmitted = true;
     if (form.valid) {
       this.receiverService.createReceiver(this.receiverDetails).subscribe((response: ResponseDto) => {
