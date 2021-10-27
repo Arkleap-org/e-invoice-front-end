@@ -1,6 +1,9 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
 
+// angular common
+import { DatePipe } from '@angular/common';
+
 // angular forms
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -14,13 +17,15 @@ import { ReceiverComponent } from '../../shared/popups/receiver/receiver.compone
 import { ResponseDto } from '../../shared/models/api-response.model';
 import { ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
+import { LinesDto } from '../../shared/models/invoice.model';
+
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 import { ItemsService } from '../../shared/services/items.service';
 import { ReceiverService } from '../../shared/services/receiver.service';
-import { LinesDto } from 'src/app/shared/models/invoice.model';
+
 
 
 @Component({
@@ -39,6 +44,7 @@ export class InvoiceDetailsComponent implements OnInit {
   itemId!: number;
   hasItem: boolean
   hasQty: boolean;
+  isSubmitted: boolean;
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -51,7 +57,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // names of details
   receiverDetails: ReceiverDto;
-  itemDetails: ListItemsResponseDto;
+  itemDetails: ListItemsResponseDto[];
   linesDetails: LinesDto[];
 
   // names of total calculations
@@ -71,7 +77,8 @@ export class InvoiceDetailsComponent implements OnInit {
     private receiverService: ReceiverService,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
+    public datepipe: DatePipe
   ) {
     // init variables
 
@@ -89,9 +96,11 @@ export class InvoiceDetailsComponent implements OnInit {
 
     this.isReceiver = false;
 
-    this.itemDetails = new ListItemsResponseDto;
-    this.linesDetails = [];
+    this.itemDetails = [];
+    const newItemDetail = new ListItemsResponseDto
+    this.itemDetails.push(newItemDetail);
 
+    this.linesDetails = [];
     const newLine = new LinesDto;
     this.linesDetails.push(newLine)
 
@@ -102,6 +111,8 @@ export class InvoiceDetailsComponent implements OnInit {
     this.totalTaxTotals = 0;
     this.totalInvoiceAmount = 0;
     this.totalDiscountAmount = 0;
+
+    this.isSubmitted = false;
 
     // init forms
     this.initForms();
@@ -129,7 +140,7 @@ export class InvoiceDetailsComponent implements OnInit {
       receiver: [null, Validators.required],
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
-      date_time_issued: ['', Validators.required],
+      date_time_issued: [(new Date()).toISOString().substring(0, 10), Validators.required],
       lines: this.formBuilder.array([this.createLines()])
     });
   }
@@ -141,7 +152,7 @@ export class InvoiceDetailsComponent implements OnInit {
       quantity: ['', Validators.required],
       unit_price: ['', Validators.required],
       sales_total: [''],
-      discount_amount: ['', Validators.required],
+      amount_egp: ['', Validators.required],
       tax_amount: [''],
       net_total: [''],
       total_amount: ['']
@@ -149,10 +160,23 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   addLine(): void {
-    const newLine = new LinesDto;
-    this.linesDetails.push(newLine)
+    // add new line
+    this.addLineDetails();
+    // add new item detail
+    this.addItemDetails();
+    // add new form
     this.lines = this.invoiceForm.get('lines') as FormArray;
     this.lines.push(this.createLines());
+  }
+
+  addLineDetails() {
+    const newLine = new LinesDto;
+    this.linesDetails.push(newLine);
+  }
+
+  addItemDetails() {
+    const newItemDetail = new ListItemsResponseDto;
+    this.itemDetails.push(newItemDetail);
   }
 
   deleteRow(index: number) {
@@ -211,7 +235,7 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   calculateTaxAmount(index: number) {
-    if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount = (this.linesDetails[index].net_total * (this.itemDetails.sub_tax_rate / 100));
+    if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount = Number(this.linesDetails[index].net_total * (this.itemDetails[index].sub_tax_rate / 100)).toFixed(5);
   }
 
   calculateTotalLineAmount(index: number) {
@@ -232,12 +256,12 @@ export class InvoiceDetailsComponent implements OnInit {
 
 
   calculateTaxTotals(taxTotal: number) {
-    this.totalTaxTotals += taxTotal;
+    this.totalTaxTotals += Number(taxTotal);
   }
 
 
   calculateTotalInvoiceAmount(netTotal: number) {
-    this.totalInvoiceAmount += netTotal;
+    this.totalInvoiceAmount += Number(netTotal);
   }
 
 
@@ -265,12 +289,11 @@ export class InvoiceDetailsComponent implements OnInit {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
   }
 
-  getItemById() {
-    this.itemsService.getItemById(this.itemId).subscribe((response: ResponseDto) => {
-      this.itemDetails = response.data;
+  getItemById(id: number, index: number) {
+    this.itemsService.getItemById(id).subscribe((response: ResponseDto) => {
+      this.itemDetails[index] = response.data;
       // open quantity field
       this.hasItem = true;
-
     });
   }
 
@@ -278,10 +301,15 @@ export class InvoiceDetailsComponent implements OnInit {
     this.hasQty = true;
   }
 
-  createInvoice() {
-
+  createInvoice(form: FormGroup) {
+    this.isSubmitted = true;
+    if (form.valid) {
+      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
+      this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
+        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list')
+      });
+    }
   }
-
 
   // #endregion
 

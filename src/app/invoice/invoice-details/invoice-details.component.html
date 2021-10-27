@@ -10,12 +10,18 @@
               <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
               <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}"
                 formControlName="internal_id">
+              <small class="text-danger" *ngIf="isSubmitted && invoiceControls.internal_id.errors?.required">
+                {{'Internal ID is required'|translate}}.
+              </small>
             </div>
             <!-- issued date -->
             <div class="form-group">
               <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
               <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}"
                 formControlName="date_time_issued">
+              <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
+                {{'Issued Date is required'|translate}}.
+              </small>
             </div>
             <!-- document type -->
             <div class="form-group">
@@ -23,6 +29,9 @@
               <ng-select [items]="listOfDocumentTypes" bindLabel="label" bindValue="value" [searchable]="true"
                 placeholder="{{'Document Type'|translate}}" formControlName="document_type">
               </ng-select>
+              <small class="text-danger" *ngIf="isSubmitted && invoiceControls.document_type.errors?.required">
+                {{'Document Type is required'|translate}}.
+              </small>
             </div>
             <!-- document type version -->
             <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
@@ -41,6 +50,9 @@
                   {{'1.0'|translate}}
                 </label>
               </div>
+              <small class="text-danger" *ngIf="isSubmitted && invoiceControls.document_type_version.errors?.required">
+                {{'Document Type Version is required'|translate}}.
+              </small>
             </div>
 
           </div>
@@ -70,11 +82,14 @@
                 <div class="col-3">
                   <div class="form-group">
                     <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom"
-                      title="{{'add receiver'|translate}}" style="padding-top: 3rem;" (click)="openReceiverPopup()">
+                      title="{{'add receiver'|translate}}" style="padding-top: 2rem;" (click)="openReceiverPopup()">
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>
                 </div>
+                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.receiver.errors?.required">
+                  {{'Receiver is required'|translate}}.
+                </small>
               </div>
 
             </div>
@@ -117,8 +132,13 @@
           <div class="form-group">
             <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
             <ng-select [items]="listOfItems" bindLabel="item_name" bindValue="id" [searchable]="true"
-              placeholder="{{'Items'|translate}}" formControlName="item" [(ngModel)]="itemId" (change)="getItemById()">
+              placeholder="{{'Items'|translate}}" formControlName="item" [(ngModel)]="itemDetails[i].id"
+              (change)="getItemById(itemDetails[i].id, i)">
             </ng-select>
+
+            <small class="text-danger" *ngIf="isSubmitted && line.get('item')?.errors?.required">
+              {{'Item is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- description -->
@@ -126,7 +146,7 @@
           <div class="form-group">
             <label>{{'Description'|translate}}</label>
             <input type="text" class="form-control" placeholder="{{'Description'|translate}}"
-              formControlName="description" [(ngModel)]="itemDetails.item_desc" readonly='true'>
+              formControlName="description" [(ngModel)]="itemDetails[i].item_desc" readonly='true'>
           </div>
         </div>
         <!-- Quantity -->
@@ -134,7 +154,10 @@
           <div class="form-group">
             <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}" formControlName="quantity"
-              [(ngModel)]="linesDetails[i].quantity" [readonly]='!itemDetails.item_desc'>
+              [(ngModel)]="linesDetails[i].quantity" [readonly]='!itemDetails[i].item_desc'>
+            <small class="text-danger" *ngIf="isSubmitted && line.get('quantity')?.errors?.required">
+              {{'Quantity is required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- unit price -->
@@ -144,6 +167,9 @@
             <input type="number" class="form-control" placeholder="{{'Unit Price'|translate}}"
               formControlName="unit_price" [(ngModel)]="linesDetails[i].amount_egp"
               (ngModelChange)="calculateSalesTotal(i)" [readonly]='!linesDetails[i].quantity'>
+            <small class="text-danger" *ngIf="isSubmitted && line.get('unit_price')?.errors?.required">
+              {{'Unit Price required'|translate}}.
+            </small>
           </div>
         </div>
       </div>
@@ -161,8 +187,11 @@
           <div class="form-group">
             <label>{{'Discount Amount'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Discount Amount'|translate}}"
-              formControlName="discount_amount" (ngModelChange)="calculateNetTotal(i, $event)"
+              formControlName="amount_egp" (ngModelChange)="calculateNetTotal(i, $event)"
               [(ngModel)]="linesDetails[i].discount_amount" [readonly]='!linesDetails[i].amount_egp'>
+            <small class="text-danger" *ngIf="isSubmitted && line.get('amount_egp')?.errors?.required">
+              {{'Discount Amount required'|translate}}.
+            </small>
           </div>
         </div>
         <!-- net total -->
@@ -250,5 +279,5 @@
 <!-- card actions -->
 <mat-card-actions class="text-center">
   <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-  <button mat-button class="btn btn-info text-light">Create</button>
+  <button mat-button class="btn btn-info text-light" (click)="createInvoice(invoiceForm)">Create</button>
 </mat-card-actions>
