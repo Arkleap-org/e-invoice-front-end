@@ -1,11 +1,16 @@
 import { Injectable } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable()
 export class NotificationMessageService {
 
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) { }
 
   showSuccessMessage(message: string) {
+    this.snackBar.open('PizzaPartyComponent', 'x', {
+      // duration: 2000,
+      panelClass: "success-message"
+    })
     // this.notificationService.show({
     //   content: message,
     //   cssClass: "success-notification",
