@@ -110,14 +110,14 @@
   <mat-card-title>{{'Invoice Lines'|translate}}</mat-card-title>
   <br>
   <div class="form" formArrayName="lines">
-    <fieldset *ngFor="let line of invoiceControls.controls; let i=index;" [formGroupName]="i">
+    <fieldset *ngFor="let line of invoiceLinesControls.controls; let i=index;" [formGroupName]="i">
       <div class="row">
         <!-- Items -->
         <div class="col-3">
           <div class="form-group">
             <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
             <ng-select [items]="listOfItems" bindLabel="item_name" bindValue="id" [searchable]="true"
-              placeholder="{{'Items'|translate}}" formControlName="item">
+              placeholder="{{'Items'|translate}}" formControlName="item" [(ngModel)]="itemId" (change)="getItemById()">
             </ng-select>
           </div>
         </div>
@@ -126,14 +126,15 @@
           <div class="form-group">
             <label>{{'Description'|translate}}</label>
             <input type="text" class="form-control" placeholder="{{'Description'|translate}}"
-              formControlName="description">
+              formControlName="description" [(ngModel)]="itemDetails.item_desc" readonly='true'>
           </div>
         </div>
         <!-- Quantity -->
         <div class="col-3">
           <div class="form-group">
             <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}" formControlName="quantity">
+            <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}" formControlName="quantity"
+              [(ngModel)]="linesDetails[i].quantity" [readonly]='!itemDetails.item_desc'>
           </div>
         </div>
         <!-- unit price -->
@@ -141,7 +142,8 @@
           <div class="form-group">
             <label>{{'Unit Price'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Unit Price'|translate}}"
-              formControlName="unit_price">
+              formControlName="unit_price" [(ngModel)]="linesDetails[i].amount_egp"
+              (ngModelChange)="calculateSalesTotal(i)" [readonly]='!linesDetails[i].quantity'>
           </div>
         </div>
       </div>
@@ -151,7 +153,7 @@
           <div class="form-group">
             <label>{{'Sales Total'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Sales Total'|translate}}"
-              formControlName="sales_total">
+              formControlName="sales_total" readonly='true' [(ngModel)]="linesDetails[i].sales_total">
           </div>
         </div>
         <!-- discount Amount -->
@@ -159,7 +161,8 @@
           <div class="form-group">
             <label>{{'Discount Amount'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Discount Amount'|translate}}"
-              formControlName="discount_amount">
+              formControlName="discount_amount" (ngModelChange)="calculateNetTotal(i, $event)"
+              [(ngModel)]="linesDetails[i].discount_amount" [readonly]='!linesDetails[i].amount_egp'>
           </div>
         </div>
         <!-- net total -->
@@ -167,7 +170,7 @@
           <div class="form-group">
             <label>{{'Net Total'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Net Amount'|translate}}"
-              formControlName="net_total">
+              formControlName="net_total" readonly="true" [(ngModel)]="linesDetails[i].net_total">
           </div>
         </div>
         <!-- tax Amount -->
@@ -175,7 +178,7 @@
           <div class="form-group">
             <label>{{'Tax Amount'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Tax Amount'|translate}}"
-              formControlName="tax_amount">
+              formControlName="tax_amount" readonly='true' [(ngModel)]="linesDetails[i].tax_amount">
           </div>
         </div>
         <!-- tax Amount -->
@@ -183,7 +186,7 @@
           <div class="form-group">
             <label>{{'Total Amount'|translate}}<span class="text-danger">*</span></label>
             <input type="number" class="form-control" placeholder="{{'Total Amount'|translate}}"
-              formControlName="total_amount">
+              formControlName="total_amount" readonly='true' [(ngModel)]="linesDetails[i].total_amount">
           </div>
         </div>
 
@@ -201,9 +204,43 @@
       </div>
     </div>
 
-    <!-- <div class="row">
-      lll
-    </div> -->
+    <div class="row">
+      <div class="col-6"></div>
+      <div class="col-6">
+        <fieldset>
+          <!-- total sales amount -->
+          <div>
+            <label>{{'Total Sales Amount'| translate}}(EGP)</label>:
+            <span>{{totalSalesAmount}}</span>
+          </div>
+          <!-- total discount amount -->
+          <div>
+            <label>{{'Total Discount Amount'| translate}}(EGP)</label>:
+            <span>{{totalDiscountAmount}}</span>
+          </div>
+          <!-- total items discount amount -->
+          <!-- <div>
+            <label>{{'Total Items Discount Amount'| translate}}(EGP)</label>:
+            <span>lll</span>
+          </div> -->
+          <!-- tax totals -->
+          <div>
+            <label>{{'Tax Totals'| translate}}(EGP)</label>:
+            <span>{{totalTaxTotals}}</span>
+          </div>
+          <!-- extra discount amount -->
+          <!-- <div>
+            <label>{{'Extra Discount Amount'| translate}}(EGP)</label>:
+            <span>lll</span>
+          </div> -->
+          <!-- total amount -->
+          <div>
+            <label>{{'Total Amount'| translate}}(EGP)</label>:
+            <span>{{totalInvoiceAmount}}</span>
+          </div>
+        </fieldset>
+      </div>
+    </div>
   </div>
 
 
