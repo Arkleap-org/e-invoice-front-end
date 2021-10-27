@@ -47,6 +47,8 @@
     <button mat-menu-item routerLink="/home"> {{'Dashboard' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="items"> {{'Items' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="invoices"> {{'Invoices' | translate}} </button>
+    <button mat-menu-item [matMenuTriggerFor]="receivers"> {{'Recievers' | translate}} </button>
+  
   </ng-template>
 </mat-menu>
 
@@ -57,6 +59,19 @@
     <button mat-menu-item routerLink="item/add">{{'Add Item' | translate}}</button>
   </ng-template>
 </mat-menu>
+
+<!-- receivers dropdown -->
+<mat-menu #receivers="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item routerLink="receivers/list">{{'Recievers List' | translate}}</button>
+    <button  mat-menu-item  data-toggle="tooltip" data-placement="bottom"
+    title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()"> {{'Add Receiver' | translate}}
+  </button>
+
+
+  </ng-template>
+</mat-menu>
+
 
 <!-- invoices dropdown -->
 <mat-menu #invoices="matMenu">
