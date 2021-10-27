@@ -1,6 +1,9 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
 
+// angular common
+import { DatePipe } from '@angular/common';
+
 // angular forms
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -14,13 +17,15 @@ import { ReceiverComponent } from '../../shared/popups/receiver/receiver.compone
 import { ResponseDto } from '../../shared/models/api-response.model';
 import { ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
+import { LinesDto } from '../../shared/models/invoice.model';
+
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 import { ItemsService } from '../../shared/services/items.service';
 import { ReceiverService } from '../../shared/services/receiver.service';
-import { LinesDto } from 'src/app/shared/models/invoice.model';
+
 
 
 @Component({
@@ -72,7 +77,8 @@ export class InvoiceDetailsComponent implements OnInit {
     private receiverService: ReceiverService,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
+    public datepipe: DatePipe
   ) {
     // init variables
 
@@ -155,14 +161,22 @@ export class InvoiceDetailsComponent implements OnInit {
 
   addLine(): void {
     // add new line
-    const newLine = new LinesDto;
-    this.linesDetails.push(newLine)
+    this.addLineDetails();
     // add new item detail
-    const newItemDetail = new ListItemsResponseDto;
-    this.itemDetails.push(newItemDetail);
-    // add new firm
+    this.addItemDetails();
+    // add new form
     this.lines = this.invoiceForm.get('lines') as FormArray;
     this.lines.push(this.createLines());
+  }
+
+  addLineDetails() {
+    const newLine = new LinesDto;
+    this.linesDetails.push(newLine);
+  }
+
+  addItemDetails() {
+    const newItemDetail = new ListItemsResponseDto;
+    this.itemDetails.push(newItemDetail);
   }
 
   deleteRow(index: number) {
@@ -289,16 +303,13 @@ export class InvoiceDetailsComponent implements OnInit {
 
   createInvoice(form: FormGroup) {
     this.isSubmitted = true;
-    console.log(form.value.date_time_issued);
-
     if (form.valid) {
+      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
       this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
-        console.log(response);
-
+        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list')
       });
     }
   }
-
 
   // #endregion
 

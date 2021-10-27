@@ -64,7 +64,7 @@ import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.co
     AuthGuardService,
     SecurityService,
     SessionStorageService,
-    ItemsService
+    ItemsService,
   ],
   bootstrap: [AppComponent]
 })
