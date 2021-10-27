@@ -30,6 +30,7 @@ import { AuthGuardService } from "./shared/services/auth.guard.service";
 import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
+import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { ItemsService } from "./shared/services/items.service";
     IssuerAddressComponent,
     InvoiceViewComponent,
     ReceiverComponent,
+    ReceiverListComponent,
 
   ],
   imports: [
