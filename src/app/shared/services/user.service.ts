@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { UserRequestDto } from '../models/user.model';
 import { ResponseDto } from "../models/api-response.model";
+import { ResetPasswordDto } from '../models/reset-password.model';
 
 
 
@@ -62,6 +63,12 @@ export class UserService {
     users:[id]
   })
 
+ }
+
+ changePassword(model:ResetPasswordDto){
+   const url = `user/change-password`
+   return this.http.post<ResponseDto>(url,model)
+   
  }
  
 }

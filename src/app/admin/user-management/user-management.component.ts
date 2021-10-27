@@ -88,6 +88,8 @@ export class UserManagementComponent implements OnInit {
       this.listUsers();
     })
   }
+
+
   // filter table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -33,6 +33,7 @@ import { ItemsService } from "./shared/services/items.service";
 import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { UserViewComponent } from './admin/user-view/user-view.component';
+import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { UserViewComponent } from './admin/user-view/user-view.component';
     ReceiverListComponent,
     UserManagementComponent,
     UserViewComponent,
+    ResetPasswordComponent,
 
   ],
   imports: [

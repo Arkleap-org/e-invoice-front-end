@@ -59,7 +59,7 @@
                   <button mat-menu-item [routerLink]="['/user/view', row.id]">{{'View' | translate}}</button>
                   <button *ngIf="!row.is_active" mat-menu-item (click)="activateUser(row)">{{'Activate' | translate}}</button>
                   <button *ngIf="row.is_active" mat-menu-item (click)="deactivateUser(row)">{{'Deactivate' | translate}}</button>
-                  <button mat-menu-item>{{'Reset Password' | translate}}</button>
+                  <button [routerLink]="['/user/reset-password', row.id]" mat-menu-item>{{'Reset Password' | translate}}</button>
                  <button *ngIf="!row.issuer" mat-menu-item (click)="deleteUser(row)">{{'delete' | translate}}</button>
                 </mat-menu>
               </td>
