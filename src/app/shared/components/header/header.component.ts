@@ -1,9 +1,11 @@
 // angular module
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
 import { ListOfLanguage } from '../../constants/list.constant';
 import { LoginResponseDto } from '../../models/auth.model';
+import { ReceiverComponent } from '../../popups/receiver/receiver.component';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
@@ -28,6 +30,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     private localStorageService: LocalStorageService,
+    public dialog: MatDialog,
+
   ) {
     // init variables
     this.listOfLang = ListOfLanguage;
@@ -53,6 +57,17 @@ export class HeaderComponent implements OnInit {
   setTriggerText(title: string, icon?: string): IMenuTrigger {
     return { text: title, icon };
   }
+
+
+openReceiverPopup() {
+  const dialogRef = this.dialog.open(ReceiverComponent);
+
+  // dialogRef.afterClosed().subscribe(result => {
+  //   this.listReceivers();
+  // });
+}
+
+
 
   // #endregion
 

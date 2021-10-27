@@ -64,6 +64,7 @@ export class ItemListComponent implements OnInit {
   // #region ngAfterViewInit
 
   ngAfterViewInit() {
+    console.log(this.paginator)
     this.itemDataSource.paginator = this.paginator;
     this.itemDataSource.sort = this.sort;
   }
@@ -75,7 +76,7 @@ export class ItemListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.itemDataSource.filter = filterValue.trim().toLowerCase();
-
+    console.log(this.itemDataSource.paginator)
     if (this.itemDataSource.paginator) {
       this.itemDataSource.paginator.firstPage();
     }
