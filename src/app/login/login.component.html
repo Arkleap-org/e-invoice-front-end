@@ -25,9 +25,9 @@
                 <label class="form-label" for="form3Example3">{{'Email Address'|translate}}<span
                     class="text-danger">*</span></label>
                 <input type="email" id="form3Example3" class="form-control form-control-lg"
-                  placeholder="{{'Enter a valid email address'|translate}}" formControlName="username"
-                  [(ngModel)]="model.username" />
-                <small class="text-danger" *ngIf="isSubmitted && loginForm.controls.username?.errors?.required">
+                  placeholder="{{'Enter a valid email address'|translate}}" formControlName="email"
+                  [(ngModel)]="model.email" />
+                <small class="text-danger" *ngIf="isSubmitted && loginForm.controls.email?.errors?.required">
                   {{'Email is required'|translate}}.
                 </small>
               </div>
