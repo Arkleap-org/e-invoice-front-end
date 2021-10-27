@@ -54,6 +54,12 @@ export class InvoiceDetailsComponent implements OnInit {
   itemDetails: ListItemsResponseDto;
   linesDetails: LinesDto[];
 
+  // names of total calculations
+  totalSalesAmount: number;
+  totalTaxTotals: number;
+  totalInvoiceAmount: number;
+  totalDiscountAmount: number;
+
 
   // #endregion
 
@@ -91,6 +97,11 @@ export class InvoiceDetailsComponent implements OnInit {
 
     this.hasItem = false;
     this.hasQty = false;
+
+    this.totalSalesAmount = 0;
+    this.totalTaxTotals = 0;
+    this.totalInvoiceAmount = 0;
+    this.totalDiscountAmount = 0;
 
     // init forms
     this.initForms();
@@ -138,14 +149,10 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   addLine(): void {
-    // this.addMore = true;
-    // if (form.valid) {
     const newLine = new LinesDto;
     this.linesDetails.push(newLine)
     this.lines = this.invoiceForm.get('lines') as FormArray;
     this.lines.push(this.createLines());
-    // this.addMore = false;
-    // }
   }
 
   deleteRow(index: number) {
@@ -187,13 +194,19 @@ export class InvoiceDetailsComponent implements OnInit {
 
   calculateSalesTotal(index: number) {
     this.linesDetails[index].sales_total = (this.linesDetails[index].amount_egp * this.linesDetails[index].quantity);
+
   }
 
   calculateNetTotal(index: number, discount_amount: number) {
-    if (this.linesDetails[index].sales_total && discount_amount) {
+    if (this.linesDetails[index].sales_total && discount_amount >= 0) {
       this.linesDetails[index].net_total = (this.linesDetails[index].sales_total - discount_amount);
       this.calculateTaxAmount(index);
       this.calculateTotalLineAmount(index);
+      // total calculations
+      this.calculateTotalSalesAmount(this.linesDetails[index].sales_total);
+      this.calculateTaxTotals(this.linesDetails[index].tax_amount)
+      this.calculateTotalInvoiceAmount(this.linesDetails[index].total_amount)
+      this.calculateTotalDiscountAmount(discount_amount);
     }
   }
 
@@ -209,28 +222,22 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // #region invoice summary calculations
 
-  calculateTotalSalesAmount() {
-
+  calculateTotalSalesAmount(salesAmount: number) {
+    this.totalSalesAmount += salesAmount;
   }
 
-  calculateTotalDiscountAmount() {
-
+  calculateTotalDiscountAmount(discountAmount: number) {
+    this.totalDiscountAmount += discountAmount;
   }
 
-  calculateTotalItemsDiscount() {
 
+  calculateTaxTotals(taxTotal: number) {
+    this.totalTaxTotals += taxTotal;
   }
 
-  calculateTaxTotals() {
 
-  }
-
-  calculateExtraDiscountAmount() {
-
-  }
-
-  calculateTotalInvoiceAmount() {
-
+  calculateTotalInvoiceAmount(netTotal: number) {
+    this.totalInvoiceAmount += netTotal;
   }
 
 
