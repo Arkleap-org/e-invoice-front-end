@@ -11,6 +11,7 @@ import { ItemDetailsComponent } from './item/item-details/item-details.component
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
+import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuardService } from './shared/services/auth.guard.service';
 
@@ -45,6 +46,9 @@ const routes: Routes = [
       { path: "invoice/list", canActivate: [AuthGuardService], component: InvoiceListComponent },
       { path: "invoice/add", canActivate: [AuthGuardService], component: InvoiceDetailsComponent },
       { path: "invoice/view/:id", canActivate: [AuthGuardService], component: InvoiceViewComponent },
+
+      { path: "receivers/list", canActivate: [AuthGuardService], component: ReceiverListComponent },
+     
     ]
   }
 ];

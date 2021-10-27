@@ -1,9 +1,14 @@
+
 // angular core
 import { Component, OnInit } from '@angular/core';
 
 // angular router
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from '../../shared/services/dialog.service';
+
+// models
+import { CreateItemRequestDto, CreateItemResponseDto } from 'src/app/shared/models/items.model';
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
 
 // reactive form
 
@@ -15,8 +20,7 @@ import { ItemsService } from 'src/app/shared/services/items.service';
 
 // sweetalert
 import Swal from 'sweetalert2';
-import { CreateItemRequestDto, CreateItemResponseDto } from 'src/app/shared/models/items.model';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
+
 
 @Component({
   selector: 'app-item-details',
