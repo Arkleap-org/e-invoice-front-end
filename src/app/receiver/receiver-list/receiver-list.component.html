@@ -1,12 +1,19 @@
 <mat-card>
-    <mat-card-title>{{'Items List' | translate}}</mat-card-title>
+    <mat-card-title>{{'Recievers List' | translate}}</mat-card-title>
+    <div class="col">
+      <div class="form-group float-right">
+        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
+          title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()"> Add Receiver
+        </button>
+      </div>
+    </div>
     <mat-form-field appearance="standard">
-      <mat-label>Filter</mat-label>
+      <mat-label>{{'Search' | translate}}</mat-label>
       <input matInput (keyup)="applyFilter($event)" #input>
     </mat-form-field>
   
     <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table mat-table [dataSource]="receiverDataSource" matSort>
    
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'#' | translate}} </th>
@@ -55,13 +62,7 @@
           <td mat-cell *matCellDef="let row"> {{row.country}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
-          <td mat-cell *matCellDef="let row">
-            <button type="button" class="btn btn-outline-primary" [routerLink]="['/item/update', row.id]"> {{'Update' |
-              translate}} </button>
-          </td>
-        </ng-container>
+       
   
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -72,6 +73,6 @@
         </tr>
       </table>
   
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of receivers"></mat-paginator>
     </div>
   </mat-card>

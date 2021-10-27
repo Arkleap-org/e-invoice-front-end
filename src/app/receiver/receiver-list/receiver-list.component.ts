@@ -12,6 +12,8 @@ import { ResponseDto } from 'src/app/shared/models/api-response.model';
 
 // services
 import { ReceiverService } from 'src/app/shared/services/receiver.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ReceiverComponent } from 'src/app/shared/popups/receiver/receiver.component';
 @Component({
   selector: 'app-receiver-list',
   templateUrl: './receiver-list.component.html',
@@ -23,16 +25,18 @@ export class ReceiverListComponent implements OnInit {
 
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
-    dataSource: MatTableDataSource<any>;
-    displayedColumns: string[] = ['id', 'name', 'type', 'reg_num', 'governate', 'regionCity', 'street', 'buildingNumber','country', 'actions'];
+    receiverDataSource: MatTableDataSource<any>;
+    displayedColumns: string[] = ['id', 'name', 'type', 'reg_num', 'governate', 'regionCity', 'street', 'buildingNumber','country'];
   
     // #endregion
 
    // #region constructor
 
-  constructor(private receiverService: ReceiverService) {
+  constructor(private receiverService: ReceiverService,
+    public dialog: MatDialog,
+    ) {
 
-    this.dataSource = new MatTableDataSource();
+    this.receiverDataSource = new MatTableDataSource();
 
    }
   // #endregion
@@ -49,7 +53,7 @@ export class ReceiverListComponent implements OnInit {
 
     this.receiverService.listReceivers().subscribe((res: ResponseDto) => {
 
-      this.dataSource = res.data;
+      this.receiverDataSource = res.data;
 
     });
   }
@@ -59,8 +63,8 @@ export class ReceiverListComponent implements OnInit {
  // #region ngAfterViewInit
 
  ngAfterViewInit() {
-  this.dataSource.paginator = this.paginator;
-  this.dataSource.sort = this.sort;
+  this.receiverDataSource.paginator = this.paginator;
+  this.receiverDataSource.sort = this.sort;
 }
 
 // #endregion
@@ -69,12 +73,23 @@ export class ReceiverListComponent implements OnInit {
 
 applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  if (this.dataSource.paginator) {
-    this.dataSource.paginator.firstPage();
+  this.receiverDataSource.filter = filterValue.trim().toLowerCase();
+  console.log(filterValue)
+
+  if (this.receiverDataSource.paginator) {
+    this.receiverDataSource.paginator.firstPage();
   }
 }
+
+openReceiverPopup() {
+  const dialogRef = this.dialog.open(ReceiverComponent);
+
+  dialogRef.afterClosed().subscribe(result => {
+    this.listReceivers();
+  });
+}
+
 
 // #endregion
 
