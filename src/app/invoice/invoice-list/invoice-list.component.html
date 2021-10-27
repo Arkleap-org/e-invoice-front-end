@@ -56,7 +56,7 @@
           </mat-menu>
         </td>
       </ng-container>
-
+      
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -69,3 +69,4 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
   </div>
 </mat-card>
+ 

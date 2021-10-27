@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddUserComponent } from './add-user/add-user.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { UserViewComponent } from './admin/user-view/user-view.component';
 import { HomeComponent } from './home/home.component';
 import { InvoiceDetailsComponent } from './invoice/invoice-details/invoice-details.component';
 import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
@@ -47,7 +49,12 @@ const routes: Routes = [
       { path: "invoice/add", canActivate: [AuthGuardService], component: InvoiceDetailsComponent },
       { path: "invoice/view/:id", canActivate: [AuthGuardService], component: InvoiceViewComponent },
 
-      { path: "receivers/list", canActivate: [AuthGuardService], component: ReceiverListComponent },
+      { path: "receiver/list", canActivate: [AuthGuardService], component: ReceiverListComponent },
+
+      { path: "user/list", canActivate: [AuthGuardService], component: UserManagementComponent },
+      { path: "user/view/:id", canActivate: [AuthGuardService], component: UserViewComponent },
+
+
      
     ]
   }
