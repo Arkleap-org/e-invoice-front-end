@@ -25,6 +25,15 @@ export class InvoiceDto {
     portal_status!: string;
 }
 
+export class CreateInvoiceDto {
+    lines!: LinesDto;
+    receiver!: number;
+    date_time_issued!: Date;
+    document_type!: string;
+    document_type_version!: string;
+    internal_id!: string;
+}
+
 export class LinesDto {
     amount_Sold!: number;
     amount_egp!: number;
@@ -39,7 +48,9 @@ export class LinesDto {
     net_total!: number;
     quantity!: number;
     sales_total!: number;
-    tax_amount!: number;
+    tax_amount!: any;
     total_amount!: number;
     value_difference!: number;
+    item_name!: string;
+    item_code!: string;
 }

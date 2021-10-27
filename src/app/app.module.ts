@@ -70,7 +70,7 @@ import { ResetPasswordComponent } from './admin/reset-password/reset-password.co
     AuthGuardService,
     SecurityService,
     SessionStorageService,
-    ItemsService
+    ItemsService,
   ],
   bootstrap: [AppComponent]
 })
