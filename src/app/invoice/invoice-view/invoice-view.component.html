@@ -1,42 +1,42 @@
 <!-- invoice -->
 <mat-card>
   <mat-card-title class="text-secondary">{{'Invoice'|translate}}</mat-card-title>
-  <fieldset>
-    <div class="col-md-6">
-      <div><label><strong>{{'Invoice'|translate}} # </strong></label> <span> {{invoiceDetails.internal_id}}</span></div>
-      <div><label><strong>{{'Invoice Status'|translate}}</strong></label> <span>
-          {{invoiceDetails.invoice_status}}</span></div>
-      <div><label><strong>{{'Portal Status'|translate}}</strong></label> <span>
-          {{invoiceDetails.portal_status}}</span></div>
+  <!-- <fieldset> -->
+  <div class="col-md-6">
+    <div><label><strong>{{'Invoice'|translate}} # </strong></label> <span> {{invoiceDetails.internal_id}}</span></div>
+    <div><label><strong>{{'Invoice Status'|translate}}</strong></label> <span>
+        {{invoiceDetails.invoice_status}}</span></div>
+    <div><label><strong>{{'Portal Status'|translate}}</strong></label> <span>
+        {{invoiceDetails.portal_status}}</span></div>
 
-    </div>
-    <div class="col-md-6">
-      <div><label><strong>{{'UUID'|translate}} </strong></label> <span> hii</span></div>
-      <div><label><strong>{{'Submission ID'|translate}}</strong></label> <span> Submitted</span></div>
-    </div>
-  </fieldset>
-</mat-card>
-<br>
-<!-- receiver -->
-<mat-card>
+  </div>
+  <div class="col-md-6">
+    <div><label><strong>{{'UUID'|translate}} </strong></label> <span> hii</span></div>
+    <div><label><strong>{{'Submission ID'|translate}}</strong></label> <span> Submitted</span></div>
+  </div>
+  <!-- </fieldset> -->
+  <br>
+  <hr>
+  <br>
+  <!-- receiver -->
+
   <mat-card-title class="text-secondary">{{'Receiver'|translate}}</mat-card-title>
-  <fieldset>
-    <div class="col-md-6">
-      <div><label><strong>{{'Name'|translate}}</strong></label> <span> {{invoiceDetails.receiver_name}}</span></div>
-      <div><label><strong>{{'Registration Number'|translate}}</strong></label> <span>
-          {{invoiceDetails.receiver_reg_num}}</span></div>
-    </div>
-    <div class="col-md-6">
-      <div><label><strong>{{'Address'|translate}} </strong></label> <span> {{invoiceDetails.receiver_buildingNumber}},
-          {{invoiceDetails.receiver_street}}, {{invoiceDetails.receiver_governate}},
-          {{invoiceDetails.receiver_country}}</span></div>
-    </div>
-  </fieldset>
-</mat-card>
-<br>
-
-<!-- items -->
-<mat-card>
+  <!-- <fieldset> -->
+  <div class="col-md-6">
+    <div><label><strong>{{'Name'|translate}}</strong></label> <span> {{invoiceDetails.receiver_name}}</span></div>
+    <div><label><strong>{{'Registration Number'|translate}}</strong></label> <span>
+        {{invoiceDetails.receiver_reg_num}}</span></div>
+  </div>
+  <div class="col-md-6">
+    <div><label><strong>{{'Address'|translate}} </strong></label> <span> {{invoiceDetails.receiver_buildingNumber}},
+        {{invoiceDetails.receiver_street}}, {{invoiceDetails.receiver_governate}},
+        {{invoiceDetails.receiver_country}}</span></div>
+  </div>
+  <!-- </fieldset> -->
+  <br>
+  <hr>
+  <br>
+  <!-- items -->
   <mat-card-title class="text-secondary">{{'Items'|translate}}</mat-card-title>
   <table class="table table-striped">
     <thead>
@@ -53,12 +53,43 @@
     <tbody>
       <!-- loop on tr-->
       <tr *ngFor="let line of invoiceDetails.lines">
-        <th scope="row"></th>
-        <td></td>
+        <td scope="row">{{line.item_name}}</td>
+        <td>{{line.item_code}}</td>
         <td>{{line.description}}</td>
         <td>{{line.quantity}}</td>
         <td>{{line.amount_egp}}</td>
         <td>{{line.total_amount}}</td>
+      </tr>
+      <br>
+      <tr>
+        <td colspan="4"></td>
+        <td>{{'Total Sales Amount'|translate}}</td>
+        <td>{{invoiceDetails.total_sales_amount}}</td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td>{{'Total Discount Amount'|translate}}</td>
+        <td>{{invoiceDetails.total_discount_amount}}</td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td>{{'Total Items Discount Amount'|translate}}</td>
+        <td>{{invoiceDetails.total_items_discount_amount}}</td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td>{{'Tax Total'|translate}}</td>
+        <td>{{invoiceDetails.tax_totals}}</td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td>{{'Extra Discount Amount'|translate}}</td>
+        <td>{{invoiceDetails.extra_discount_amount}}</td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td>{{'Total Amount'|translate}}</td>
+        <td>{{invoiceDetails.total_amount}}</td>
       </tr>
     </tbody>
   </table>

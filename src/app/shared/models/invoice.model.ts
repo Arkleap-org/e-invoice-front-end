@@ -51,4 +51,6 @@ export class LinesDto {
     tax_amount!: any;
     total_amount!: number;
     value_difference!: number;
+    item_name!: string;
+    item_code!: string;
 }

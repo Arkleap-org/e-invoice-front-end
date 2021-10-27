@@ -1,9 +1,15 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
+
+// angular route
 import { ActivatedRoute } from '@angular/router';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { InvoiceDto } from 'src/app/shared/models/invoice.model';
-import { InvoiceService } from 'src/app/shared/services/invoice.service';
+
+// models
+import { ResponseDto } from '../../shared/models/api-response.model';
+import { InvoiceDto } from '../../shared/models/invoice.model';
+
+// services
+import { InvoiceService } from '../../shared/services/invoice.service';
 
 @Component({
   selector: 'app-invoice-view',
@@ -44,12 +50,9 @@ export class InvoiceViewComponent implements OnInit {
   // #region main actions
 
   getInvoiceById() {
-    this.invoiceService.getInvoiceById(this.invoiceId)
-      .subscribe(
-        (response: ResponseDto) => {
-          this.invoiceDetails = response.data;
-        }
-      );
+    this.invoiceService.getInvoiceById(this.invoiceId).subscribe((response: ResponseDto) => {
+      this.invoiceDetails = response.data;
+    });
   }
 
   // #endregion
