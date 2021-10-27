@@ -17,32 +17,36 @@
         <div class="col-md-9 col-lg-6 col-xl-5">
           <img src="../../assets/images/logo.png" class="img-fluid" alt="Sample image">
         </div>
-        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <div class="col-md-8 col-lg-6 col-xl-6 offset-xl-1">
           <mat-card class="login-form">
-            <div [formGroup]="loginForm"  (keyup.enter)="userLogin(model)">
+            <div [formGroup]="loginForm" (keyup.enter)="userLogin(model)">
 
               <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example3">{{'Email Address'|translate}}<span class="text-danger">*</span></label>
+                <label class="form-label" for="form3Example3">{{'Email Address'|translate}}<span
+                    class="text-danger">*</span></label>
                 <input type="email" id="form3Example3" class="form-control form-control-lg"
-                  placeholder="{{'Enter a valid email address'|translate}}" formControlName="username" [(ngModel)]="model.username" />
-                  <small class="text-danger" *ngIf="isSubmitted && loginForm.controls.username?.errors?.required">
-                    {{'Email is required'|translate}}.
-                  </small>
+                  placeholder="{{'Enter a valid email address'|translate}}" formControlName="username"
+                  [(ngModel)]="model.username" />
+                <small class="text-danger" *ngIf="isSubmitted && loginForm.controls.username?.errors?.required">
+                  {{'Email is required'|translate}}.
+                </small>
               </div>
-  
+
               <div class="form-outline mb-3">
-                <label class="form-label" for="form3Example4">{{'Password'|translate}}<span class="text-danger">*</span></label>
+                <label class="form-label" for="form3Example4">{{'Password'|translate}}<span
+                    class="text-danger">*</span></label>
                 <input type="password" id="form3Example4" class="form-control form-control-lg"
-                  placeholder="{{'Enter password'|translate}}" formControlName="password" [(ngModel)]="model.password" />
-                  <small class="text-danger" *ngIf="isSubmitted && loginForm.controls.password?.errors?.required">
-                    {{'Password is required'|translate}}.
-                  </small>
+                  placeholder="{{'Enter password'|translate}}" formControlName="password"
+                  [(ngModel)]="model.password" />
+                <small class="text-danger" *ngIf="isSubmitted && loginForm.controls.password?.errors?.required">
+                  {{'Password is required'|translate}}.
+                </small>
               </div>
-  
+
               <div class="d-flex justify-content-between align-items-center">
                 <a href="#!" class="text-body">{{'Change password?'|translate}}</a>
               </div>
-  
+
               <div class="text-center text-lg-start mt-4 pt-2">
                 <button type="button" class="btn btn-danger btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;"
                   (click)="userLogin(model)" (submit)="userLogin(model)">{{'Login'|translate}}</button>
@@ -50,12 +54,12 @@
                     class="link-primary">{{'Register'|translate}}</a>
                 </p>
               </div>
-  
+
             </div>
           </mat-card>
 
 
-         
+
         </div>
       </div>
     </div>
