@@ -1,11 +1,21 @@
+// angular core
 import { Component, OnInit, ViewChild } from '@angular/core';
+
+// angular material
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { takeUntil } from 'rxjs/operators';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { InvoiceService } from 'src/app/shared/services/invoice.service';
+
+// components
+import { InvoiceCancelComponent } from '../../popups/invoice/invoice-cancel/invoice-cancel.component';
+
+// models
+import { ResponseDto } from '../../shared/models/api-response.model';
+
+// services
+import { DialogService } from '../../shared/services/dialog.service';
+import { InvoiceService } from '../../shared/services/invoice.service';
 
 
 @Component({
@@ -29,7 +39,8 @@ export class InvoiceListComponent implements OnInit {
 
   constructor(
     private invoiceService: InvoiceService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    public dialog: MatDialog,
   ) {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
@@ -84,6 +95,17 @@ export class InvoiceListComponent implements OnInit {
       this.dialogService.savedSuccessfully('Your invoice is beeing Submitted...');
       console.log('sub response ', response);
 
+    });
+  }
+
+  openInvoiceCancelPopup(invoiceId: number) {
+    const dialogRef = this.dialog.open(InvoiceCancelComponent, {
+      width: '40rem',
+      data: invoiceId
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadControls();
     });
   }
 

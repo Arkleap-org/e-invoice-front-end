@@ -23,6 +23,8 @@ import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { UserViewComponent } from './admin/user-view/user-view.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
+import { InvoiceCancelComponent } from './popups/invoice/invoice-cancel/invoice-cancel.component';
+
 
 // modules
 import { AppRoutingModule } from "./app-routing.module";
@@ -60,6 +62,7 @@ import { ItemsService } from "./shared/services/items.service";
     UserManagementComponent,
     UserViewComponent,
     ResetPasswordComponent,
+    InvoiceCancelComponent,
 
   ],
   imports: [

@@ -42,5 +42,10 @@ export class InvoiceService {
     return this.http.post<ResponseDto>(url, {})
   }
 
+  cancelInvoice(id: number, cancelReason: string) {
+    const url = `invoice/cancel-doc/${id}`;
+    return this.http.post<ResponseDto>(url, cancelReason);
+  }
+
 }
 

@@ -239,7 +239,7 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   calculateTotalLineAmount(index: number) {
-    if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount) this.linesDetails[index].total_amount = (this.linesDetails[index].net_total + this.linesDetails[index].tax_amount);
+    if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount) this.linesDetails[index].total_amount = Number(this.linesDetails[index].net_total) + Number(this.linesDetails[index].tax_amount);
   }
 
   // #endregion
