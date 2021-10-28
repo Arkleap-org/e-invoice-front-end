@@ -51,7 +51,8 @@
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/invoice/view', row.id]">{{'View Invoice' | translate}}</button>
-            <button mat-menu-item [routerLink]="['/invoice/errors', row.id]">{{'View Errors' | translate}}</button>
+            <button mat-menu-item *ngIf="row.portal_status === 'Invalid'"
+              [routerLink]="['/invoice/errors', row.id]">{{'View Errors' | translate}}</button>
             <button mat-menu-item>{{'Print Invoice' | translate}}</button>
             <button mat-menu-item>{{'Cancel' | translate}}</button>
           </mat-menu>

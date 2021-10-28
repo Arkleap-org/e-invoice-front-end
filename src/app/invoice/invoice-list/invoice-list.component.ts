@@ -42,16 +42,19 @@ export class InvoiceListComponent implements OnInit {
   }
 
   // #endregion
-  
+
   // #region load controls
-  
-  loadControls(){
-      this.listInvoices();
+
+  loadControls() {
+    this.listInvoices();
   }
 
-   // get invoices list
+  // get invoices list
   listInvoices() {
-    this.invoiceService.listInvoices().subscribe((response: ResponseDto) =>  this.invoiceDataSource.data = response.data );
+    this.invoiceService.listInvoices().subscribe((response: ResponseDto) => {
+      console.log(response.data)
+      this.invoiceDataSource.data = response.data
+    });
   }
 
   // #endregion
@@ -72,7 +75,7 @@ export class InvoiceListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.invoiceDataSource.filter = filterValue.trim().toLowerCase();
-      console.log(this.invoiceDataSource.paginator)
+    console.log(this.invoiceDataSource.paginator)
     // if (this.invoiceDataSource.paginator) {
     //   this.invoiceDataSource.paginator.firstPage();
     // }

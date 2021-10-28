@@ -1,1 +1,36 @@
-<p>invoice-errors works!</p>
+<mat-card>
+  <mat-card-title class="text-secondary">{{'Invoice Errors'|translate}}</mat-card-title>
+  <br>
+  <div class="row">
+    <!-- header errors -->
+    <details [open]="hasHeaderErrors">
+      <summary class="text-danger pb-3">
+        {{'Header Errors' |translate}}
+      </summary>
+      <ul *ngFor="let headerError of invoiceErrorsDetails.header_errors">
+        <li>{{headerError}}</li>
+      </ul>
+    </details>
+
+    <!-- line errors -->
+    <details [open]="hasLineErrors">
+      <summary class="text-danger pb-3">
+        {{'Lines Errors' | translate}}
+      </summary>
+      <ul *ngFor="let lineError of invoiceErrorsDetails.lines_errors">
+        <li>{{lineError}}</li>
+      </ul>
+    </details>
+
+    <!-- other errors -->
+    <details [open]="hasOtherErrors">
+      <summary class="text-danger pb-3">
+        {{'Other Errors' | translate}}
+      </summary>
+      <ul *ngFor="let otherError of invoiceErrorsDetails.other_errors">
+        <li>{{otherError}}</li>
+      </ul>
+    </details>
+  </div>
+
+</mat-card>
