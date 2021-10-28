@@ -90,8 +90,11 @@ export class InvoiceListComponent implements OnInit {
     });
   }
 
-  openInvoiceCancelPopup() {
-    const dialogRef = this.dialog.open(InvoiceCancelComponent);
+  openInvoiceCancelPopup(invoiceId: number) {
+    const dialogRef = this.dialog.open(InvoiceCancelComponent, {
+      width: '40rem',
+      data: invoiceId
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       this.loadControls();
