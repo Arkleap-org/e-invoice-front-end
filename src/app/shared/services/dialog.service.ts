@@ -72,7 +72,7 @@ confirmDelete(title:string){
 
   alertMessege(title:string){
     Swal.fire({
-      icon: 'error',
+      icon: 'warning',
       title: title,
     })
   }

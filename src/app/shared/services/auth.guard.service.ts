@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
+import { DialogService } from "./dialog.service";
 
 // services
 import { SecurityService } from "./security.service";
@@ -10,7 +11,8 @@ export class AuthGuardService implements CanActivate {
 
   hasPermission = false;
 
-  constructor(public router: Router, private readonly securityService: SecurityService) {
+  constructor(public router: Router, private readonly securityService: SecurityService,
+    private dialogService:DialogService ) {
 
   }
 
@@ -22,6 +24,8 @@ export class AuthGuardService implements CanActivate {
     }
     else if (this.securityService.hasIssuer === false && state.url !== "/issuer/details") {
       this.router.navigate(["/issuer/details"]);
+      this.dialogService.alertMessege('Please create an issuer first. So you can use the system')
+      
       return false;
     } else {
       return true;
