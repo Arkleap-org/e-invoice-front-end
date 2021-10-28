@@ -56,14 +56,16 @@
             <!-- submit / resubmit -->
             <button mat-menu-item *ngIf="row.portal_status === '--'"
               (click)="submitInvoice(row.internal_id)">{{'Submit' | translate}}</button>
-            <button mat-menu-item *ngIf="row.portal_status === 'Invalid'">{{'Resubmit' | translate}}</button>
+            <button mat-menu-item *ngIf="row.portal_status === 'Invalid'"
+              (click)="submitInvoice(row.internal_id)">{{'Resubmit' | translate}}</button>
 
             <!-- view errors -->
             <button mat-menu-item *ngIf="row.portal_status === 'Invalid'"
               [routerLink]="['/invoice/errors', row.id]">{{'View Errors' | translate}}</button>
 
             <!-- print -->
-            <button mat-menu-item>{{'Print Invoice' | translate}}</button>
+            <button mat-menu-item *ngIf="row.portal_status != '--'"
+              (click)="printInvoice(row.id)">{{'Print Invoice' | translate}}</button>
 
             <!-- cancel -->
             <button mat-menu-item *ngIf="row.portal_status === 'Valid'"

@@ -109,6 +109,14 @@ export class InvoiceListComponent implements OnInit {
     });
   }
 
+  // FIXME: should open pdf in a new tab
+  printInvoice(id: number) {
+    // window.open('www.google.com');
+    this.invoiceService.printInvoice(id).subscribe((response: ResponseDto) => {
+      console.log(response);
+
+    });
+  }
   // #endregion
 
 }
