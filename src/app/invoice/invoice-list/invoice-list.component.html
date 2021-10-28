@@ -50,15 +50,27 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
+            <!-- view -->
             <button mat-menu-item [routerLink]="['/invoice/view', row.id]">{{'View Invoice' | translate}}</button>
+
+            <!-- submit / resubmit -->
+            <button mat-menu-item *ngIf="row.portal_status === '--'"
+              (click)="submitInvoice(row.internal_id)">{{'Submit' | translate}}</button>
+            <button mat-menu-item *ngIf="row.portal_status === 'Invalid'">{{'Resubmit' | translate}}</button>
+
+            <!-- view errors -->
             <button mat-menu-item *ngIf="row.portal_status === 'Invalid'"
               [routerLink]="['/invoice/errors', row.id]">{{'View Errors' | translate}}</button>
+
+            <!-- print -->
             <button mat-menu-item>{{'Print Invoice' | translate}}</button>
+
+            <!-- cancel -->
             <button mat-menu-item>{{'Cancel' | translate}}</button>
           </mat-menu>
         </td>
       </ng-container>
-      
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -71,4 +83,3 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
   </div>
 </mat-card>
- 

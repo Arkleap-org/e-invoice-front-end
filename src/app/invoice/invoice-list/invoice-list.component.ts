@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { takeUntil } from 'rxjs/operators';
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 import { InvoiceService } from 'src/app/shared/services/invoice.service';
 
 
@@ -27,7 +28,8 @@ export class InvoiceListComponent implements OnInit {
   // #region constructor
 
   constructor(
-    private invoiceService: InvoiceService
+    private invoiceService: InvoiceService,
+    private dialogService: DialogService
   ) {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
@@ -51,10 +53,7 @@ export class InvoiceListComponent implements OnInit {
 
   // get invoices list
   listInvoices() {
-    this.invoiceService.listInvoices().subscribe((response: ResponseDto) => {
-      console.log(response.data)
-      this.invoiceDataSource.data = response.data
-    });
+    this.invoiceService.listInvoices().subscribe((response: ResponseDto) => this.invoiceDataSource.data = response.data);
   }
 
   // #endregion
@@ -78,6 +77,14 @@ export class InvoiceListComponent implements OnInit {
     if (this.invoiceDataSource.paginator) {
       this.invoiceDataSource.paginator.firstPage();
     }
+  }
+
+  submitInvoice(internalId: string) {
+    this.invoiceService.submitInvoice(internalId).subscribe((response: ResponseDto) => {
+      this.dialogService.savedSuccessfully('Your invoice is beeing Submitted...');
+      console.log('sub response ', response);
+
+    });
   }
 
   // #endregion
