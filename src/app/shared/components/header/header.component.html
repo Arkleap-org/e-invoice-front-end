@@ -63,7 +63,7 @@
 <!-- receivers dropdown -->
 <mat-menu #receivers="matMenu">
   <ng-template matMenuContent>
-    <button mat-menu-item routerLink="receivers/list">{{'Recievers List' | translate}}</button>
+    <button mat-menu-item routerLink="receiver/list">{{'Recievers List' | translate}}</button>
     <button  mat-menu-item  data-toggle="tooltip" data-placement="bottom"
     title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()"> {{'Add Receiver' | translate}}
   </button>
@@ -87,6 +87,8 @@
     <button mat-menu-item [matMenuTriggerFor]="issuer">{{'Issuer' | translate}}</button>
     <button mat-menu-item routerLink="user">{{'Add User' | translate}}</button>
     <button mat-menu-item routerLink="">{{'Logout' | translate}}</button>
+    <button mat-menu-item routerLink="user/list">{{'User Management' | translate}}</button>
+
   </ng-template>
 </mat-menu>
 

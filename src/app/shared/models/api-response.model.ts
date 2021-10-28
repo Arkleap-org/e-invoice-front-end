@@ -1,6 +1,7 @@
 export interface ResponseDto {
   response_id: number;
   data: any;
+  message:string;
 }
 
 export interface ErrorDto {

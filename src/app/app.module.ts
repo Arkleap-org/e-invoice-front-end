@@ -31,6 +31,9 @@ import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
 import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { UserViewComponent } from './admin/user-view/user-view.component';
+import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -52,6 +55,9 @@ import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.co
     InvoiceViewComponent,
     ReceiverComponent,
     ReceiverListComponent,
+    UserManagementComponent,
+    UserViewComponent,
+    ResetPasswordComponent,
 
   ],
   imports: [
