@@ -22,7 +22,7 @@
             <div class="col-md-9 col-lg-6 col-xl-5 login-img">
               <img src="../../assets/images/login-img.png" class="img-fluid h-100" alt="Sample image">
             </div>
-            <div [formGroup]="loginForm" class="col-6" (keyup.enter)="userLogin(model)">
+            <div [formGroup]="loginForm" class="col-6 inner-form" (keyup.enter)="userLogin(model)">
 
               <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example3">{{'Email Address'|translate}}<span
