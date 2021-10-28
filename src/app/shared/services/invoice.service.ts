@@ -47,5 +47,10 @@ export class InvoiceService {
     return this.http.post<ResponseDto>(url, cancelReason);
   }
 
+  printInvoice(id: number) {
+    const url = `invoice/print/${id}`;
+    return this.http.get<ResponseDto>(url);
+  }
+
 }
 
