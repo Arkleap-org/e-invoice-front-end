@@ -1,5 +1,5 @@
 <section class="vh-100 bg-base-color">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="row justify-content-end">
@@ -12,14 +12,17 @@
       </div>
     </div>
     <br>
-    <div class="container-fluid h-custom pt-5">
+    <div class="h-custom pt-5">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-md-9 col-lg-6 col-xl-5">
-          <img src="../../assets/images/login-img.png" class="img-fluid" alt="Sample image">
-        </div>
-        <div class="col-md-8 col-lg-6 col-xl-6 offset-xl-1">
+        <div class="col-md-8 col-lg-6 col-xl-6 ">
           <mat-card class="login-form">
-            <div [formGroup]="loginForm" (keyup.enter)="userLogin(model)">
+            <div class="row">
+
+         
+            <div class="col-md-9 col-lg-6 col-xl-5 login-img">
+              <img src="../../assets/images/login-img.png" class="img-fluid h-100" alt="Sample image">
+            </div>
+            <div [formGroup]="loginForm" class="col-6 inner-form" (keyup.enter)="userLogin(model)">
 
               <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example3">{{'Email Address'|translate}}<span
@@ -56,6 +59,7 @@
               </div>
 
             </div>
+          </div>
           </mat-card>
 
 

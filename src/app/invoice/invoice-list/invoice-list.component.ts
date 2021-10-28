@@ -62,7 +62,6 @@ export class InvoiceListComponent implements OnInit {
   // #region ngAfterViewInit
 
   ngAfterViewInit() {
-    console.log(this.paginator)
     this.invoiceDataSource.paginator = this.paginator;
     this.invoiceDataSource.sort = this.sort;
   }
@@ -75,10 +74,10 @@ export class InvoiceListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.invoiceDataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.invoiceDataSource.paginator)
-    // if (this.invoiceDataSource.paginator) {
-    //   this.invoiceDataSource.paginator.firstPage();
-    // }
+
+    if (this.invoiceDataSource.paginator) {
+      this.invoiceDataSource.paginator.firstPage();
+    }
   }
 
   // #endregion

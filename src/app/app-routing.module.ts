@@ -6,6 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 // components
 import { AddUserComponent } from './add-user/add-user.component';
+import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { UserViewComponent } from './admin/user-view/user-view.component';
 import { HomeComponent } from './home/home.component';
 import { InvoiceDetailsComponent } from './invoice/invoice-details/invoice-details.component';
 import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.component';
@@ -57,7 +60,14 @@ const routes: Routes = [
       { path: "invoice/errors/:id", canActivate: [AuthGuardService], component: InvoiceErrorsComponent },
 
 
-      { path: "receivers/list", canActivate: [AuthGuardService], component: ReceiverListComponent },
+      { path: "receiver/list", canActivate: [AuthGuardService], component: ReceiverListComponent },
+
+      { path: "user/list", canActivate: [AuthGuardService], component: UserManagementComponent },
+      { path: "user/view/:id", canActivate: [AuthGuardService], component: UserViewComponent },
+      { path: "user/reset-password/:id", canActivate: [AuthGuardService], component: ResetPasswordComponent },
+
+
+
 
     ]
   }

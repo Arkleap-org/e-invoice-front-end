@@ -15,4 +15,5 @@ export class UserRequestDto {
     last_login!: any;
     last_name!: string;
     user_permissions!: any[];
+    issuer!: number
 }

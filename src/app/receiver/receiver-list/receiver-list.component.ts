@@ -75,7 +75,6 @@ applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
 
   this.receiverDataSource.filter = filterValue.trim().toLowerCase();
-  console.log(filterValue)
 
   if (this.receiverDataSource.paginator) {
     this.receiverDataSource.paginator.firstPage();

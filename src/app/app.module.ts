@@ -18,6 +18,11 @@ import { InvoiceListComponent } from "./invoice/invoice-list/invoice-list.compon
 import { IssuerAddressComponent } from "./issuer/issuer-address/issuer-address.component";
 import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
 import { ReceiverComponent } from './shared/popups/receiver/receiver.component';
+import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.component';
+import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { UserViewComponent } from './admin/user-view/user-view.component';
+import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 
 // modules
 import { AppRoutingModule } from "./app-routing.module";
@@ -30,8 +35,6 @@ import { AuthGuardService } from "./shared/services/auth.guard.service";
 import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
-import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.component';
-import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.component';
 
 
 @NgModule({
@@ -54,6 +57,9 @@ import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.
     ReceiverComponent,
     ReceiverListComponent,
     InvoiceErrorsComponent,
+    UserManagementComponent,
+    UserViewComponent,
+    ResetPasswordComponent,
 
   ],
   imports: [
