@@ -59,6 +59,12 @@ export class UserManagementComponent implements OnInit {
 
   async deleteUser(user:UserRequestDto){
 
+    if (user.issuer){
+      this.dialogService.alertMessege('User with issuer can\'t be deleted')
+    }
+else{
+
+
     const confirmDeleteAction = await this.dialogService.confirmDelete('delete user'+user.username);
 
     if(confirmDeleteAction.isConfirmed) {
@@ -68,7 +74,7 @@ export class UserManagementComponent implements OnInit {
         this.listUsers();
       });
     }
-
+  }
   }
 
   // activate user 

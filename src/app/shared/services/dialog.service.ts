@@ -70,4 +70,11 @@ confirmDelete(title:string){
     this.router.navigate([route]);
   }
 
+  alertMessege(title:string){
+    Swal.fire({
+      icon: 'error',
+      title: title,
+    })
+  }
+
 }
