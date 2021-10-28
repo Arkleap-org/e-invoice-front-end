@@ -54,3 +54,9 @@ export class LinesDto {
     item_name!: string;
     item_code!: string;
 }
+
+export class InvoiceErrorDto {
+    header_errors!: [];
+    lines_errors!: [];
+    other_errors!: [];
+}

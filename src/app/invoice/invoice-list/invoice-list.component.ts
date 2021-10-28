@@ -42,16 +42,19 @@ export class InvoiceListComponent implements OnInit {
   }
 
   // #endregion
-  
+
   // #region load controls
-  
-  loadControls(){
-      this.listInvoices();
+
+  loadControls() {
+    this.listInvoices();
   }
 
-   // get invoices list
+  // get invoices list
   listInvoices() {
-    this.invoiceService.listInvoices().subscribe((response: ResponseDto) =>  this.invoiceDataSource.data = response.data );
+    this.invoiceService.listInvoices().subscribe((response: ResponseDto) => {
+      console.log(response.data)
+      this.invoiceDataSource.data = response.data
+    });
   }
 
   // #endregion

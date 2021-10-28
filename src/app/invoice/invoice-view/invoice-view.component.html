@@ -1,7 +1,8 @@
 <!-- invoice -->
 <mat-card>
   <mat-card-title class="text-secondary">{{'Invoice'|translate}}</mat-card-title>
-  <!-- <fieldset> -->
+
+
   <div class="col-md-6">
     <div><label><strong>{{'Invoice'|translate}} # </strong></label> <span> {{invoiceDetails.internal_id}}</span></div>
     <div><label><strong>{{'Invoice Status'|translate}}</strong></label> <span>
@@ -14,14 +15,14 @@
     <div><label><strong>{{'UUID'|translate}} </strong></label> <span> hii</span></div>
     <div><label><strong>{{'Submission ID'|translate}}</strong></label> <span> Submitted</span></div>
   </div>
-  <!-- </fieldset> -->
+
   <br>
   <hr>
   <br>
   <!-- receiver -->
 
   <mat-card-title class="text-secondary">{{'Receiver'|translate}}</mat-card-title>
-  <!-- <fieldset> -->
+
   <div class="col-md-6">
     <div><label><strong>{{'Name'|translate}}</strong></label> <span> {{invoiceDetails.receiver_name}}</span></div>
     <div><label><strong>{{'Registration Number'|translate}}</strong></label> <span>
@@ -32,10 +33,11 @@
         {{invoiceDetails.receiver_street}}, {{invoiceDetails.receiver_governate}},
         {{invoiceDetails.receiver_country}}</span></div>
   </div>
-  <!-- </fieldset> -->
+
   <br>
   <hr>
   <br>
+
   <!-- items -->
   <mat-card-title class="text-secondary">{{'Items'|translate}}</mat-card-title>
   <table class="table table-striped">

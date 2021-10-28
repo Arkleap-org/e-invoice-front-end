@@ -27,5 +27,10 @@ export class InvoiceService {
     return this.http.post<ResponseDto>(url, data);
   }
 
+  viewInvoiceErrors(id: number) {
+    const url = `/invoice/view-errors/${id}`;
+    return this.http.get<ResponseDto>(url);
+  }
+
 }
 
