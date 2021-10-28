@@ -1,8 +1,14 @@
+// angular core
 import { NgModule } from '@angular/core';
+
+// angular router
 import { RouterModule, Routes } from '@angular/router';
+
+// components
 import { AddUserComponent } from './add-user/add-user.component';
 import { HomeComponent } from './home/home.component';
 import { InvoiceDetailsComponent } from './invoice/invoice-details/invoice-details.component';
+import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.component';
 import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
 import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
 import { IssuerAddressComponent } from './issuer/issuer-address/issuer-address.component';
@@ -13,6 +19,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.component';
 import { RegisterComponent } from './register/register.component';
+
+// services
 import { AuthGuardService } from './shared/services/auth.guard.service';
 
 const routes: Routes = [
@@ -46,9 +54,11 @@ const routes: Routes = [
       { path: "invoice/list", canActivate: [AuthGuardService], component: InvoiceListComponent },
       { path: "invoice/add", canActivate: [AuthGuardService], component: InvoiceDetailsComponent },
       { path: "invoice/view/:id", canActivate: [AuthGuardService], component: InvoiceViewComponent },
+      { path: "invoice/errors/:id", canActivate: [AuthGuardService], component: InvoiceErrorsComponent },
+
 
       { path: "receivers/list", canActivate: [AuthGuardService], component: ReceiverListComponent },
-     
+
     ]
   }
 ];
