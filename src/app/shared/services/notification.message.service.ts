@@ -7,10 +7,11 @@ export class NotificationMessageService {
   constructor(private snackBar: MatSnackBar) { }
 
   showSuccessMessage(message: string) {
-    this.snackBar.open('PizzaPartyComponent', 'x', {
-      // duration: 2000,
-      panelClass: "success-message"
-    })
+    // this.snackBar.open(message, 'x', {
+    //   panelClass: "success-message",
+    //   duration: 2000,
+    // })
+
     // this.notificationService.show({
     //   content: message,
     //   cssClass: "success-notification",
@@ -22,6 +23,12 @@ export class NotificationMessageService {
   }
 
   showWarningMessage(message: string) {
+
+    this.snackBar.open(message, 'x', {
+      panelClass: "warning-message",
+      duration: 2000,
+    })
+    
     // this.notificationService.show({
     //   content: message,
     //   cssClass: "button-notification",
@@ -56,6 +63,10 @@ export class NotificationMessageService {
   }
 
   showErrorMessage(message: string) {
+    this.snackBar.open(message, 'x', {
+      panelClass: "error-message",
+      duration: 2000,
+    })
     // this.notificationService.show({
     //   content: message,
     //   closable: true,

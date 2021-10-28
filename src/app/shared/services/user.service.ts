@@ -67,7 +67,7 @@ export class UserService {
 
  changePassword(model:ResetPasswordDto){
    const url = `user/change-password`
-   return this.http.post<ResponseDto>(url,model)
+   return this.http.put<ResponseDto>(url,model)
    
  }
  

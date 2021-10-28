@@ -31,7 +31,7 @@
 
             <mat-card class="text-white bg-success">
               <div class="row card-title">
-                <div><strong>{{'Valid Invoices'|translate}} </strong></div>
+                <div><strong>{{ thisMonth | date:'MMMM'}}'s {{'Valid Invoices'|translate}} </strong></div>
               </div>
               <div class="row px-4">
                 <div class="col-6">
@@ -51,7 +51,7 @@
           <div class="col-md-3">
             <mat-card class="text-white bg-danger">
               <div class="row card-title">
-                <div><strong>{{'Invalid Invoices'|translate}}</strong></div>
+                <div><strong>{{ thisMonth | date:'MMMM'}}'s {{'Invalid Invoices'|translate}}</strong></div>
               </div>
               <div class="row px-4">
                 <div class="col-6">
@@ -60,6 +60,27 @@ close                    </span>
                 </div>
                 <div class="col-6 card-count">
                   {{dashboardCounts.submissions_count_invalid || 0}}
+                </div>
+              </div>
+             
+            </mat-card>
+
+          </div>
+          <div class="col-md-3">
+
+            <mat-card class="text-white bg-primary">
+              <div class="row card-title">
+                <div><strong>{{'Total Invoices'|translate}} </strong></div>
+              </div>
+              <div class="row px-4">
+                <div class="col-6">
+                  <span class="material-icons card-icon">
+                    insert_drive_file
+                    </span>
+                </div>
+                <div class="col-6 card-count">
+                  {{dashboardCounts.total_invoices_count ||
+                    0}}
                 </div>
               </div>
              

@@ -45,9 +45,9 @@
 <mat-menu #menu="matMenu">
   <ng-template matMenuContent>
     <button mat-menu-item routerLink="/home"> {{'Dashboard' | translate}} </button>
+    <button mat-menu-item [matMenuTriggerFor]="receivers"> {{'Recievers' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="items"> {{'Items' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="invoices"> {{'Invoices' | translate}} </button>
-    <button mat-menu-item [matMenuTriggerFor]="receivers"> {{'Recievers' | translate}} </button>
   
   </ng-template>
 </mat-menu>
@@ -86,9 +86,9 @@
   <ng-template matMenuContent>
     <button mat-menu-item [matMenuTriggerFor]="issuer">{{'Issuer' | translate}}</button>
     <button mat-menu-item routerLink="user">{{'Add User' | translate}}</button>
-    <button mat-menu-item routerLink="">{{'Logout' | translate}}</button>
-    <button mat-menu-item routerLink="user/list">{{'User Management' | translate}}</button>
     <button mat-menu-item >{{'Download Web Agent' | translate}}</button>
+    <button mat-menu-item routerLink="user/list">{{'User Management' | translate}}</button>
+    <button mat-menu-item routerLink="">{{'Logout' | translate}}</button>
   </ng-template>
 </mat-menu>
 
