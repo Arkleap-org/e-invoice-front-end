@@ -1,11 +1,21 @@
 // angular core
 import { Component, Inject, OnInit, Optional } from '@angular/core';
+
+// angular forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+// angular material
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+// angular router
 import { ActivatedRoute } from '@angular/router';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { InvoiceService } from 'src/app/shared/services/invoice.service';
+
+// models
+import { ResponseDto } from '../../../shared/models/api-response.model';
+
+// services
+import { DialogService } from '../../../shared/services/dialog.service';
+import { InvoiceService } from '../../../shared/services/invoice.service';
 
 @Component({
   selector: 'app-invoice-cancel',

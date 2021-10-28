@@ -1,13 +1,21 @@
+// angular core
 import { Component, OnInit, ViewChild } from '@angular/core';
+
+// angular material
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { takeUntil } from 'rxjs/operators';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { InvoiceService } from 'src/app/shared/services/invoice.service';
-import { InvoiceCancelComponent } from '../invoice-cancel/invoice-cancel.component';
+
+// components
+import { InvoiceCancelComponent } from '../../popups/invoice/invoice-cancel/invoice-cancel.component';
+
+// models
+import { ResponseDto } from '../../shared/models/api-response.model';
+
+// services
+import { DialogService } from '../../shared/services/dialog.service';
+import { InvoiceService } from '../../shared/services/invoice.service';
 
 
 @Component({

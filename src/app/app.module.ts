@@ -23,6 +23,8 @@ import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { UserViewComponent } from './admin/user-view/user-view.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
+import { InvoiceCancelComponent } from './popups/invoice/invoice-cancel/invoice-cancel.component';
+
 
 // modules
 import { AppRoutingModule } from "./app-routing.module";
@@ -35,7 +37,6 @@ import { AuthGuardService } from "./shared/services/auth.guard.service";
 import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
-import { InvoiceCancelComponent } from './invoice/invoice-cancel/invoice-cancel.component';
 
 
 @NgModule({
