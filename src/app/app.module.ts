@@ -35,6 +35,7 @@ import { AuthGuardService } from "./shared/services/auth.guard.service";
 import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
+import { InvoiceCancelComponent } from './invoice/invoice-cancel/invoice-cancel.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { ItemsService } from "./shared/services/items.service";
     UserManagementComponent,
     UserViewComponent,
     ResetPasswordComponent,
+    InvoiceCancelComponent,
 
   ],
   imports: [
