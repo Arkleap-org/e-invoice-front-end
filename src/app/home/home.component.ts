@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
   invoiceDataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
   dashboardCounts: DashboardDto;
+  thisMonth: number;
+
 
   // #endregion
 
@@ -37,6 +39,7 @@ export class HomeComponent implements OnInit {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
     this.dashboardCounts = new DashboardDto;
+    this.thisMonth = Date.now()
   }
 
   // #endregion
