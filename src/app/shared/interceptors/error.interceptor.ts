@@ -20,10 +20,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           const errorModel: ErrorDto = error.error;
           // customized response
           if (errorModel.response_id) {
-            if (errorModel.warning) { }
+            // if (errorModel.warning) {this.notificationService.showWarningMessage(JSON.stringify(errorModel.warning.values())) }
+            if (errorModel.warning) {this.notificationService.showWarningMessage(Object.values(errorModel.warning)) }
           }
-          else if (typeof (error.error) === "object") { }
-          else if (typeof (error.error) === "string") { }
+          else if (typeof (error.error) === "object") {this.notificationService.showErrorMessage(error.error) }
+          else if (typeof (error.error) === "string") {this.notificationService.showErrorMessage(error.error)  }
           else { }
           return throwError(error);
         }));

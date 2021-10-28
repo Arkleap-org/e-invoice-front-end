@@ -22,7 +22,7 @@ export class NotificationMessageService {
     // });
   }
 
-  showWarningMessage(message: string) {
+  showWarningMessage(message: any) {
 
     this.snackBar.open(message, 'x', {
       panelClass: "warning-message",
