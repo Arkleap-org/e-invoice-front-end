@@ -25,9 +25,10 @@ export class DialogService {
     }).then((result) => { if (result.isConfirmed) this.router.navigate([route]); });
   }
 
-confirmDelete(title:string){
+
+confirmDelete(){
   return Swal.fire({
-    title,
+    title: 'Are you sure?',
     text: "You won't be able to revert this!",
     icon: 'warning',
     showCancelButton: true,
@@ -36,6 +37,7 @@ confirmDelete(title:string){
     confirmButtonText: 'Yes, delete it!'
   })
 }
+
 
 
   successAndRouteBack(route: string) {

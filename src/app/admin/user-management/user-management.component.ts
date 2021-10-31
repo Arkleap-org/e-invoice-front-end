@@ -6,6 +6,7 @@ import { ResponseDto } from 'src/app/shared/models/api-response.model';
 import { UserRequestDto } from 'src/app/shared/models/user.model';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-management',
@@ -24,7 +25,7 @@ export class UserManagementComponent implements OnInit {
 
   // #endregion
   constructor(private userService: UserService,
-    private dialogService:DialogService) {
+    private dialogService: DialogService) {
 
     // init variables
     this.userDataSource = new MatTableDataSource();
@@ -57,40 +58,38 @@ export class UserManagementComponent implements OnInit {
 
   // delete user
 
-  async deleteUser(user:UserRequestDto){
+  deleteUser(user: UserRequestDto) {
 
-    if (user.issuer){
+    if (user.issuer) {
       this.dialogService.alertMessege('User with issuer can\'t be deleted')
     }
-else{
-
-
-    const confirmDeleteAction = await this.dialogService.confirmDelete('delete user'+user.username);
-
-    if(confirmDeleteAction.isConfirmed) {
-      this.userService.deleteUser(user.id).subscribe((response) => 
-      {
-        this.dialogService.savedSuccessfully(user.username+'deleted!')
-        this.listUsers();
+    else {
+      this.dialogService.confirmDelete().then((result) => {
+        if (result.isConfirmed) {
+          this.userService.deleteUser(user.id).subscribe((response) => {
+            this.dialogService.savedSuccessfully(user.username + 'deleted!')
+            this.listUsers();
+          });
+        }
       });
+
     }
-  }
   }
 
   // activate user 
 
-  activateUser(user:UserRequestDto){
-    this.userService.activateUser(user.id).subscribe((response:ResponseDto)=>{
-      this.dialogService.savedSuccessfully(user.username+'Activated')
+  activateUser(user: UserRequestDto) {
+    this.userService.activateUser(user.id).subscribe((response: ResponseDto) => {
+      this.dialogService.savedSuccessfully(user.username + 'Activated')
       this.listUsers();
     })
   }
 
   // deactivate user
 
-  deactivateUser(user:UserRequestDto){
-    this.userService.deactivateUser(user.id).subscribe((response:ResponseDto)=>{
-      this.dialogService.savedSuccessfully(user.username+'Deactivated')
+  deactivateUser(user: UserRequestDto) {
+    this.userService.deactivateUser(user.id).subscribe((response: ResponseDto) => {
+      this.dialogService.savedSuccessfully(user.username + 'Deactivated')
       this.listUsers();
     })
   }

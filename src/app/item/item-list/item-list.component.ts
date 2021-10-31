@@ -80,7 +80,7 @@ export class ItemListComponent implements OnInit {
       this.itemDataSource.paginator.firstPage();
     }
   }
-
+// debugging 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
