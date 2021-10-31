@@ -1,6 +1,6 @@
 @import './assets/scss/variables.scss';
 @import '~@ng-select/ng-select/themes/default.theme.css';
-@import './assets/css/bootstrap.min.css';
+// @import './assets/css/bootstrap.min.css';
 
 .border-box-sizing {
   box-sizing: border-box;
@@ -47,9 +47,10 @@ fieldset {
   padding: 1rem;
 }
 
-.border-left{
+.border-left {
   border-left: 2px solid gray;
 }
+
 table {
   width: 100%;
   // min-height: 500px;
@@ -72,10 +73,19 @@ tr.mat-footer-row {
 
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
 
-label { font-weight: bold;}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// label {
+  //   font-weight: bold;
+  // }
 
 .success-message {
   background-color: #28a745;
@@ -83,12 +93,15 @@ label { font-weight: bold;}
 }
 
 .warning-message {
-  background-color: #e9f35e;
-  color: #fff;
+  background-color: #ebf64d;
+  color: rgb(5, 5, 5);
 }
+
 .error-message {
   background-color: #e74f4f;
   color: #fff;
 }
 
-.mat-simple-snackbar-action { color: #fff; }
+.mat-simple-snackbar-action {
+  color: #fff;
+}
