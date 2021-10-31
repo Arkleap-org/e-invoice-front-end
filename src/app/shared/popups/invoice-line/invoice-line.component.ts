@@ -1,6 +1,7 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ResponseDto } from '../../models/api-response.model';
 import { LinesDto } from '../../models/invoice.model';
 import { ListItemsResponseDto } from '../../models/items.model';
@@ -35,6 +36,7 @@ export class InvoiceLineComponent implements OnInit {
   // #region constructor
 
   constructor(
+    public dialogRef: MatDialogRef<InvoiceLineComponent>,
     private formBuilder: FormBuilder,
     private itemsService: ItemsService
   ) {
@@ -126,6 +128,11 @@ export class InvoiceLineComponent implements OnInit {
       // open quantity field
       // this.hasItem = true;
     });
+  }
+
+  closeAndSave() {
+    console.log("From Popup : ", this.linesDetails)
+    this.dialogRef.close({ model: this.linesForm.value });
   }
 
   // #endregion

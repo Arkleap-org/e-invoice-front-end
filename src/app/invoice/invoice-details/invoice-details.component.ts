@@ -61,6 +61,7 @@ export class InvoiceDetailsComponent implements OnInit {
   receiverDetails: ReceiverDto;
   itemDetails: ListItemsResponseDto[];
   linesDetails: LinesDto[];
+  newLineDetails: LinesDto[];
 
   // names of total calculations
   totalSalesAmount: number;
@@ -115,6 +116,8 @@ export class InvoiceDetailsComponent implements OnInit {
     this.totalDiscountAmount = 0;
 
     this.isSubmitted = false;
+
+    this.newLineDetails = [];
 
     // init forms
     this.initForms();
@@ -318,8 +321,13 @@ export class InvoiceDetailsComponent implements OnInit {
     const dialogRef = this.dialog.open(InvoiceLineComponent, {
       width: '100rem'
     });
-    this.dialog.afterAllClosed.subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       // get data
+      this.newLineDetails.push(result.model);
+      // this.invoiceLinesControls.push(this.newLineDetails)
+      console.log(this.newLineDetails);
+
+      // total calculations
     })
   }
 

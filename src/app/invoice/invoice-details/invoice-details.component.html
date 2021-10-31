@@ -139,6 +139,35 @@
       <mat-icon>add</mat-icon>
     </button>
     <!-- ------------------------------ -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">{{'Item'|translate}}</th>
+          <th scope="col">{{'Description'|translate}}</th>
+          <th scope="col">{{'Quantity'|translate}}</th>
+          <th scope="col">{{'Unit Price'|translate}}</th>
+          <th scope="col">{{'Sales Total'|translate}}</th>
+          <th scope="col">{{'Discount Amount'|translate}}</th>
+          <th scope="col">{{'Net Amount'|translate}}</th>
+          <th scope="col">{{'Tax Amount'|translate}}</th>
+          <th scope="col">{{'Total Amount'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let line of newLineDetails; let i=index;">
+          <td>{{line.item}}</td>
+          <td>{{line.description}}</td>
+          <td>{{line.quantity}}</td>
+          <td>{{line.amount_egp}}</td>
+          <td>{{line.sales_total}}</td>
+          <td>{{line.discount_amount}}</td>
+          <td>{{line.net_total}}</td>
+          <td>{{line.tax_amount}}</td>
+          <td>{{line.total_amount}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- ------------------------------ -->
     <div class="row">
       <div class="col-6"></div>
       <div class="col-6">
