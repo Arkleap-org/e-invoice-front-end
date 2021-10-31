@@ -25,6 +25,7 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 import { ItemsService } from '../../shared/services/items.service';
 import { ReceiverService } from '../../shared/services/receiver.service';
+import { InvoiceLineComponent } from 'src/app/shared/popups/invoice-line/invoice-line.component';
 
 
 
@@ -54,6 +55,7 @@ export class InvoiceDetailsComponent implements OnInit {
   // names of forms
   invoiceForm!: FormGroup
   lines!: FormArray;
+  linesForm!: FormGroup;
 
   // names of details
   receiverDetails: ReceiverDto;
@@ -141,9 +143,10 @@ export class InvoiceDetailsComponent implements OnInit {
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
       date_time_issued: [(new Date()).toISOString().substring(0, 10), Validators.required],
-      lines: this.formBuilder.array([this.createLines()])
+      lines: this.formBuilder.array([])
     });
   }
+
 
   createLines(): FormGroup {
     return this.formBuilder.group({
@@ -165,8 +168,8 @@ export class InvoiceDetailsComponent implements OnInit {
     // add new item detail
     this.addItemDetails();
     // add new form
-    this.lines = this.invoiceForm.get('lines') as FormArray;
-    this.lines.push(this.createLines());
+    // this.lines = this.invoiceForm.('lines') as FormArray;
+    // this.lines.push(this.createLines());
   }
 
   addLineDetails() {
@@ -309,6 +312,15 @@ export class InvoiceDetailsComponent implements OnInit {
         this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list')
       });
     }
+  }
+
+  openLinesPopup() {
+    const dialogRef = this.dialog.open(InvoiceLineComponent, {
+      width: '100rem'
+    });
+    this.dialog.afterAllClosed.subscribe(result => {
+      // get data
+    })
   }
 
   // #endregion

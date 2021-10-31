@@ -1,0 +1,100 @@
+<mat-card>
+  <mat-card-title>{{'Invoice Line'|translate}}</mat-card-title>
+  <br>
+  <div class="from" [formGroup]="linesForm">
+    <div class="row">
+      <!-- Items -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
+          <ng-select [items]="listOfItems" bindLabel="item_name" bindValue="id" [searchable]="true"
+            placeholder="{{'Items'|translate}}" formControlName="item" [(ngModel)]="itemDetails.id"
+            (change)="getItemById(itemDetails.id)">
+          </ng-select>
+
+          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('item')?.errors?.required">
+            {{'Item is required'|translate}}.
+          </small>
+        </div>
+      </div>
+      <!-- description -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Description'|translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'Description'|translate}}"
+            formControlName="description" [(ngModel)]="itemDetails.item_desc" readonly='true'>
+        </div>
+      </div>
+      <!-- Quantity -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}" formControlName="quantity"
+            [(ngModel)]="linesDetails.quantity" [readonly]='!itemDetails.item_desc'>
+          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('quantity')?.errors?.required">
+            {{'Quantity is required'|translate}}.
+          </small>
+        </div>
+      </div>
+      <!-- unit price -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Unit Price'|translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'Unit Price'|translate}}"
+            formControlName="unit_price" [(ngModel)]="linesDetails.amount_egp" (ngModelChange)="calculateSalesTotal()"
+            [readonly]='!linesDetails.quantity'>
+          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('unit_price')?.errors?.required">
+            {{'Unit Price required'|translate}}.
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- sales_total -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Sales Total'|translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'Sales Total'|translate}}"
+            formControlName="sales_total" readonly='true' [(ngModel)]="linesDetails.sales_total">
+        </div>
+      </div>
+      <!-- discount Amount -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Discount Amount'|translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'Discount Amount'|translate}}"
+            formControlName="amount_egp" (ngModelChange)="calculateNetTotal($event)"
+            [(ngModel)]="linesDetails.discount_amount" [readonly]='!linesDetails.amount_egp'>
+          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('amount_egp')?.errors?.required">
+            {{'Discount Amount required'|translate}}.
+          </small>
+        </div>
+      </div>
+
+      <!-- net total -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Net Total'|translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'Net Amount'|translate}}" formControlName="net_total"
+            readonly="true" [(ngModel)]="linesDetails.net_total">
+        </div>
+      </div>
+
+      <!-- tax Amount -->
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Tax Amount'|translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" placeholder="{{'Tax Amount'|translate}}"
+            formControlName="tax_amount" readonly='true' [(ngModel)]="linesDetails.tax_amount">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</mat-card>
+<mat-card-actions class="text-center">
+  <button mat-button class="btn btn-secondary text-light" mat-dialog-close>Cancel</button>
+  <button mat-button class="btn btn-info text-light">Create</button>
+</mat-card-actions>
