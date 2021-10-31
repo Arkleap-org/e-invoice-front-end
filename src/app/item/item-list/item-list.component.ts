@@ -21,6 +21,7 @@ export class ItemListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemDataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['id', 'item_name', 'item_desc', 'item_type', 'item_code', 'internal_code', 'unit_type', 'actions'];
+  pageSizeOptions: number[] = [10];
 
   // #endregion
 
@@ -80,6 +81,11 @@ export class ItemListComponent implements OnInit {
     }
   }
 
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
   // #endregion
 
 }
