@@ -17,6 +17,8 @@ import { ResponseDto } from '../../shared/models/api-response.model';
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-invoice-list',
@@ -111,11 +113,11 @@ export class InvoiceListComponent implements OnInit {
 
   // FIXME: should open pdf in a new tab
   printInvoice(id: number) {
-    // window.open('www.google.com');
-    this.invoiceService.printInvoice(id).subscribe((response: ResponseDto) => {
-      console.log(response);
+    window.open(`${environment.baseUrl}invoice/print/${id}`);
+    // this.invoiceService.printInvoice(id).subscribe((response: ResponseDto) => {
+    //   console.log(response);
 
-    });
+    // });
   }
   // #endregion
 
