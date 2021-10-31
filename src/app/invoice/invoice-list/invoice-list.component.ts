@@ -1,10 +1,21 @@
+// angular core
 import { Component, OnInit, ViewChild } from '@angular/core';
+
+// angular material
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { takeUntil } from 'rxjs/operators';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { InvoiceService } from 'src/app/shared/services/invoice.service';
+
+// components
+import { InvoiceCancelComponent } from '../../popups/invoice/invoice-cancel/invoice-cancel.component';
+
+// models
+import { ResponseDto } from '../../shared/models/api-response.model';
+
+// services
+import { DialogService } from '../../shared/services/dialog.service';
+import { InvoiceService } from '../../shared/services/invoice.service';
 
 
 @Component({
@@ -27,7 +38,9 @@ export class InvoiceListComponent implements OnInit {
   // #region constructor
 
   constructor(
-    private invoiceService: InvoiceService
+    private invoiceService: InvoiceService,
+    private dialogService: DialogService,
+    public dialog: MatDialog,
   ) {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
@@ -42,16 +55,16 @@ export class InvoiceListComponent implements OnInit {
   }
 
   // #endregion
-  
+
   // #region load controls
-  
-  loadControls(){
-      this.listInvoices();
+
+  loadControls() {
+    this.listInvoices();
   }
 
-   // get invoices list
+  // get invoices list
   listInvoices() {
-    this.invoiceService.listInvoices().subscribe((response: ResponseDto) =>  this.invoiceDataSource.data = response.data );
+    this.invoiceService.listInvoices().subscribe((response: ResponseDto) => this.invoiceDataSource.data = response.data);
   }
 
   // #endregion
@@ -77,6 +90,33 @@ export class InvoiceListComponent implements OnInit {
     }
   }
 
+  submitInvoice(internalId: string) {
+    this.invoiceService.submitInvoice(internalId).subscribe((response: ResponseDto) => {
+      this.dialogService.savedSuccessfully('Your invoice is beeing Submitted...');
+      console.log('sub response ', response);
+
+    });
+  }
+
+  openInvoiceCancelPopup(invoiceId: number) {
+    const dialogRef = this.dialog.open(InvoiceCancelComponent, {
+      width: '40rem',
+      data: invoiceId
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadControls();
+    });
+  }
+
+  // FIXME: should open pdf in a new tab
+  printInvoice(id: number) {
+    // window.open('www.google.com');
+    this.invoiceService.printInvoice(id).subscribe((response: ResponseDto) => {
+      console.log(response);
+
+    });
+  }
   // #endregion
 
 }
