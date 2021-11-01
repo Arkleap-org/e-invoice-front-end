@@ -1,5 +1,19 @@
 <mat-card>
-  <mat-card-title>{{'Invoices List' | translate}}</mat-card-title>
+
+  <mat-card-title>
+    <div class="row">
+      <div class="col-6">
+        {{'Invoices List' | translate}}
+      </div>
+      <div class="col-6 form-group text-right">
+        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
+          title="{{'Add Invoice'|translate}}" routerLink="/invoice/add"> {{'Add Invoice'|translate}}
+        </button>
+      </div>
+    </div>
+
+  </mat-card-title>
+
   <mat-form-field appearance="standard">
     <mat-label>{{'Search' | translate}}</mat-label>
     <input matInput (keyup)="applyFilter($event)" #input>
@@ -54,8 +68,8 @@
             <button mat-menu-item [routerLink]="['/invoice/view', row.id]">{{'View Invoice' | translate}}</button>
 
             <!-- submit / resubmit -->
-            <button mat-menu-item *ngIf="row.portal_status === '--'"
-              (click)="submitInvoice(row.internal_id)">{{'Submit' | translate}}</button>
+            <button mat-menu-item *ngIf="row.portal_status === '--'" (click)="submitInvoice(row.internal_id)">{{'Submit'
+              | translate}}</button>
             <button mat-menu-item *ngIf="row.portal_status === 'Invalid'"
               (click)="submitInvoice(row.internal_id)">{{'Resubmit' | translate}}</button>
 
@@ -64,8 +78,8 @@
               [routerLink]="['/invoice/errors', row.id]">{{'View Errors' | translate}}</button>
 
             <!-- print -->
-            <button mat-menu-item *ngIf="row.portal_status != '--'"
-              (click)="printInvoice(row.id)">{{'Print Invoice' | translate}}</button>
+            <button mat-menu-item *ngIf="row.portal_status != '--'" (click)="printInvoice(row.id)">{{'Print Invoice' |
+              translate}}</button>
 
             <!-- cancel -->
             <button mat-menu-item *ngIf="row.portal_status === 'Valid'"
