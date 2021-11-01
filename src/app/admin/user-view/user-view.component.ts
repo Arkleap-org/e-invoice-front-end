@@ -2,11 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // models
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
 import { UserRequestDto } from 'src/app/shared/models/user.model';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 
@@ -24,6 +25,7 @@ export class UserViewComponent implements OnInit {
   userDetails!: UserRequestDto;
   userForm!: FormGroup;
   isSubmitted: boolean;
+  updateView: boolean;
 
 
   // #endregion
@@ -33,12 +35,14 @@ export class UserViewComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    
-    private route: ActivatedRoute
+    private dialogService: DialogService,
+    private route: ActivatedRoute,
+    private router:Router
   ) { 
 
     this.userDetails = new UserRequestDto;
     this.isSubmitted = false;
+    this.updateView = false;
 
   }
 
@@ -63,9 +67,9 @@ export class UserViewComponent implements OnInit {
       is_staff: ['', Validators.required],
       is_superuser: ['', Validators.required],
       is_active: ['', Validators.required],
-      date_joined: ['', Validators.required],
-      last_login: ['', Validators.required],
-      issuer: ['', Validators.required],
+      date_joined: ['',],
+      last_login: ['', ],
+      issuer: [''],
     });
   }
 
@@ -76,6 +80,25 @@ export class UserViewComponent implements OnInit {
 
   // #endregion
   // #region main actions
+
+  updateUserView(){
+    this.updateView = true;
+    this.isSubmitted = true;
+
+  }
+
+  updateUser(model:UserRequestDto){
+    if(this.isSubmitted && this.userForm.valid){
+
+      this.userService.updateUser(this.userDetails.id,model).subscribe((response: ResponseDto) => {
+  
+        this.router.navigate(['/user/list']);
+        this.dialogService.savedSuccessfully(this.userDetails.username +' has been updated successfully.');
+      });
+    }
+
+
+  }
 
   getUserById(){
     this.userService.getUserById(this.userId).subscribe((response:ResponseDto)=>{

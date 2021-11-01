@@ -3,70 +3,77 @@
     <div class="row pt-5" [formGroup]="userForm">
       <div class="col-3 form-group">
         <label for="first_name">{{'First Name'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-control" type="text" formControlName="first_name" [(ngModel)]="userDetails.first_name" id="first_name">
+        <input class="form-control" [class.overlay]="!updateView" type="text" formControlName="first_name" [(ngModel)]="userDetails.first_name" id="first_name">
         <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.first_name.errors?.required">
           {{'First name is required'|translate}}.
         </small>
       </div>
       <div class="col-3 form-group">
         <label for="last_name">{{'Last Name'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-control" type="text" [(ngModel)]="userDetails.last_name" formControlName="last_name" id="last_name">
+        <input  [class.overlay]="!updateView" class="form-control" type="text" [(ngModel)]="userDetails.last_name" formControlName="last_name" id="last_name">
         <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.last_name.errors?.required">
           {{'Last name is required'|translate}}.
         </small>
       </div>
       <div class="col-3 form-group">
         <label for="username">{{'User Name'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-control" type="text" [(ngModel)]="userDetails.username" formControlName="username" id="username">
+        <input  [class.overlay]="!updateView" class="form-control" type="text" [(ngModel)]="userDetails.username" formControlName="username" id="username">
         <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.username.errors?.required">
           {{'username is required'|translate}}.
         </small>
       </div>
       <div class="col-3 form-group">
         <label for="email">{{'Email'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-control" type="email" [(ngModel)]="userDetails.email" formControlName="email" id="email">
+        <input  class="form-control overlay" type="email" [(ngModel)]="userDetails.email" formControlName="email" id="email">
         <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.email.errors?.required">
           {{'Email is required'|translate}}.
         </small>
-        <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.email.errors?.email">
-          {{'Email is not correct'|translate}}.
-        </small>
+       
       </div>
     
 
       <div class="col-3 form-group">
-        <label for="date_joined">{{'Date Joined'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-control" type="text" [(ngModel)]="userDetails.date_joined" formControlName="date_joined" id="date_joined" >
+        <label for="date_joined">{{'Date Joined'|translate}}</label>
+        <input   class="form-control overlay" type="text" [(ngModel)]="userDetails.date_joined" formControlName="date_joined" id="date_joined" >
   
       </div>
 
       <div class="col-3 form-group">
-        <label for="last_login">{{'Last Login'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-control" type="text" [(ngModel)]="userDetails.last_login" formControlName="last_login" id="last_login" >
+        <label for="last_login">{{'Last Login'|translate}}</label>
+        <input   class="form-control overlay" type="text" [(ngModel)]="userDetails.last_login" formControlName="last_login" id="last_login" >
   
       </div>
       <div class="col-3 form-group">
-        <label for="issuer">{{'Issuer'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-control" type="text" [(ngModel)]="userDetails.issuer" formControlName="issuer" id="issuer" >
+        <label for="issuer">{{'Issuer'|translate}}</label>
+        <input  [class.overlay]="!updateView" class="form-control" type="text" [(ngModel)]="userDetails.issuer" formControlName="issuer" id="issuer" >
   
       </div>
 
       <div  class="form-check">
-        <label class="form-check-label" for="is_staff">{{'A Staff Member'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-check-input" type="checkbox"  [(ngModel)]="userDetails.is_staff" formControlName="is_staff" id="is_staff" />
+        <label class="form-check-label" for="is_staff">{{'A Staff Member'|translate}}</label>
+        <input  [class.overlay]="!updateView" class="form-check-input" type="checkbox"  [(ngModel)]="userDetails.is_staff" formControlName="is_staff" id="is_staff" />
     </div>
 
     <div  class="form-check">
-        <label class="form-check-label" for="is_superuser">{{'A Superuser'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-check-input" type="checkbox" [(ngModel)]="userDetails.is_superuser" formControlName="is_superuser" id="is_superuser" >
+        <label class="form-check-label" for="is_superuser">{{'A Superuser'|translate}}</label>
+        <input  [class.overlay]="!updateView" class="form-check-input" type="checkbox" [(ngModel)]="userDetails.is_superuser" formControlName="is_superuser" id="is_superuser" >
   
       </div>
       <div class="form-check">
-        <label class="form-check-label" for="is_active">{{'Active'|translate}}<span class="text-danger">*</span></label>
-        <input class="form-check-input" type="checkbox" [(ngModel)]="userDetails.is_active" formControlName="is_active" id="is_active" >
+        <label class="form-check-label" for="is_active">{{'Active'|translate}}</label>
+        <input  [class.overlay]="!updateView" class="form-check-input" type="checkbox" [(ngModel)]="userDetails.is_active" formControlName="is_active" id="is_active" >
       </div>
-      <div class="col-7 form-group">
-        <button class="btn btn-primary">{{'Save'|translate}}</button>
+      
+      <div class="d-flex mt-4">
+        <div>
+          <button class="btn btn-primary update-button" [routerLink]="['/user/list']">Cancel</button>
+        </div>
+        <div class="update-button">
+          <button class="btn btn-primary update-button" *ngIf="!updateView" (click)="updateUserView()" >{{ 'Update'| translate}}</button>
+          <button class="btn btn-primary update-button" *ngIf="updateView" (click)="updateUser(userForm.value)" >{{ 'Save' | translate}}</button>
+
+        </div>
+      
       </div>
     </div>
   </mat-card>

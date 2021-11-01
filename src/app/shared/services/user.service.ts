@@ -24,6 +24,13 @@ export class UserService {
     return this.http.get<ResponseDto>(url);
   }
 
+  
+    updateUser(id: number, data:UserRequestDto) {
+      const url = `user/update/${id}`;
+      return this.http.put<ResponseDto>(url, data);
+    }
+  
+
   deleteUser(id:number){
     const url = `user/delete`;
 
