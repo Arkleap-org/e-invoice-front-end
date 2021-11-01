@@ -67,7 +67,7 @@ export class ReceiverListComponent implements OnInit {
   this.receiverDataSource.sort = this.sort;
 }
 
-// #endregion
+// #endregion 
 
 // #region main action
 
