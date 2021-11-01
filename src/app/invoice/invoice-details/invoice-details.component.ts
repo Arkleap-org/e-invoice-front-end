@@ -46,6 +46,7 @@ export class InvoiceDetailsComponent implements OnInit {
   hasItem: boolean
   hasQty: boolean;
   isSubmitted: boolean;
+  itemName: string[];
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -118,6 +119,8 @@ export class InvoiceDetailsComponent implements OnInit {
     this.isSubmitted = false;
 
     this.newLineDetails = [];
+
+    this.itemName = [];
 
     // init forms
     this.initForms();
@@ -324,6 +327,7 @@ export class InvoiceDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // get data
       this.newLineDetails.push(result.model);
+      this.itemName.push(result.itemName);
       // this.invoiceLinesControls.push(this.newLineDetails)
       console.log(this.newLineDetails);
 

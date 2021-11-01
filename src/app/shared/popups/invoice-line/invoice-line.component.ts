@@ -132,7 +132,7 @@ export class InvoiceLineComponent implements OnInit {
 
   closeAndSave() {
     console.log("From Popup : ", this.linesDetails)
-    this.dialogRef.close({ model: this.linesForm.value });
+    this.dialogRef.close({ model: this.linesForm.value, itemName: this.itemDetails.item_name });
   }
 
   // #endregion
