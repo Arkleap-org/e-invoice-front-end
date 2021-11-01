@@ -225,52 +225,66 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // #region line calculations
 
-  calculateSalesTotal(index: number) {
-    this.linesDetails[index].sales_total = (this.linesDetails[index].amount_egp * this.linesDetails[index].quantity);
+  // calculateSalesTotal(index: number) {
+  //   this.linesDetails[index].sales_total = (this.linesDetails[index].amount_egp * this.linesDetails[index].quantity);
 
-  }
+  // }
 
-  calculateNetTotal(index: number, discount_amount: number) {
-    if (this.linesDetails[index].sales_total && discount_amount >= 0) {
-      this.linesDetails[index].net_total = (this.linesDetails[index].sales_total - discount_amount);
-      this.calculateTaxAmount(index);
-      this.calculateTotalLineAmount(index);
-      // total calculations
-      this.calculateTotalSalesAmount(this.linesDetails[index].sales_total);
-      this.calculateTaxTotals(this.linesDetails[index].tax_amount1)
-      this.calculateTotalInvoiceAmount(this.linesDetails[index].total_amount)
-      this.calculateTotalDiscountAmount(discount_amount);
-    }
-  }
+  // calculateNetTotal(index: number, discount_amount: number) {
+  //   if (this.linesDetails[index].sales_total && discount_amount >= 0) {
+  //     this.linesDetails[index].net_total = (this.linesDetails[index].sales_total - discount_amount);
+  //     this.calculateTaxAmount(index);
+  //     this.calculateTotalLineAmount(index);
+  //     // total calculations
+  //     this.calculateTotalSalesAmount(this.linesDetails[index].sales_total);
+  //     this.calculateTaxTotals(this.linesDetails[index].tax_amount1)
+  //     this.calculateTotalInvoiceAmount(this.linesDetails[index].total_amount)
+  //     this.calculateTotalDiscountAmount(discount_amount);
+  //   }
+  // }
 
-  calculateTaxAmount(index: number) {
-    if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount1 = Number(this.linesDetails[index].net_total * (this.itemDetails[index].sub_tax_rate / 100)).toFixed(5);
-  }
+  // calculateTaxAmount(index: number) {
+  //   if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount1 = Number(this.linesDetails[index].net_total * (this.itemDetails[index].sub_tax_rate / 100)).toFixed(5);
+  // }
 
-  calculateTotalLineAmount(index: number) {
-    if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount1) this.linesDetails[index].total_amount = Number(this.linesDetails[index].net_total) + Number(this.linesDetails[index].tax_amount1);
-  }
+  // calculateTotalLineAmount(index: number) {
+  //   if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount1) this.linesDetails[index].total_amount = Number(this.linesDetails[index].net_total) + Number(this.linesDetails[index].tax_amount1);
+  // }
 
   // #endregion
 
   // #region invoice summary calculations
 
-  calculateTotalSalesAmount(salesAmount: number) {
-    this.totalSalesAmount += salesAmount;
+  calculateTotalSalesAmount() {
+    this.totalSalesAmount = 0;
+    for (let i in this.newLineDetails) {
+      this.totalSalesAmount += this.newLineDetails[i].sales_total;
+    }
   }
 
-  calculateTotalDiscountAmount(discountAmount: number) {
-    this.totalDiscountAmount += discountAmount;
+  calculateTotalDiscountAmount() {
+    this.totalDiscountAmount = 0;
+    for (let i in this.newLineDetails) {
+      this.totalDiscountAmount += this.newLineDetails[i].discount_amount;
+    }
   }
 
 
-  calculateTaxTotals(taxTotal: number) {
-    this.totalTaxTotals += Number(taxTotal);
+  calculateTaxTotals() {
+    this.totalTaxTotals = 0;
+    let taxTotals: number = 0;
+    for (let i in this.newLineDetails) {
+      taxTotals += Number(this.newLineDetails[i].tax_amount1 ? this.newLineDetails[i].tax_amount1 : 0) + Number(this.newLineDetails[i].tax_amount2 ? this.newLineDetails[i].tax_amount2 : 0) + Number(this.newLineDetails[i].tax_amount3 ? this.newLineDetails[i].tax_amount3 : 0);
+      this.totalTaxTotals += Number(taxTotals);
+    }
   }
 
 
-  calculateTotalInvoiceAmount(netTotal: number) {
-    this.totalInvoiceAmount += Number(netTotal);
+  calculateTotalInvoiceAmount() {
+    this.totalInvoiceAmount = 0
+    for (let i in this.newLineDetails) {
+      this.totalInvoiceAmount += Number(this.newLineDetails[i].net_total)
+    }
   }
 
 
@@ -329,7 +343,13 @@ export class InvoiceDetailsComponent implements OnInit {
       this.newLineDetails.push(result.model);
       this.itemName.push(result.itemName);
       // this.invoiceLinesControls.push(this.newLineDetails)
-      console.log(this.newLineDetails);
+      this.invoiceForm.value.lines = this.newLineDetails;
+
+      this.calculateTotalSalesAmount();
+      this.calculateTotalDiscountAmount();
+      this.calculateTaxTotals();
+      this.calculateTotalInvoiceAmount();
+
 
       // total calculations
     })
