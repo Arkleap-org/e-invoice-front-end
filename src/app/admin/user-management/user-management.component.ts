@@ -1,43 +1,68 @@
+// angular modules
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { UserRequestDto } from 'src/app/shared/models/user.model';
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { UserService } from 'src/app/shared/services/user.service';
-import Swal from 'sweetalert2';
+
+// models
+import { ResponseDto } from '../../shared/models/api-response.model';
+import { UserRequestDto } from '../../shared/models/user.model';
+
+// services
+import { DialogService } from '../../shared/services/dialog.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.scss']
 })
+
 export class UserManagementComponent implements OnInit {
 
   // #region declare variables
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   userDataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['username', 'issuer', 'email', 'is_staff', 'is_superuser',
-    'is_active', 'date_joined', 'last_login', 'actions'];
+  displayedColumns: string[];
 
   // #endregion
-  constructor(private userService: UserService,
-    private dialogService: DialogService) {
+
+  // #region constructor
+
+  constructor(
+    private userService: UserService,
+    private dialogService: DialogService
+  ) {
 
     // init variables
     this.userDataSource = new MatTableDataSource();
-
+    this.displayedColumns = ['username', 'issuer', 'email', 'is_staff', 'is_superuser', 'is_active', 'date_joined', 'last_login', 'actions'];
   }
 
-  ngOnInit(): void {
+  // #endregion
 
+  // #region ngOnInit
+
+  ngOnInit(): void {
+    this.loadControls();
+  }
+
+  // #endregion
+
+  // #region load controls
+
+  loadControls() {
     this.listUsers();
   }
 
+  listUsers() {
+    this.userService.listUsers().subscribe((response: ResponseDto) => this.userDataSource.data = response.data);
+  }
 
+  // #endregion
 
   // #region ngAfterViewInit
 
@@ -50,19 +75,8 @@ export class UserManagementComponent implements OnInit {
 
   // #region main action
 
-  // list users
-
-  listUsers() {
-    this.userService.listUsers().subscribe((response: ResponseDto) => this.userDataSource.data = response.data);
-  }
-
-  // delete user
-
   deleteUser(user: UserRequestDto) {
-
-    if (user.issuer) {
-      this.dialogService.alertMessege('User with issuer can\'t be deleted')
-    }
+    if (user.issuer) this.dialogService.alertMessege('User with issuer can\'t be deleted')
     else {
       this.dialogService.confirmDelete().then((result) => {
         if (result.isConfirmed) {
@@ -72,30 +86,23 @@ export class UserManagementComponent implements OnInit {
           });
         }
       });
-
     }
   }
-
-  // activate user 
 
   activateUser(user: UserRequestDto) {
     this.userService.activateUser(user.id).subscribe((response: ResponseDto) => {
       this.dialogService.savedSuccessfully(user.username + 'Activated')
       this.listUsers();
-    })
+    });
   }
-
-  // deactivate user
 
   deactivateUser(user: UserRequestDto) {
     this.userService.deactivateUser(user.id).subscribe((response: ResponseDto) => {
       this.dialogService.savedSuccessfully(user.username + 'Deactivated')
       this.listUsers();
-    })
+    });
   }
 
-
-  // filter table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.userDataSource.filter = filterValue.trim().toLowerCase();

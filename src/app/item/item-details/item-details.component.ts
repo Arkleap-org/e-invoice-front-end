@@ -1,26 +1,19 @@
 
-// angular core
+// angular modules
 import { Component, OnInit } from '@angular/core';
-
-// angular router
-import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService } from '../../shared/services/dialog.service';
+import { ActivatedRoute } from '@angular/router';
+import { Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 // models
-import { CreateItemRequestDto, CreateItemResponseDto } from 'src/app/shared/models/items.model';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { CreateItemRequestDto } from '../../shared/models/items.model';
+import { ResponseDto } from '../../shared/models/api-response.model';
+import { ActivityCodeDto } from '../../shared/models/activity-code.model';
 
-// reactive form
-
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-
-//services
-import { ItemsService } from 'src/app/shared/services/items.service';
-
-// sweetalert
-import Swal from 'sweetalert2';
-
+// services
+import { ItemsService } from '../../shared/services/items.service';
+import { DialogService } from '../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-item-details',
@@ -34,9 +27,8 @@ export class ItemDetailsComponent implements OnInit {
 
   // name of lists
   listOfTypes: string[];
-  listOfInternalCodes: {}[];
-  listOfUnitTypes: {}[];
-  listOfTaxTypes: {}[];
+  listOfUnitTypes: ActivityCodeDto[];
+  listOfTaxTypes: { code: string, desc_ar: string, desc_en: string, taxtype_reference: string }[];
   isSubmitted: boolean;
 
   //name of model
@@ -45,19 +37,12 @@ export class ItemDetailsComponent implements OnInit {
   itemDetails: CreateItemRequestDto;
   itemsForm!: FormGroup;
 
-  // #region init form
-
-
-  // #endregion
-
-
-
   // #endregion
 
   // #region constructor
 
   constructor(
-    private router: Router,
+    public translate: TranslateService,
     private route: ActivatedRoute,
     private dialogService: DialogService,
     private itemService: ItemsService,
@@ -65,43 +50,23 @@ export class ItemDetailsComponent implements OnInit {
   ) {
 
     // init variables
-    this.listOfTypes = [
-      'GS1', 'EGS'
-    ];
-
-    this.listOfInternalCodes = [
-      {
-        "id": 1,
-        "internalCode": "internal code 1"
-      },
-      {
-        "id": 2,
-        "internalCode": "internal code 2"
-      },
-      {
-        "id": 3,
-        "internalCode": "internal code 3"
-      }
-    ];
-    // waiting for api
-    this.listOfUnitTypes = [];
-
-    this.listOfTaxTypes = [];
+    this.listOfTypes = ['GS1', 'EGS'];
+    this.listOfUnitTypes = this.listOfTaxTypes = [];
     this.model = new CreateItemRequestDto;
     this.isSubmitted = false;
     this.itemDetails = new CreateItemRequestDto;
+
+    // init forms
     this.initForm();
-    this.loadControls();
   }
 
-  // #region end
+  // #endregion
 
   // #region ngOnInit
 
   ngOnInit(): void {
     this.model.id = this.route.snapshot.params["id"];
-    if (this.model.id) this.getItemById(this.model.id)
-
+    this.loadControls();
   }
 
   // #endregion
@@ -121,9 +86,7 @@ export class ItemDetailsComponent implements OnInit {
     });
   }
 
-  // form controls
-
-
+  // items form controls
   get itemsFormControls() {
     return this.itemsForm.controls;
   }
@@ -133,23 +96,29 @@ export class ItemDetailsComponent implements OnInit {
 
   // #region load controls
 
-  listUnitTypes(){
+  loadControls() {
+    this.listUnitTypes();
+    this.listTaxTypes();
+    if (this.model.id) this.getItemById(this.model.id);
+  }
+
+  listUnitTypes() {
     this.itemService.listUnitTypes().subscribe((res: ResponseDto) => {
       this.listOfUnitTypes = res.data;
     })
   }
 
-
-
-  listTaxTypes(){
+  listTaxTypes() {
     this.itemService.listTaxTypes().subscribe((res: ResponseDto) => {
       this.listOfTaxTypes = res.data;
     })
   }
 
-  loadControls(){
-    this.listUnitTypes();
-    this.listTaxTypes();
+
+  getItemById(id: number) {
+    this.itemService.getItemById(id).subscribe((res: ResponseDto) => {
+      this.model = res.data;
+    });
   }
 
   // #endregion
@@ -170,13 +139,6 @@ export class ItemDetailsComponent implements OnInit {
       this.itemService.updateItem(model).subscribe((res: ResponseDto) => {
         this.dialogService.successAndRouteBack("/item/list");
       });
-
-  }
-
-  getItemById(id: number) {
-    this.itemService.getItemById(id).subscribe((res: ResponseDto) => {
-      this.model = res.data;
-    });
   }
 
   itemSubmitAction(updateId: number) {
@@ -188,8 +150,6 @@ export class ItemDetailsComponent implements OnInit {
     this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/item/list");
   }
 
-
-
-  // #region end
+  // #endregion
 
 }

@@ -28,7 +28,7 @@ export class NotificationMessageService {
   showErrorMessage(message: string) {
     this.snackBar.open(message, 'x', {
       panelClass: "error-message",
-      duration: 200000,
+      duration: 2000,
     })
   }
 }

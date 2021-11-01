@@ -28,12 +28,15 @@ export class AddUserComponent implements OnInit {
   password!: string;
   password2!: string;
 
+  // #endregion
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private dialogService: DialogService,
   ) {
 
+    // init variables
     this.model = new UserRequestDto;
     this.isSubmitted = false;
     this.isPasswordMatch = true;

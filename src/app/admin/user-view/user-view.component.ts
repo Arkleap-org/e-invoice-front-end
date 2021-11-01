@@ -3,17 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // models
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { UserRequestDto } from 'src/app/shared/models/user.model';
-import { UserService } from 'src/app/shared/services/user.service';
+import { ResponseDto } from '../../shared/models/api-response.model';
+import { UserRequestDto } from '../../shared/models/user.model';
 
-
+// services
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
   styleUrls: ['./user-view.component.scss']
 })
+
 export class UserViewComponent implements OnInit {
 
   // #region declare variables
@@ -28,8 +29,8 @@ export class UserViewComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute
-  ) { 
-
+  ) {
+    // init variables
     this.userDetails = new UserRequestDto
   }
 
@@ -39,17 +40,22 @@ export class UserViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.params["id"]
-    this.getUserById();
+    this.loadControls();
   }
   // #endregion
 
-  // #region main actions
+  // #region load controls
 
-  getUserById(){
-    this.userService.getUserById(this.userId).subscribe((response:ResponseDto)=>{
-      this.userDetails = response.data;
-    })
-
+  loadControls() {
+    this.getUserById(this.userId);
   }
+
+  getUserById(id: number) {
+    this.userService.getUserById(id).subscribe((response: ResponseDto) => {
+      this.userDetails = response.data;
+    });
+  }
+
+  // #endregion
 
 }

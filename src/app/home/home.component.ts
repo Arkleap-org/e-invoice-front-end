@@ -23,8 +23,9 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   invoiceDataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
+  displayedColumns: string[];
   dashboardCounts: DashboardDto;
   thisMonth: number;
 
@@ -39,7 +40,8 @@ export class HomeComponent implements OnInit {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
     this.dashboardCounts = new DashboardDto;
-    this.thisMonth = Date.now()
+    this.thisMonth = Date.now();
+    this.displayedColumns = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
   }
 
   // #endregion
@@ -70,15 +72,11 @@ export class HomeComponent implements OnInit {
   }
 
   getIssuer() {
-    this.dashboardService.getCounts().subscribe((response: ResponseDto) => {
-      this.dashboardCounts = response.data;
-    });
+    this.dashboardService.getCounts().subscribe((response: ResponseDto) => this.dashboardCounts = response.data);
   }
 
   listRecentInvoices() {
-    this.dashboardService.listRecentInvoices().subscribe((response: ResponseDto) => {
-      this.invoiceDataSource.data = response.data;
-    });
+    this.dashboardService.listRecentInvoices().subscribe((response: ResponseDto) => this.invoiceDataSource.data = response.data);
   }
 
   // #endregion
