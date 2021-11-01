@@ -6,17 +6,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // models
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { UserRequestDto } from 'src/app/shared/models/user.model';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-import { UserService } from 'src/app/shared/services/user.service';
 
+import { UserRequestDto } from '../../shared/models/user.model';
 
+// services
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
   styleUrls: ['./user-view.component.scss']
 })
+
 export class UserViewComponent implements OnInit {
 
   // #region declare variables
@@ -104,7 +106,10 @@ export class UserViewComponent implements OnInit {
     this.userService.getUserById(this.userId).subscribe((response:ResponseDto)=>{
       this.userDetails = response.data;
     })
-
   }
+
+
+
+  // #endregion
 
 }

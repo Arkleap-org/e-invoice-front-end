@@ -1,21 +1,23 @@
 // angular module
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { ResetPasswordDto } from 'src/app/shared/models/reset-password.model';
 
 // models
+import { ResetPasswordDto } from '../../shared/models/reset-password.model';
 import { ResponseDto } from '../../shared/models/api-response.model';
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { UserService } from '../../shared/services/user.service';
+
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+
+export class ResetPasswordComponent {
 
   // #region declare variables
 
@@ -27,14 +29,15 @@ export class ResetPasswordComponent implements OnInit {
   password2!: string;
 
   // #endregion
+
+  // #region constructor
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private dialogService: DialogService,
-  ) { 
+  ) {
     // init variables
-
-
     this.model = new ResetPasswordDto;
     this.isSubmitted = false;
     this.isPasswordMatch = true;
@@ -43,38 +46,38 @@ export class ResetPasswordComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnInit(): void {
-  }
- // #region init forms
+  // #endregion
 
- initForm() {
-  this.passwordForm = this.formBuilder.group({
-    old_password: ['', Validators.required],
-    password: ['', Validators.minLength(8)],
-    password2: ['', Validators.required],
-  });
-}
+  // #region init forms
 
-// form controls
-get passwordFormControls() {
-  return this.passwordForm.controls;
-}
-
-// #endregion
-
-// #region main actions
-
-changePassword(model: ResetPasswordDto) {
-  this.isSubmitted = true;
-  if (this.passwordForm.valid && this.isPasswordMatch)
-    this.userService.changePassword(model).subscribe((res: ResponseDto) => {
-      this.passwordForm.reset();
-      this.dialogService.savedSuccessfully('User saved successfully!')
-      this.isSubmitted = false;
+  initForm() {
+    this.passwordForm = this.formBuilder.group({
+      old_password: ['', Validators.required],
+      password: ['', Validators.minLength(8)],
+      password2: ['', Validators.required],
     });
-}
+  }
 
-// #endregion
+  // form controls
+  get passwordFormControls() {
+    return this.passwordForm.controls;
+  }
+
+  // #endregion
+
+  // #region main actions
+
+  changePassword(model: ResetPasswordDto) {
+    this.isSubmitted = true;
+    if (this.passwordForm.valid && this.isPasswordMatch)
+      this.userService.changePassword(model).subscribe((res: ResponseDto) => {
+        this.passwordForm.reset();
+        this.dialogService.savedSuccessfully('User saved successfully!')
+        this.isSubmitted = false;
+      });
+  }
+
+  // #endregion
 
 
 }

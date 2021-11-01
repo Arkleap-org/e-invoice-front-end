@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 // components
-import { InvoiceCancelComponent } from '../../popups/invoice/invoice-cancel/invoice-cancel.component';
+import { InvoiceCancelComponent } from '../../shared/popups/invoice-cancel/invoice-cancel.component';
 
 // models
 import { ResponseDto } from '../../shared/models/api-response.model';
@@ -23,15 +23,16 @@ import { InvoiceService } from '../../shared/services/invoice.service';
   templateUrl: './invoice-list.component.html',
   styleUrls: ['./invoice-list.component.scss']
 })
+
 export class InvoiceListComponent implements OnInit {
 
   // #region declare variables
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   invoiceDataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['number', 'internal_id', 'receiver_name', 'date_time_issued',
-    'total_amount', 'invoice_status', 'portal_status', 'actions'];
+  displayedColumns: string[];
 
   // #endregion
 
@@ -44,6 +45,7 @@ export class InvoiceListComponent implements OnInit {
   ) {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
+    this.displayedColumns = ['number', 'internal_id', 'receiver_name', 'date_time_issued', 'total_amount', 'invoice_status', 'portal_status', 'actions'];
   }
 
   // #endregion
@@ -80,7 +82,6 @@ export class InvoiceListComponent implements OnInit {
 
   // #region main action
 
-  // filter table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.invoiceDataSource.filter = filterValue.trim().toLowerCase();
@@ -93,8 +94,6 @@ export class InvoiceListComponent implements OnInit {
   submitInvoice(internalId: string) {
     this.invoiceService.submitInvoice(internalId).subscribe((response: ResponseDto) => {
       this.dialogService.savedSuccessfully('Your invoice is beeing Submitted...');
-      console.log('sub response ', response);
-
     });
   }
 
@@ -114,7 +113,6 @@ export class InvoiceListComponent implements OnInit {
     // window.open('www.google.com');
     this.invoiceService.printInvoice(id).subscribe((response: ResponseDto) => {
       console.log(response);
-
     });
   }
   // #endregion

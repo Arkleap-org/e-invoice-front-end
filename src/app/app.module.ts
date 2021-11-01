@@ -17,13 +17,13 @@ import { InvoiceDetailsComponent } from "./invoice/invoice-details/invoice-detai
 import { InvoiceListComponent } from "./invoice/invoice-list/invoice-list.component";
 import { IssuerAddressComponent } from "./issuer/issuer-address/issuer-address.component";
 import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
-import { ReceiverComponent } from './shared/popups/receiver/receiver.component';
+import { AddReceiverComponent } from './receiver/add-receiver/add-receiver.component';
 import { ReceiverListComponent } from './receiver/receiver-list/receiver-list.component';
 import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { UserViewComponent } from './admin/user-view/user-view.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
-import { InvoiceCancelComponent } from './popups/invoice/invoice-cancel/invoice-cancel.component';
+import { InvoiceCancelComponent } from './shared/popups/invoice-cancel/invoice-cancel.component';
 
 
 // modules
@@ -56,7 +56,7 @@ import { ItemsService } from "./shared/services/items.service";
     InvoiceListComponent,
     IssuerAddressComponent,
     InvoiceViewComponent,
-    ReceiverComponent,
+    AddReceiverComponent,
     ReceiverListComponent,
     InvoiceErrorsComponent,
     UserManagementComponent,

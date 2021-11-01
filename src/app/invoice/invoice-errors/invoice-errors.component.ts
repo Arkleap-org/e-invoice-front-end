@@ -52,19 +52,27 @@ export class InvoiceErrorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.invoiceId = this.route.snapshot.params["id"];
-    this.viewInvoiceErrors();
+    this.loadControls();
+  }
+
+  // #endregion
+
+  // #region load controls
+
+  loadControls() {
+    this.viewInvoiceErrors(this.invoiceId);
+  }
+
+  viewInvoiceErrors(id: number) {
+    this.invoiceService.viewInvoiceErrors(id).subscribe((response: ResponseDto) => {
+      this.invoiceErrorsDetails = response.data
+      this.invoiceHasErrors(this.invoiceErrorsDetails);
+    });
   }
 
   // #endregion
 
   // #region main actions
-
-  viewInvoiceErrors() {
-    this.invoiceService.viewInvoiceErrors(this.invoiceId).subscribe((response: ResponseDto) => {
-      this.invoiceErrorsDetails = response.data
-      this.invoiceHasErrors(this.invoiceErrorsDetails);
-    });
-  }
 
   invoiceHasErrors(invoiceErrors: InvoiceErrorDto) {
     if (invoiceErrors.header_errors.length) this.hasHeaderErrors = true;

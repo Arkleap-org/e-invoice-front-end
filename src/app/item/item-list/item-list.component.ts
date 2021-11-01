@@ -1,11 +1,14 @@
+// angular modules
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
-import { ListItemsResponseDto } from 'src/app/shared/models/items.model';
-import { ItemsService } from 'src/app/shared/services/items.service';
 
+// models
+import { ResponseDto } from '../../shared/models/api-response.model';
+
+// services
+import { ItemsService } from '../../shared/services/items.service';
 
 @Component({
   selector: 'app-item-list',
@@ -19,17 +22,19 @@ export class ItemListComponent implements OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   itemDataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'item_name', 'item_desc', 'item_type', 'item_code', 'internal_code', 'unit_type', 'actions'];
-  pageSizeOptions: number[] = [10];
+  displayedColumns: string[];
 
   // #endregion
 
   // #region constructor
 
   constructor(private itemService: ItemsService) {
+
     // init variables
     this.itemDataSource = new MatTableDataSource();
+    this.displayedColumns = ['id', 'item_name', 'item_desc', 'item_type', 'item_code', 'internal_code', 'unit_type', 'actions'];
   }
 
   // #endregion
@@ -37,28 +42,8 @@ export class ItemListComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
-
-    this.listItems();
+    this.loadControls();
   }
-
-  // #endregion
-
-  // #region load table
-  listItems() {
-
-    this.itemService.listItems().subscribe((res: ResponseDto) => {
-
-      this.itemDataSource = res.data;
-
-
-
-
-    });
-  }
-
-
-
-
 
   // #endregion
 
@@ -67,6 +52,20 @@ export class ItemListComponent implements OnInit {
   ngAfterViewInit() {
     this.itemDataSource.paginator = this.paginator;
     this.itemDataSource.sort = this.sort;
+  }
+
+  // #endregion
+
+  // #region load table
+
+  loadControls() {
+    this.listItems();
+  }
+
+  listItems() {
+    this.itemService.listItems().subscribe((res: ResponseDto) => {
+      this.itemDataSource.data = res.data;
+    });
   }
 
   // #endregion
@@ -80,12 +79,7 @@ export class ItemListComponent implements OnInit {
       this.itemDataSource.paginator.firstPage();
     }
   }
-// debugging 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
+
   // #endregion
 
 }

@@ -1,21 +1,27 @@
-// angular core
-import { Component, Input, OnInit } from '@angular/core';
+// angular modules
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { InvoiceDetailsComponent } from 'src/app/invoice/invoice-details/invoice-details.component';
-import { ResponseDto } from '../../models/api-response.model';
-import { ReceiverDto } from '../../models/receiver.model';
-import { ListsService } from '../../services/lists.service';
-import { ReceiverService } from '../../services/receiver.service';
+
+// constants
+import { ListOfPersonTypes } from '../../shared/constants/list.constant';
+
+// models
+import { ResponseDto } from '../../shared/models/api-response.model';
+import { ReceiverDto } from '../../shared/models/receiver.model';
+
+// services
+import { ListsService } from '../../shared/services/lists.service';
+import { ReceiverService } from '../../shared/services/receiver.service';
 
 @Component({
   selector: 'app-receiver',
-  templateUrl: './receiver.component.html',
-  styleUrls: ['./receiver.component.scss']
+  templateUrl: './add-receiver.component.html',
+  styleUrls: ['./add-receiver.component.scss']
 })
 
-export class ReceiverComponent implements OnInit {
+export class AddReceiverComponent implements OnInit {
 
   // #region declare variables
 
@@ -31,10 +37,9 @@ export class ReceiverComponent implements OnInit {
   // name of forms
   receiverForm!: FormGroup
 
-
   // #endregion
 
-  // region constructor
+  // #region constructor
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,16 +49,9 @@ export class ReceiverComponent implements OnInit {
     public dialog: MatDialog
   ) {
     // init variables
-    this.listOfReceiverType = [
-      { label: 'Business', value: 'B' },
-      { label: 'Natural Person', value: 'P' },
-      { label: 'Foreigner', value: 'F' }
-    ];
-
+    this.listOfReceiverType = ListOfPersonTypes;
     this.listOfCountries = [];
-
     this.receiverDetails = new ReceiverDto;
-
     this.isSubmitted = false
 
     // init forms
@@ -65,7 +63,7 @@ export class ReceiverComponent implements OnInit {
   // #region ngOnInit
 
   ngOnInit(): void {
-    this.listCountries();
+    this.loadControls();
   }
 
   // #endregion
@@ -92,16 +90,24 @@ export class ReceiverComponent implements OnInit {
   get receiverFormControls() {
     return this.receiverForm.controls;
   }
+
   // #endregion
 
-  // #region main actions
+  // #region load controls
 
-  // list countries
+  loadControls() {
+    this.listCountries();
+  }
+
   listCountries() {
     this.listsService.listCountries().subscribe((response: ResponseDto) => {
       this.listOfCountries = response.data
     });
   }
+
+  // #endregion
+
+  // #region main actions
 
   createReceiver(form: FormGroup) {
     this.isSubmitted = true;
@@ -111,8 +117,6 @@ export class ReceiverComponent implements OnInit {
         this.dialog.closeAll();
       });
     }
-
-
   }
 
   // #endregion

@@ -1,5 +1,5 @@
 // angular modules
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { LoginRequestDto, LoginResponseDto } from '../shared/models/auth.model';
 
 // ngx
 import { TranslateService } from '@ngx-translate/core';
-   
+
 // services
 import { AuthService } from '../shared/services/auth.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
@@ -24,7 +24,7 @@ import { ListOfLanguage } from '../shared/constants/list.constant';
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   // #region declare variables
 
@@ -49,16 +49,12 @@ export class LoginComponent implements OnInit {
     // init variables
     this.listOfLang = ListOfLanguage;
     this.model = new LoginRequestDto;
-    this.initForm();
     this.isSubmitted = false;
 
+    // init forms
+    this.initForm();
+
   }
-
-  // #endregion
-
-  // #region ngOnInit
-
-  ngOnInit(): void { }
 
   // #endregion
 
@@ -70,6 +66,8 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
+
+  // #endregion
 
   // #region main actions
 
@@ -90,10 +88,6 @@ export class LoginComponent implements OnInit {
 
   setTriggerText(title: string, icon?: string): IMenuTrigger {
     return { text: title, icon };
-  }
-
-  register() {
-    this.router.navigate(['/register']);
   }
 
   // #endregion

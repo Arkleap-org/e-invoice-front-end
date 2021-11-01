@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+// angular modules
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
+
+// constants
 import { ListOfLanguage } from '../shared/constants/list.constant';
+
+// models
 import { ResponseDto } from '../shared/models/api-response.model';
+
+// services
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
@@ -14,7 +20,7 @@ import { LocalStorageService } from '../shared/services/local-storage.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   // #region declare variables
 
@@ -34,7 +40,6 @@ export class RegisterComponent implements OnInit {
   // #region constructor
 
   constructor(
-    private router: Router,
     public translate: TranslateService,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
@@ -48,12 +53,6 @@ export class RegisterComponent implements OnInit {
     // init forms
     this.initForms();
   }
-
-  // #endregion
-
-  // #region ngOnInit
-
-  ngOnInit(): void { }
 
   // #endregion
 
@@ -78,6 +77,7 @@ export class RegisterComponent implements OnInit {
   get getRegisterationControls() {
     return this.registrationForm.controls;
   }
+
   // #endregion
 
   // #region main actions
