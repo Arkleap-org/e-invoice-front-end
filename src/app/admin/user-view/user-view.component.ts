@@ -39,8 +39,8 @@ export class UserViewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialogService: DialogService,
     private route: ActivatedRoute,
-    private router:Router
-  ) { 
+    private router: Router
+  ) {
 
     this.userDetails = new UserRequestDto;
     this.isSubmitted = false;
@@ -70,7 +70,7 @@ export class UserViewComponent implements OnInit {
       is_superuser: ['', Validators.required],
       is_active: ['', Validators.required],
       date_joined: ['',],
-      last_login: ['', ],
+      last_login: ['',],
       issuer: [''],
     });
   }
@@ -83,27 +83,25 @@ export class UserViewComponent implements OnInit {
   // #endregion
   // #region main actions
 
-  updateUserView(){
+  updateUserView() {
     this.updateView = true;
-    this.isSubmitted = true;
-
   }
 
-  updateUser(model:UserRequestDto){
-    if(this.isSubmitted && this.userForm.valid){
+  updateUser(model: UserRequestDto) {
+    if (this.isSubmitted && this.userForm.valid) {
 
-      this.userService.updateUser(this.userDetails.id,model).subscribe((response: ResponseDto) => {
-  
+      this.userService.updateUser(this.userDetails.id, model).subscribe((response: ResponseDto) => {
+
         this.router.navigate(['/user/list']);
-        this.dialogService.savedSuccessfully(this.userDetails.username +' has been updated successfully.');
+        this.dialogService.savedSuccessfully(this.userDetails.username + ' has been updated successfully.');
       });
     }
 
 
   }
 
-  getUserById(){
-    this.userService.getUserById(this.userId).subscribe((response:ResponseDto)=>{
+  getUserById() {
+    this.userService.getUserById(this.userId).subscribe((response: ResponseDto) => {
       this.userDetails = response.data;
     })
   }
