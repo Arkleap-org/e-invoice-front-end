@@ -11,7 +11,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 // components
-import { ReceiverComponent } from '../../shared/popups/receiver/receiver.component';
+import { AddReceiverComponent } from '../../receiver/add-receiver/add-receiver.component';
 
 // modals
 import { ResponseDto } from '../../shared/models/api-response.model';
@@ -278,7 +278,7 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   openReceiverPopup() {
-    const dialogRef = this.dialog.open(ReceiverComponent);
+    const dialogRef = this.dialog.open(AddReceiverComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       this.listReceivers();

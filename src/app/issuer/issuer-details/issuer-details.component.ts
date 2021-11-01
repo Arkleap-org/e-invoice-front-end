@@ -1,27 +1,29 @@
 // angular core
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
-// angular forms
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+// constants
+import { ListOfPersonTypes } from '../../shared/constants/list.constant';
 
 // models
-import { ActivityCodeDto } from "../../shared/models/activity-code.model";
-import { ResponseDto } from "../../shared/models/api-response.model";
-import { CountryDto } from "../../shared/models/country.model";
-import { IssuerAddressDto, IssuerDto } from "../../shared/models/issuer.model";
+import { ActivityCodeDto } from '../../shared/models/activity-code.model';
+import { ResponseDto } from '../../shared/models/api-response.model';
+import { CountryDto } from '../../shared/models/country.model';
+import { IssuerAddressDto, IssuerDto } from '../../shared/models/issuer.model';
+import { LoginResponseDto } from '../../shared/models/auth.model';
 
 // services
-import { IssuerService } from "../../shared/services/issuer.service";
-import { ListsService } from "../../shared/services/lists.service";
-import { DialogService } from "../../shared/services/dialog.service";
-import { TranslateService } from "@ngx-translate/core";
-import { LocalStorageService } from "src/app/shared/services/local-storage.service";
-import { LoginResponseDto } from "src/app/shared/models/auth.model";
-import { Router } from "@angular/router";
+import { IssuerService } from '../../shared/services/issuer.service';
+import { ListsService } from '../../shared/services/lists.service';
+import { DialogService } from '../../shared/services/dialog.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { SecurityService } from 'src/app/shared/services/security.service';
 
 @Component({
-  templateUrl: "./issuer-details.component.html",
-  styleUrls: ["./issuer-details.component.scss"]
+  templateUrl: './issuer-details.component.html',
+  styleUrls: ['./issuer-details.component.scss']
 })
 
 export class IssuerDetailsComponent implements OnInit {
@@ -55,14 +57,11 @@ export class IssuerDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     public translate: TranslateService,
     private localStorageService: LocalStorageService,
+    private securityService: SecurityService
   ) {
 
     // init variables
-    this.listOfIssuerTypes = [
-      { label: 'Business', value: 'B' },
-      { label: 'Natural Preson', value: 'NP' },
-      { label: 'Foreigner', value: 'F' }
-    ];
+    this.listOfIssuerTypes = ListOfPersonTypes;
     this.listOfActivityCodes = [];
     this.listOfCountries = [];
     this.issuerDetails = new IssuerDto;
@@ -139,22 +138,20 @@ export class IssuerDetailsComponent implements OnInit {
     this.getIssuer();
   }
 
-  // get current issuer data
   getIssuer() {
-    this.issuerService.getIssuer().subscribe((response: ResponseDto) => {
-      this.issuerDetails = response.data;
-      this.issuerAddress = response.data.issuer_addresses[0];
-    });
+    if (this.securityService.hasIssuer)
+      this.issuerService.getIssuer().subscribe((response: ResponseDto) => {
+        this.issuerDetails = response.data;
+        this.issuerAddress = response.data.issuer_addresses[0];
+      });
   }
 
-  // list countries
   listCountries() {
     this.listsService.listCountries().subscribe((response: ResponseDto) => {
       this.listOfCountries = response.data;
     });
   }
 
-  // list activity codes
   listActivityCodes() {
     this.listsService.listActivityCodes().subscribe((response: ResponseDto) => {
       this.listOfActivityCodes = response.data;
@@ -165,7 +162,6 @@ export class IssuerDetailsComponent implements OnInit {
 
   // #region main actions
 
-  // save issuer data in update and create
   saveIssuer() {
     this.isSubmitted = true;
     if (this.issuerForm.valid && this.addressForm.valid) {
@@ -199,7 +195,7 @@ export class IssuerDetailsComponent implements OnInit {
 
 
   cancelAndRouteBack() {
-    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
+    this.dialogService.cancelAndRouteBack('Are you sure?', "You won't be able to revert this!", '/home');
   }
 
   // #endregion

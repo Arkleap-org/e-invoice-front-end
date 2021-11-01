@@ -11,11 +11,11 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 
 // models
-import { ResponseDto } from '../../../shared/models/api-response.model';
+import { ResponseDto } from '../../models/api-response.model';
 
 // services
-import { DialogService } from '../../../shared/services/dialog.service';
-import { InvoiceService } from '../../../shared/services/invoice.service';
+import { DialogService } from '../../services/dialog.service';
+import { InvoiceService } from '../../services/invoice.service';
 
 @Component({
   selector: 'app-invoice-cancel',

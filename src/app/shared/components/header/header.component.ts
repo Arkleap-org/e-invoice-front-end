@@ -1,11 +1,19 @@
 // angular module
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
+
+// constants
 import { ListOfLanguage } from '../../constants/list.constant';
+
+// components
+import { AddReceiverComponent } from '../../../receiver/add-receiver/add-receiver.component';
+
+// models
 import { LoginResponseDto } from '../../models/auth.model';
-import { ReceiverComponent } from '../../popups/receiver/receiver.component';
+
+// services
 import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
@@ -14,14 +22,13 @@ import { LocalStorageService } from '../../services/local-storage.service';
   styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   // #region declare variables
 
   // name of lists
   listOfLang: IMenuItem[];
   userFirstName!: string;
-
 
   // #endregion
 
@@ -31,20 +38,14 @@ export class HeaderComponent implements OnInit {
     public translate: TranslateService,
     private localStorageService: LocalStorageService,
     public dialog: MatDialog,
-
   ) {
+
     // init variables
     this.listOfLang = ListOfLanguage;
     const lang = this.localStorageService.retrieve('lang') || 'en';
     this.translate.use(lang).subscribe(() => this.localStorageService.store('lang', lang));
     this.userFirstName = (this.localStorageService.retrieve('user') as LoginResponseDto).first_name;
   }
-
-  // #endregion
-
-  // #region ngOnInit
-
-  ngOnInit(): void { }
 
   // #endregion
 
@@ -58,16 +59,9 @@ export class HeaderComponent implements OnInit {
     return { text: title, icon };
   }
 
-
-openReceiverPopup() {
-  const dialogRef = this.dialog.open(ReceiverComponent);
-
-  // dialogRef.afterClosed().subscribe(result => {
-  //   this.listReceivers();
-  // });
-}
-
-
+  openReceiverPopup() {
+    this.dialog.open(AddReceiverComponent);
+  }
 
   // #endregion
 

@@ -74,7 +74,6 @@ export class IssuerAddressComponent implements OnInit {
     this.addressId = this.route.snapshot.params["id"];
 
     this.loadControls();
-    this.listAddresses();
     // keep calling api while updating params
     this.route.params.subscribe(params => {
       this.addressId = params['id'];
@@ -119,13 +118,16 @@ export class IssuerAddressComponent implements OnInit {
   // load controls
   loadControls() {
     this.listCountries();
+    this.listAddresses();
   }
 
   // list countries
   listCountries() {
-    this.listsService.listCountries().subscribe((response: ResponseDto) => {
-      this.listOfCountries = response.data
-    });
+    this.listsService.listCountries().subscribe((response: ResponseDto) => this.listOfCountries = response.data);
+  }
+
+  listAddresses() {
+    this.addressService.listAddresses().subscribe((response: ResponseDto) => this.listOfIssuerAddresses = response.data);
   }
 
   // #endregion
@@ -144,12 +146,6 @@ export class IssuerAddressComponent implements OnInit {
         this.dialogService.savedSuccessfully('Address saved successfully.')
       });
     }
-  }
-
-  listAddresses() {
-    this.addressService.listAddresses().subscribe((response: ResponseDto) => {
-      this.listOfIssuerAddresses = response.data
-    });
   }
 
   cancelAndRouteBack() {
@@ -174,6 +170,7 @@ export class IssuerAddressComponent implements OnInit {
       this.dialogService.savedSuccessfully('Address updated successfully.')
     });
   }
+
   // #endregion
 
 }

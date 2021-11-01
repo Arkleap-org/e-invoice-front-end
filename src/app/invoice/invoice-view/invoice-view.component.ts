@@ -42,15 +42,19 @@ export class InvoiceViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.invoiceId = this.route.snapshot.params["id"];
-    this.getInvoiceById();
+    this.loadControls();
   }
 
   // #endregion
 
-  // #region main actions
+  // #region load controls
 
-  getInvoiceById() {
-    this.invoiceService.getInvoiceById(this.invoiceId).subscribe((response: ResponseDto) => {
+  loadControls() {
+    this.getInvoiceById(this.invoiceId)
+  }
+
+  getInvoiceById(id: number) {
+    this.invoiceService.getInvoiceById(id).subscribe((response: ResponseDto) => {
       this.invoiceDetails = response.data;
     });
   }
