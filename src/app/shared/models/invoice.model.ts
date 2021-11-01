@@ -48,7 +48,9 @@ export class LinesDto {
     net_total!: number;
     quantity!: number;
     sales_total!: number;
-    tax_amount!: any;
+    tax_amount1!: any;
+    tax_amount2!: any;
+    tax_amount3!: any;
     total_amount!: number;
     value_difference!: number;
     item_name!: string;

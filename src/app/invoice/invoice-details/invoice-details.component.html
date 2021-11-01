@@ -6,22 +6,28 @@
         <mat-card-content>
           <div class="row">
             <!-- Internal ID -->
-            <div class="form-group">
-              <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}"
-                formControlName="internal_id">
-              <small class="text-danger" *ngIf="isSubmitted && invoiceControls.internal_id.errors?.required">
-                {{'Internal ID is required'|translate}}.
-              </small>
+            <div class="col-6">
+
+              <div class="form-group">
+                <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}"
+                  formControlName="internal_id">
+                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.internal_id.errors?.required">
+                  {{'Internal ID is required'|translate}}.
+                </small>
+              </div>
             </div>
-            <!-- issued date -->
-            <div class="form-group">
-              <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
-              <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}"
-                formControlName="date_time_issued">
-              <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
-                {{'Issued Date is required'|translate}}.
-              </small>
+            <div class="col-6">
+
+              <!-- issued date -->
+              <div class="form-group">
+                <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
+                <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}"
+                  formControlName="date_time_issued">
+                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
+                  {{'Issued Date is required'|translate}}.
+                </small>
+              </div>
             </div>
             <!-- document type -->
             <div class="form-group">
@@ -35,7 +41,7 @@
             </div>
             <!-- document type version -->
             <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
-            <div class="form-group">
+            <div class="row">
               <div class="form-check col-md-6">
                 <input class="form-check-input" type="radio" id="flexRadioDefault1" [value]="0.9"
                   [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
@@ -97,18 +103,20 @@
         </fieldset>
         <br>
         <!-- receiver data -->
-        <fieldset *ngIf="isReceiver">
+        <fieldset>
           <div>
             <label>{{'Registration Number' | translate}}</label>:
-            <span>{{receiverDetails.reg_num}}</span>
+            <span *ngIf="isReceiver">{{receiverDetails.reg_num}}</span>
           </div>
           <div>
             <label>{{'Type' | translate}}</label>:
-            <span>{{receiverDetails.type === "P" ? 'Natural Person': receiverDetails.type === "B"? 'Business' : 'Foreigner'}}</span>
+            <span
+              *ngIf="isReceiver">{{receiverDetails.type === "P" ? 'Natural Person': receiverDetails.type === "B"? 'Business' : 'Foreigner'}}</span>
           </div>
           <div>
             <label>{{'Address' | translate}}</label>:
-            <span>{{receiverDetails.buildingNumber}}, {{receiverDetails.street}}, {{receiverDetails.governate}},
+            <span *ngIf="isReceiver">{{receiverDetails.buildingNumber}}, {{receiverDetails.street}},
+              {{receiverDetails.governate}},
               {{receiverDetails.country}}</span>
           </div>
         </fieldset>
@@ -124,115 +132,44 @@
 <mat-card [formGroup]="invoiceForm">
   <mat-card-title>{{'Invoice Lines'|translate}}</mat-card-title>
   <br>
-  <div class="form" formArrayName="lines">
-    <fieldset *ngFor="let line of invoiceLinesControls.controls; let i=index;" [formGroupName]="i">
-      <div class="row">
-        <!-- Items -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
-            <ng-select [items]="listOfItems" bindLabel="item_name" bindValue="id" [searchable]="true"
-              placeholder="{{'Items'|translate}}" formControlName="item" [(ngModel)]="itemDetails[i].id"
-              (change)="getItemById(itemDetails[i].id, i)">
-            </ng-select>
-
-            <small class="text-danger" *ngIf="isSubmitted && line.get('item')?.errors?.required">
-              {{'Item is required'|translate}}.
-            </small>
-          </div>
-        </div>
-        <!-- description -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Description'|translate}}</label>
-            <input type="text" class="form-control" placeholder="{{'Description'|translate}}"
-              formControlName="description" [(ngModel)]="itemDetails[i].item_desc" readonly='true'>
-          </div>
-        </div>
-        <!-- Quantity -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}" formControlName="quantity"
-              [(ngModel)]="linesDetails[i].quantity" [readonly]='!itemDetails[i].item_desc'>
-            <small class="text-danger" *ngIf="isSubmitted && line.get('quantity')?.errors?.required">
-              {{'Quantity is required'|translate}}.
-            </small>
-          </div>
-        </div>
-        <!-- unit price -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Unit Price'|translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'Unit Price'|translate}}"
-              formControlName="unit_price" [(ngModel)]="linesDetails[i].amount_egp"
-              (ngModelChange)="calculateSalesTotal(i)" [readonly]='!linesDetails[i].quantity'>
-            <small class="text-danger" *ngIf="isSubmitted && line.get('unit_price')?.errors?.required">
-              {{'Unit Price required'|translate}}.
-            </small>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <!-- sales_total -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Sales Total'|translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'Sales Total'|translate}}"
-              formControlName="sales_total" readonly='true' [(ngModel)]="linesDetails[i].sales_total">
-          </div>
-        </div>
-        <!-- discount Amount -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Discount Amount'|translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'Discount Amount'|translate}}"
-              formControlName="amount_egp" (ngModelChange)="calculateNetTotal(i, $event)"
-              [(ngModel)]="linesDetails[i].discount_amount" [readonly]='!linesDetails[i].amount_egp'>
-            <small class="text-danger" *ngIf="isSubmitted && line.get('amount_egp')?.errors?.required">
-              {{'Discount Amount required'|translate}}.
-            </small>
-          </div>
-        </div>
-        <!-- net total -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Net Total'|translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'Net Amount'|translate}}"
-              formControlName="net_total" readonly="true" [(ngModel)]="linesDetails[i].net_total">
-          </div>
-        </div>
-        <!-- tax Amount -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Tax Amount'|translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'Tax Amount'|translate}}"
-              formControlName="tax_amount" readonly='true' [(ngModel)]="linesDetails[i].tax_amount">
-          </div>
-        </div>
-        <!-- tax Amount -->
-        <div class="col-3">
-          <div class="form-group">
-            <label>{{'Total Amount'|translate}}<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" placeholder="{{'Total Amount'|translate}}"
-              formControlName="total_amount" readonly='true' [(ngModel)]="linesDetails[i].total_amount">
-          </div>
-        </div>
-
-
-      </div>
-    </fieldset>
-
-    <div class="row pt-2">
-      <div class="col-1">
-
-        <button type="button" mat-button class="btn-success" data-toggle="tooltip" data-placement="bottom"
-          title="{{'add more'|translate}}" (click)="addLine()">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-    </div>
-
+  <div class="form">
+    <!-- open popup -->
+    <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="{{'add line'|translate}}"
+      style="padding-top: 2rem;" (click)="openLinesPopup()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <!-- ------------------------------ -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">{{'Item'|translate}}</th>
+          <th scope="col">{{'Description'|translate}}</th>
+          <th scope="col">{{'Quantity'|translate}}</th>
+          <th scope="col">{{'Unit Price'|translate}}</th>
+          <th scope="col">{{'Sales Total'|translate}}</th>
+          <th scope="col">{{'Discount Amount'|translate}}</th>
+          <th scope="col">{{'Net Amount'|translate}}</th>
+          <th scope="col">{{'Tax Amount'|translate}}</th>
+          <th scope="col">{{'Total Amount'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let line of newLineDetails; let i=index;">
+          <td>{{itemName[i]}}</td>
+          <td>{{line.description}}</td>
+          <td>{{line.quantity}}</td>
+          <td>{{line.amount_egp}}</td>
+          <td>{{line.sales_total}}</td>
+          <td>{{line.discount_amount}}</td>
+          <td>{{line.net_total}}</td>
+          <td>
+            {{line.tax_amount1? line.tax_amount1: 0+ line.tax_amount2? line.tax_amount2: 0+ line.tax_amount3? line.tax_amount3:0}}
+          </td>
+          <td>{{line.total_amount}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- ------------------------------ -->
     <div class="row">
       <div class="col-6"></div>
       <div class="col-6">
