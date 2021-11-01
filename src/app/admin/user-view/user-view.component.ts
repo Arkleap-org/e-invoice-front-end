@@ -1,9 +1,13 @@
 // angular modules
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // models
-import { ResponseDto } from '../../shared/models/api-response.model';
+import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { DialogService } from 'src/app/shared/services/dialog.service';
+
 import { UserRequestDto } from '../../shared/models/user.model';
 
 // services
@@ -21,6 +25,10 @@ export class UserViewComponent implements OnInit {
 
   userId!: number;
   userDetails!: UserRequestDto;
+  userForm!: FormGroup;
+  isSubmitted: boolean;
+  updateView: boolean;
+
 
   // #endregion
 
@@ -28,10 +36,16 @@ export class UserViewComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute
-  ) {
-    // init variables
-    this.userDetails = new UserRequestDto
+    private formBuilder: FormBuilder,
+    private dialogService: DialogService,
+    private route: ActivatedRoute,
+    private router:Router
+  ) { 
+
+    this.userDetails = new UserRequestDto;
+    this.isSubmitted = false;
+    this.updateView = false;
+
   }
 
   // #endregion
@@ -40,21 +54,61 @@ export class UserViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.params["id"]
-    this.loadControls();
+    this.getUserById();
+    this.initForm();
   }
   // #endregion
+  // #region init forms
 
-  // #region load controls
-
-  loadControls() {
-    this.getUserById(this.userId);
-  }
-
-  getUserById(id: number) {
-    this.userService.getUserById(id).subscribe((response: ResponseDto) => {
-      this.userDetails = response.data;
+  initForm() {
+    this.userForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      is_staff: ['', Validators.required],
+      is_superuser: ['', Validators.required],
+      is_active: ['', Validators.required],
+      date_joined: ['',],
+      last_login: ['', ],
+      issuer: [''],
     });
   }
+
+  // form controls
+  get itemsFormControls() {
+    return this.userForm.controls;
+  }
+
+  // #endregion
+  // #region main actions
+
+  updateUserView(){
+    this.updateView = true;
+    this.isSubmitted = true;
+
+  }
+
+  updateUser(model:UserRequestDto){
+    if(this.isSubmitted && this.userForm.valid){
+
+      this.userService.updateUser(this.userDetails.id,model).subscribe((response: ResponseDto) => {
+  
+        this.router.navigate(['/user/list']);
+        this.dialogService.savedSuccessfully(this.userDetails.username +' has been updated successfully.');
+      });
+    }
+
+
+  }
+
+  getUserById(){
+    this.userService.getUserById(this.userId).subscribe((response:ResponseDto)=>{
+      this.userDetails = response.data;
+    })
+  }
+
+
 
   // #endregion
 
