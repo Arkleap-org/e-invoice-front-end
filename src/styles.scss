@@ -83,17 +83,14 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-// label {
-  //   font-weight: bold;
-  // }
-
 .success-message {
   background-color: #28a745;
   color: #fff;
 }
 
 .warning-message {
-  background-color: #ebf64d;
+  white-space: pre-wrap;
+  background-color: #f3d214;
   color: rgb(5, 5, 5);
 }
 
@@ -104,4 +101,8 @@ body {
 
 .mat-simple-snackbar-action {
   color: #fff;
+}
+
+.mat-snack-bar-container {
+  min-width: 500px !important;
 }

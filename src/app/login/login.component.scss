@@ -7,8 +7,13 @@
 }
 
 .h-custom {
-  height: calc(100% - 73px);
+  // height: calc(100% - 73px);
+  display: flex;
+  justify-content: center;
+  align-items: center;}
 
+.login{
+margin-top:12rem;
 }
 
 .login-img{
@@ -17,13 +22,13 @@
 }
 .inner-form{
 
-  padding: 5rem 2rem;
+  padding: 8rem 4rem;
 
 }
 
 .login-form{
   margin-top: 3rem;
-  width:55rem;
+  width:80rem;
   padding: 0rem 0rem;
   box-shadow: 0px 3px 5px 3px rgba(66, 66, 66, 0.63);
 -webkit-box-shadow: 0px 3px 5px 3px rgba(66, 66, 66, 0.63);
