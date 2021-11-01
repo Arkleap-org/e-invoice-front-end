@@ -2,19 +2,23 @@
 <mat-card>
   <mat-card-title class="text-secondary">{{'Invoice'|translate}}</mat-card-title>
 
+  <div class="row">
+    <div class="col-6">
+      <div><label><strong>{{'Invoice'|translate}} # </strong></label>: <span> {{invoiceDetails.internal_id}}</span>
+      </div>
+      <div><label><strong>{{'Invoice Status'|translate}}</strong></label>: <span>
+          {{invoiceDetails.invoice_status}}</span></div>
+      <div><label><strong>{{'Portal Status'|translate}}</strong></label>: <span>
+          {{invoiceDetails.portal_status}}</span></div>
 
-  <div class="col-md-6">
-    <div><label><strong>{{'Invoice'|translate}} # </strong></label> <span> {{invoiceDetails.internal_id}}</span></div>
-    <div><label><strong>{{'Invoice Status'|translate}}</strong></label> <span>
-        {{invoiceDetails.invoice_status}}</span></div>
-    <div><label><strong>{{'Portal Status'|translate}}</strong></label> <span>
-        {{invoiceDetails.portal_status}}</span></div>
+    </div>
+    <div class="col-6">
+      <div><label><strong>{{'UUID'|translate}} </strong></label>:<span>{{invoiceDetails.subm_uuid}} </span></div>
+      <div><label><strong>{{'Submission ID'|translate}}</strong></label>: <span> {{invoiceDetails.subm_id}}</span>
+      </div>
+    </div>
+  </div>
 
-  </div>
-  <div class="col-md-6">
-    <div><label><strong>{{'UUID'|translate}} </strong></label> <span> hii</span></div>
-    <div><label><strong>{{'Submission ID'|translate}}</strong></label> <span> Submitted</span></div>
-  </div>
 
   <br>
   <hr>
@@ -23,16 +27,18 @@
 
   <mat-card-title class="text-secondary">{{'Receiver'|translate}}</mat-card-title>
 
-  <div class="col-md-6">
-    <div><label><strong>{{'Name'|translate}}</strong></label> <span> {{invoiceDetails.receiver_name}}</span></div>
-    <div><label><strong>{{'Registration Number'|translate}}</strong></label> <span>
-        {{invoiceDetails.receiver_reg_num}}</span></div>
+  <div class="row">
+    <div class="col-6">
+      <div><label><strong>{{'Name'|translate}}</strong></label>: <span> {{invoiceDetails.receiver_name}}</span></div>
+      <div><label><strong>{{'Registration Number'|translate}}</strong></label>: <span>
+          {{invoiceDetails.receiver_reg_num}}</span></div>
+    </div>
+    <div class="col-6">
+      <div><label><strong>{{'Address'|translate}} </strong></label>: <span
+          *ngIf="invoiceDetails.receiver_address">{{invoiceDetails.receiver_address}}</span></div>
+    </div>
   </div>
-  <div class="col-md-6">
-    <div><label><strong>{{'Address'|translate}} </strong></label> <span> {{invoiceDetails.receiver_buildingNumber}},
-        {{invoiceDetails.receiver_street}}, {{invoiceDetails.receiver_governate}},
-        {{invoiceDetails.receiver_country}}</span></div>
-  </div>
+
 
   <br>
   <hr>

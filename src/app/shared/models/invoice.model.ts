@@ -7,14 +7,9 @@ export class InvoiceDto {
     internal_id!: string;
     lines!: LinesDto[];
     net_amount!: string;
-    receiver_buildingNumber!: string;
-    receiver_country!: string;
-    receiver_governate!: string;
+    receiver_address!: string;
     receiver_name!: string;
     receiver_reg_num!: string;
-    receiver_regionCity!: string;
-    receiver_street!: string;
-    receiver_type!: string;
     signature_value!: string;
     tax_totals!: string;
     total_discount_amount!: string;
@@ -23,6 +18,8 @@ export class InvoiceDto {
     total_amount!: string;
     invoice_status!: string;
     portal_status!: string;
+    subm_uuid!: string;
+    subm_id!: string;
 }
 
 export class CreateInvoiceDto {
