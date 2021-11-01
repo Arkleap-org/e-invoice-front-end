@@ -1,0 +1,20 @@
+.form-check{
+    margin-left: 18px;
+    margin-bottom: 10px;
+}
+
+.update-button{
+    margin-left: auto;
+}
+
+.overlay{
+       
+        background-color: rgba(192, 192, 192, 0.5); /* Black background with opacity */
+        z-index: 9; /* Specify a stack order in case you're using a different order for other elements */
+        cursor: pointer; /* Add a pointer on hover */
+        -ms-opacity: 0.7;
+        opacity: 0.7;
+        pointer-events: none;
+        border-color: rgba(192, 192, 192, 0.5);
+      
+}
