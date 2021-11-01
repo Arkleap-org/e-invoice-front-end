@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ResponseDto } from '../../models/api-response.model';
 import { LinesDto } from '../../models/invoice.model';
-import { ListItemsResponseDto } from '../../models/items.model';
+import { ItemDto, ListItemsResponseDto } from '../../models/items.model';
 import { ItemsService } from '../../services/items.service';
 
 @Component({
@@ -24,10 +24,10 @@ export class InvoiceLineComponent implements OnInit {
   linesForm!: FormGroup;
 
   // names of lists
-  listOfItems: ListItemsResponseDto[];
+  listOfItems: ItemDto[];
 
   // names of ngModels
-  itemDetails: ListItemsResponseDto;
+  itemDetails: ItemDto;
   linesDetails: LinesDto;
 
 
@@ -42,7 +42,7 @@ export class InvoiceLineComponent implements OnInit {
   ) {
     // init variables
     this.listOfItems = [];
-    this.itemDetails = new ListItemsResponseDto;
+    this.itemDetails = new ItemDto;
     this.isSubmitted = false;
     this.linesDetails = new LinesDto;
 
@@ -71,10 +71,12 @@ export class InvoiceLineComponent implements OnInit {
       item: [null, Validators.required],
       description: [''],
       quantity: ['', Validators.required],
-      unit_price: ['', Validators.required],
-      sales_total: [''],
       amount_egp: ['', Validators.required],
-      tax_amount: [''],
+      sales_total: [''],
+      discount_amount: ['', Validators.required],
+      tax_amount1: [''],
+      tax_amount2: [''],
+      tax_amount3: [''],
       net_total: [''],
       total_amount: ['']
     });
@@ -111,11 +113,33 @@ export class InvoiceLineComponent implements OnInit {
   }
 
   calculateTaxAmount() {
-    if (this.linesDetails.net_total) this.linesDetails.tax_amount = Number(this.linesDetails.net_total * (this.itemDetails.sub_tax_rate / 100)).toFixed(5);
+
+    if (this.linesDetails.net_total) {
+      debugger
+      if (this.itemDetails.sub_tax_rate1) this.linesDetails.tax_amount1 = Number(this.linesDetails.net_total * (this.itemDetails.sub_tax_rate1 / 100)).toFixed(5);
+      if (this.itemDetails.sub_tax_rate2) this.linesDetails.tax_amount2 = Number(this.linesDetails.net_total * (this.itemDetails.sub_tax_rate2 / 100)).toFixed(5);
+      if (this.itemDetails.sub_tax_rate3) this.linesDetails.tax_amount3 = Number(this.linesDetails.net_total * (this.itemDetails.sub_tax_rate3 / 100)).toFixed(5);
+    }
   }
 
   calculateTotalLineAmount() {
-    if (this.linesDetails.net_total && this.linesDetails.tax_amount) this.linesDetails.total_amount = Number(this.linesDetails.net_total) + Number(this.linesDetails.tax_amount);
+    if (this.linesDetails.net_total) {
+      let totalTaxAmount = 0;
+      if (this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
+        totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount2 + this.linesDetails.tax_amount3;
+      }
+      else if (!this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
+        totalTaxAmount = 0 + this.linesDetails.tax_amount2 + this.linesDetails.tax_amount3;
+      }
+      else if (this.linesDetails.tax_amount1 && !this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
+        totalTaxAmount = this.linesDetails.tax_amount1 + 0 + this.linesDetails.tax_amount3;
+      }
+      else if (this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && !this.linesDetails.tax_amount3) {
+        totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount2 + 0;
+      }
+
+      this.linesDetails.total_amount = Number(this.linesDetails.net_total) + Number(totalTaxAmount);
+    }
   }
 
   // #endregion
@@ -124,6 +148,7 @@ export class InvoiceLineComponent implements OnInit {
 
   getItemById(id: number) {
     this.itemsService.getItemById(id).subscribe((response: ResponseDto) => {
+      console.log(response.data);
       this.itemDetails = response.data;
       // open quantity field
       // this.hasItem = true;

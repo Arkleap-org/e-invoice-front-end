@@ -237,18 +237,18 @@ export class InvoiceDetailsComponent implements OnInit {
       this.calculateTotalLineAmount(index);
       // total calculations
       this.calculateTotalSalesAmount(this.linesDetails[index].sales_total);
-      this.calculateTaxTotals(this.linesDetails[index].tax_amount)
+      this.calculateTaxTotals(this.linesDetails[index].tax_amount1)
       this.calculateTotalInvoiceAmount(this.linesDetails[index].total_amount)
       this.calculateTotalDiscountAmount(discount_amount);
     }
   }
 
   calculateTaxAmount(index: number) {
-    if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount = Number(this.linesDetails[index].net_total * (this.itemDetails[index].sub_tax_rate / 100)).toFixed(5);
+    if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount1 = Number(this.linesDetails[index].net_total * (this.itemDetails[index].sub_tax_rate / 100)).toFixed(5);
   }
 
   calculateTotalLineAmount(index: number) {
-    if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount) this.linesDetails[index].total_amount = Number(this.linesDetails[index].net_total) + Number(this.linesDetails[index].tax_amount);
+    if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount1) this.linesDetails[index].total_amount = Number(this.linesDetails[index].net_total) + Number(this.linesDetails[index].tax_amount1);
   }
 
   // #endregion

@@ -41,9 +41,9 @@
         <div class="form-group">
           <label>{{'Unit Price'|translate}}<span class="text-danger">*</span></label>
           <input type="number" class="form-control" placeholder="{{'Unit Price'|translate}}"
-            formControlName="unit_price" [(ngModel)]="linesDetails.amount_egp" (ngModelChange)="calculateSalesTotal()"
+            formControlName="amount_egp" [(ngModel)]="linesDetails.amount_egp" (ngModelChange)="calculateSalesTotal()"
             [readonly]='!linesDetails.quantity'>
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('unit_price')?.errors?.required">
+          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('amount_egp')?.errors?.required">
             {{'Unit Price required'|translate}}.
           </small>
         </div>
@@ -54,7 +54,7 @@
       <!-- sales_total -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Sales Total'|translate}}<span class="text-danger">*</span></label>
+          <label>{{'Sales Total'|translate}}</label>
           <input type="number" class="form-control" placeholder="{{'Sales Total'|translate}}"
             formControlName="sales_total" readonly='true' [(ngModel)]="linesDetails.sales_total">
         </div>
@@ -64,9 +64,9 @@
         <div class="form-group">
           <label>{{'Discount Amount'|translate}}<span class="text-danger">*</span></label>
           <input type="number" class="form-control" placeholder="{{'Discount Amount'|translate}}"
-            formControlName="amount_egp" (ngModelChange)="calculateNetTotal($event)"
+            formControlName="discount_amount" (ngModelChange)="calculateNetTotal($event)"
             [(ngModel)]="linesDetails.discount_amount" [readonly]='!linesDetails.amount_egp'>
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('amount_egp')?.errors?.required">
+          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('discount_amount')?.errors?.required">
             {{'Discount Amount required'|translate}}.
           </small>
         </div>
@@ -75,25 +75,39 @@
       <!-- net total -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Net Total'|translate}}<span class="text-danger">*</span></label>
+          <label>{{'Net Total'|translate}}</label>
           <input type="number" class="form-control" placeholder="{{'Net Amount'|translate}}" formControlName="net_total"
             readonly="true" [(ngModel)]="linesDetails.net_total">
         </div>
       </div>
 
-      <!-- tax Amount -->
+      <!-- tax Amount1 -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Tax Amount'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" class="form-control" placeholder="{{'Tax Amount'|translate}}"
-            formControlName="tax_amount" readonly='true' [(ngModel)]="linesDetails.tax_amount">
+          <label>{{'Tax Amount 1'|translate}}</label>
+          <input type="number" class="form-control" placeholder="{{'Tax Amount1'|translate}}"
+            formControlName="tax_amount1" readonly='true' [(ngModel)]="linesDetails.tax_amount1">
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Tax Amount 2'|translate}}</label>
+          <input type="number" class="form-control" placeholder="{{'Tax Amount2'|translate}}"
+            formControlName="tax_amount2" readonly='true' [(ngModel)]="linesDetails.tax_amount2">
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'Tax Amount 3'|translate}}</label>
+          <input type="number" class="form-control" placeholder="{{'Tax Amount3'|translate}}"
+            formControlName="tax_amount3" readonly='true' [(ngModel)]="linesDetails.tax_amount3">
         </div>
       </div>
 
       <!-- tax Amount -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Total Amount'|translate}}<span class="text-danger">*</span></label>
+          <label>{{'Total Amount'|translate}}</label>
           <input type="number" class="form-control" placeholder="{{'Total Amount'|translate}}"
             formControlName="total_amount" readonly='true' [(ngModel)]="linesDetails.total_amount">
         </div>
