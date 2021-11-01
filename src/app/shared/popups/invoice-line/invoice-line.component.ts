@@ -1,10 +1,16 @@
-// angular core
+// angular modules
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
+// angular material
+import { MatDialogRef } from '@angular/material/dialog';
+
+// models
 import { ResponseDto } from '../../models/api-response.model';
 import { LinesDto } from '../../models/invoice.model';
-import { ItemDto, ListItemsResponseDto } from '../../models/items.model';
+import { ItemDto } from '../../models/items.model';
+
+// services
 import { ItemsService } from '../../services/items.service';
 
 @Component({
@@ -92,7 +98,7 @@ export class InvoiceLineComponent implements OnInit {
 
   listItems() {
     this.itemsService.listItems().subscribe((response: ResponseDto) => {
-      this.listOfItems = response.data
+      this.listOfItems = response.data;
     });
   }
 
@@ -128,13 +134,13 @@ export class InvoiceLineComponent implements OnInit {
         totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount2 + this.linesDetails.tax_amount3;
       }
       else if (!this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
-        totalTaxAmount = 0 + this.linesDetails.tax_amount2 + this.linesDetails.tax_amount3;
+        totalTaxAmount = this.linesDetails.tax_amount2 + this.linesDetails.tax_amount3;
       }
       else if (this.linesDetails.tax_amount1 && !this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
-        totalTaxAmount = this.linesDetails.tax_amount1 + 0 + this.linesDetails.tax_amount3;
+        totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount3;
       }
       else if (this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && !this.linesDetails.tax_amount3) {
-        totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount2 + 0;
+        totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount2;
       }
 
       this.linesDetails.total_amount = Number(this.linesDetails.net_total) + Number(totalTaxAmount);
@@ -147,15 +153,11 @@ export class InvoiceLineComponent implements OnInit {
 
   getItemById(id: number) {
     this.itemsService.getItemById(id).subscribe((response: ResponseDto) => {
-      console.log(response.data);
       this.itemDetails = response.data;
-      // open quantity field
-      // this.hasItem = true;
     });
   }
 
   closeAndSave() {
-    console.log("From Popup : ", this.linesDetails)
     this.dialogRef.close({ model: this.linesForm.value, itemName: this.itemDetails.item_name });
   }
 
