@@ -21,13 +21,14 @@ import { ListOfDocumentTypes } from '../../shared/constants/list.constant';
 import { ResponseDto } from '../../shared/models/api-response.model';
 import { ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
-import { LinesDto } from '../../shared/models/invoice.model';
+import { InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 import { ItemsService } from '../../shared/services/items.service';
 import { ReceiverService } from '../../shared/services/receiver.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-invoice-details',
@@ -70,6 +71,11 @@ export class InvoiceDetailsComponent implements OnInit {
   totalInvoiceAmount!: number;
   totalDiscountAmount!: number;
 
+  // name of route param
+  invoiceId!: number;
+
+  // name of NgModels
+  invoiceDetails!: InvoiceDto;
 
   // #endregion
 
@@ -82,11 +88,17 @@ export class InvoiceDetailsComponent implements OnInit {
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private itemsService: ItemsService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private route: ActivatedRoute
   ) {
     // init variables
 
-    this.listOfReceivers = this.listOfItems = this.itemDetails = this.linesDetails = this.newLineDetails = this.itemName = [];
+    this.listOfReceivers = [];
+    this.listOfItems = [];
+    this.itemDetails = [];
+    this.linesDetails = [];
+    this.newLineDetails = [];
+    this.itemName = [];
 
     this.listOfDocumentTypes = ListOfDocumentTypes;
 
@@ -104,7 +116,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
     this.resetTotals();
 
-
+    this.invoiceDetails = new InvoiceDto;
 
     // init forms
     this.initForms();
@@ -116,6 +128,8 @@ export class InvoiceDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadControls();
+    this.invoiceId = this.route.snapshot.params['id'];
+    if (this.invoiceId) this.getInvoiceById();
   }
 
   // #endregion
@@ -151,7 +165,6 @@ export class InvoiceDetailsComponent implements OnInit {
 
   loadControls() {
     this.listReceivers();
-    this.listItems();
   }
 
   listReceivers() {
@@ -160,9 +173,12 @@ export class InvoiceDetailsComponent implements OnInit {
     });
   }
 
-  listItems() {
-    this.itemsService.listItems().subscribe((response: ResponseDto) => {
-      this.listOfItems = response.data
+  getInvoiceById() {
+    this.invoiceService.getInvoiceById(this.invoiceId).subscribe((response: ResponseDto) => {
+      this.invoiceDetails = response.data;
+      this.documentTypeVersion = this.invoiceDetails.document_type_version;
+      this.receiverId = this.invoiceDetails.receiver;
+      // this.invoiceDetails.date_time_issued = new Date(this.invoiceDetails.date_time_issued)
     });
   }
 
@@ -226,7 +242,8 @@ export class InvoiceDetailsComponent implements OnInit {
     if (form.valid) {
       form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
       this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list')
+        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.isSubmitted = false;
       });
     }
   }
@@ -236,14 +253,16 @@ export class InvoiceDetailsComponent implements OnInit {
       width: '100rem'
     });
     dialogRef.afterClosed().subscribe(result => {
-      // get data
-      this.newLineDetails.push(result.model);
-      // get item name
-      this.itemName.push(result.itemName);
-      // append lines in form
-      this.invoiceForm.value.lines = this.newLineDetails;
-      // total calculations
-      this.calculateSummary();
+      if (result) {
+        // get data
+        this.newLineDetails.push(result.model);
+        // get item name
+        this.itemName.push(result.itemName);
+        // append lines in form
+        this.invoiceForm.value.lines = this.newLineDetails;
+        // total calculations
+        this.calculateSummary();
+      }
     });
   }
 

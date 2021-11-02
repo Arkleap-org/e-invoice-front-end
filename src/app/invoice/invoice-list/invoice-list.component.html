@@ -39,7 +39,7 @@
 
       <ng-container matColumnDef="date_time_issued">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Date Time Issued' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.date_time_issued | date}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.date_time_issued | date:'dd/MM/yyyy hh:mm:ss a'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="total_amount">
