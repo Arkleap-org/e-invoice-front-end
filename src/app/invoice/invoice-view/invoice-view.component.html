@@ -3,7 +3,8 @@
     <button class="btn btn-primary">{{'Update' | translate}}</button>
   </div>
   <div class="col-1">
-    <button class="btn btn-primary">{{'Submit' | translate}}</button>
+    <button class="btn btn-primary"
+      (click)="submitInvoice(invoiceDetails.internal_id)">{{'Submit' | translate}}</button>
   </div>
   <div class="col-1">
     <button class="btn btn-warning" (click)="routeToInvoiceList()">{{'Back' | translate}}</button>
