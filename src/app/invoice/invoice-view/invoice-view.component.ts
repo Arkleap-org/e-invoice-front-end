@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // angular route
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // models
 import { ResponseDto } from '../../shared/models/api-response.model';
@@ -30,7 +30,8 @@ export class InvoiceViewComponent implements OnInit {
 
   constructor(
     private invoiceService: InvoiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     // init variables
     this.invoiceDetails = new InvoiceDto;
@@ -59,6 +60,9 @@ export class InvoiceViewComponent implements OnInit {
     });
   }
 
+  routeToInvoiceList() {
+    this.router.navigate(['/invoice/list']);
+  }
   // #endregion
 
 }
