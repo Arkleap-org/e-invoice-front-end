@@ -12,6 +12,10 @@ import { MatDialog } from '@angular/material/dialog';
 
 // components
 import { AddReceiverComponent } from '../../receiver/add-receiver/add-receiver.component';
+import { InvoiceLineComponent } from '../../shared/popups/invoice-line/invoice-line.component';
+
+// constants
+import { ListOfDocumentTypes } from '../../shared/constants/list.constant';
 
 // modals
 import { ResponseDto } from '../../shared/models/api-response.model';
@@ -19,14 +23,11 @@ import { ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
 import { LinesDto } from '../../shared/models/invoice.model';
 
-
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 import { ItemsService } from '../../shared/services/items.service';
 import { ReceiverService } from '../../shared/services/receiver.service';
-
-
 
 @Component({
   selector: 'app-invoice-details',
@@ -45,6 +46,7 @@ export class InvoiceDetailsComponent implements OnInit {
   hasItem: boolean
   hasQty: boolean;
   isSubmitted: boolean;
+  itemName: string[];
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -54,17 +56,19 @@ export class InvoiceDetailsComponent implements OnInit {
   // names of forms
   invoiceForm!: FormGroup
   lines!: FormArray;
+  linesForm!: FormGroup;
 
   // names of details
   receiverDetails: ReceiverDto;
   itemDetails: ListItemsResponseDto[];
   linesDetails: LinesDto[];
+  newLineDetails: LinesDto[];
 
   // names of total calculations
-  totalSalesAmount: number;
-  totalTaxTotals: number;
-  totalInvoiceAmount: number;
-  totalDiscountAmount: number;
+  totalSalesAmount!: number;
+  totalTaxTotals!: number;
+  totalInvoiceAmount!: number;
+  totalDiscountAmount!: number;
 
 
   // #endregion
@@ -82,37 +86,25 @@ export class InvoiceDetailsComponent implements OnInit {
   ) {
     // init variables
 
-    this.listOfReceivers = [];
+    this.listOfReceivers = this.listOfItems = this.itemDetails = this.linesDetails = this.newLineDetails = this.itemName = [];
 
-    this.listOfDocumentTypes = [
-      { label: "Invoice", value: "I" },
-      { label: "Credit Memo", value: "C" },
-      { label: "Debit Memo", value: "D" }
-    ];
+    this.listOfDocumentTypes = ListOfDocumentTypes;
 
-    this.listOfItems = [];
 
     this.receiverDetails = new ReceiverDto;
 
-    this.isReceiver = false;
 
-    this.itemDetails = [];
     const newItemDetail = new ListItemsResponseDto
     this.itemDetails.push(newItemDetail);
 
-    this.linesDetails = [];
     const newLine = new LinesDto;
     this.linesDetails.push(newLine)
 
-    this.hasItem = false;
-    this.hasQty = false;
+    this.isReceiver = this.hasItem = this.hasQty = this.isSubmitted = false;
 
-    this.totalSalesAmount = 0;
-    this.totalTaxTotals = 0;
-    this.totalInvoiceAmount = 0;
-    this.totalDiscountAmount = 0;
+    this.resetTotals();
 
-    this.isSubmitted = false;
+
 
     // init forms
     this.initForms();
@@ -141,46 +133,8 @@ export class InvoiceDetailsComponent implements OnInit {
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
       date_time_issued: [(new Date()).toISOString().substring(0, 10), Validators.required],
-      lines: this.formBuilder.array([this.createLines()])
+      lines: this.formBuilder.array([])
     });
-  }
-
-  createLines(): FormGroup {
-    return this.formBuilder.group({
-      item: [null, Validators.required],
-      description: [''],
-      quantity: ['', Validators.required],
-      unit_price: ['', Validators.required],
-      sales_total: [''],
-      amount_egp: ['', Validators.required],
-      tax_amount: [''],
-      net_total: [''],
-      total_amount: ['']
-    });
-  }
-
-  addLine(): void {
-    // add new line
-    this.addLineDetails();
-    // add new item detail
-    this.addItemDetails();
-    // add new form
-    this.lines = this.invoiceForm.get('lines') as FormArray;
-    this.lines.push(this.createLines());
-  }
-
-  addLineDetails() {
-    const newLine = new LinesDto;
-    this.linesDetails.push(newLine);
-  }
-
-  addItemDetails() {
-    const newItemDetail = new ListItemsResponseDto;
-    this.itemDetails.push(newItemDetail);
-  }
-
-  deleteRow(index: number) {
-    this.lines.removeAt(index);
   }
 
   get invoiceLinesControls(): FormArray {
@@ -214,61 +168,27 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // #endregion
 
-  // #region line calculations
+  // #region invoice summary calculations
 
-  calculateSalesTotal(index: number) {
-    this.linesDetails[index].sales_total = (this.linesDetails[index].amount_egp * this.linesDetails[index].quantity);
-
-  }
-
-  calculateNetTotal(index: number, discount_amount: number) {
-    if (this.linesDetails[index].sales_total && discount_amount >= 0) {
-      this.linesDetails[index].net_total = (this.linesDetails[index].sales_total - discount_amount);
-      this.calculateTaxAmount(index);
-      this.calculateTotalLineAmount(index);
-      // total calculations
-      this.calculateTotalSalesAmount(this.linesDetails[index].sales_total);
-      this.calculateTaxTotals(this.linesDetails[index].tax_amount)
-      this.calculateTotalInvoiceAmount(this.linesDetails[index].total_amount)
-      this.calculateTotalDiscountAmount(discount_amount);
+  calculateSummary() {
+    this.resetTotals();
+    let taxTotals: number = 0;
+    for (let i in this.newLineDetails) {
+      this.totalSalesAmount += this.newLineDetails[i].sales_total;
+      this.totalDiscountAmount += this.newLineDetails[i].discount_amount;
+      taxTotals = Number(this.newLineDetails[i].tax_amount1 ? this.newLineDetails[i].tax_amount1 : 0) + Number(this.newLineDetails[i].tax_amount2 ? this.newLineDetails[i].tax_amount2 : 0) + Number(this.newLineDetails[i].tax_amount3 ? this.newLineDetails[i].tax_amount3 : 0);
+      this.totalTaxTotals += Number(taxTotals);
+      this.totalInvoiceAmount += Number(this.newLineDetails[i].net_total);
     }
   }
 
-  calculateTaxAmount(index: number) {
-    if (this.linesDetails[index].net_total) this.linesDetails[index].tax_amount = Number(this.linesDetails[index].net_total * (this.itemDetails[index].sub_tax_rate / 100)).toFixed(5);
+  resetTotals() {
+    this.totalSalesAmount = this.totalDiscountAmount = this.totalTaxTotals = this.totalInvoiceAmount = 0
   }
-
-  calculateTotalLineAmount(index: number) {
-    if (this.linesDetails[index].net_total && this.linesDetails[index].tax_amount) this.linesDetails[index].total_amount = Number(this.linesDetails[index].net_total) + Number(this.linesDetails[index].tax_amount);
-  }
-
-  // #endregion
-
-  // #region invoice summary calculations
-
-  calculateTotalSalesAmount(salesAmount: number) {
-    this.totalSalesAmount += salesAmount;
-  }
-
-  calculateTotalDiscountAmount(discountAmount: number) {
-    this.totalDiscountAmount += discountAmount;
-  }
-
-
-  calculateTaxTotals(taxTotal: number) {
-    this.totalTaxTotals += Number(taxTotal);
-  }
-
-
-  calculateTotalInvoiceAmount(netTotal: number) {
-    this.totalInvoiceAmount += Number(netTotal);
-  }
-
 
   // #endregion
 
   // #region main actions
-
 
   getReceiver() {
     this.receiverService.getReciever(this.receiverId).subscribe((response: ResponseDto) => {
@@ -311,6 +231,21 @@ export class InvoiceDetailsComponent implements OnInit {
     }
   }
 
-  // #endregion
+  openLinesPopup() {
+    const dialogRef = this.dialog.open(InvoiceLineComponent, {
+      width: '100rem'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // get data
+      this.newLineDetails.push(result.model);
+      // get item name
+      this.itemName.push(result.itemName);
+      // append lines in form
+      this.invoiceForm.value.lines = this.newLineDetails;
+      // total calculations
+      this.calculateSummary();
+    });
+  }
 
+  // #endregion
 }

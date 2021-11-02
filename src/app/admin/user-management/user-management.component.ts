@@ -39,7 +39,7 @@ export class UserManagementComponent implements OnInit {
 
     // init variables
     this.userDataSource = new MatTableDataSource();
-    this.displayedColumns = ['username', 'issuer', 'email', 'is_staff', 'is_superuser', 'is_active', 'date_joined',  'actions'];
+    this.displayedColumns = ['username', 'issuer', 'email', 'is_staff', 'is_superuser', 'is_active', 'date_joined', 'actions'];
   }
 
   // #endregion

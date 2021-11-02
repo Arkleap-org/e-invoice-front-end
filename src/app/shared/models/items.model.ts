@@ -50,3 +50,20 @@ export class ListItemsResponseDto {
     sub_tax_type!: string;
 
 }
+
+export class ItemDto {
+    id!: number;
+    internal_code!: string;
+    item_code!: string;
+    item_desc!: string;
+    item_name!: string;
+    item_type!: string;
+    price_include_tax!: boolean;
+    sub_tax_rate1!: number;
+    sub_tax_rate2!: number;
+    sub_tax_rate3!: number;
+    sub_tax_type1!: string;
+    sub_tax_type2!: string;
+    sub_tax_type3!: string;
+    unit_type!: string;
+}

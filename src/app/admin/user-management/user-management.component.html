@@ -1,6 +1,19 @@
 <section>
   <mat-card>
-    <mat-card-title>{{'Users List' | translate}}</mat-card-title>
+
+    <mat-card-title>
+      <div class="row">
+        <div class="col-6">
+          {{'Users List' | translate}}
+        </div>
+        <div class="col-6 form-group text-right">
+          <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
+            title="{{'Add User'|translate}}" routerLink="/user"> {{'Add User'|translate}}
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+
     <mat-form-field appearance="standard">
       <mat-label>{{'Search' | translate}}</mat-label>
       <input matInput (keyup)="applyFilter($event)" #input>

@@ -8,3 +8,9 @@ export const ListOfPersonTypes = [
   { label: 'Natural Preson', value: 'NP' },
   { label: 'Foreigner', value: 'F' }
 ]
+
+export const ListOfDocumentTypes = [
+  { label: "Invoice", value: "I" },
+  { label: "Credit Memo", value: "C" },
+  { label: "Debit Memo", value: "D" }
+];
