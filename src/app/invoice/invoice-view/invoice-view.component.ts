@@ -71,6 +71,10 @@ export class InvoiceViewComponent implements OnInit {
       this.dialogService.savedSuccessfully('Your invoice is beeing Submitted...');
     });
   }
+
+  routeToUpdateInvoice() {
+    this.router.navigate([`/invoice/update/${this.invoiceId}`]);
+  }
   // #endregion
 
 }

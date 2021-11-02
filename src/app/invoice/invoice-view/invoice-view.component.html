@@ -1,9 +1,9 @@
 <div class="row pb-5 justify-content-end">
-  <div class="col-1">
-    <button class="btn btn-primary">{{'Update' | translate}}</button>
+  <div class="col-1" *ngIf="invoiceDetails.portal_status !== 'Valid'">
+    <button class="btn btn-primary" (click)="routeToUpdateInvoice()">{{'Update' | translate}}</button>
   </div>
   <div class="col-1">
-    <button class="btn btn-primary"
+    <button class="btn btn-primary" *ngIf="invoiceDetails.portal_status !== 'Valid'"
       (click)="submitInvoice(invoiceDetails.internal_id)">{{'Submit' | translate}}</button>
   </div>
   <div class="col-1">
