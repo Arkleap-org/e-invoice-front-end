@@ -90,13 +90,13 @@
         <!-- tax type -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Type' | translate}}</label>
-            <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type" [items]="listOfTaxTypes"
-              bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type"
+            <label>{{'Tax Type 1' | translate}}</label>
+            <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type1" [items]="listOfTaxTypes"
+              bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type1"
               placeholder="{{'Tax Type'|translate}}">
             </ng-select>
-            <ng-select *ngIf="translate.currentLang === 'ar'" [(ngModel)]="model.sub_tax_type" [items]="listOfTaxTypes"
-              bindLabel="desc_ar" bindValue="code" [searchable]="true" formControlName="sub_tax_type"
+            <ng-select *ngIf="translate.currentLang === 'ar'" [(ngModel)]="model.sub_tax_type1" [items]="listOfTaxTypes"
+              bindLabel="desc_ar" bindValue="code" [searchable]="true" formControlName="sub_tax_type1"
               placeholder="{{'Tax Type'|translate}}">
             </ng-select>
           </div>
@@ -104,11 +104,67 @@
         <!-- tax rate -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Rate' | translate}}<span *ngIf="model.sub_tax_type" class="text-danger">*</span></label>
-            <input type="number" class="form-control" formControlName="sub_tax_rate" [required]="model.sub_tax_type"
-              [(ngModel)]="model.sub_tax_rate" placeholder="{{'Tax Rate'|translate}}">
+            <label>{{'Tax Rate1' | translate}}<span *ngIf="model.sub_tax_type1" class="text-danger">*</span></label>
+            <input type="number" class="form-control" formControlName="sub_tax_rate" [required]="model.sub_tax_type1"
+              [(ngModel)]="model.sub_tax_rate2" placeholder="{{'Tax Rate'|translate}}">
             <small class="text-danger"
-              *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate.errors?.min||itemsFormControls.sub_tax_rate.errors?.max ) || model.sub_tax_type)">
+              *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate1.errors?.min||itemsFormControls.sub_tax_rate1.errors?.max ) || model.sub_tax_type1)">
+              {{'Tax rate should be between 0 and 100'|translate}}.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <!-- tax type -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Tax Type2' | translate}}</label>
+            <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type2" [items]="listOfTaxTypes"
+              bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type2"
+              placeholder="{{'Tax Type 2'|translate}}">
+            </ng-select>
+            <ng-select *ngIf="translate.currentLang === 'ar'" [(ngModel)]="model.sub_tax_type2" [items]="listOfTaxTypes"
+              bindLabel="desc_ar" bindValue="code" [searchable]="true" formControlName="sub_tax_type2"
+              placeholder="{{'Tax Type 2'|translate}}">
+            </ng-select>
+          </div>
+        </div>
+        <!-- tax rate -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Tax Rate' | translate}}<span *ngIf="model.sub_tax_type2" class="text-danger">*</span></label>
+            <input type="number" class="form-control" formControlName="sub_tax_rate2" [required]="model.sub_tax_type2"
+              [(ngModel)]="model.sub_tax_rate2" placeholder="{{'Tax Rate 2'|translate}}">
+            <small class="text-danger"
+              *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate2.errors?.min||itemsFormControls.sub_tax_rate2.errors?.max ) || model.sub_tax_type2)">
+              {{'Tax rate should be between 0 and 100'|translate}}.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <!-- tax type -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Tax Type 3' | translate}}</label>
+            <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type3" [items]="listOfTaxTypes"
+              bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type3"
+              placeholder="{{'Tax Type'|translate}}">
+            </ng-select>
+            <ng-select *ngIf="translate.currentLang === 'ar'" [(ngModel)]="model.sub_tax_type3" [items]="listOfTaxTypes"
+              bindLabel="desc_ar" bindValue="code" [searchable]="true" formControlName="sub_tax_type3"
+              placeholder="{{'Tax Type'|translate}}">
+            </ng-select>
+          </div>
+        </div>
+        <!-- tax rate -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'Tax Rate' | translate}}<span *ngIf="model.sub_tax_type3" class="text-danger">*</span></label>
+            <input type="number" class="form-control" formControlName="sub_tax_rate3" [required]="model.sub_tax_type3"
+              [(ngModel)]="model.sub_tax_rate3" placeholder="{{'Tax Rate 3'|translate}}">
+            <small class="text-danger"
+              *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate3.errors?.min||itemsFormControls.sub_tax_rate3.errors?.max ) || model.sub_tax_type3)">
               {{'Tax rate should be between 0 and 100'|translate}}.
             </small>
           </div>
