@@ -11,7 +11,7 @@
               <div class="form-group">
                 <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}"
-                  formControlName="internal_id">
+                  formControlName="internal_id" [(ngModel)]="invoiceDetails.internal_id">
                 <small class="text-danger" *ngIf="isSubmitted && invoiceControls.internal_id.errors?.required">
                   {{'Internal ID is required'|translate}}.
                 </small>
@@ -23,7 +23,7 @@
               <div class="form-group">
                 <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
                 <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}"
-                  formControlName="date_time_issued">
+                  formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
                 <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
                   {{'Issued Date is required'|translate}}.
                 </small>
@@ -33,7 +33,8 @@
             <div class="form-group">
               <label>{{'Document Type'|translate}}<span class="text-danger">*</span></label>
               <ng-select [items]="listOfDocumentTypes" bindLabel="label" bindValue="value" [searchable]="true"
-                placeholder="{{'Document Type'|translate}}" formControlName="document_type">
+                placeholder="{{'Document Type'|translate}}" formControlName="document_type"
+                [(ngModel)]="invoiceDetails.document_type">
               </ng-select>
               <small class="text-danger" *ngIf="isSubmitted && invoiceControls.document_type.errors?.required">
                 {{'Document Type is required'|translate}}.
@@ -155,7 +156,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let line of newLineDetails; let i=index;">
-          <td>{{itemName[i]}}</td>
+          <td>{{itemName[i]?itemName[i]:''}}</td>
           <td>{{line.description}}</td>
           <td>{{line.quantity}}</td>
           <td>{{line.amount_egp}}</td>

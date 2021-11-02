@@ -1,5 +1,5 @@
 export class InvoiceDto {
-    date_time_issued!: Date;
+    date_time_issued!: any;
     document_type!: string;
     document_type_version!: string;
     extra_discount_amount!: string;
@@ -20,6 +20,7 @@ export class InvoiceDto {
     portal_status!: string;
     subm_uuid!: string;
     subm_id!: string;
+    receiver!: number;
 }
 
 export class CreateInvoiceDto {

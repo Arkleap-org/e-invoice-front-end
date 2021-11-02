@@ -17,6 +17,9 @@ import { ErrorInterceptor } from '../interceptors/error.interceptor';
 import { NotificationMessageService } from '../services/notification.message.service';
 import { SecurityService } from '../services/security.service';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -36,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient]
       }
     }),
+    MatDatepickerModule
 
   ],
   providers: [
@@ -55,7 +59,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserAnimationsModule,
     TeraDataModule,
     TranslateModule,
-    DatePipe
+    DatePipe,
+    MatDatepickerModule
   ]
 })
 
