@@ -58,6 +58,7 @@ const routes: Routes = [
       { path: "invoice/add", canActivate: [AuthGuardService], component: InvoiceDetailsComponent },
       { path: "invoice/view/:id", canActivate: [AuthGuardService], component: InvoiceViewComponent },
       { path: "invoice/errors/:id", canActivate: [AuthGuardService], component: InvoiceErrorsComponent },
+      { path: "invoice/update/:id", canActivate: [AuthGuardService], component: InvoiceDetailsComponent },
 
 
       { path: "receiver/list", canActivate: [AuthGuardService], component: ReceiverListComponent },
