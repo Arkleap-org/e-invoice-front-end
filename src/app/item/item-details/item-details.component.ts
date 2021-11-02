@@ -81,8 +81,12 @@ export class ItemDetailsComponent implements OnInit {
       item_type: [''],
       item_code: ['', Validators.required],
       internal_code: [''],
-      sub_tax_rate: ['', [Validators.min(0), Validators.max(100)]],
-      sub_tax_type: [''],
+      sub_tax_rate1: ['', [Validators.min(0), Validators.max(100)]],
+      sub_tax_rate2: ['', [Validators.min(0), Validators.max(100)]],
+      sub_tax_rate3: ['', [Validators.min(0), Validators.max(100)]],
+      sub_tax_type1: [''],
+      sub_tax_type2: [''],
+      sub_tax_type3: [''],
     });
   }
 

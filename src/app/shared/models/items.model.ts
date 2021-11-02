@@ -6,8 +6,14 @@ export class CreateItemRequestDto {
     item_type!: string;
     item_code!: string;
     internal_code!: string;
-    sub_tax_rate!: string;
-    sub_tax_type!: string;
+    sub_tax_rate1!: string;
+    sub_tax_rate2!: string;
+    sub_tax_rate3!: string;
+    sub_tax_type1!: string;
+    sub_tax_type2!: string;
+    sub_tax_type3!: string;
+
+    
 
 }
 
@@ -22,11 +28,13 @@ export class CreateItemResponseDto {
     item_type!: string;
     item_code!: number;
     internal_code!: string;
-    sub_tax_rate!: number;
-    price_include_tax!: boolean;
+    sub_tax_rate1!: string;
+    sub_tax_rate2!: string;
+    sub_tax_rate3!: string;    price_include_tax!: boolean;
     unit_type!: string;
-    sub_tax_type!: string;
-}
+    sub_tax_type1!: string;
+    sub_tax_type2!: string;
+    sub_tax_type3!: string;}
 
 export class ListItemsResponseDto {
 
