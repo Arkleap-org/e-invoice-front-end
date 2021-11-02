@@ -39,7 +39,7 @@ export class ReceiverListComponent implements OnInit {
   ) {
     // init variables
     this.receiverDataSource = new MatTableDataSource();
-    this.displayedColumns = ['id', 'name', 'type', 'reg_num', 'governate', 'regionCity', 'street', 'buildingNumber', 'country'];
+    this.displayedColumns = ['id', 'name', 'type', 'reg_num', 'governate', 'regionCity', 'street', 'buildingNumber', 'country', 'actions'];
   }
 
   // #endregion
@@ -83,8 +83,10 @@ export class ReceiverListComponent implements OnInit {
     }
   }
 
-  openReceiverPopup() {
-    const dialogRef = this.dialog.open(AddReceiverComponent);
+  openReceiverPopup(id?: number) {
+    const dialogRef = this.dialog.open(AddReceiverComponent, {
+      data: { id }
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.listReceivers();
     });

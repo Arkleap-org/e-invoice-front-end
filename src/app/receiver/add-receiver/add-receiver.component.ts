@@ -1,8 +1,9 @@
 // angular modules
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 // constants
 import { ListOfPersonTypes } from '../../shared/constants/list.constant';
@@ -46,16 +47,19 @@ export class AddReceiverComponent implements OnInit {
     private listsService: ListsService,
     public translate: TranslateService,
     private receiverService: ReceiverService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: { id: number },
   ) {
     // init variables
     this.listOfReceiverType = ListOfPersonTypes;
     this.listOfCountries = [];
     this.receiverDetails = new ReceiverDto;
-    this.isSubmitted = false
+    this.receiverDetails.id = this.data.id;
+    this.isSubmitted = false;
 
     // init forms
     this.initForms();
+
   }
 
   // #endregion
@@ -97,6 +101,7 @@ export class AddReceiverComponent implements OnInit {
 
   loadControls() {
     this.listCountries();
+    this.getReceiver(this.receiverDetails.id);
   }
 
   listCountries() {
@@ -105,20 +110,40 @@ export class AddReceiverComponent implements OnInit {
     });
   }
 
+  getReceiver(id: number) {
+    if (id)
+      this.receiverService.getReciever(id).subscribe((response: ResponseDto) => {
+        this.receiverDetails = response.data;
+      });
+  }
+
   // #endregion
 
   // #region main actions
 
-  createReceiver(form: FormGroup) {
+  handleSaveReceiver(model: ReceiverDto) {
     this.isSubmitted = true;
-    if (form.valid) {
-      this.receiverService.createReceiver(this.receiverDetails).subscribe((response: ResponseDto) => {
-        this.isSubmitted = false;
-        this.dialog.closeAll();
-      });
+    if (this.receiverForm.valid) {
+      if (model.id) this.updateReceiver(model);
+      else this.createReceiver(model);
     }
+  }
+
+  updateReceiver(model: ReceiverDto) {
+    this.receiverService.updateReceiver(model).subscribe((response: ResponseDto) => {
+      this.isSubmitted = false;
+      this.dialog.closeAll();
+    });
+  }
+
+  createReceiver(model: ReceiverDto) {
+    this.receiverService.createReceiver(model).subscribe((response: ResponseDto) => {
+      this.isSubmitted = false;
+      this.dialog.closeAll();
+    });
   }
 
   // #endregion
 
 }
+
