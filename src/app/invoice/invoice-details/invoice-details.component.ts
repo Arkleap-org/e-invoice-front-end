@@ -178,28 +178,48 @@ export class InvoiceDetailsComponent implements OnInit {
       this.invoiceDetails = response.data;
       console.log(this.invoiceDetails);
       // document type version
-      this.documentTypeVersion = this.invoiceDetails.document_type_version;
+      this.setDocumentType();
 
       // receiver data
-      this.receiverId = this.invoiceDetails.receiver;
-      this.receiverDetails.id = this.invoiceDetails.receiver;
-      this.receiverDetails.reg_num = this.invoiceDetails.receiver_reg_num;
-      this.receiverDetails.name = this.invoiceDetails.receiver_name;
-      this.receiverDetails.receiver_address = this.invoiceDetails.receiver_address;
+      this.setReceiverData();
 
       // issued date
-      this.invoiceDetails.date_time_issued = this.datepipe.transform(this.invoiceDetails.date_time_issued, 'yyyy-MM-dd')
+      this.setIssuedDate();
 
       // lines data
-      this.newLineDetails = this.invoiceDetails.lines;
+      this.setInvoiceLines();
 
       // totals
-      this.totalSalesAmount = this.invoiceDetails.total_sales_amount;
-      this.totalDiscountAmount = this.invoiceDetails.total_discount_amount;
-      this.totalTaxTotals = this.invoiceDetails.tax_totals;
-      this.totalInvoiceAmount = this.invoiceDetails.total_amount;
+      this.setInvoiceTotals();
 
     });
+  }
+
+  setDocumentType() {
+    this.documentTypeVersion = this.invoiceDetails.document_type_version;
+  }
+
+  setReceiverData() {
+    this.receiverId = this.invoiceDetails.receiver;
+    this.receiverDetails.id = this.invoiceDetails.receiver;
+    this.receiverDetails.reg_num = this.invoiceDetails.receiver_reg_num;
+    this.receiverDetails.name = this.invoiceDetails.receiver_name;
+    this.receiverDetails.receiver_address = this.invoiceDetails.receiver_address;
+  }
+
+  setIssuedDate() {
+    this.invoiceDetails.date_time_issued = this.datepipe.transform(this.invoiceDetails.date_time_issued, 'yyyy-MM-dd');
+  }
+
+  setInvoiceLines() {
+    this.newLineDetails = this.invoiceDetails.lines;
+  }
+
+  setInvoiceTotals() {
+    this.totalSalesAmount = this.invoiceDetails.total_sales_amount;
+    this.totalDiscountAmount = this.invoiceDetails.total_discount_amount;
+    this.totalTaxTotals = this.invoiceDetails.tax_totals;
+    this.totalInvoiceAmount = this.invoiceDetails.total_amount;
   }
 
   // #endregion
