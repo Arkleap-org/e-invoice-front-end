@@ -44,14 +44,14 @@
             <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
             <div class="row">
               <div class="form-check col-md-6">
-                <input class="form-check-input" type="radio" id="flexRadioDefault1" [value]="0.9"
+                <input class="form-check-input" type="radio" id="flexRadioDefault1" [value]="'0.9'"
                   [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
                 <label class="form-check-label" for="flexRadioDefault1">
                   {{'0.9'|translate}}
                 </label>
               </div>
               <div class="form-check col-md-6">
-                <input class="form-check-input" type="radio" id="flexRadioDefault2" [value]="1.0" checked
+                <input class="form-check-input" type="radio" id="flexRadioDefault2" [value]="'1.0'" checked
                   [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
                 <label class="form-check-label" for="flexRadioDefault2">
                   {{'1.0'|translate}}
@@ -107,18 +107,16 @@
         <fieldset>
           <div>
             <label>{{'Registration Number' | translate}}</label>:
-            <span *ngIf="isReceiver">{{receiverDetails.reg_num}}</span>
+            <span *ngIf="receiverDetails.id">{{receiverDetails.reg_num}}</span>
           </div>
           <div>
             <label>{{'Type' | translate}}</label>:
             <span
-              *ngIf="isReceiver">{{receiverDetails.type === "P" ? 'Natural Person': receiverDetails.type === "B"? 'Business' : 'Foreigner'}}</span>
+              *ngIf="receiverDetails.id">{{receiverDetails.type === "P" ? 'Natural Person': receiverDetails.type === "B"? 'Business' : 'Foreigner'}}</span>
           </div>
           <div>
             <label>{{'Address' | translate}}</label>:
-            <span *ngIf="isReceiver">{{receiverDetails.buildingNumber}}, {{receiverDetails.street}},
-              {{receiverDetails.governate}},
-              {{receiverDetails.country}}</span>
+            <span *ngIf="receiverDetails.id">{{receiverDetails.receiver_address}}</span>
           </div>
         </fieldset>
       </div>
@@ -156,7 +154,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let line of newLineDetails; let i=index;">
-          <td>{{itemName[i]?itemName[i]:''}}</td>
+          <td>{{itemName[i]||line.item_name }} </td>
           <td>{{line.description}}</td>
           <td>{{line.quantity}}</td>
           <td>{{line.amount_egp}}</td>

@@ -176,9 +176,29 @@ export class InvoiceDetailsComponent implements OnInit {
   getInvoiceById() {
     this.invoiceService.getInvoiceById(this.invoiceId).subscribe((response: ResponseDto) => {
       this.invoiceDetails = response.data;
+      console.log(this.invoiceDetails);
+      // document type version
       this.documentTypeVersion = this.invoiceDetails.document_type_version;
+
+      // receiver data
       this.receiverId = this.invoiceDetails.receiver;
-      // this.invoiceDetails.date_time_issued = new Date(this.invoiceDetails.date_time_issued)
+      this.receiverDetails.id = this.invoiceDetails.receiver;
+      this.receiverDetails.reg_num = this.invoiceDetails.receiver_reg_num;
+      this.receiverDetails.name = this.invoiceDetails.receiver_name;
+      this.receiverDetails.receiver_address = this.invoiceDetails.receiver_address;
+
+      // issued date
+      this.invoiceDetails.date_time_issued = this.datepipe.transform(this.invoiceDetails.date_time_issued, 'yyyy-MM-dd')
+
+      // lines data
+      this.newLineDetails = this.invoiceDetails.lines;
+
+      // totals
+      this.totalSalesAmount = this.invoiceDetails.total_sales_amount;
+      this.totalDiscountAmount = this.invoiceDetails.total_discount_amount;
+      this.totalTaxTotals = this.invoiceDetails.tax_totals;
+      this.totalInvoiceAmount = this.invoiceDetails.total_amount;
+
     });
   }
 
@@ -209,6 +229,8 @@ export class InvoiceDetailsComponent implements OnInit {
   getReceiver() {
     this.receiverService.getReciever(this.receiverId).subscribe((response: ResponseDto) => {
       this.receiverDetails = response.data;
+      console.log(this.receiverDetails);
+
       this.isReceiver = true;
     });
   }
