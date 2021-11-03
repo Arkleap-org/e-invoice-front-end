@@ -21,7 +21,7 @@ import { ListOfDocumentTypes } from '../../shared/constants/list.constant';
 import { ResponseDto } from '../../shared/models/api-response.model';
 import { ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
-import { InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
+import { CreateInvoiceDto, InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
@@ -176,10 +176,50 @@ export class InvoiceDetailsComponent implements OnInit {
   getInvoiceById() {
     this.invoiceService.getInvoiceById(this.invoiceId).subscribe((response: ResponseDto) => {
       this.invoiceDetails = response.data;
-      this.documentTypeVersion = this.invoiceDetails.document_type_version;
-      this.receiverId = this.invoiceDetails.receiver;
-      // this.invoiceDetails.date_time_issued = new Date(this.invoiceDetails.date_time_issued)
+      console.log(this.invoiceDetails);
+      // document type version
+      this.setDocumentType();
+
+      // receiver data
+      this.setReceiverData();
+
+      // issued date
+      this.setIssuedDate();
+
+      // lines data
+      this.setInvoiceLines();
+
+      // totals
+      this.setInvoiceTotals();
+
     });
+  }
+
+  setDocumentType() {
+    this.documentTypeVersion = this.invoiceDetails.document_type_version;
+  }
+
+  setReceiverData() {
+    this.receiverId = this.invoiceDetails.receiver;
+    this.receiverDetails.id = this.invoiceDetails.receiver;
+    this.receiverDetails.reg_num = this.invoiceDetails.receiver_reg_num;
+    this.receiverDetails.name = this.invoiceDetails.receiver_name;
+    this.receiverDetails.receiver_address = this.invoiceDetails.receiver_address;
+  }
+
+  setIssuedDate() {
+    this.invoiceDetails.date_time_issued = this.datepipe.transform(this.invoiceDetails.date_time_issued, 'yyyy-MM-dd');
+  }
+
+  setInvoiceLines() {
+    this.newLineDetails = this.invoiceDetails.lines;
+  }
+
+  setInvoiceTotals() {
+    this.totalSalesAmount = this.invoiceDetails.total_sales_amount;
+    this.totalDiscountAmount = this.invoiceDetails.total_discount_amount;
+    this.totalTaxTotals = this.invoiceDetails.tax_totals;
+    this.totalInvoiceAmount = this.invoiceDetails.total_amount;
   }
 
   // #endregion
@@ -209,6 +249,8 @@ export class InvoiceDetailsComponent implements OnInit {
   getReceiver() {
     this.receiverService.getReciever(this.receiverId).subscribe((response: ResponseDto) => {
       this.receiverDetails = response.data;
+      console.log(this.receiverDetails);
+
       this.isReceiver = true;
     });
   }
@@ -237,17 +279,6 @@ export class InvoiceDetailsComponent implements OnInit {
     this.hasQty = true;
   }
 
-  createInvoice(form: FormGroup) {
-    this.isSubmitted = true;
-    if (form.valid) {
-      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
-      this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
-        this.isSubmitted = false;
-      });
-    }
-  }
-
   openLinesPopup() {
     const dialogRef = this.dialog.open(InvoiceLineComponent, {
       width: '100rem'
@@ -264,6 +295,36 @@ export class InvoiceDetailsComponent implements OnInit {
         this.calculateSummary();
       }
     });
+  }
+
+  createInvoice(form: FormGroup) {
+    this.isSubmitted = true;
+    if (form.valid) {
+      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
+      this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
+        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.isSubmitted = false;
+      });
+    }
+  }
+
+  updateInvoice(id: number, form: FormGroup) {
+    this.isSubmitted = true;
+    if (form.valid) {
+      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
+      this.invoiceService.updateInvoice(this.invoiceId, form.value).subscribe((response: ResponseDto) => {
+        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.isSubmitted = false;
+      });
+    }
+  }
+
+  handleSaveInvoiceBtn(form: FormGroup) {
+    if (this.invoiceId) {
+      this.updateInvoice(this.invoiceId, form);
+    } else {
+      this.createInvoice(form);
+    }
   }
 
   // #endregion

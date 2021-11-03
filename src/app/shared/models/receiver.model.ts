@@ -8,4 +8,5 @@ export class ReceiverDto {
     regionCity!: string;
     street!: string;
     type!: string;
+    receiver_address!: string;
 }
