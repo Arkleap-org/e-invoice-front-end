@@ -30,6 +30,8 @@ export class InvoiceCancelComponent implements OnInit {
   isSubmitted: boolean;
 
   invoiceId!: number;
+  title!: string;
+  subTitle!: string;
 
   // names of forms
   cancelForm!: FormGroup;
@@ -45,11 +47,13 @@ export class InvoiceCancelComponent implements OnInit {
     private dialogService: DialogService,
     public dialog: MatDialog,
     //@Optional() is used to prevent error if no data is passed
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: number
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: { invoiceId: number, title: string, subTitle: string },
   ) {
     // init variables
     this.isSubmitted = false;
-    this.invoiceId = data;
+    this.invoiceId = data.invoiceId;
+    this.title = data.title;
+    this.subTitle = data.title;
 
     // init forms
     this.initForms();
@@ -84,16 +88,30 @@ export class InvoiceCancelComponent implements OnInit {
 
   // #region main actions
 
-  cancelInvoice(form: FormGroup) {
+  handleSubmitAction(form: FormGroup) {
     this.isSubmitted = true;
     if (form.valid) {
-      this.invoiceService.cancelInvoice(this.invoiceId, form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.savedSuccessfully('Invoice Cancelled Successfully!');
-        this.isSubmitted = false;
-        this.dialog.closeAll();
-      });
+      if (this.title.toLowerCase().includes('cancel')) this.cancelInvoice(this.invoiceId, form);
+      else this.rejectInvoice(this.invoiceId, form.value.cancel_reason)
     }
+  }
 
+  handleSaveResponse(msg: string) {
+    this.dialogService.savedSuccessfully(msg);
+    this.isSubmitted = false;
+    this.dialog.closeAll();
+  }
+
+  cancelInvoice(id: number, form: FormGroup) {
+    this.invoiceService.cancelInvoice(id, form.value).subscribe((response: ResponseDto) => {
+      this.handleSaveResponse('Invoice Cancelled Successfully!');
+    });
+  }
+
+  rejectInvoice(id: number, reject_reason: string) {
+    this.invoiceService.rejectInvoice(id, reject_reason).subscribe((res: ResponseDto) => {
+      this.handleSaveResponse('Invoice Rejected Successfully!');
+    });
   }
 
   // #endregion

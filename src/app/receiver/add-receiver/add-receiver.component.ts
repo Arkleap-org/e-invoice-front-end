@@ -1,5 +1,5 @@
 // angular modules
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -48,13 +48,13 @@ export class AddReceiverComponent implements OnInit {
     public translate: TranslateService,
     private receiverService: ReceiverService,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number },
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: { id: number },
   ) {
     // init variables
     this.listOfReceiverType = ListOfPersonTypes;
     this.listOfCountries = [];
     this.receiverDetails = new ReceiverDto;
-    this.receiverDetails.id = this.data.id;
+    this.receiverDetails.id = this.data?.id;
     this.isSubmitted = false;
 
     // init forms

@@ -99,10 +99,14 @@ export class InvoiceListComponent implements OnInit {
     });
   }
 
-  openInvoiceCancelPopup(invoiceId: number) {
+  openInvoiceCancelPopup(invoiceId: number, internal_id: number) {
     const dialogRef = this.dialog.open(InvoiceCancelComponent, {
       width: '40rem',
-      data: invoiceId
+      data: {
+        invoiceId,
+        title: `Cancel Invoice #${internal_id}`,
+        subTitle: 'Cancellation Reasons'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

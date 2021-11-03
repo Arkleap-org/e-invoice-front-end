@@ -34,7 +34,6 @@ export class ItemDetailsComponent implements OnInit {
   //name of model
 
   model: CreateItemRequestDto;
-  itemDetails: CreateItemRequestDto;
   itemsForm!: FormGroup;
 
   // #endregion
@@ -54,7 +53,6 @@ export class ItemDetailsComponent implements OnInit {
     this.listOfUnitTypes = this.listOfTaxTypes = [];
     this.model = new CreateItemRequestDto;
     this.isSubmitted = false;
-    this.itemDetails = new CreateItemRequestDto;
 
     // init forms
     this.initForm();
