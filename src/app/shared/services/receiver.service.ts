@@ -12,9 +12,14 @@ export class ReceiverService {
     private http: HttpClient
   ) { }
 
-  createReceiver(data: ReceiverDto) {
+  createReceiver(model: ReceiverDto) {
     const url = `issuer/receiver/create`;
-    return this.http.post<ResponseDto>(url, data);
+    return this.http.post<ResponseDto>(url, model);
+  }
+
+  updateReceiver(model: ReceiverDto) {
+    const url = `issuer/receiver/update/${model.id}`;
+    return this.http.put<ResponseDto>(url, model);
   }
 
   listReceivers() {
