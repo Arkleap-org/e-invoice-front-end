@@ -21,7 +21,7 @@ import { ListOfDocumentTypes } from '../../shared/constants/list.constant';
 import { ResponseDto } from '../../shared/models/api-response.model';
 import { ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
-import { InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
+import { CreateInvoiceDto, InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
@@ -259,17 +259,6 @@ export class InvoiceDetailsComponent implements OnInit {
     this.hasQty = true;
   }
 
-  createInvoice(form: FormGroup) {
-    this.isSubmitted = true;
-    if (form.valid) {
-      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
-      this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
-        this.isSubmitted = false;
-      });
-    }
-  }
-
   openLinesPopup() {
     const dialogRef = this.dialog.open(InvoiceLineComponent, {
       width: '100rem'
@@ -286,6 +275,36 @@ export class InvoiceDetailsComponent implements OnInit {
         this.calculateSummary();
       }
     });
+  }
+
+  createInvoice(form: FormGroup) {
+    this.isSubmitted = true;
+    if (form.valid) {
+      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
+      this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
+        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.isSubmitted = false;
+      });
+    }
+  }
+
+  updateInvoice(id: number, form: FormGroup) {
+    this.isSubmitted = true;
+    if (form.valid) {
+      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
+      this.invoiceService.updateInvoice(this.invoiceId, form.value).subscribe((response: ResponseDto) => {
+        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.isSubmitted = false;
+      });
+    }
+  }
+
+  handleSaveInvoiceBtn(form: FormGroup) {
+    if (this.invoiceId) {
+      this.updateInvoice(this.invoiceId, form);
+    } else {
+      this.createInvoice(form);
+    }
   }
 
   // #endregion

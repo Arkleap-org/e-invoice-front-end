@@ -213,7 +213,9 @@
 <br>
 
 <!-- card actions -->
+<!-- createInvoice(invoiceForm) -->
 <mat-card-actions class="text-center">
   <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-  <button mat-button class="btn btn-info text-light" (click)="createInvoice(invoiceForm)">Create</button>
+  <button mat-button class="btn btn-info text-light"
+    (click)="handleSaveInvoiceBtn(invoiceForm)">{{invoiceId? 'Update' : 'Create'}}</button>
 </mat-card-actions>
