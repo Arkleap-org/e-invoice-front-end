@@ -57,5 +57,10 @@ export class InvoiceService {
     return this.http.get<ResponseDto>(url);
   }
 
+  updateInvoice(id: number, data: CreateInvoiceDto) {
+    const url = `invoice/update/${id}`;
+    return this.http.put<ResponseDto>(url, data)
+  }
+
 }
 

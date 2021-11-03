@@ -11,11 +11,11 @@ export class InvoiceDto {
     receiver_name!: string;
     receiver_reg_num!: string;
     signature_value!: string;
-    tax_totals!: string;
-    total_discount_amount!: string;
-    total_items_discount_amount!: string;
-    total_sales_amount!: string;
-    total_amount!: string;
+    tax_totals!: number;
+    total_discount_amount!: number;
+    total_items_discount_amount!: number;
+    total_sales_amount!: number;
+    total_amount!: number;
     invoice_status!: string;
     portal_status!: string;
     subm_uuid!: string;
