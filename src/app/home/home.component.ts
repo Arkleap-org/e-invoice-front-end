@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     this.dashboardCounts = new DashboardDto;
     this.thisMonth = Date.now();
     this.displayedColumns = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
-    this.currentIssuer = this.securityService.user?.issuer_reg_num || "";
+    this.currentIssuer = this.securityService.user?.reg_num || "";
   }
 
   // #endregion
@@ -118,6 +118,12 @@ export class HomeComponent implements OnInit {
 
   openInvoice(url: string) {
     window.open(url, "_blank")
+  }
+
+  getRecentInvoices() {
+    this.dashboardService.getRecentInvoices().subscribe((res) => {
+      this.listRecentInvoices();
+    });
   }
 
   // #endregion

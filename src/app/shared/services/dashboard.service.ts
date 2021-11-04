@@ -11,12 +11,17 @@ export class DashboardService {
 
 
   getCounts() {
-    const url = `dashboard`
+    const url = `dashboard`;
     return this.http.get<ResponseDto>(url)
   }
 
   listRecentInvoices() {
-    const url = `invoice/recent-documents/list`
+    const url = `invoice/recent-documents/list`;
+    return this.http.get<ResponseDto>(url)
+  }
+
+  getRecentInvoices() {
+    const url = `invoice/recent-documents/save`;
     return this.http.get<ResponseDto>(url)
   }
 

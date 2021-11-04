@@ -1,6 +1,6 @@
 <div>
   <mat-card>
-    <mat-card-title class="text-mb-4">{{'Dashboard'|translate}}</mat-card-title>
+    <mat-card-title class="text-mb-4">{{'Dashboard' | translate}}</mat-card-title>
 
     <br>
     <br>
@@ -93,10 +93,19 @@
     <br>
     <br>
     <mat-card-title class="text-secondary mt-6">{{'Recent Invoices' | translate}}</mat-card-title>
-    <mat-form-field appearance="standard">
-      <mat-label>{{'Search' | translate}}</mat-label>
-      <input matInput (keyup)="applyFilter($event)" #input>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="standard">
+          <mat-label>{{'Search' | translate}}</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+      </div>
+      <div class="col-6 text-right">
+        <button type="button" class="btn btn-primary" (click)="getRecentInvoices()" data-toggle="tooltip"
+          data-placement="bottom" title="{{'Get Recent Invoices'|translate}}"> {{'Get Recent Invoices'|translate}}
+        </button>
+      </div>
+    </div>
 
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="invoiceDataSource" matSort>

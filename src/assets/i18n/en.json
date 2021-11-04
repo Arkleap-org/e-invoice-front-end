@@ -1,5 +1,5 @@
 {
-  "desc_en":"desc_en",
+  "desc_en": "desc_en",
   "Lang": "Lang",
   "Login": "Login",
   "Welcome": "Welcome",
@@ -110,10 +110,11 @@
   "Building Number is required": "Building Number is required",
   "Postal Code is required": "Postal Code is required",
   "Receivers Count": "Receivers Count",
-  "type":"type",
-  "registeration number":"registertion number", 
-  "governate":"governate",
-  "region city":  "region city",
-  "street":"street",
-    "building Number":"building number"
+  "type": "type",
+  "registeration number": "registertion number",
+  "governate": "governate",
+  "region city": "region city",
+  "street": "street",
+  "building Number": "building number",
+  "Get Recent Invoices": "Get Recent Invoices"
 }

@@ -33,7 +33,7 @@ export class AddReceiverComponent implements OnInit {
 
   // names of lists
   listOfReceiverType: { label: string, value: string }[];
-  listOfCountries: { code: string, en_name: string, ar_name: string }[];
+  listOfCountries: { code: string, desc_en: string, desc_ar: string }[];
 
   // name of forms
   receiverForm!: FormGroup

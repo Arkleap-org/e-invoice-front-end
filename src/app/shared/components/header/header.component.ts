@@ -17,6 +17,7 @@ import { LoginResponseDto } from '../../models/auth.model';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { SecurityService } from '../../services/security.service';
 import { WebAgentBaseUrl } from '../../constants/web-agent-url.constant';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -67,7 +68,7 @@ export class HeaderComponent {
   }
 
   downloadWebAgent() {
-    const url = WebAgentBaseUrl + this.securityService.user?.issuer_reg_num;
+    const url = environment.webAgentBaseUrl + this.securityService.user?.reg_num;
     window.open(url, "_blank");
   }
 
