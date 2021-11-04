@@ -6,7 +6,7 @@
         <mat-card-content>
           <div class="row">
             <!-- Internal ID -->
-            <div class="col-6">
+            <div class="col-6 pt-5">
 
               <div class="form-group">
                 <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
@@ -17,7 +17,7 @@
                 </small>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 pt-5">
 
               <!-- issued date -->
               <div class="form-group">
@@ -30,7 +30,7 @@
               </div>
             </div>
             <!-- document type -->
-            <div class="form-group">
+            <div class="col-6 pt-5 form-group">
               <label>{{'Document Type'|translate}}<span class="text-danger">*</span></label>
               <ng-select [items]="listOfDocumentTypes" bindLabel="label" bindValue="value" [searchable]="true"
                 placeholder="{{'Document Type'|translate}}" formControlName="document_type"
@@ -41,21 +41,24 @@
               </small>
             </div>
             <!-- document type version -->
-            <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
-            <div class="row">
-              <div class="form-check col-md-6">
-                <input class="form-check-input" type="radio" id="flexRadioDefault1" [value]="'0.9'"
-                  [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  {{'0.9'|translate}}
-                </label>
-              </div>
-              <div class="form-check col-md-6">
-                <input class="form-check-input" type="radio" id="flexRadioDefault2" [value]="'1.0'" checked
-                  [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
-                <label class="form-check-label" for="flexRadioDefault2">
-                  {{'1.0'|translate}}
-                </label>
+            <div class="col-6 pt-5">
+              <div class="row">
+                <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
+                <div class="form-check col-6 pt-2">
+                  <input class="form-check-input" type="radio" id="flexRadioDefault1" [value]="'0.9'"
+                    [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    {{'0.9'|translate}}
+                  </label>
+                </div>
+                <div class="form-check col-6 pt-2">
+                  <input class="form-check-input" type="radio" id="flexRadioDefault2" [value]="'1.0'" checked
+                    [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    {{'1.0'|translate}}
+                  </label>
+                </div>
+
               </div>
               <small class="text-danger" *ngIf="isSubmitted && invoiceControls.document_type_version.errors?.required">
                 {{'Document Type Version is required'|translate}}.
@@ -111,8 +114,8 @@
           </div>
           <div>
             <label>{{'Type' | translate}}</label>:
-            <span
-              *ngIf="receiverDetails.id">{{receiverDetails.type === "P" ? 'Natural Person': receiverDetails.type === "B"? 'Business' : 'Foreigner'}}</span>
+            <span *ngIf="receiverDetails.id">{{receiverDetails.type === "P" ? 'Natural Person': receiverDetails.type ===
+              "B"? 'Business' : 'Foreigner'}}</span>
           </div>
           <div>
             <label>{{'Address' | translate}}</label>:
@@ -166,7 +169,8 @@
           <td>{{line.discount_amount}}</td>
           <td>{{line.net_total}}</td>
           <td>
-            {{line.tax_amount1? line.tax_amount1: 0+ line.tax_amount2? line.tax_amount2: 0+ line.tax_amount3? line.tax_amount3:0}}
+            {{line.tax_amount1? line.tax_amount1: 0+ line.tax_amount2? line.tax_amount2: 0+ line.tax_amount3?
+            line.tax_amount3:0}}
           </td>
           <td>{{line.total_amount}}</td>
         </tr>
@@ -220,6 +224,6 @@
 <!-- createInvoice(invoiceForm) -->
 <mat-card-actions class="text-center">
   <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
-  <button mat-button class="btn btn-info text-light"
-    (click)="handleSaveInvoiceBtn(invoiceForm)">{{invoiceId? 'Update' : 'Create'}}</button>
+  <button mat-button class="btn btn-info text-light" (click)="handleSaveInvoiceBtn(invoiceForm)">{{invoiceId? 'Update' :
+    'Create'}}</button>
 </mat-card-actions>

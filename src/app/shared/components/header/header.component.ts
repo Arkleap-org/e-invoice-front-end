@@ -16,8 +16,8 @@ import { LoginResponseDto } from '../../models/auth.model';
 // services
 import { LocalStorageService } from '../../services/local-storage.service';
 import { SecurityService } from '../../services/security.service';
-import { WebAgentBaseUrl } from '../../constants/web-agent-url.constant';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -38,6 +38,7 @@ export class HeaderComponent {
   // #region constructor
 
   constructor(
+    private router: Router,
     public translate: TranslateService,
     private localStorageService: LocalStorageService,
     public dialog: MatDialog,
@@ -70,6 +71,11 @@ export class HeaderComponent {
   downloadWebAgent() {
     const url = environment.webAgentBaseUrl + this.securityService.user?.web_agent;
     window.open(url, "_blank");
+  }
+
+  logout() {
+    this.localStorageService.removeAll();
+    this.router.navigate(['/'])
   }
 
   // #endregion

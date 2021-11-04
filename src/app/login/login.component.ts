@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../shared/services/auth.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
 import { ListOfLanguage } from '../shared/constants/list.constant';
+import { SessionStorageService } from '../shared/services/session-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,7 @@ export class LoginComponent {
     private authService: AuthService,
     private localStorageService: LocalStorageService,
     private formBuilder: FormBuilder,
-
+    private sessionStorageService: SessionStorageService
   ) {
     // init variables
     this.listOfLang = ListOfLanguage;
@@ -76,7 +77,8 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.userLogin(model).subscribe((res: LoginResponseDto) => {
         this.localStorageService.store('user', res);
-        this.router.navigate(['/home']);
+        const lastTabUrl = this.sessionStorageService.retrieve('last-tab-url') || '/home';
+        this.router.navigate([lastTabUrl]);
         this.isSubmitted = false;
       });
     }
