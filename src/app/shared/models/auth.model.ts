@@ -10,5 +10,6 @@ export class LoginResponseDto {
   is_staff!: boolean
   is_superuser!: boolean
   refresh!: string;
+  issuer_reg_num!: string;
 }
 

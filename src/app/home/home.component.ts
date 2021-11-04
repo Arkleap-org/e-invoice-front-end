@@ -1,5 +1,6 @@
 // angular core
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,9 +8,12 @@ import { MatTableDataSource } from '@angular/material/table';
 // models
 import { ResponseDto } from '../shared/models/api-response.model';
 import { DashboardDto } from '../shared/models/dashboard.model';
+import { InvoiceCancelComponent } from '../shared/popups/invoice-cancel/invoice-cancel.component';
 
 // services
 import { DashboardService } from '../shared/services/dashboard.service';
+import { InvoiceService } from '../shared/services/invoice.service';
+import { SecurityService } from '../shared/services/security.service';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +32,7 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[];
   dashboardCounts: DashboardDto;
   thisMonth: number;
+  currentIssuer: string;
 
 
   // #endregion
@@ -35,13 +40,17 @@ export class HomeComponent implements OnInit {
   // #region constructor
 
   constructor(
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private securityService: SecurityService,
+    private invoiceService: InvoiceService,
+    public dialog: MatDialog,
   ) {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
     this.dashboardCounts = new DashboardDto;
     this.thisMonth = Date.now();
     this.displayedColumns = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
+    this.currentIssuer = this.securityService.user?.issuer_reg_num || "";
   }
 
   // #endregion
@@ -90,6 +99,25 @@ export class HomeComponent implements OnInit {
     if (this.invoiceDataSource.paginator) {
       this.invoiceDataSource.paginator.firstPage();
     }
+  }
+
+  openInvoiceCancelPopup(invoiceId: number, internalId: number) {
+    const dialogRef = this.dialog.open(InvoiceCancelComponent, {
+      width: '40rem',
+      data: {
+        invoiceId,
+        title: `Reject Invoice #${internalId}`,
+        subTitle: 'Rejection Reasons'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadControls();
+    });
+  }
+
+  openInvoice(url: string) {
+    window.open(url, "_blank")
   }
 
   // #endregion

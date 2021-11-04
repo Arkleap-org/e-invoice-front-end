@@ -1,13 +1,13 @@
-<h2 mat-dialog-title>{{'Receiver' | translate}}</h2>
+<h2 mat-dialog-title>{{title | translate}}</h2>
 <mat-dialog-content class="mat-typography">
   <div class="form" [formGroup]="cancelForm">
     <div class="row d-flex align-items-center">
       <div class="form-group">
-        <label>{{'Cancellation Reasons'|translate}}</label>:
+        <label>{{subTitle|translate}}</label>:
         <textarea formControlName="cancel_reason" class="form-control"
           placeholder="{{'Example: wrong taxpayer information'|translate}}"></textarea>
         <small class="text-danger" *ngIf="isSubmitted && cancelFormControls.cancel_reason.errors?.required">
-          {{'Cancel Reason is required'|translate}}.
+          {{'Field is required'|translate}}.
         </small>
       </div>
     </div>
@@ -16,5 +16,5 @@
 <mat-dialog-actions align="center">
   <button mat-button class="btn btn-secondary text-light" mat-dialog-close>{{'Close'|translate}}</button>
   <button mat-button class="btn btn-info text-light" cdkFocusInitial
-    (click)="cancelInvoice(cancelForm)">{{'Cancel Invoice'|translate}}</button>
+    (click)="handleSubmitAction(cancelForm)">{{title|translate}}</button>
 </mat-dialog-actions>

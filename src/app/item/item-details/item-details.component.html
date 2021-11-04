@@ -105,8 +105,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Rate1' | translate}}<span *ngIf="model.sub_tax_type1" class="text-danger">*</span></label>
-            <input type="number" class="form-control" formControlName="sub_tax_rate" [required]="model.sub_tax_type1"
-              [(ngModel)]="model.sub_tax_rate2" placeholder="{{'Tax Rate'|translate}}">
+            <input type="number" class="form-control" formControlName="sub_tax_rate1" [required]="model.sub_tax_type1"
+              [(ngModel)]="model.sub_tax_rate1" placeholder="{{'Tax Rate'|translate}}">
             <small class="text-danger"
               *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate1.errors?.min||itemsFormControls.sub_tax_rate1.errors?.max ) || model.sub_tax_type1)">
               {{'Tax rate should be between 0 and 100'|translate}}.

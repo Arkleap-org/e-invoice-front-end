@@ -83,7 +83,7 @@
 
             <!-- cancel -->
             <button mat-menu-item *ngIf="row.portal_status === 'Valid'"
-              (click)="openInvoiceCancelPopup(row.id)">{{'Cancel' | translate}}</button>
+              (click)="openInvoiceCancelPopup(row.id,row.internal_id)">{{'Cancel' | translate}}</button>
           </mat-menu>
         </td>
       </ng-container>

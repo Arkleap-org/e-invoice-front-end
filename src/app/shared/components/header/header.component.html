@@ -48,7 +48,7 @@
     <button mat-menu-item [matMenuTriggerFor]="receivers"> {{'Recievers' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="items"> {{'Items' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="invoices"> {{'Invoices' | translate}} </button>
-  
+
   </ng-template>
 </mat-menu>
 
@@ -64,9 +64,9 @@
 <mat-menu #receivers="matMenu">
   <ng-template matMenuContent>
     <button mat-menu-item routerLink="receiver/list">{{'Recievers List' | translate}}</button>
-    <button  mat-menu-item  data-toggle="tooltip" data-placement="bottom"
-    title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()"> {{'Add Receiver' | translate}}
-  </button>
+    <button mat-menu-item data-toggle="tooltip" data-placement="bottom" title="{{'Add Receiver'|translate}}"
+      (click)="openReceiverPopup()"> {{'Add Receiver' | translate}}
+    </button>
 
 
   </ng-template>
@@ -86,7 +86,7 @@
   <ng-template matMenuContent>
     <button mat-menu-item [matMenuTriggerFor]="issuer">{{'Issuer' | translate}}</button>
     <button mat-menu-item routerLink="user">{{'Add User' | translate}}</button>
-    <button mat-menu-item >{{'Download Web Agent' | translate}}</button>
+    <button mat-menu-item (click)="downloadWebAgent()">{{'Download Web Agent' | translate}}</button>
     <button mat-menu-item routerLink="user/list">{{'User Management' | translate}}</button>
     <button mat-menu-item routerLink="">{{'Logout' | translate}}</button>
   </ng-template>

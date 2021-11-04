@@ -15,6 +15,8 @@ import { LoginResponseDto } from '../../models/auth.model';
 
 // services
 import { LocalStorageService } from '../../services/local-storage.service';
+import { SecurityService } from '../../services/security.service';
+import { WebAgentBaseUrl } from '../../constants/web-agent-url.constant';
 
 @Component({
   selector: 'app-header',
@@ -38,6 +40,7 @@ export class HeaderComponent {
     public translate: TranslateService,
     private localStorageService: LocalStorageService,
     public dialog: MatDialog,
+    private securityService: SecurityService,
   ) {
 
     // init variables
@@ -61,6 +64,11 @@ export class HeaderComponent {
 
   openReceiverPopup() {
     this.dialog.open(AddReceiverComponent);
+  }
+
+  downloadWebAgent() {
+    const url = WebAgentBaseUrl + this.securityService.user?.issuer_reg_num;
+    window.open(url, "_blank");
   }
 
   // #endregion
