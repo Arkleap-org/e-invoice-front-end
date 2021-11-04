@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 // models
 import { ResponseDto } from '../models/api-response.model';
 import { CreateInvoiceDto } from '../models/invoice.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,11 @@ export class InvoiceService {
 
   printInvoice(id: number) {
     const url = `invoice/print/${id}`;
-    return this.http.get<ResponseDto>(url);
+    return this.http.get(url, { responseType: 'blob', observe: 'response' }).pipe(
+      map((res: any) => {
+        return new Blob([res.body], { type: 'application/pdf' });
+      })
+    );
   }
 
   updateInvoice(id: number, data: CreateInvoiceDto) {

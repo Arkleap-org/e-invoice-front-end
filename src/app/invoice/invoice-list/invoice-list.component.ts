@@ -114,13 +114,12 @@ export class InvoiceListComponent implements OnInit {
     });
   }
 
-  // FIXME: should open pdf in a new tab
   printInvoice(id: number) {
-    window.open(`${environment.baseUrl}invoice/print/${id}`);
-    // this.invoiceService.printInvoice(id).subscribe((response: ResponseDto) => {
-    //   console.log(response);
+    this.invoiceService.printInvoice(id).subscribe((response: any) => {
+      const fileURL = URL.createObjectURL(response);
+      window.open(fileURL, '_blank');
 
-    // });
+    });
   }
   // #endregion
 

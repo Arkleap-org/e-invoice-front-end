@@ -327,5 +327,13 @@ export class InvoiceDetailsComponent implements OnInit {
     }
   }
 
+  deleteLine(line: LinesDto) {
+    const index: number = this.newLineDetails.indexOf(line);
+    if (index !== -1) {
+      this.newLineDetails.splice(index, 1);
+      this.calculateSummary();
+    }
+  }
+
   // #endregion
 }
