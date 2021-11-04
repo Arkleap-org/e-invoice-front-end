@@ -328,17 +328,11 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   deleteLine(line: LinesDto) {
-    console.log('hello drug dealers');
     const index: number = this.newLineDetails.indexOf(line);
-    console.log('before ', this.newLineDetails);
-
     if (index !== -1) {
       this.newLineDetails.splice(index, 1);
       this.calculateSummary();
     }
-    console.log('after ', this.newLineDetails);
-
-
   }
 
   // #endregion
