@@ -53,6 +53,22 @@ export class LinesDto {
     value_difference!: number;
     item_name!: string;
     item_code!: string;
+
+    constructor() {
+        this.quantity = 0;
+        this.net_total = 0;
+        this.amount_egp = 0;
+        this.discount_amount = 0;
+        this.discount_rate = 0;
+        this.exchange_rate = 0;
+        this.items_discount = 0;
+        this.sales_total = 0;
+        this.tax_amount1 = 0;
+        this.tax_amount2 = 0;
+        this.tax_amount3 = 0;
+        this.total_amount = 0;
+        this.value_difference = 0;
+    }
 }
 
 export class InvoiceErrorDto {
