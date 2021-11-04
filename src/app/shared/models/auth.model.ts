@@ -11,5 +11,6 @@ export class LoginResponseDto {
   is_superuser!: boolean
   refresh!: string;
   reg_num!: string;
+  web_agent!: string;
 }
 

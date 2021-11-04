@@ -176,7 +176,6 @@ export class InvoiceDetailsComponent implements OnInit {
   getInvoiceById() {
     this.invoiceService.getInvoiceById(this.invoiceId).subscribe((response: ResponseDto) => {
       this.invoiceDetails = response.data;
-      console.log(this.invoiceDetails);
       // document type version
       this.setDocumentType();
 
@@ -249,8 +248,6 @@ export class InvoiceDetailsComponent implements OnInit {
   getReceiver() {
     this.receiverService.getReciever(this.receiverId).subscribe((response: ResponseDto) => {
       this.receiverDetails = response.data;
-      console.log(this.receiverDetails);
-
       this.isReceiver = true;
     });
   }

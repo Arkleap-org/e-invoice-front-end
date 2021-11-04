@@ -68,7 +68,7 @@ export class HeaderComponent {
   }
 
   downloadWebAgent() {
-    const url = environment.webAgentBaseUrl + this.securityService.user?.reg_num;
+    const url = environment.webAgentBaseUrl + this.securityService.user?.web_agent;
     window.open(url, "_blank");
   }
 

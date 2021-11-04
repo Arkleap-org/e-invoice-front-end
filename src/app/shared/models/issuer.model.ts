@@ -8,7 +8,6 @@ export class IssuerDto {
   name!: string;
   reg_num!: string;
   type!: string;
-  web_agent!: string;
 
   constructor() {
     this.issuer_addresses = []

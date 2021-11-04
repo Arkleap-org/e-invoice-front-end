@@ -34,5 +34,4 @@ export class NotificationMessageService {
 }
 
 // .afterDismissed().subscribe((res) => {
-//   console.log(res)
 // })
