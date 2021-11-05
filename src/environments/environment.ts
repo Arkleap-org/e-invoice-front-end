@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://147.182.248.230:8081/e-invoice/api/",
-  webAgentBaseUrl: "http://147.182.248.230:8081/e-invoice/"
+  baseUrl: "http://207.154.254.186/eInvoiceCloud/api/",
+  // baseUrl: "http://147.182.248.230:8081/e-invoice/api/",
+  webAgentBaseUrl: "http://207.154.254.186/eInvoiceCloud/"
+  // webAgentBaseUrl: "http://147.182.248.230:8081/e-invoice/"
   // baseUrl: "http://26d1-197-48-72-31.ngrok.io/api/"
 };
 
