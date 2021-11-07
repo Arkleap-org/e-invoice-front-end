@@ -180,5 +180,10 @@
   "Resubmit": "Resubmit needs trans",
   "View Errors": "عرض الأخطاء",
   "Password is required": "كلمة السر مطلوبة",
-  "Password repetition is required": "إعادة كلمة السر مطلوبة"
+  "Password repetition is required": "إعادة كلمة السر مطلوبة",
+  "Password should be 8 characters": "Password should be 8 characters needs trans",
+  "Invoice Errors": "Invoice Errors needs trans",
+  "Header Errors": "Header Errors",
+  "Lines Errors": "Lines Errors",
+  "Other Errors": "Other Errors"
 }
