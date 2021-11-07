@@ -40,7 +40,7 @@
             <input type="text" class="form-control" formControlName="internal_code" [(ngModel)]="model.internal_code"
               placeholder="{{'Internal Code'|translate}}">
             <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.internal_code.errors?.required">
-              {{'Name is required'|translate}}.
+              {{'Internal Code is required'|translate}}.
             </small>
           </div>
         </div>
@@ -118,7 +118,7 @@
         <!-- tax type -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Type2' | translate}}</label>
+            <label>{{'Tax Type 2' | translate}}</label>
             <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type2" [items]="listOfTaxTypes"
               bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type2"
               placeholder="{{'Tax Type 2'|translate}}">
@@ -177,9 +177,10 @@
 
 <!-- card actions -->
 <mat-card-actions class="text-center">
-  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">Cancel</button>
+  <button mat-button class="btn btn-secondary text-light"
+    (click)="cancelAndRouteBack()">{{'Cancel'| translate}}</button>
   <button mat-button class="btn btn-info text-light" type="submit" (click)="itemSubmitAction(model.id)">
     {{model.id? ('Update'|translate ) :
-    ('Create '|translate)}}
+    ('Create'|translate)}}
   </button>
 </mat-card-actions>

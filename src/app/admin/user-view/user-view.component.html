@@ -22,7 +22,7 @@
       <input [class.overlay]="!updateView" class="form-control" type="text" [(ngModel)]="userDetails.username"
         formControlName="username" id="username">
       <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.username.errors?.required">
-        {{'username is required'|translate}}.
+        {{'Username is required'|translate}}.
       </small>
     </div>
     <div class="col-6 form-group">
@@ -76,7 +76,7 @@
 
     <div class="d-flex mt-4">
       <div>
-        <button class="btn btn-secondary update-button" [routerLink]="['/user/list']">Cancel</button>
+        <button class="btn btn-secondary update-button" [routerLink]="['/user/list']">{{'Cancel'|translate}}</button>
       </div>
       <div class="update-button">
         <button class="btn btn-primary update-button" *ngIf="!updateView" (click)="updateUserView()">{{ 'Update'|
