@@ -16,7 +16,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe((retry(0)) as any,
         catchError((error: HttpErrorResponse) => {
-          debugger
           const errorModel: ErrorDto = error.error;
           // customized response
           if (errorModel.response_id) {

@@ -66,10 +66,10 @@ export class InvoiceDetailsComponent implements OnInit {
   newLineDetails: LinesDto[];
 
   // names of total calculations
-  totalSalesAmount!: number;
-  totalTaxTotals!: number;
-  totalInvoiceAmount!: number;
-  totalDiscountAmount!: number;
+  totalSalesAmount!: any;
+  totalTaxTotals!: any;
+  totalInvoiceAmount!: any;
+  totalDiscountAmount!: any;
 
   // name of route param
   invoiceId!: number;
@@ -146,7 +146,7 @@ export class InvoiceDetailsComponent implements OnInit {
       receiver: [null, Validators.required],
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
-      date_time_issued: [(new Date()).toISOString().substring(0, 10), Validators.required],
+      date_time_issued: [, Validators.required],
       lines: this.formBuilder.array([])
     });
   }
@@ -191,6 +191,8 @@ export class InvoiceDetailsComponent implements OnInit {
       // totals
       this.setInvoiceTotals();
 
+      this.calculateSummary();
+
     });
   }
 
@@ -207,7 +209,7 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   setIssuedDate() {
-    this.invoiceDetails.date_time_issued = this.datepipe.transform(this.invoiceDetails.date_time_issued, 'yyyy-MM-dd');
+    this.invoiceDetails.date_time_issued = this.datepipe.transform(new Date(this.invoiceDetails.date_time_issued), 'yyyy-MM-ddThh:mm');
   }
 
   setInvoiceLines() {
@@ -221,6 +223,10 @@ export class InvoiceDetailsComponent implements OnInit {
     this.totalInvoiceAmount = this.invoiceDetails.total_amount;
   }
 
+  getTaxAmount(line: LinesDto) {
+    return Number(line.tax_amount1 || 0) + Number(line.tax_amount2 || 0) + Number(line.tax_amount3 || 0)
+  }
+
   // #endregion
 
   // #region invoice summary calculations
@@ -229,16 +235,28 @@ export class InvoiceDetailsComponent implements OnInit {
     this.resetTotals();
     let taxTotals: number = 0;
     for (let i in this.newLineDetails) {
-      this.totalSalesAmount += this.newLineDetails[i].sales_total;
-      this.totalDiscountAmount += this.newLineDetails[i].discount_amount;
-      taxTotals = Number(this.newLineDetails[i].tax_amount1 ? this.newLineDetails[i].tax_amount1 : 0) + Number(this.newLineDetails[i].tax_amount2 ? this.newLineDetails[i].tax_amount2 : 0) + Number(this.newLineDetails[i].tax_amount3 ? this.newLineDetails[i].tax_amount3 : 0);
+      this.totalSalesAmount += Number(this.newLineDetails[i].sales_total || 0);
+      this.totalDiscountAmount += Number(this.newLineDetails[i].discount_amount || 0);
+
+      taxTotals =
+        Number(this.newLineDetails[i].tax_amount1 || 0) +
+        Number(this.newLineDetails[i].tax_amount2 || 0) +
+        Number(this.newLineDetails[i].tax_amount3 || 0);
+
       this.totalTaxTotals += Number(taxTotals);
-      this.totalInvoiceAmount += Number(this.newLineDetails[i].net_total);
+      this.totalInvoiceAmount += Number(this.newLineDetails[i].total_amount || 0);
     }
+    this.totalSalesAmount = this.totalSalesAmount.toFixed(5);
+    this.totalDiscountAmount = this.totalDiscountAmount.toFixed(5);
+    this.totalTaxTotals = this.totalTaxTotals.toFixed(5);
+    this.totalInvoiceAmount = this.totalInvoiceAmount.toFixed(5);
   }
 
   resetTotals() {
-    this.totalSalesAmount = this.totalDiscountAmount = this.totalTaxTotals = this.totalInvoiceAmount = 0
+    this.totalSalesAmount = 0;
+    this.totalDiscountAmount = 0;
+    this.totalTaxTotals = 0;
+    this.totalInvoiceAmount = 0;
   }
 
   // #endregion
@@ -261,7 +279,7 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   cancelAndRouteBack() {
-    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
+    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/invoice/list");
   }
 
   getItemById(id: number, index: number) {
@@ -297,23 +315,21 @@ export class InvoiceDetailsComponent implements OnInit {
   createInvoice(form: FormGroup) {
     this.isSubmitted = true;
     if (form.valid) {
-      form.value.date_time_issued = this.datepipe.transform(form.value.date_time_issued, 'YYYY-MM-ddThh:mm')
+      form.value.date_time_issued = new Date(form.value.date_time_issued);
       this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.dialogService.successAndRouteTo('Invoice created successfully!', '/invoice/list');
         this.isSubmitted = false;
       });
     }
   }
 
   updateInvoice(id: number, form: FormGroup) {
-    debugger
     this.isSubmitted = true;
     if (form.valid) {
-      // form.value.date_time_issued = this.datepipe.transform(new Date(form.value.date_time_issued), 'YYYY-MM-ddThh:mm')
-      form.value.date_time_issued = new Date(form.value.date_time_issued)
+      form.value.date_time_issued = new Date(form.value.date_time_issued);
       form.value.lines = this.newLineDetails;
       this.invoiceService.updateInvoice(this.invoiceId, form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.dialogService.successAndRouteTo('Invoice created successfully!', '/invoice/list');
         this.isSubmitted = false;
       });
     }

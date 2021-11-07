@@ -119,7 +119,6 @@ export class InvoiceLineComponent implements OnInit {
   }
 
   calculateTaxAmount() {
-
     if (this.linesDetails.net_total) {
       if (this.itemDetails.sub_tax_rate1) this.linesDetails.tax_amount1 = Number(this.linesDetails.net_total * (this.itemDetails.sub_tax_rate1 / 100)).toFixed(5);
       if (this.itemDetails.sub_tax_rate2) this.linesDetails.tax_amount2 = Number(this.linesDetails.net_total * (this.itemDetails.sub_tax_rate2 / 100)).toFixed(5);
@@ -131,16 +130,16 @@ export class InvoiceLineComponent implements OnInit {
     if (this.linesDetails.net_total) {
       let totalTaxAmount = 0;
       if (this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
-        totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount2 + this.linesDetails.tax_amount3;
+        totalTaxAmount = Number(this.linesDetails.tax_amount1) + Number(this.linesDetails.tax_amount2) + Number(this.linesDetails.tax_amount3);
       }
       else if (!this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
-        totalTaxAmount = this.linesDetails.tax_amount2 + this.linesDetails.tax_amount3;
+        totalTaxAmount = Number(this.linesDetails.tax_amount2) + Number(this.linesDetails.tax_amount3);
       }
       else if (this.linesDetails.tax_amount1 && !this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
-        totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount3;
+        totalTaxAmount = Number(this.linesDetails.tax_amount1) + Number(this.linesDetails.tax_amount3);
       }
       else if (this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && !this.linesDetails.tax_amount3) {
-        totalTaxAmount = this.linesDetails.tax_amount1 + this.linesDetails.tax_amount2;
+        totalTaxAmount = Number(this.linesDetails.tax_amount1) + Number(this.linesDetails.tax_amount2);
       }
 
       this.linesDetails.total_amount = Number(this.linesDetails.net_total) + Number(totalTaxAmount);
