@@ -22,7 +22,7 @@
               <!-- issued date -->
               <div class="form-group">
                 <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
-                <input type="date" class="form-control" placeholder="{{'Issued Date'|translate}}"
+                <input type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
                   formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
                 <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
                   {{'Issued Date is required'|translate}}.

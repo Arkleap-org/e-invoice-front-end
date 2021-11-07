@@ -88,16 +88,13 @@ export class UserViewComponent implements OnInit {
   }
 
   updateUser(model: UserRequestDto) {
-    if (this.isSubmitted && this.userForm.valid) {
-
+    this.isSubmitted = true;
+    if (this.userForm.valid) {
       this.userService.updateUser(this.userDetails.id, model).subscribe((response: ResponseDto) => {
-
         this.router.navigate(['/user/list']);
         this.dialogService.savedSuccessfully(this.userDetails.username + ' has been updated successfully.');
       });
     }
-
-
   }
 
   getUserById() {

@@ -29,10 +29,10 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <mat-icon class="me-3 pt-3">person</mat-icon>
                     <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="form3Example1c">{{'User Name'|translate}}<span
+                      <label class="form-label" for="username">{{'User Name'|translate}}<span
                           class="text-danger">*</span></label>
-                      <input type="text" id="form3Example1c" class="form-control"
-                        placeholder="{{'User Name'|translate}}" formControlName="username" />
+                      <input type="text" id="username" class="form-control" placeholder="{{'User Name'|translate}}"
+                        formControlName="username" />
                       <small class="text-danger"
                         *ngIf="isSubmitted && getRegisterationControls.username.errors?.required">
                         {{'Username is required'|translate}}.
@@ -44,10 +44,10 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <mat-icon class="me-3 pt-3">person</mat-icon>
                     <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="form3Example1c">{{'First Name'|translate}}<span
+                      <label class="form-label" for="first_name">{{'First Name'|translate}}<span
                           class="text-danger">*</span></label>
-                      <input type="text" id="form3Example1c" class="form-control"
-                        placeholder="{{'First Name'|translate}}" formControlName="first_name" />
+                      <input type="text" id="first_name" class="form-control" placeholder="{{'First Name'|translate}}"
+                        formControlName="first_name" />
                       <small class="text-danger"
                         *ngIf="isSubmitted && getRegisterationControls.first_name.errors?.required">
                         {{'First name is required'|translate}}.
@@ -59,10 +59,10 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <mat-icon class="me-3 pt-3">person</mat-icon>
                     <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="form3Example1c">{{'Last Name'|translate}}<span
+                      <label class="form-label" for="last_name">{{'Last Name'|translate}}<span
                           class="text-danger">*</span></label>
-                      <input type="text" id="form3Example1c" class="form-control"
-                        placeholder="{{'Last Name'|translate}}" formControlName="last_name" />
+                      <input type="text" id="last_name" class="form-control" placeholder="{{'Last Name'|translate}}"
+                        formControlName="last_name" />
                       <small class="text-danger"
                         *ngIf="isSubmitted && getRegisterationControls.last_name.errors?.required">
                         {{'Last name is required'|translate}}.
@@ -95,8 +95,7 @@
                         *ngIf="isSubmitted && getRegisterationControls.password.errors?.required">
                         {{'Password is required'|translate}}.
                       </small>
-                      <small class="text-danger"
-                        *ngIf="isSubmitted && getRegisterationControls.password.errors?.minlength">
+                      <small class="text-danger">
                         {{'Password should be 8 characters'|translate}}.
                       </small>
                     </div>

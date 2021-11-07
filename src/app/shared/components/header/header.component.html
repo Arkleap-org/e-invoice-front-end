@@ -27,7 +27,7 @@
         [items]="listOfLang" (itemClicked)="useLanguage($event.action)">
       </td-dynamic-menu>
 
-      <div class="col-3 text-white">
+      <div class="col-5 text-white">
         <button mat-icon-button [matMenuTriggerFor]="profileMenu">
           <mat-icon>person</mat-icon>
           {{'Welcome' | translate}} {{userFirstName}}
