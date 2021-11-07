@@ -188,5 +188,9 @@
   "Resubmit": "Resubmit",
   "View Errors": "View Errors",
   "Password is required": "Password is required",
-  "Password repetition is required": "Password repetition is required"
+  "Password repetition is required": "Password repetition is required",
+  "Invoice Errors": "Invoice Errors",
+  "Header Errors": "Header Errors",
+  "Lines Errors": "Lines Errors",
+  "Other Errors": "Other Errors"
 }
