@@ -12,7 +12,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add authorization header with jwt token
-    if (!request.url.startsWith('http') && !request.url.startsWith('https') && !request.url.includes('assets')) {
+    if (
+      !request.url.startsWith('http') &&
+      !request.url.startsWith('https') &&
+      !request.url.includes('assets') &&
+      this.securityService.jwtToken
+    ) {
       const authReq = request.clone({
         headers: request.headers
           .set("Authorization", `Bearer ${this.securityService.jwtToken}`)

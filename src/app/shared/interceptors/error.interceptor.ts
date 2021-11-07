@@ -16,6 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe((retry(0)) as any,
         catchError((error: HttpErrorResponse) => {
+          debugger
           const errorModel: ErrorDto = error.error;
           // customized response
           if (errorModel.response_id) {
@@ -27,13 +28,14 @@ export class ErrorInterceptor implements HttpInterceptor {
             else if (errorModel.message) {
               this.notificationService.showErrorMessage(errorModel.message);
             }
-          }
-          else if (typeof (error.error) === "object") {
-            // only one message to show
-            if (Object.keys(error.error).length === 1) {
-              const msg: string = Object.values(error.error)[0] as string;
-              this.notificationService.showErrorMessage(msg);
+            else {
+              this.notificationService.showErrorMessage("Something went wrong please try again or call support.");
             }
+          }
+          // only one message to show
+          else if (typeof (error.error) === "object" && Object.keys(error.error).length === 1) {
+            const msg: string = Object.values(error.error)[0] as string;
+            this.notificationService.showErrorMessage(msg);
           }
           // direct one message
           else if (typeof (error.error) === "string" && error.error.length < 200) {
