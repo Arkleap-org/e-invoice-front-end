@@ -279,7 +279,7 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   cancelAndRouteBack() {
-    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
+    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/invoice/list");
   }
 
   getItemById(id: number, index: number) {
@@ -317,7 +317,7 @@ export class InvoiceDetailsComponent implements OnInit {
     if (form.valid) {
       form.value.date_time_issued = new Date(form.value.date_time_issued);
       this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.dialogService.successAndRouteTo('Invoice created successfully!', '/invoice/list');
         this.isSubmitted = false;
       });
     }
@@ -329,7 +329,7 @@ export class InvoiceDetailsComponent implements OnInit {
       form.value.date_time_issued = new Date(form.value.date_time_issued);
       form.value.lines = this.newLineDetails;
       this.invoiceService.updateInvoice(this.invoiceId, form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.successAndRouteTo('Invoice created successfully!', 'invoice/list');
+        this.dialogService.successAndRouteTo('Invoice created successfully!', '/invoice/list');
         this.isSubmitted = false;
       });
     }
