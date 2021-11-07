@@ -129,10 +129,11 @@ export class ItemDetailsComponent implements OnInit {
 
   createItem(model: CreateItemRequestDto) {
     this.isSubmitted = true;
-    // if (this.itemsForm.valid)
-    this.itemService.createItem(model).subscribe((res: ResponseDto) => {
-      this.dialogService.successAndRouteBack("/item/list");
-    });
+    if (this.itemsForm.valid) {
+      this.itemService.createItem(model).subscribe((res: ResponseDto) => {
+        this.dialogService.successAndRouteBack("/item/list");
+      });
+    }
   }
 
   updateItem(model: CreateItemRequestDto) {
