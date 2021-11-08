@@ -67,5 +67,10 @@ export class InvoiceService {
     return this.http.put<ResponseDto>(url, data)
   }
 
+  getInvoiceSubmission(id: number) {
+    const url = `invoice/get-submission/${id}`;
+    return this.http.get<ResponseDto>(url)
+  }
+
 }
 

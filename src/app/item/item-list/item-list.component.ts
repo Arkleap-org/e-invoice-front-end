@@ -80,6 +80,15 @@ export class ItemListComponent implements OnInit {
     }
   }
 
+  downloadExcelSheetTemplate() {
+    const url = '';
+    window.open(url, "_blank");
+  }
+
+  uploadExcelSheet() {
+
+  }
+
   // #endregion
 
 }

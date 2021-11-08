@@ -185,5 +185,7 @@
   "Invoice Errors": "عرض اخطاء الفاتورة",
   "Header Errors": "اخطاء في بيانات الفاتورة",
   "Lines Errors": "اخطاء في سطور الفاتورة",
-  "Other Errors": "اخطاء اخري"
+  "Other Errors": "اخطاء اخري",
+  "Download Sheet Template": "Download Sheet Template",
+  "Upload Excel Sheet": "Upload Excel Sheet"
 }

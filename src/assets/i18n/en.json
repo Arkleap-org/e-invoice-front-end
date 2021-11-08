@@ -120,7 +120,7 @@
   "Already registered?": "Already registered?",
   "Total Invoices": "Total Invoices",
   "Date Time Received": "Date Time Received",
-  "Total" : "Total",
+  "Total": "Total",
   "Recievers": "Recievers",
   "Recievers List": "Recievers List",
   "Add Receiver": "Add Receiver",
@@ -130,8 +130,8 @@
   "Logout": "Logout",
   "Edit Profile": "Edit Profile",
   "Reg Number": "Reg Number",
-  "Create" : "Create",
-  "Activity Type" : "Activity Type",
+  "Create": "Create",
+  "Activity Type": "Activity Type",
   "Tax Rate1": "Tax Rate1",
   "Tax Rate 2": "Tax Rate 2",
   "Tax Rate 3": "Tax Rate 3",
@@ -140,7 +140,7 @@
   "Tax Type 3": "Tax Type 3",
   "Item Description is required": "Item Description is required",
   "Internal Code is required": "Internal Code is required",
-  "Item Code is required" : "Item Code is required",
+  "Item Code is required": "Item Code is required",
   "Tax rate should be between 0 and 100": "Tax rate should be between 0 and 100",
   "National ID is required": "National ID is required",
   "Internal ID": "Internal ID",
@@ -192,5 +192,7 @@
   "Invoice Errors": "Invoice Errors",
   "Header Errors": "Header Errors",
   "Lines Errors": "Lines Errors",
-  "Other Errors": "Other Errors"
+  "Other Errors": "Other Errors",
+  "Download Sheet Template": "Download Sheet Template",
+  "Upload Excel Sheet": "Upload Excel Sheet"
 }

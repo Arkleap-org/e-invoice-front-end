@@ -116,6 +116,15 @@ export class ReceiverListComponent implements OnInit {
     return (this.translateService.currentLang === 'en' ? country?.desc_en : country?.desc_ar) || '';
   }
 
+  downloadExcelSheetTemplate() {
+    const url = '';
+    window.open(url, "_blank");
+  }
+
+  uploadExcelSheet() {
+
+  }
+
   // #endregion
 
 }

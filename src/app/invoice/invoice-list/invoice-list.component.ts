@@ -121,6 +121,20 @@ export class InvoiceListComponent implements OnInit {
 
     });
   }
+
+  downloadExcelSheetTemplate() {
+    const url = '';
+    window.open(url, "_blank");
+  }
+
+  uploadExcelSheet() {
+
+  }
+
+  getInvoiceSubmission(invoiceId: number) {
+    this.invoiceService.getInvoiceSubmission(invoiceId).subscribe((res: ResponseDto) => this.listInvoices());
+  }
+
   // #endregion
 
 }

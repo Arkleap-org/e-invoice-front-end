@@ -5,10 +5,26 @@
       <div class="col-6">
         {{'Invoices List' | translate}}
       </div>
-      <div class="col-6 form-group text-right">
-        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
-          title="{{'Add Invoice'|translate}}" routerLink="/invoice/add"> {{'Add Invoice'|translate}}
-        </button>
+      <div class="col-6 form-group">
+        <div class="row justify-content-end">
+          <div class="col-4">
+            <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
+              title="{{'Upload Excel Sheet'|translate}}" (click)="uploadExcelSheet()">
+              {{'Upload Excel Sheet'|translate}}
+            </button>
+          </div>
+          <div class="col-5">
+            <button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom"
+              title="{{'Download Sheet Template'|translate}}" (click)="downloadExcelSheetTemplate()">
+              {{'Download Sheet Template'|translate}}
+            </button>
+          </div>
+          <div class="col-3">
+            <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
+              title="{{'Add Invoice'|translate}}" routerLink="/invoice/add"> {{'Add Invoice'|translate}}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -54,7 +70,13 @@
 
       <ng-container matColumnDef="portal_status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Portal Status' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.portal_status}} </td>
+        <td mat-cell *matCellDef="let row">
+          <span class="pointer text-primary" (click)="getInvoiceSubmission(row.id)"
+            *ngIf="row.portal_status === '--' && row.invoice_status === 'Submitted'">
+            <mat-icon>refresh</mat-icon>
+          </span>
+          <span *ngIf="row.portal_status !== '--' || row.invoice_status !== 'Submitted'">{{row.portal_status}}</span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
