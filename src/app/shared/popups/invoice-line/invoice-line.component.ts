@@ -76,8 +76,8 @@ export class InvoiceLineComponent implements OnInit {
     this.linesForm = this.formBuilder.group({
       item: [null, Validators.required],
       description: [''],
-      quantity: ['', Validators.required],
-      amount_egp: ['', Validators.required],
+      quantity: ['', [Validators.required, Validators.min(1)]],
+      amount_egp: ['', [Validators.required, Validators.min(1)]],
       sales_total: [''],
       discount_amount: ['', Validators.required],
       tax_amount1: [''],
@@ -156,8 +156,12 @@ export class InvoiceLineComponent implements OnInit {
     });
   }
 
-  closeAndSave() {
-    this.dialogRef.close({ model: this.linesForm.value, itemName: this.itemDetails.item_name });
+  closeAndSave(form: FormGroup) {
+    this.isSubmitted = true;
+    if (form.valid) {
+      this.isSubmitted = false;
+      this.dialogRef.close({ model: this.linesForm.value, itemName: this.itemDetails.item_name });
+    }
   }
 
   // #endregion
