@@ -71,7 +71,7 @@
       <ng-container matColumnDef="portal_status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Portal Status' | translate}} </th>
         <td mat-cell *matCellDef="let row">
-          <span class="pointer text-primary" (click)="getInvoiceSubmission(row.id)"
+          <span class="pointer text-primary" (click)="getInvoiceSubmission(row.internal_id)"
             *ngIf="row.portal_status === '--' && row.invoice_status === 'Submitted'">
             <mat-icon>refresh</mat-icon>
           </span>
