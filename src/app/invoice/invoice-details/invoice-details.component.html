@@ -161,7 +161,7 @@
           <td (click)="deleteLine(line)" class="td-pointer" [class.overlay]="line.id">
             <mat-icon>delete</mat-icon>
           </td> <!-- 1 -->
-          <td>{{line.item_name||itemName[i] }} </td> <!-- 2 -->
+          <td>{{ line.item_name}} </td> <!-- 2 -->
           <td>{{line.description}}</td> <!-- 3 -->
           <td>{{line.quantity}}</td> <!-- 4 -->
           <td>{{line.amount_egp}}</td> <!-- 5 -->
@@ -182,32 +182,32 @@
         <fieldset *ngIf="newLineDetails.length">
           <!-- total sales amount -->
           <div>
-            <label>{{'Total Sales Amount'| translate}}(EGP)</label>:
+            <label>{{'Total Sales Amount'| translate}}({{'EGP'|translate}})</label>:
             <span>{{totalSalesAmount}}</span>
           </div>
           <!-- total discount amount -->
           <div>
-            <label>{{'Total Discount Amount'| translate}}(EGP)</label>:
+            <label>{{'Total Discount Amount'| translate}}({{'EGP'|translate}})</label>:
             <span>{{totalDiscountAmount}}</span>
           </div>
           <!-- total items discount amount -->
           <!-- <div>
-            <label>{{'Total Items Discount Amount'| translate}}(EGP)</label>:
+            <label>{{'Total Items Discount Amount'| translate}}({{'EGP'|translate}})</label>:
             <span>lll</span>
           </div> -->
           <!-- tax totals -->
           <div>
-            <label>{{'Tax Totals'| translate}}(EGP)</label>:
+            <label>{{'Tax Totals'| translate}}({{'EGP'|translate}})</label>:
             <span>{{totalTaxTotals}}</span>
           </div>
           <!-- extra discount amount -->
           <!-- <div>
-            <label>{{'Extra Discount Amount'| translate}}(EGP)</label>:
+            <label>{{'Extra Discount Amount'| translate}}({{'EGP'|translate}})</label>:
             <span>lll</span>
           </div> -->
           <!-- total amount -->
           <div>
-            <label>{{'Total Amount'| translate}}(EGP)</label>:
+            <label>{{'Total Amount'| translate}}({{'EGP'|translate}})</label>:
             <span>{{totalInvoiceAmount}}</span>
           </div>
         </fieldset>

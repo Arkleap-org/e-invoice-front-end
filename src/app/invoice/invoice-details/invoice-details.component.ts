@@ -47,7 +47,6 @@ export class InvoiceDetailsComponent implements OnInit {
   hasItem: boolean
   hasQty: boolean;
   isSubmitted: boolean;
-  itemName: string[];
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -98,7 +97,6 @@ export class InvoiceDetailsComponent implements OnInit {
     this.itemDetails = [];
     this.linesDetails = [];
     this.newLineDetails = [];
-    this.itemName = [];
 
     this.listOfDocumentTypes = ListOfDocumentTypes;
 
@@ -302,8 +300,6 @@ export class InvoiceDetailsComponent implements OnInit {
       if (result) {
         // get data
         this.newLineDetails.push(result.model);
-        // get item name
-        this.itemName.push(result.itemName);
         // append lines in form
         this.invoiceForm.value.lines = this.newLineDetails;
         // total calculations

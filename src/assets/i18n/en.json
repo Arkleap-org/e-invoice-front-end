@@ -192,5 +192,14 @@
   "Invoice Errors": "Invoice Errors",
   "Header Errors": "Header Errors",
   "Lines Errors": "Lines Errors",
-  "Other Errors": "Other Errors"
+  "Other Errors": "Other Errors",
+  "Quantity should be 1 or more": "Quantity should be 1 or more",
+  "Unit Price should be 1 or more": "Unit Price should be 1 or more",
+  "Sales Total": "Sales Total",
+  "Net Total" : "Net Total",
+  "Tax Amount 1": "Tax Amount 1",
+  "Tax Amount 2": "Tax Amount 2",
+  "Tax Amount 3": "Tax Amount 3",
+  "EGP": "EGP",
+  "Item is required": "Item is required"
 }

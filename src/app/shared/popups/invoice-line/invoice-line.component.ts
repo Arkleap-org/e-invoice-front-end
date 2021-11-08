@@ -76,8 +76,8 @@ export class InvoiceLineComponent implements OnInit {
     this.linesForm = this.formBuilder.group({
       item: [null, Validators.required],
       description: [''],
-      quantity: ['', Validators.required],
-      amount_egp: ['', Validators.required],
+      quantity: ['', [Validators.required, Validators.min(1)]],
+      amount_egp: ['', [Validators.required, Validators.min(1)]],
       sales_total: [''],
       discount_amount: ['', Validators.required],
       tax_amount1: [''],
@@ -107,12 +107,12 @@ export class InvoiceLineComponent implements OnInit {
   // #region line calculations
 
   calculateSalesTotal() {
-    this.linesDetails.sales_total = (this.linesDetails.amount_egp * this.linesDetails.quantity);
+    this.linesDetails.sales_total = (this.linesDetails.amount_egp * this.linesDetails.quantity).toFixed(5);
   }
 
   calculateNetTotal(discount_amount: number) {
     if (this.linesDetails.sales_total && discount_amount >= 0) {
-      this.linesDetails.net_total = (this.linesDetails.sales_total - discount_amount);
+      this.linesDetails.net_total = (this.linesDetails.sales_total - discount_amount).toFixed(5);
       this.calculateTaxAmount();
       this.calculateTotalLineAmount();
     }
@@ -142,7 +142,7 @@ export class InvoiceLineComponent implements OnInit {
         totalTaxAmount = Number(this.linesDetails.tax_amount1) + Number(this.linesDetails.tax_amount2);
       }
 
-      this.linesDetails.total_amount = Number(this.linesDetails.net_total) + Number(totalTaxAmount);
+      this.linesDetails.total_amount = (Number(this.linesDetails.net_total) + Number(totalTaxAmount)).toFixed(5);
     }
   }
 
@@ -156,8 +156,16 @@ export class InvoiceLineComponent implements OnInit {
     });
   }
 
-  closeAndSave() {
-    this.dialogRef.close({ model: this.linesForm.value, itemName: this.itemDetails.item_name });
+  closeAndSave(form: FormGroup) {
+    this.isSubmitted = true;
+    if (form.valid) {
+      this.isSubmitted = false;
+      const model: LinesDto = this.linesForm.value;
+      model.item_name = this.itemDetails.item_name;
+      model.amount_egp = model.amount_egp.toFixed(5);
+      model.discount_amount = model.discount_amount.toFixed(5);
+      this.dialogRef.close({ model });
+    }
   }
 
   // #endregion
