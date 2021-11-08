@@ -128,20 +128,9 @@ export class InvoiceLineComponent implements OnInit {
 
   calculateTotalLineAmount() {
     if (this.linesDetails.net_total) {
-      let totalTaxAmount = 0;
-      if (this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
-        totalTaxAmount = Number(this.linesDetails.tax_amount1) + Number(this.linesDetails.tax_amount2) + Number(this.linesDetails.tax_amount3);
-      }
-      else if (!this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
-        totalTaxAmount = Number(this.linesDetails.tax_amount2) + Number(this.linesDetails.tax_amount3);
-      }
-      else if (this.linesDetails.tax_amount1 && !this.linesDetails.tax_amount2 && this.linesDetails.tax_amount3) {
-        totalTaxAmount = Number(this.linesDetails.tax_amount1) + Number(this.linesDetails.tax_amount3);
-      }
-      else if (this.linesDetails.tax_amount1 && this.linesDetails.tax_amount2 && !this.linesDetails.tax_amount3) {
-        totalTaxAmount = Number(this.linesDetails.tax_amount1) + Number(this.linesDetails.tax_amount2);
-      }
-
+      let totalTaxAmount = Number(this.linesDetails.tax_amount1 || 0) +
+        Number(this.linesDetails.tax_amount2 || 0) +
+        Number(this.linesDetails.tax_amount3 || 0);
       this.linesDetails.total_amount = (Number(this.linesDetails.net_total) + Number(totalTaxAmount)).toFixed(5);
     }
   }
