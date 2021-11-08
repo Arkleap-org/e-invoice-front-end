@@ -34,22 +34,22 @@ export class CreateInvoiceDto {
 
 export class LinesDto {
     amount_Sold!: number;
-    amount_egp!: number;
+    amount_egp!: any;
     currency_Sold!: number;
     description!: string;
-    discount_amount!: number;
+    discount_amount!: any;
     discount_rate!: number;
     exchange_rate!: number;
     id!: number;
     item!: number;
     items_discount!: number;
-    net_total!: number;
+    net_total!: any;
     quantity!: number;
-    sales_total!: number;
+    sales_total!: any;
     tax_amount1!: any;
     tax_amount2!: any;
     tax_amount3!: any;
-    total_amount!: number;
+    total_amount!: any;
     value_difference!: number;
     item_name!: string;
     item_code!: string;

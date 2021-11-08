@@ -107,12 +107,12 @@ export class InvoiceLineComponent implements OnInit {
   // #region line calculations
 
   calculateSalesTotal() {
-    this.linesDetails.sales_total = (this.linesDetails.amount_egp * this.linesDetails.quantity);
+    this.linesDetails.sales_total = (this.linesDetails.amount_egp * this.linesDetails.quantity).toFixed(5);
   }
 
   calculateNetTotal(discount_amount: number) {
     if (this.linesDetails.sales_total && discount_amount >= 0) {
-      this.linesDetails.net_total = (this.linesDetails.sales_total - discount_amount);
+      this.linesDetails.net_total = (this.linesDetails.sales_total - discount_amount).toFixed(5);
       this.calculateTaxAmount();
       this.calculateTotalLineAmount();
     }
@@ -142,7 +142,7 @@ export class InvoiceLineComponent implements OnInit {
         totalTaxAmount = Number(this.linesDetails.tax_amount1) + Number(this.linesDetails.tax_amount2);
       }
 
-      this.linesDetails.total_amount = Number(this.linesDetails.net_total) + Number(totalTaxAmount);
+      this.linesDetails.total_amount = (Number(this.linesDetails.net_total) + Number(totalTaxAmount)).toFixed(5);
     }
   }
 
@@ -160,7 +160,11 @@ export class InvoiceLineComponent implements OnInit {
     this.isSubmitted = true;
     if (form.valid) {
       this.isSubmitted = false;
-      this.dialogRef.close({ model: this.linesForm.value, itemName: this.itemDetails.item_name });
+      const model: LinesDto = this.linesForm.value;
+      model.item_name = this.itemDetails.item_name;
+      model.amount_egp = model.amount_egp.toFixed(5);
+      model.discount_amount = model.discount_amount.toFixed(5);
+      this.dialogRef.close({ model });
     }
   }
 
