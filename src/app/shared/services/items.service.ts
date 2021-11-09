@@ -2,7 +2,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-// models 
+// models
 import { CreateItemRequestDto, CreateItemResponseDto, ListItemsResponseDto } from "../models/items.model";
 import { ResponseDto } from "../models/api-response.model";
 
@@ -28,20 +28,20 @@ export class ItemsService {
     return this.http.get<ResponseDto>(url)
   }
 
-  listUnitTypes(){
+  listUnitTypes() {
     const url = `codes/unit-types/list`
     return this.http.get<ResponseDto>(url)
 
   }
 
-  listTypes(){
+  listTypes() {
     const url = `codes/activity-types/list`
     return this.http.get<ResponseDto>(url)
 
   }
 
 
-  listTaxTypes(){
+  listTaxTypes() {
     const url = `codes/tax-subtypes/list`
     return this.http.get<ResponseDto>(url)
 
@@ -50,5 +50,10 @@ export class ItemsService {
   getItemById(id: number) {
     const url = `issuer/item/get/${id}`;
     return this.http.get<ResponseDto>(url)
+  }
+
+  uploadItemExcelSheet(items: string[][]) {
+    const url = `issuer/item/upload-excel`;
+    return this.http.post<ResponseDto>(url, { items })
   }
 }

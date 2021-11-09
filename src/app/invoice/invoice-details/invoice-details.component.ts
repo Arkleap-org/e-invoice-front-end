@@ -322,9 +322,10 @@ export class InvoiceDetailsComponent implements OnInit {
   updateInvoice(id: number, form: FormGroup) {
     this.isSubmitted = true;
     if (form.valid) {
+      debugger
       form.value.date_time_issued = new Date(form.value.date_time_issued);
       form.value.lines = this.newLineDetails;
-      this.invoiceService.updateInvoice(this.invoiceId, form.value).subscribe((response: ResponseDto) => {
+      this.invoiceService.updateInvoice(id, form.value).subscribe((response: ResponseDto) => {
         this.dialogService.successAndRouteTo('Invoice created successfully!', '/invoice/list');
         this.isSubmitted = false;
       });

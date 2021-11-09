@@ -1,5 +1,6 @@
 // angular core
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as XLSX from 'xlsx';
 
 // angular material
 import { MatDialog } from '@angular/material/dialog';
@@ -16,9 +17,6 @@ import { ResponseDto } from '../../shared/models/api-response.model';
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
-
-import { environment } from 'src/environments/environment';
-
 
 @Component({
   selector: 'app-invoice-list',
@@ -127,8 +125,39 @@ export class InvoiceListComponent implements OnInit {
     window.open(url, "_blank");
   }
 
-  uploadExcelSheet() {
+  uploadExcelSheet(evt: any) {
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length === 1) {
+      const fileReader: FileReader = new FileReader();
+      fileReader.onload = (e: any) => {
+        const bs: string = e.target.result;
+        const wb: XLSX.WorkBook = XLSX.read(bs, { type: "binary" });
+        const wsname: string = wb.SheetNames[0];
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+        const file = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+        console.log(file);
 
+        // const fileHeader = file[0];
+        // file.shift();
+        // if (!this.isHeaderMatchTemplate(fileHeader)) this.dialogService.alertMessege("Template Titles should not change, make sure to work on uploaded template as it is.")
+        // else this.uploadItemExcelSheet(file)
+      }
+      fileReader.readAsBinaryString(target.files[0])
+    }
+
+  }
+
+  isHeaderMatchTemplate(headers: string[]): boolean {
+    return headers.length === 8 // check on header length
+      && headers[0].includes("Item Name")
+      && headers[1].includes("Item Description")
+      && headers[2].includes("Item Type")
+      && headers[3].includes("Item Code")
+      && headers[4].includes("Internal Code")
+      && headers[5].includes("Unit Type")
+      && headers[6].includes("Tax Type")
+      && headers[7].includes("Tax Rate")
+      ;
   }
 
   getInvoiceSubmission(invoiceId: number) {
