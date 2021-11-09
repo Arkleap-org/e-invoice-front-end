@@ -32,4 +32,9 @@ export class ReceiverService {
     return this.http.get<ResponseDto>(url);
   }
 
+  uploadReceiverExcelSheet(receivers: string[][]) {
+    const url = `issuer/receiver/upload-excel`;
+    return this.http.post<ResponseDto>(url, { receivers })
+  }
+
 }

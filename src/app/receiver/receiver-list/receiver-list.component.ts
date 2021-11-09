@@ -5,23 +5,32 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+
+// components
+import { AddReceiverComponent } from '../../receiver/add-receiver/add-receiver.component';
+
+// constants
+import { ListOfPersonTypes } from '../../shared/constants/list.constant';
+
+// excel module
+import * as XLSX from 'xlsx';
 
 // model
-import { ResponseDto } from 'src/app/shared/models/api-response.model';
+import { ResponseDto } from '../../shared/models/api-response.model';
 
 // services
-import { ReceiverService } from 'src/app/shared/services/receiver.service';
-import { MatDialog } from '@angular/material/dialog';
-import { AddReceiverComponent } from 'src/app/receiver/add-receiver/add-receiver.component';
-import { ListOfPersonTypes } from 'src/app/shared/constants/list.constant';
-import { ListsService } from 'src/app/shared/services/lists.service';
+import { ReceiverService } from '../../shared/services/receiver.service';
+import { ListsService } from '../../shared/services/lists.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DialogService } from '../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-receiver-list',
   templateUrl: './receiver-list.component.html',
   styleUrls: ['./receiver-list.component.scss']
 })
+
 export class ReceiverListComponent implements OnInit {
 
   // #region declare variables
@@ -45,6 +54,7 @@ export class ReceiverListComponent implements OnInit {
     private listsService: ListsService,
     private receiverService: ReceiverService,
     public dialog: MatDialog,
+    private dialogService: DialogService,
   ) {
     // init variables
     this.listOfReceiverType = ListOfPersonTypes;
@@ -121,8 +131,39 @@ export class ReceiverListComponent implements OnInit {
     window.open(url, "_blank");
   }
 
-  uploadExcelSheet() {
+  uploadExcelSheet(evt: any) {
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length === 1) {
+      const fileReader: FileReader = new FileReader();
+      fileReader.onload = (e: any) => {
+        const bs: string = e.target.result;
+        const wb: XLSX.WorkBook = XLSX.read(bs, { type: "binary" });
+        const wsname: string = wb.SheetNames[0];
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+        let file: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
 
+        file.shift();
+        file = file.filter(receiver => {
+          receiver = receiver.filter(field => { return field })
+          return receiver.length === 8;
+        });
+
+        const receivers = file.map(receiver => {
+          return receiver
+        })
+
+        this.uploadReceiverExcelSheet(receivers);
+      }
+      fileReader.readAsBinaryString(target.files[0]);
+    }
+
+  }
+
+  uploadReceiverExcelSheet(receivers: string[][]) {
+    this.receiverService.uploadReceiverExcelSheet(receivers).subscribe((response: ResponseDto) => {
+      this.dialogService.savedSuccessfully('Excel sheet has been uploaded successfully!');
+      this.listReceivers();
+    });
   }
 
   // #endregion

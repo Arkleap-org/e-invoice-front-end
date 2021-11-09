@@ -127,16 +127,16 @@ export class ItemListComponent implements OnInit {
         file = file.filter(item => {
           item = item.filter(field => { return field })
           return item.length === 8;
-        })
+        });
         const items = file.map(item => {
           item[5] = this.listOfUnitTypes.find(type => type.desc_en === item[5])?.code || "";
           item[6] = this.listOfTaxTypes.find(type => type.desc_ar === item[6])?.code || "";
           return item;
-        })
+        });
         console.log(items);
         // if (!this.isHeaderMatchTemplate(fileHeader)) this.dialogService.alertMessege("Template Titles should not change, make sure to work on uploaded template as it is.")
         // else
-        this.uploadItemExcelSheet(items)
+        this.uploadItemExcelSheet(items);
       }
       fileReader.readAsBinaryString(target.files[0])
     }
