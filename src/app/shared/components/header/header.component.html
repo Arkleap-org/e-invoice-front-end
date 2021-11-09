@@ -85,9 +85,12 @@
 <mat-menu #profileMenu="matMenu">
   <ng-template matMenuContent>
     <button mat-menu-item [matMenuTriggerFor]="issuer">{{'Issuer' | translate}}</button>
-    <button mat-menu-item routerLink="user">{{'Add User' | translate}}</button>
-    <button mat-menu-item (click)="downloadWebAgent()">{{'Download Web Agent' | translate}}</button>
-    <button mat-menu-item routerLink="user/list">{{'User Management' | translate}}</button>
+    <button mat-menu-item routerLink="user"
+      *ngIf="securityService.user?.is_superuser || securityService.user?.is_staff">{{'Add User' | translate}}</button>
+    <button mat-menu-item (click)="downloadWebAgent()"
+      *ngIf="securityService.user?.is_superuser || securityService.user?.is_staff">{{'Download Web Agent' | translate}}</button>
+    <button mat-menu-item routerLink="user/list"
+      *ngIf="securityService.user?.is_superuser">{{'User Management' | translate}}</button>
     <button mat-menu-item (click)="logout()">{{'Logout' | translate}}</button>
   </ng-template>
 </mat-menu>

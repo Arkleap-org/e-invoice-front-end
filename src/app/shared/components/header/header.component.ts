@@ -42,7 +42,7 @@ export class HeaderComponent {
     public translate: TranslateService,
     private localStorageService: LocalStorageService,
     public dialog: MatDialog,
-    private securityService: SecurityService,
+    public securityService: SecurityService,
   ) {
 
     // init variables
