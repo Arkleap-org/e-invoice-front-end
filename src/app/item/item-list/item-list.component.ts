@@ -107,7 +107,7 @@ export class ItemListComponent implements OnInit {
   }
 
   downloadExcelSheetTemplate() {
-    const url = '';
+    const url = 'http://207.154.254.186/eInvoiceCloud/media/templates/ItemService-template.xlsx';
     window.open(url, "_blank");
   }
 

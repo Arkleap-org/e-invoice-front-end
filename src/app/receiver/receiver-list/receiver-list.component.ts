@@ -127,7 +127,7 @@ export class ReceiverListComponent implements OnInit {
   }
 
   downloadExcelSheetTemplate() {
-    const url = '';
+    const url = 'http://207.154.254.186/eInvoiceCloud/media/templates/Receiver-template.xlsx';
     window.open(url, "_blank");
   }
 
@@ -211,6 +211,7 @@ export class ReceiverListComponent implements OnInit {
       }
     });
   }
+
 
   // #endregion
 
