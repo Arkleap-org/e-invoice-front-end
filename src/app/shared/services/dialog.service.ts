@@ -1,6 +1,7 @@
 // angular
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 
 // sweetalert
 import Swal from 'sweetalert2';
@@ -11,12 +12,15 @@ import Swal from 'sweetalert2';
 export class DialogService {
 
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private translateService: TranslateService
+  ) {
+  }
 
   cancelAndRouteBack(title: string, text: string, route: string) {
     Swal.fire({
-      title, text,
+      title: this.translateService.get(title),
+      text,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "$success",
@@ -26,17 +30,19 @@ export class DialogService {
   }
 
 
-confirmDelete(){
-  return Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  })
-}
+  confirmDelete() {
+    const x: any = this.translateService.get('Are you sure?')
+    console.log(x)
+    return Swal.fire({
+      title: x,
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    })
+  }
 
 
 
@@ -72,7 +78,7 @@ confirmDelete(){
     this.router.navigate([route]);
   }
 
-  alertMessege(title:string){
+  alertMessege(title: string) {
     Swal.fire({
       icon: 'warning',
       title: title,

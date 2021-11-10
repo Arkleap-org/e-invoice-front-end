@@ -23,6 +23,11 @@ export class ItemsService {
     return this.http.put<ResponseDto>(url, model);
   }
 
+  deleteItem(id: number) {
+    const url = `issuer/item/delete/${id}`;
+    return this.http.delete<ResponseDto>(url);
+  }
+
   listItems() {
     const url = `issuer/item/list`
     return this.http.get<ResponseDto>(url)
@@ -56,4 +61,6 @@ export class ItemsService {
     const url = `issuer/item/upload-excel`;
     return this.http.post<ResponseDto>(url, { items })
   }
+
+
 }

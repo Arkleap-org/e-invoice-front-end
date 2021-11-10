@@ -60,7 +60,7 @@ export class ReceiverListComponent implements OnInit {
     this.listOfReceiverType = ListOfPersonTypes;
     this.listOfCountries = [];
     this.receiverDataSource = new MatTableDataSource();
-    this.displayedColumns = ['id', 'name', 'type', 'reg_num', 'governate', 'regionCity', 'street', 'buildingNumber', 'country', 'actions'];
+    this.displayedColumns = ['id', 'code', 'name', 'type', 'reg_num', 'governate', 'regionCity', 'street', 'buildingNumber', 'country', 'actions'];
   }
 
   // #endregion
@@ -135,34 +135,80 @@ export class ReceiverListComponent implements OnInit {
     const target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length === 1) {
       const fileReader: FileReader = new FileReader();
+      // handle on load file
       fileReader.onload = (e: any) => {
-        const bs: string = e.target.result;
-        const wb: XLSX.WorkBook = XLSX.read(bs, { type: "binary" });
-        const wsname: string = wb.SheetNames[0];
-        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-        let file: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+        // get data from excel sheet
+        const file: string[][] = this.getDataFromExcelSheet(e.target.result);
 
-        file.shift();
-        file = file.filter(receiver => {
-          receiver = receiver.filter(field => { return field })
-          return receiver.length === 8;
-        });
+        // validate data to save
+        this.handleSheetDataToSave(file);
 
-        const receivers = file.map(receiver => {
-          return receiver
-        })
-
-        this.uploadReceiverExcelSheet(receivers);
       }
       fileReader.readAsBinaryString(target.files[0]);
     }
 
   }
 
+  getDataFromExcelSheet(bs: string): string[][] {
+    const wb: XLSX.WorkBook = XLSX.read(bs, { type: "binary" });
+    const wsname: string = wb.SheetNames[0];
+    const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+    let file: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+    return file;
+  }
+
+  handleSheetDataToSave(file: string[][]) {
+    const fileHeader = file[0];
+    file.shift();
+
+    if (!this.isHeaderMatchTemplate(fileHeader)) this.dialogService.alertMessege("Template Titles should not change, make sure to work on uploaded template as it is.");
+    else if (!this.checkAllFieldFilled(file)) this.dialogService.alertMessege("Please make sure to fill all field.");
+    else {
+      const recievers = file.map(reciever => {
+        return reciever;
+      });
+      console.log(recievers);
+      this.uploadReceiverExcelSheet(recievers);
+    }
+  }
+
+  isHeaderMatchTemplate(headers: string[]): boolean {
+    return headers.length >= 8 // check on header length
+      && headers[0].includes("Code")
+      && headers[1].includes("Name")
+      && headers[2].includes("Type")
+      && headers[3].includes("Registration Number")
+      && headers[4].includes("Country")
+      && headers[5].includes("Governate")
+      && headers[6].includes("Region City")
+      && headers[7].includes("Street")
+      && headers[8].includes("Building Number")
+      ;
+  }
+
+  checkAllFieldFilled(recievers: string[][]): boolean {
+    let allFilled: boolean = true;
+    recievers.forEach(reciever => {
+      if (reciever.length < 8) allFilled = false;
+    });
+    return allFilled;
+  }
+
   uploadReceiverExcelSheet(receivers: string[][]) {
     this.receiverService.uploadReceiverExcelSheet(receivers).subscribe((response: ResponseDto) => {
       this.dialogService.savedSuccessfully('Excel sheet has been uploaded successfully!');
       this.listReceivers();
+    });
+  }
+
+  deleteReceiver(id: number) {
+    this.dialogService.confirmDelete().then((result) => {
+      if (result.isConfirmed) {
+        this.receiverService.deleteReceiver(id).subscribe((res: ResponseDto) => {
+          this.dialogService.savedSuccessfully('Receiver Deleted successfully!');
+          this.listReceivers();
+        });
+      }
     });
   }
 

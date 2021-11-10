@@ -80,6 +80,7 @@ export class AddReceiverComponent implements OnInit {
 
   initReceiverFrom() {
     this.receiverForm = this.formBuilder.group({
+      code: ['', Validators.required],
       name: ['', Validators.required],
       type: ['', Validators.required],
       reg_num: ['', Validators.required],

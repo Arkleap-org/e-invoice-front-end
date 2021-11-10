@@ -22,6 +22,11 @@ export class ReceiverService {
     return this.http.put<ResponseDto>(url, model);
   }
 
+  deleteReceiver(id: number) {
+    const url = `issuer/receiver/delete/${id}`;
+    return this.http.delete<ResponseDto>(url);
+  }
+
   listReceivers() {
     const url = `issuer/receiver/list`;
     return this.http.get<ResponseDto>(url);

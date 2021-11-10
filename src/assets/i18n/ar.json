@@ -196,5 +196,7 @@
   "Tax Amount 2": "قيمة الضريبة 2",
   "Tax Amount 3": "قيمة الضريبة 3",
   "EGP": "ج.م",
-  "Item is required": "الصنف مطلوب"
+  "Item is required": "الصنف مطلوب",
+  "Code is required": "الكود مطلوب",
+  "Are you sure?": "هل أنت متأكد؟"
 }

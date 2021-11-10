@@ -84,7 +84,7 @@
     <!-- third row -->
     <div class="row">
       <!-- street -->
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
           <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Street'|translate}}"
@@ -95,13 +95,24 @@
         </div>
       </div>
       <!-- building number -->
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
           <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
             [(ngModel)]="receiverDetails.buildingNumber" formControlName="buildingNumber">
           <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.buildingNumber.errors?.required">
             {{'Building Number is required'|translate}}.
+          </small>
+        </div>
+      </div>
+      <!-- code -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>{{'Code'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Code'|translate}}" [(ngModel)]="receiverDetails.code"
+            formControlName="code">
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.code.errors?.required">
+            {{'Code is required'|translate}}.
           </small>
         </div>
       </div>

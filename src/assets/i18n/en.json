@@ -203,5 +203,7 @@
   "Tax Amount 2": "Tax Amount 2",
   "Tax Amount 3": "Tax Amount 3",
   "EGP": "EGP",
-  "Item is required": "Item is required"
+  "Item is required": "Item is required",
+  "Code is required": "Code is required",
+  "Are you sure?": "Are you sure?"
 }
