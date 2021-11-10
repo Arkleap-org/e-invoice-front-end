@@ -31,8 +31,6 @@ export class DialogService {
 
 
   confirmDelete() {
-    const x: any = this.translateService.get('Are you sure?')
-    console.log(x)
     return Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -41,7 +39,7 @@ export class DialogService {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
-    })
+    });
   }
 
 
@@ -53,7 +51,7 @@ export class DialogService {
       title: 'Your work has been saved',
       showConfirmButton: false,
       timer: 1500
-    })
+    });
     this.router.navigate([route]);
   }
 
@@ -64,7 +62,7 @@ export class DialogService {
       title: title,
       showConfirmButton: false,
       timer: 1500
-    })
+    });
   }
 
   successAndRouteTo(title: string, route: string) {
@@ -74,7 +72,7 @@ export class DialogService {
       title: title,
       showConfirmButton: false,
       timer: 2000
-    })
+    });
     this.router.navigate([route]);
   }
 
@@ -82,7 +80,7 @@ export class DialogService {
     Swal.fire({
       icon: 'warning',
       title: title,
-    })
+    });
   }
 
 }

@@ -11,8 +11,8 @@
               title="{{'Upload Excel Sheet'|translate}}" (click)="fileInput.click()">
               {{'Upload Excel Sheet'|translate}}
             </button>
-            <input type="file" #fileInput hidden (change)="uploadExcelSheet($event)" accept=".xls,.xlsx"
-              multiple="false">
+            <input type="file" [(ngModel)]="excelSheet" #fileInput hidden (change)="uploadExcelSheet($event)"
+              accept=".xls,.xlsx" multiple="false">
           </div>
           <div class="col-5">
             <button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom"
@@ -93,7 +93,7 @@
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
-        <td mat-cell *matCellDef="let row">
+        <td mat-cell *matCellDef="let row" [width]="150">
           <button class="btn btn-outline-secondary rounded mx-3 " (click)="openReceiverPopup(row.id)">
             <mat-icon>edit</mat-icon>
           </button>

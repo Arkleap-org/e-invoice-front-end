@@ -17,6 +17,7 @@ import { ResponseDto } from '../../shared/models/api-response.model';
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-invoice-list',
@@ -33,6 +34,8 @@ export class InvoiceListComponent implements OnInit {
 
   invoiceDataSource: MatTableDataSource<any>;
   displayedColumns: string[];
+
+  excelSheet: any;
 
   // #endregion
 
@@ -121,7 +124,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   downloadExcelSheetTemplate() {
-    const url = '';
+    const url = `${environment.templatesBaseUrl}Invoice-template.xlsx`;
     window.open(url, "_blank");
   }
 
@@ -129,35 +132,65 @@ export class InvoiceListComponent implements OnInit {
     const target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length === 1) {
       const fileReader: FileReader = new FileReader();
+      // handle on load file
       fileReader.onload = (e: any) => {
-        const bs: string = e.target.result;
-        const wb: XLSX.WorkBook = XLSX.read(bs, { type: "binary" });
-        const wsname: string = wb.SheetNames[0];
-        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-        const file = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-        console.log(file);
 
-        // const fileHeader = file[0];
-        // file.shift();
-        // if (!this.isHeaderMatchTemplate(fileHeader)) this.dialogService.alertMessege("Template Titles should not change, make sure to work on uploaded template as it is.")
-        // else this.uploadItemExcelSheet(file)
+        // get data from excel sheet
+        const file: string[][] = this.getDataFromExcelSheet(e.target.result);
+
+        // validate data to save
+        this.handleSheetDataToSave(file);
+
       }
       fileReader.readAsBinaryString(target.files[0])
     }
 
   }
 
+  getDataFromExcelSheet(bs: string): string[][] {
+    const wb: XLSX.WorkBook = XLSX.read(bs, { type: "binary" });
+    const wsname: string = wb.SheetNames[0];
+    const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+    let invoices: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+    return invoices;
+  }
+
+  handleSheetDataToSave(invoices: string[][]) {
+    const fileHeader = invoices[0];
+    invoices.shift();
+
+    if (!this.isHeaderMatchTemplate(fileHeader)) this.dialogService.alertMessege("Template Titles should not change, make sure to work on uploaded template as it is.");
+    else if (!this.checkAllFieldFilled(invoices)) this.dialogService.alertMessege("Please make sure to fill all field.");
+    else this.uploadInvoiceExcelSheet(invoices);
+    this.excelSheet = null;
+  }
+
   isHeaderMatchTemplate(headers: string[]): boolean {
     return headers.length === 8 // check on header length
-      && headers[0].includes("Item Name")
-      && headers[1].includes("Item Description")
-      && headers[2].includes("Item Type")
-      && headers[3].includes("Item Code")
-      && headers[4].includes("Internal Code")
-      && headers[5].includes("Unit Type")
-      && headers[6].includes("Tax Type")
-      && headers[7].includes("Tax Rate")
+      && headers[0].includes("Invoice Id")
+      && headers[1].includes("Date Time Issued")
+      && headers[2].includes("Customer Registration Number")
+      && headers[3].includes("Item Type")
+      && headers[4].includes("Item Code")
+      && headers[5].includes("Line Description")
+      && headers[6].includes("Quantity")
+      && headers[7].includes("Unit Price")
       ;
+  }
+
+  checkAllFieldFilled(items: string[][]): boolean {
+    let allFilled: boolean = true;
+    items.forEach(item => {
+      if (item.length < 6) allFilled = false;
+    });
+    return allFilled;
+  }
+
+  uploadInvoiceExcelSheet(invoices: string[][]) {
+    this.invoiceService.uploadInvoiceExcelSheet(invoices).subscribe((res) => {
+      this.dialogService.savedSuccessfully('Excel sheet has been uploaded successfully!');
+      this.listInvoices();
+    })
   }
 
   getInvoiceSubmission(invoiceId: number) {

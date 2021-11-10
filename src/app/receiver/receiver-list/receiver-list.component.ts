@@ -24,6 +24,7 @@ import { ReceiverService } from '../../shared/services/receiver.service';
 import { ListsService } from '../../shared/services/lists.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DialogService } from '../../shared/services/dialog.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-receiver-list',
@@ -40,6 +41,7 @@ export class ReceiverListComponent implements OnInit {
 
   receiverDataSource: MatTableDataSource<any>;
   displayedColumns: string[];
+  excelSheet: any;
 
   // name of lists
   listOfReceiverType: { label: string, value: string }[];
@@ -127,7 +129,7 @@ export class ReceiverListComponent implements OnInit {
   }
 
   downloadExcelSheetTemplate() {
-    const url = 'http://207.154.254.186/eInvoiceCloud/media/templates/Receiver-template.xlsx';
+    const url = `${environment.templatesBaseUrl}Receiver-template.xlsx`;
     window.open(url, "_blank");
   }
 
@@ -165,11 +167,13 @@ export class ReceiverListComponent implements OnInit {
     else if (!this.checkAllFieldFilled(file)) this.dialogService.alertMessege("Please make sure to fill all field.");
     else {
       const recievers = file.map(reciever => {
+        reciever[2] = this.listOfReceiverType.find(type => type.label === reciever[2])?.value || "";
+        reciever[4] = this.listOfCountries.find(country => country.desc_ar === reciever[4])?.code || "";
         return reciever;
       });
-      console.log(recievers);
       this.uploadReceiverExcelSheet(recievers);
     }
+    this.excelSheet = null;
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
@@ -177,7 +181,7 @@ export class ReceiverListComponent implements OnInit {
       && headers[0].includes("Code")
       && headers[1].includes("Name")
       && headers[2].includes("Type")
-      && headers[3].includes("Registration Number")
+      && headers[3].includes("Regestration Number")
       && headers[4].includes("Country")
       && headers[5].includes("Governate")
       && headers[6].includes("Region City")

@@ -107,14 +107,13 @@ export class ItemDetailsComponent implements OnInit {
   listUnitTypes() {
     this.itemService.listUnitTypes().subscribe((res: ResponseDto) => {
       this.listOfUnitTypes = res.data;
-      console.log(res.data)
-    })
+    });
   }
 
   listTaxTypes() {
     this.itemService.listTaxTypes().subscribe((res: ResponseDto) => {
       this.listOfTaxTypes = res.data;
-    })
+    });
   }
 
 

@@ -53,6 +53,11 @@ export class InvoiceService {
     return this.http.post<ResponseDto>(url, { reject_reason });
   }
 
+  uploadInvoiceExcelSheet(invoices: string[][]) {
+    const url = `invoice/upload-excel`;
+    return this.http.post<ResponseDto>(url, { invoices });
+  }
+
   printInvoice(id: number) {
     const url = `invoice/print/${id}`;
     return this.http.get(url, { responseType: 'blob', observe: 'response' }).pipe(

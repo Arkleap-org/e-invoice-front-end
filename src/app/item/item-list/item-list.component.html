@@ -12,8 +12,8 @@
               title="{{'Upload Excel Sheet'|translate}}" (click)="fileInput.click()">
               {{'Upload Excel Sheet'|translate}}
             </button>
-            <input type="file" #fileInput hidden (change)="uploadExcelSheet($event)" accept=".xls,.xlsx"
-              multiple="false">
+            <input type="file" [(ngModel)]="excelSheet" #fileInput hidden (change)="uploadExcelSheet($event)"
+              accept=".xls,.xlsx" multiple="false">
           </div>
           <div class="col-5">
             <button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom"

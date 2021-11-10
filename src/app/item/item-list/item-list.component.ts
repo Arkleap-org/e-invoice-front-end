@@ -14,6 +14,7 @@ import { ActivityCodeDto } from '../../shared/models/activity-code.model';
 // services
 import { ItemsService } from '../../shared/services/items.service';
 import { DialogService } from '../../shared/services/dialog.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-item-list',
@@ -27,6 +28,8 @@ export class ItemListComponent implements OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  excelSheet: any;
 
   itemDataSource: MatTableDataSource<any>;
   displayedColumns: string[];
@@ -107,7 +110,7 @@ export class ItemListComponent implements OnInit {
   }
 
   downloadExcelSheetTemplate() {
-    const url = 'http://207.154.254.186/eInvoiceCloud/media/templates/ItemService-template.xlsx';
+    const url = `${environment.templatesBaseUrl}ItemService-template.xlsx`;
     window.open(url, "_blank");
   }
 
@@ -150,9 +153,9 @@ export class ItemListComponent implements OnInit {
         item[6] = this.listOfTaxTypes.find(type => type.desc_ar === item[6])?.code || "";
         return item;
       });
-      console.log(items);
       this.uploadItemExcelSheet(items);
     }
+    this.excelSheet = null;
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
