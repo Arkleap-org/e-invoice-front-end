@@ -19,8 +19,8 @@ export class DialogService {
 
   cancelAndRouteBack(title: string, text: string, route: string) {
     Swal.fire({
-      title: this.translateService.get(title),
-      text,
+      title: title,
+      text: text,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "$success",
@@ -34,7 +34,7 @@ export class DialogService {
     const x: any = this.translateService.get('Are you sure?')
     console.log(x)
     return Swal.fire({
-      title: x,
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
