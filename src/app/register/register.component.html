@@ -112,10 +112,10 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <mat-icon class="me-3 pt-3">password</mat-icon>
                     <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="form3Example4cd">{{'Repeat your password'|translate}}<span
+                      <label class="form-label" for="form3Example4cd">{{'Confirm password'|translate}}<span
                           class="text-danger">*</span></label>
                       <input type="password" id="form3Example4cd" class="form-control" [(ngModel)]="password2"
-                        placeholder="{{'Repeat your password'|translate}}" formControlName="password2"
+                        placeholder="{{'Confirm password'|translate}}" formControlName="password2"
                         (ngModelChange)="passwordMatched = password === password2" />
                       <small class="text-danger"
                         *ngIf="isSubmitted && getRegisterationControls.password2.errors?.required">

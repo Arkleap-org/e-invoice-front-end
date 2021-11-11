@@ -46,44 +46,45 @@
 
       <ng-container matColumnDef="code">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Code' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="row.code"> {{row.code}} </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Name' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="row.name"> {{row.name}} </td>
       </ng-container>
 
       <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Type' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{getRecieverType(row.type)}} </td>
+        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="getRecieverType(row.type)">
+          {{getRecieverType(row.type)}} </td>
       </ng-container>
 
       <ng-container matColumnDef="reg_num">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Reg Number' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.reg_num}} </td>
+        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="row.reg_num"> {{row.reg_num}} </td>
       </ng-container>
 
       <ng-container matColumnDef="governate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Governate' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.governate}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Governate' | translate }} </th>
+        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="row.governate"> {{row.governate }} </td>
       </ng-container>
 
       <ng-container matColumnDef="regionCity">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Region City' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.regionCity}} </td>
+        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="row.regionCity"> {{row.regionCity}} </td>
       </ng-container>
 
 
       <ng-container matColumnDef="street">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Street' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.street}} </td>
+        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="row.street"> {{row.street}} </td>
       </ng-container>
 
 
       <ng-container matColumnDef="buildingNumber">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Building Number' | translate}} </th>
-        <td mat-cell *matCellDef="let row"> {{row.buildingNumber}} </td>
+        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="row.buildingNumber"> {{row.buildingNumber}} </td>
       </ng-container>
 
       <ng-container matColumnDef="country">
