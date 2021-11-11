@@ -60,6 +60,7 @@ export class RegisterComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     document.getElementsByTagName('body')[0].classList.add('bg-base-color');
+    document.getElementsByTagName('body')[0].style.overflowY = "hidden";
   }
 
   // #endregion
