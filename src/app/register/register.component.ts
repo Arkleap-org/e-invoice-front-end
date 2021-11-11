@@ -109,6 +109,10 @@ export class RegisterComponent implements AfterViewInit {
     }
   }
 
+  ngOnDestroy() {
+    document.getElementsByTagName('body')[0].style.overflowY = "visible";
+  }
+
   // #endregion
 
 }
