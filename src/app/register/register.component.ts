@@ -1,5 +1,5 @@
 // angular modules
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IMenuItem, IMenuTrigger } from '@covalent/core/dynamic-menu';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,7 +20,7 @@ import { LocalStorageService } from '../shared/services/local-storage.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements AfterViewInit {
 
   // #region declare variables
 
@@ -52,6 +52,14 @@ export class RegisterComponent {
 
     // init forms
     this.initForms();
+  }
+
+  // #endregion
+
+  // #region ngAfterOnInit
+
+  ngAfterViewInit() {
+    document.getElementsByTagName('body')[0].classList.add('bg-base-color');
   }
 
   // #endregion
