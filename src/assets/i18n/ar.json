@@ -198,5 +198,9 @@
   "EGP": "ج.م",
   "Item is required": "الصنف مطلوب",
   "Code is required": "الكود مطلوب",
-  "Are you sure?": "هل أنت متأكد؟"
+  "Are you sure?": "هل أنت متأكد؟",
+  "Environment": "البيئة",
+  "Production": "البيئة الفعلية",
+  "Pre-Production": "البيئة التجريبية",
+  "Environment is required": "البيئة مطلوبة"
 }

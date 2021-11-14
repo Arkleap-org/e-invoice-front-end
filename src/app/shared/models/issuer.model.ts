@@ -8,6 +8,7 @@ export class IssuerDto {
   name!: string;
   reg_num!: string;
   type!: string;
+  environment!: string;
 
   constructor() {
     this.issuer_addresses = []
