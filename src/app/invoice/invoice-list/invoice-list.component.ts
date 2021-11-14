@@ -169,7 +169,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
-    return headers.length === 8 // check on header length
+    return headers.length === 9 // check on header length
       && headers[0].includes("Invoice Id")
       && headers[1].includes("Date Time Issued")
       && headers[2].includes("Customer Registration Number")
@@ -178,13 +178,14 @@ export class InvoiceListComponent implements OnInit {
       && headers[5].includes("Line Description")
       && headers[6].includes("Quantity")
       && headers[7].includes("Unit Price")
+      && headers[8].includes("Document Type")
       ;
   }
 
   checkAllFieldFilled(items: string[][]): boolean {
     let allFilled: boolean = true;
     items.forEach(item => {
-      if (item.length < 6) allFilled = false;
+      if (item.length < 7) allFilled = false;
     });
     return allFilled;
   }
@@ -197,7 +198,7 @@ export class InvoiceListComponent implements OnInit {
     this.invoiceService.uploadInvoiceExcelSheet(invoices).subscribe((res) => {
       this.dialogService.savedSuccessfully('Excel sheet has been uploaded successfully!');
       this.listInvoices();
-    })
+    });
   }
 
   getInvoiceSubmission(invoiceId: number) {
