@@ -171,7 +171,7 @@ export class InvoiceListComponent implements OnInit {
       && headers[1].includes("Date Time Issued")
       && headers[2].includes("Customer Registration Number")
       && headers[3].includes("Item Type")
-      && headers[4].includes("Item Code")
+      && headers[4].includes("Item Internal Code")
       && headers[5].includes("Line Description")
       && headers[6].includes("Quantity")
       && headers[7].includes("Unit Price")
