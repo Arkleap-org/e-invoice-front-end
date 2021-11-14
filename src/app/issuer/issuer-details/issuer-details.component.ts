@@ -98,7 +98,8 @@ export class IssuerDetailsComponent implements OnInit {
       activity_code: ['', Validators.required],
       client_id: ['', Validators.required],
       clientSecret1: ['', Validators.required],
-      clientSecret2: ['']
+      clientSecret2: [''],
+      environment: ['', Validators.required]
     });
   }
 

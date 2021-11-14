@@ -205,5 +205,9 @@
   "EGP": "EGP",
   "Item is required": "Item is required",
   "Code is required": "Code is required",
-  "Are you sure?": "Are you sure?"
+  "Are you sure?": "Are you sure?",
+  "Environment": "Environment",
+  "Production": "Production",
+  "Pre-Production": "Pre-Production",
+  "Environment is required": "Environment is required"
 }
