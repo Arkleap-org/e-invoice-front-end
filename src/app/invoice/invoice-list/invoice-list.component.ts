@@ -18,6 +18,7 @@ import { ResponseDto } from '../../shared/models/api-response.model';
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 import { environment } from 'src/environments/environment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-invoice-list',
@@ -44,6 +45,7 @@ export class InvoiceListComponent implements OnInit {
   constructor(
     private invoiceService: InvoiceService,
     private dialogService: DialogService,
+    public datepipe: DatePipe,
     public dialog: MatDialog,
   ) {
     // init variables
@@ -152,6 +154,7 @@ export class InvoiceListComponent implements OnInit {
     const wsname: string = wb.SheetNames[0];
     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
     let invoices: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+    invoices = invoices.filter(invoice => invoice.length > 3);
     return invoices;
   }
 
@@ -161,7 +164,7 @@ export class InvoiceListComponent implements OnInit {
 
     if (!this.isHeaderMatchTemplate(fileHeader)) this.dialogService.alertMessege("Template Titles should not change, make sure to work on uploaded template as it is.");
     else if (!this.checkAllFieldFilled(invoices)) this.dialogService.alertMessege("Please make sure to fill all field.");
-    else this.uploadInvoiceExcelSheet(invoices);
+    else { this.uploadInvoiceExcelSheet(invoices); }
     this.excelSheet = null;
   }
 
@@ -187,6 +190,10 @@ export class InvoiceListComponent implements OnInit {
   }
 
   uploadInvoiceExcelSheet(invoices: string[][]) {
+    invoices = invoices.map(invoice => {
+      invoice[1] = this.datepipe.transform(new Date(invoice[1]), 'yyyy-MM-dd') as any;
+      return invoice;
+    })
     this.invoiceService.uploadInvoiceExcelSheet(invoices).subscribe((res) => {
       this.dialogService.savedSuccessfully('Excel sheet has been uploaded successfully!');
       this.listInvoices();
