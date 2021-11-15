@@ -3,6 +3,19 @@
   <div class="form" [formGroup]="receiverForm">
     <!-- first row -->
     <div class="row d-flex align-items-center">
+
+      <!-- code -->
+      <div class="col-4">
+        <div class="form-group">
+          <label>{{'Code'|translate}}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="{{'Code'|translate}}" [(ngModel)]="receiverDetails.code"
+            formControlName="code">
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.code.errors?.required">
+            {{'Code is required'|translate}}.
+          </small>
+        </div>
+      </div>
+
       <!-- name -->
       <div class="col-4">
         <div class="form-group">
@@ -15,7 +28,7 @@
         </div>
       </div>
       <!-- type -->
-      <div class="col-md-4">
+      <div class="col-4">
         <div class="form-group">
           <label for="exampleFormControlSelect1">{{'Type' | translate}}<span class="text-danger">*</span></label>
           <ng-select [items]="listOfReceiverType" bindLabel="label" bindValue="value" [searchable]="true"
@@ -27,7 +40,7 @@
         </div>
       </div>
       <!-- national id -->
-      <div class="col-md-4">
+      <div class="col-4">
         <div class="form-group">
           <label>{{'National ID' | translate}}<span class="text-danger">*</span></label>
           <input type="number" class="form-control" placeholder="{{'National ID'|translate}}"
@@ -37,12 +50,9 @@
           </small>
         </div>
       </div>
-    </div>
 
-    <!-- second row -->
-    <div class="row">
       <!-- country -->
-      <div class="col-md-4">
+      <div class="col-4">
         <div class="form-group">
           <label>{{'Country'|translate}}<span class="text-danger">*</span></label>
           <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfCountries" [bindLabel]="'desc_en'"
@@ -59,7 +69,7 @@
         </div>
       </div>
       <!-- governate -->
-      <div class="col-md-4">
+      <div class="col-4">
         <div class="form-group">
           <label>{{'Governate'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Governate'|translate}}"
@@ -70,7 +80,7 @@
         </div>
       </div>
       <!-- region city-->
-      <div class="col-md-4">
+      <div class="col-4">
         <div class="form-group">
           <label>{{'Region City'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Region City'|translate}}"
@@ -80,11 +90,9 @@
           </small>
         </div>
       </div>
-    </div>
-    <!-- third row -->
-    <div class="row">
+
       <!-- street -->
-      <div class="col-md-4">
+      <div class="col-4">
         <div class="form-group">
           <label>{{'Street'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Street'|translate}}"
@@ -95,7 +103,7 @@
         </div>
       </div>
       <!-- building number -->
-      <div class="col-md-4">
+      <div class="col-4">
         <div class="form-group">
           <label>{{'Building Number'|translate}}<span class="text-danger">*</span></label>
           <input type="text" class="form-control" placeholder="{{'Building Number'|translate}}"
@@ -105,19 +113,10 @@
           </small>
         </div>
       </div>
-      <!-- code -->
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>{{'Code'|translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Code'|translate}}" [(ngModel)]="receiverDetails.code"
-            formControlName="code">
-          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.code.errors?.required">
-            {{'Code is required'|translate}}.
-          </small>
-        </div>
-      </div>
+
 
     </div>
+
 
   </div>
 </mat-dialog-content>

@@ -62,7 +62,7 @@ export class ReceiverListComponent implements OnInit {
     this.listOfReceiverType = ListOfPersonTypes;
     this.listOfCountries = [];
     this.receiverDataSource = new MatTableDataSource();
-    this.displayedColumns = ['id', 'code', 'name', 'type', 'reg_num', 'governate', 'regionCity', 'street', 'buildingNumber', 'country', 'actions'];
+    this.displayedColumns = ['id', 'code', 'name', 'type', 'reg_num', 'country', 'actions'];
   }
 
   // #endregion
@@ -155,8 +155,15 @@ export class ReceiverListComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.read(bs, { type: "binary" });
     const wsname: string = wb.SheetNames[0];
     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-    let file: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-    return file;
+    let receivers: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+    receivers = receivers.filter(receiver => {
+      let rcvr = [...receiver];
+      rcvr = rcvr.filter(field => {
+        return field && ((typeof field !== "string" && typeof field !== "undefined") || field.trim().length);
+      })
+      return rcvr.length > 1
+    });
+    return receivers;
   }
 
   handleSheetDataToSave(file: string[][]) {
@@ -181,7 +188,7 @@ export class ReceiverListComponent implements OnInit {
       && headers[0].includes("Code")
       && headers[1].includes("Name")
       && headers[2].includes("Type")
-      && headers[3].includes("Regestration Number")
+      && headers[3].includes("Registration Number")
       && headers[4].includes("Country")
       && headers[5].includes("Governate")
       && headers[6].includes("Region City")

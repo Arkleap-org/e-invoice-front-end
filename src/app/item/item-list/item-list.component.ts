@@ -137,8 +137,15 @@ export class ItemListComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.read(bs, { type: "binary" });
     const wsname: string = wb.SheetNames[0];
     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-    let file: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-    return file;
+    let items: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+    items = items.filter(item => {
+      let itm = [...item];
+      itm = itm.filter(field => {
+        return field && ((typeof field !== "string" && typeof field !== "undefined") || field.trim().length);
+      })
+      return itm.length > 1
+    });
+    return items;
   }
 
   handleSheetDataToSave(file: string[][]) {

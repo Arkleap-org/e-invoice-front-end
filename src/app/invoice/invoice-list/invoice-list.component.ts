@@ -154,7 +154,13 @@ export class InvoiceListComponent implements OnInit {
     const wsname: string = wb.SheetNames[0];
     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
     let invoices: string[][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-    invoices = invoices.filter(invoice => invoice.length > 3);
+    invoices = invoices.filter(invoice => {
+      let inv = [...invoice];
+      inv = inv.filter(field => {
+        return field && ((typeof field !== "string" && typeof field !== "undefined") || field.trim().length);
+      })
+      return inv.length > 1
+    });
     return invoices;
   }
 
@@ -169,7 +175,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
-    return headers.length === 9 // check on header length
+    return headers.length === 10 // check on header length
       && headers[0].includes("Invoice Id")
       && headers[1].includes("Date Time Issued")
       && headers[2].includes("Customer Registration Number")
@@ -179,6 +185,7 @@ export class InvoiceListComponent implements OnInit {
       && headers[6].includes("Quantity")
       && headers[7].includes("Unit Price")
       && headers[8].includes("Document Type")
+      && headers[9].includes("Discount Amount")
       ;
   }
 
