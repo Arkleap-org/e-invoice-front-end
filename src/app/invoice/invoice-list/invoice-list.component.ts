@@ -19,6 +19,7 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
 import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
+import { ListOfDocumentTypes } from 'src/app/shared/constants/list.constant';
 
 @Component({
   selector: 'app-invoice-list',
@@ -36,6 +37,8 @@ export class InvoiceListComponent implements OnInit {
   invoiceDataSource: MatTableDataSource<any>;
   displayedColumns: string[];
 
+  listOfDocumentTypes: { label: string, value: string }[];
+
   excelSheet: any;
 
   // #endregion
@@ -50,6 +53,7 @@ export class InvoiceListComponent implements OnInit {
   ) {
     // init variables
     this.invoiceDataSource = new MatTableDataSource();
+    this.listOfDocumentTypes = ListOfDocumentTypes;
     this.displayedColumns = ['number', 'internal_id', 'receiver_name', 'date_time_issued', 'total_amount', 'invoice_status', 'portal_status', 'actions'];
   }
 
@@ -199,7 +203,8 @@ export class InvoiceListComponent implements OnInit {
 
   uploadInvoiceExcelSheet(invoices: string[][]) {
     invoices = invoices.map(invoice => {
-      invoice[1] = this.datepipe.transform(new Date(invoice[1]), 'yyyy-MM-dd') as any;
+      invoice[1] = this.datepipe.transform(new Date("11/11/2021"), 'yyyy-MM-dd') as any;
+      invoice[8] = this.listOfDocumentTypes.find(type => type.label === invoice[8])?.value || "";
       return invoice;
     })
     this.invoiceService.uploadInvoiceExcelSheet(invoices).subscribe((res) => {
