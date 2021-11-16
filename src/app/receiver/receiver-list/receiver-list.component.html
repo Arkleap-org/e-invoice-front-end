@@ -6,23 +6,24 @@
       </div>
       <div class="col-6 form-group">
         <div class="row justify-content-end">
-          <div class="col-4">
+          <div class="col-1">
             <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
               title="{{'Upload Excel Sheet'|translate}}" (click)="fileInput.click()">
-              {{'Upload Excel Sheet'|translate}}
+              <mat-icon>upload</mat-icon>
             </button>
             <input type="file" [(ngModel)]="excelSheet" #fileInput hidden (change)="uploadExcelSheet($event)"
               accept=".xls,.xlsx" multiple="false">
           </div>
-          <div class="col-5">
+          <div class="col-1">
             <button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom"
               title="{{'Download Sheet Template'|translate}}" (click)="downloadExcelSheetTemplate()">
-              {{'Download Sheet Template'|translate}}
+              <mat-icon>download</mat-icon>
             </button>
           </div>
-          <div class="col-3">
+          <div class="col-1">
             <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
-              title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()"> {{'Add Receiver'|translate}}
+              title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()">
+              <mat-icon>add</mat-icon>
             </button>
           </div>
         </div>

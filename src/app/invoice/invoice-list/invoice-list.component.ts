@@ -1,5 +1,6 @@
 // angular core
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import * as XLSX from 'xlsx';
 
 // angular material
@@ -11,15 +12,19 @@ import { MatTableDataSource } from '@angular/material/table';
 // components
 import { InvoiceCancelComponent } from '../../shared/popups/invoice-cancel/invoice-cancel.component';
 
+// constants
+import { ListOfDocumentTypes } from '../../shared/constants/list.constant';
+
+// environments
+import { environment } from '../../../environments/environment';
+
 // models
 import { ResponseDto } from '../../shared/models/api-response.model';
+import { InvoiceDto } from '../../shared/models/invoice.model';
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
-import { environment } from 'src/environments/environment';
-import { DatePipe } from '@angular/common';
-import { ListOfDocumentTypes } from 'src/app/shared/constants/list.constant';
 
 @Component({
   selector: 'app-invoice-list',
@@ -39,6 +44,9 @@ export class InvoiceListComponent implements OnInit {
 
   listOfDocumentTypes: { label: string, value: string }[];
 
+  internal_id_list!: string[]
+  isFirstSubmit: boolean;
+
   excelSheet: any;
 
   // #endregion
@@ -52,9 +60,10 @@ export class InvoiceListComponent implements OnInit {
     public dialog: MatDialog,
   ) {
     // init variables
+    this.isFirstSubmit = true;
     this.invoiceDataSource = new MatTableDataSource();
     this.listOfDocumentTypes = ListOfDocumentTypes;
-    this.displayedColumns = ['number', 'internal_id', 'receiver_name', 'date_time_issued', 'total_amount', 'invoice_status', 'portal_status', 'actions'];
+    this.displayedColumns = ['isSelected', 'internal_id', 'receiver_name', 'date_time_issued', 'total_amount', 'invoice_status', 'portal_status', 'actions'];
   }
 
   // #endregion
@@ -102,7 +111,8 @@ export class InvoiceListComponent implements OnInit {
 
   submitInvoice(internalId: string) {
     this.invoiceService.submitInvoice(internalId).subscribe((response: ResponseDto) => {
-      this.dialogService.savedSuccessfully('Your invoice is beeing Submitted...');
+      this.dialogService.savedSuccessfully('Your invoice is being Submitted...');
+      this.listInvoices();
     });
   }
 
@@ -179,32 +189,30 @@ export class InvoiceListComponent implements OnInit {
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
-    return headers.length === 10 // check on header length
+    return headers.length === 9 // check on header length
       && headers[0].includes("Invoice Id")
-      && headers[1].includes("Date Time Issued")
-      && headers[2].includes("Customer Registration Number")
-      && headers[3].includes("Item Type")
-      && headers[4].includes("Item Internal Code")
-      && headers[5].includes("Line Description")
-      && headers[6].includes("Quantity")
-      && headers[7].includes("Unit Price")
-      && headers[8].includes("Document Type")
-      && headers[9].includes("Discount Amount")
+      && headers[1].includes("Customer Registration Number")
+      && headers[2].includes("Item Type")
+      && headers[3].includes("Item Internal Code")
+      && headers[4].includes("Line Description")
+      && headers[5].includes("Quantity")
+      && headers[6].includes("Unit Price")
+      && headers[7].includes("Document Type")
+      && headers[8].includes("Discount Amount")
       ;
   }
 
   checkAllFieldFilled(items: string[][]): boolean {
     let allFilled: boolean = true;
     items.forEach(item => {
-      if (item.length < 7) allFilled = false;
+      if (item.length < 6) allFilled = false;
     });
     return allFilled;
   }
 
   uploadInvoiceExcelSheet(invoices: string[][]) {
     invoices = invoices.map(invoice => {
-      invoice[1] = this.datepipe.transform(new Date("11/11/2021"), 'yyyy-MM-dd') as any;
-      invoice[8] = this.listOfDocumentTypes.find(type => type.label === invoice[8])?.value || "";
+      invoice[7] = this.listOfDocumentTypes.find(type => type.label === invoice[7])?.value || "";
       return invoice;
     })
     this.invoiceService.uploadInvoiceExcelSheet(invoices).subscribe((res) => {
@@ -215,6 +223,32 @@ export class InvoiceListComponent implements OnInit {
 
   getInvoiceSubmission(invoiceId: number) {
     this.invoiceService.getInvoiceSubmission(invoiceId).subscribe((res: ResponseDto) => this.listInvoices());
+  }
+
+  hasSelectedInvoices() {
+    const list: InvoiceDto[] = this.invoiceDataSource.data;
+    return list.findIndex(invoice => invoice.isSelected === true) > -1;
+  }
+
+  SubmitSelectedInvoices() {
+    this.internal_id_list = this.invoiceDataSource.data.filter(invoice => invoice.isSelected === true).map(invoice => { return invoice.internal_id; });
+    this.recursive();
+  }
+
+  recursive() {
+    if (this.internal_id_list.length) {
+      setTimeout(() => {
+        this.invoiceService.submitInvoice(this.internal_id_list[0]).subscribe((response: ResponseDto) => {
+          this.internal_id_list.shift();
+          this.isFirstSubmit = false;
+          this.recursive();
+        });
+      }, this.isFirstSubmit ? 0 : 3000);
+    }
+    else {
+      this.dialogService.savedSuccessfully('Your invoices are being Submitted...');
+      this.listInvoices();
+    }
   }
 
   // #endregion

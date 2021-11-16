@@ -5,7 +5,7 @@ export const ListOfLanguage = [
 
 export const ListOfPersonTypes = [
   { label: 'Business', value: 'B' },
-  { label: 'Natural Preson', value: 'P' },
+  { label: 'Natural Person', value: 'P' },
   { label: 'Foreigner', value: 'F' }
 ]
 

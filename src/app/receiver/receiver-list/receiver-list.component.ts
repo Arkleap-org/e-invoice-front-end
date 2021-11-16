@@ -184,11 +184,11 @@ export class ReceiverListComponent implements OnInit {
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
-    return headers.length >= 8 // check on header length
+    return headers.length === 9 // check on header length
       && headers[0].includes("Code")
       && headers[1].includes("Name")
       && headers[2].includes("Type")
-      && headers[3].includes("Registration Number")
+      && (headers[3].includes("Registration Number") || headers[3].includes("Regestration Number"))
       && headers[4].includes("Country")
       && headers[5].includes("Governate")
       && headers[6].includes("Region City")

@@ -209,5 +209,8 @@
   "Environment": "Environment",
   "Production": "Production",
   "Pre-Production": "Pre-Production",
-  "Environment is required": "Environment is required"
+  "Environment is required": "Environment is required",
+  "Submit Selected Invoices": "Submit Selected Invoices",
+  "Invoice Lines": "Invoice Lines",
+  "Users List": "Users List"
 }

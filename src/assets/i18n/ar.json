@@ -202,5 +202,8 @@
   "Environment": "البيئة",
   "Production": "البيئة الفعلية",
   "Pre-Production": "البيئة التجريبية",
-  "Environment is required": "البيئة مطلوبة"
+  "Environment is required": "البيئة مطلوبة",
+  "Submit Selected Invoices": "إرسال الفواتير المحددة للمصلحة",
+  "Invoice Lines": "Invoice Lines",
+  "Users List": "قائمة المستخدمين"
 }
