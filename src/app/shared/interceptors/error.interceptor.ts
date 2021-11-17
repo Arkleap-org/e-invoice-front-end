@@ -18,7 +18,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           const errorModel: ErrorDto = error.error;
           // customized response
-          if (errorModel.response_id) {
+          if (error.status === 401) {
+            this.securityService.logout();
+          }
+          else if (errorModel.response_id) {
             // validation errors (more than one)
             if (errorModel.warning) {
               const msg: string = this.handleWarningMessage(errorModel.warning);
