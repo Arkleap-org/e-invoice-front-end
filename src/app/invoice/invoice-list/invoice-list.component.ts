@@ -25,6 +25,7 @@ import { InvoiceDto } from '../../shared/models/invoice.model';
 // services
 import { DialogService } from '../../shared/services/dialog.service';
 import { InvoiceService } from '../../shared/services/invoice.service';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 
 @Component({
   selector: 'app-invoice-list',
@@ -58,6 +59,7 @@ export class InvoiceListComponent implements OnInit {
     private dialogService: DialogService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
+    private loaderService: LoaderService
   ) {
     // init variables
     this.isFirstSubmit = true;
@@ -189,6 +191,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
+    debugger
     return headers.length === 9 // check on header length
       && headers[0].includes("Invoice Id")
       && headers[1].includes("Customer Registration Number")
@@ -231,8 +234,13 @@ export class InvoiceListComponent implements OnInit {
   }
 
   SubmitSelectedInvoices() {
-    this.internal_id_list = this.invoiceDataSource.data.filter(invoice => invoice.isSelected === true).map(invoice => { return invoice.internal_id; });
-    this.recursive();
+    if (this.hasSelectedInvoices()) {
+      this.internal_id_list = this.invoiceDataSource.data.filter(invoice => invoice.isSelected === true).map(invoice => { return invoice.internal_id; });
+      this.recursive();
+    }
+    else {
+      this.dialogService.alertMessege('Please Select Invoices to be submitted.');
+    }
   }
 
   recursive() {
@@ -242,10 +250,13 @@ export class InvoiceListComponent implements OnInit {
           this.internal_id_list.shift();
           this.isFirstSubmit = false;
           this.recursive();
+        }).add(() => {
+          this.loaderService.isLoading.next(true);
         });
       }, this.isFirstSubmit ? 0 : 3000);
     }
     else {
+      this.isFirstSubmit = true;
       this.dialogService.savedSuccessfully('Your invoices are being Submitted...');
       this.listInvoices();
     }
