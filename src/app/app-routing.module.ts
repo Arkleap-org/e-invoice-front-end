@@ -33,16 +33,8 @@ const routes: Routes = [
     path: "",
     component: LayoutComponent,
     children: [
-      {
-        path: "home",
-        canActivate: [AuthGuardService],
-        component: HomeComponent
-      },
-      {
-        path: "user",
-        canActivate: [AuthGuardService],
-        component: AddUserComponent
-      },
+      { path: "home", canActivate: [AuthGuardService], component: HomeComponent },
+      { path: "user", canActivate: [AuthGuardService], component: AddUserComponent },
 
       { path: "issuer/details", canActivate: [AuthGuardService], component: IssuerDetailsComponent },
       { path: "issuer/address", canActivate: [AuthGuardService], component: IssuerAddressComponent },

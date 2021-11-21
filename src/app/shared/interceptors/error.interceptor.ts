@@ -20,6 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           // customized response
           if (error.status === 401) {
             this.securityService.logout();
+            if (errorModel.detail) this.notificationService.showWarningMessage(errorModel.detail);
           }
           else if (errorModel.response_id) {
             // validation errors (more than one)

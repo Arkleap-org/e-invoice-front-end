@@ -193,8 +193,8 @@ export class InvoiceListComponent implements OnInit {
   isHeaderMatchTemplate(headers: string[]): boolean {
     return headers.length === 10 // check on header length
       && headers[0].includes("Invoice Id")
-      && headers[1].toLowerCase().includes("invoice date")
-      && (headers[2].includes("Customer Regestration Number") || headers[1].includes("Customer Registration Number"))
+      && headers[1].includes("Invoice date")
+      && (headers[2].includes("Customer Regestration Number") || headers[2].includes("Customer Registration Number"))
       && headers[3].includes("Item Type")
       && headers[4].includes("Item Internal Code")
       && headers[5].includes("Line Description")
@@ -215,7 +215,10 @@ export class InvoiceListComponent implements OnInit {
 
   uploadInvoiceExcelSheet(invoices: string[][]) {
     invoices = invoices.map(invoice => {
-      invoice[7] = this.listOfDocumentTypes.find(type => type.label === invoice[7])?.value || "";
+      debugger
+      const dt = new Date(invoice[1]);
+      invoice[1] = this.datepipe.transform(dt, 'yyyy-MM-dd hh:mm:ss') || "";
+      invoice[8] = this.listOfDocumentTypes.find(type => type.label === invoice[8])?.value || "";
       return invoice;
     })
     this.invoiceService.uploadInvoiceExcelSheet(invoices).subscribe((res) => {
