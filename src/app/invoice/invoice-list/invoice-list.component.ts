@@ -191,24 +191,24 @@ export class InvoiceListComponent implements OnInit {
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
-    debugger
-    return headers.length === 9 // check on header length
+    return headers.length === 10 // check on header length
       && headers[0].includes("Invoice Id")
-      && headers[1].includes("Customer Registration Number")
-      && headers[2].includes("Item Type")
-      && headers[3].includes("Item Internal Code")
-      && headers[4].includes("Line Description")
-      && headers[5].includes("Quantity")
-      && headers[6].includes("Unit Price")
-      && headers[7].includes("Document Type")
-      && headers[8].includes("Discount Amount")
+      && headers[1].toLowerCase().includes("invoice date")
+      && (headers[2].includes("Customer Regestration Number") || headers[1].includes("Customer Registration Number"))
+      && headers[3].includes("Item Type")
+      && headers[4].includes("Item Internal Code")
+      && headers[5].includes("Line Description")
+      && headers[6].includes("Quantity")
+      && headers[7].includes("Unit Price")
+      && headers[8].includes("Document Type")
+      && headers[9].includes("Discount Amount")
       ;
   }
 
   checkAllFieldFilled(items: string[][]): boolean {
     let allFilled: boolean = true;
     items.forEach(item => {
-      if (item.length < 6) allFilled = false;
+      if (item.length < 7) allFilled = false;
     });
     return allFilled;
   }
