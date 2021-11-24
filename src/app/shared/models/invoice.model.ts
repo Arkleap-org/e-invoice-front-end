@@ -43,7 +43,7 @@ export class LinesDto {
   exchange_rate!: number;
   id!: number;
   item!: number;
-  items_discount!: number;
+  items_discount!: any;
   net_total!: any;
   quantity!: number;
   sales_total!: any;

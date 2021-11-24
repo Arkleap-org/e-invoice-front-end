@@ -79,7 +79,7 @@ export class InvoiceLineComponent implements OnInit {
       quantity: ['', [Validators.required, Validators.min(1)]],
       amount_egp: ['', [Validators.required, Validators.min(1)]],
       sales_total: [''],
-      discount_amount: ['', Validators.required],
+      items_discount: ['', Validators.required],
       tax_amount1: [''],
       tax_amount2: [''],
       tax_amount3: [''],
@@ -110,9 +110,9 @@ export class InvoiceLineComponent implements OnInit {
     this.linesDetails.sales_total = (this.linesDetails.amount_egp * this.linesDetails.quantity).toFixed(5);
   }
 
-  calculateNetTotal(discount_amount: number) {
-    if (this.linesDetails.sales_total && discount_amount >= 0) {
-      this.linesDetails.net_total = (this.linesDetails.sales_total - discount_amount).toFixed(5);
+  calculateNetTotal(items_discount: number) {
+    if (this.linesDetails.sales_total && items_discount >= 0) {
+      this.linesDetails.net_total = (this.linesDetails.sales_total - items_discount).toFixed(5);
       this.calculateTaxAmount();
       this.calculateTotalLineAmount();
     }
@@ -152,7 +152,7 @@ export class InvoiceLineComponent implements OnInit {
       const model: LinesDto = this.linesForm.value;
       model.item_name = this.itemDetails.item_name;
       model.amount_egp = model.amount_egp.toFixed(5);
-      model.discount_amount = model.discount_amount.toFixed(5);
+      model.items_discount = model.items_discount.toFixed(5);
       this.dialogRef.close({ model });
     }
   }
