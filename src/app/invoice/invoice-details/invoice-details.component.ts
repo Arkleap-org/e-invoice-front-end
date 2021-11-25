@@ -312,6 +312,7 @@ export class InvoiceDetailsComponent implements OnInit {
     this.isSubmitted = true;
     if (form.valid) {
       form.value.date_time_issued = new Date(form.value.date_time_issued);
+      form.value.lines = this.newLineDetails;
       this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
         this.dialogService.successAndRouteTo('Invoice created successfully!', '/invoice/list');
         this.isSubmitted = false;
