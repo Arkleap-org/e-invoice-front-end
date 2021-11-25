@@ -31,6 +31,7 @@ export class InvoiceLineComponent implements OnInit {
 
   // names of lists
   listOfItems: ItemDto[];
+  listOfTaxTypes: { code: string, desc_ar: string, desc_en: string, taxtype_reference: string }[];
 
   // names of ngModels
   itemDetails: ItemDto;
@@ -44,10 +45,11 @@ export class InvoiceLineComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<InvoiceLineComponent>,
     private formBuilder: FormBuilder,
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
   ) {
     // init variables
     this.listOfItems = [];
+    this.listOfTaxTypes = [];
     this.itemDetails = new ItemDto;
     this.isSubmitted = false;
     this.linesDetails = new LinesDto;
@@ -80,6 +82,8 @@ export class InvoiceLineComponent implements OnInit {
       amount_egp: ['', [Validators.required, Validators.min(1)]],
       sales_total: [''],
       items_discount: ['', Validators.required],
+      discount_rate: ['', Validators.required],
+      discount_amount: ['', Validators.required],
       tax_amount1: [''],
       tax_amount2: [''],
       tax_amount3: [''],
@@ -94,11 +98,18 @@ export class InvoiceLineComponent implements OnInit {
 
   loadControls() {
     this.listItems();
+    this.listTaxTypes();
   }
 
   listItems() {
     this.itemsService.listItems().subscribe((response: ResponseDto) => {
       this.listOfItems = response.data;
+    });
+  }
+
+  listTaxTypes() {
+    this.itemsService.listTaxTypes().subscribe((res: ResponseDto) => {
+      this.listOfTaxTypes = res.data;
     });
   }
 
@@ -126,13 +137,32 @@ export class InvoiceLineComponent implements OnInit {
     }
   }
 
+  calculateTaxTotal(): number {
+    const item1 = this.listOfItems.find(item => item.id === this.linesDetails.item);
+    const type1 = this.listOfTaxTypes.find(type => item1?.sub_tax_type1 == type.code)
+    const tax1 = Number(this.linesDetails.tax_amount1 || 0) * (type1?.taxtype_reference == "T4" ? -1 : 1);
+
+    const item2 = this.listOfItems.find(item => item.id === this.linesDetails.item);
+    const type2 = this.listOfTaxTypes.find(type => item2?.sub_tax_type2 == type.code)
+    const tax2 = Number(this.linesDetails.tax_amount2 || 0) * (type2?.taxtype_reference == "T4" ? -1 : 1);
+
+    const item3 = this.listOfItems.find(item => item.id === this.linesDetails.item);
+    const type3 = this.listOfTaxTypes.find(type => item3?.sub_tax_type3 == type.code)
+    const tax3 = Number(this.linesDetails.tax_amount3 || 0) * (type3?.taxtype_reference == "T4" ? -1 : 1);
+
+    return tax1 + tax2 + tax3;
+
+  }
+
   calculateTotalLineAmount() {
     if (this.linesDetails.net_total) {
-      let totalTaxAmount = Number(this.linesDetails.tax_amount1 || 0) +
-        Number(this.linesDetails.tax_amount2 || 0) +
-        Number(this.linesDetails.tax_amount3 || 0);
-      this.linesDetails.total_amount = (Number(this.linesDetails.net_total) + Number(totalTaxAmount)).toFixed(5);
+      let totalTaxAmount = this.calculateTaxTotal();
+      this.linesDetails.total_amount = (Number(this.linesDetails.net_total) + Number(totalTaxAmount) - Number(this.linesDetails.items_discount || 0)).toFixed(5);
     }
+  }
+
+  calculateDiscountAmount(sales_total: number, discount_rate: number) {
+    this.linesDetails.discount_amount = Number(sales_total || 0) * Number(discount_rate || 0) / 100;
   }
 
   // #endregion
