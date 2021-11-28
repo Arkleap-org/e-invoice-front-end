@@ -91,13 +91,12 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Type 1' | translate}}</label>
-            <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type1" [items]="listOfTaxTypes"
+            <!-- <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type1" [items]="listOfTaxTypes"
               bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type1"
               placeholder="{{'Tax Type'|translate}}">
-            </ng-select>
-            <ng-select *ngIf="translate.currentLang === 'ar'" [(ngModel)]="model.sub_tax_type1" [items]="listOfTaxTypes"
-              bindLabel="desc_ar" bindValue="code" [searchable]="true" formControlName="sub_tax_type1"
-              placeholder="{{'Tax Type'|translate}}">
+            </ng-select> -->
+            <ng-select [(ngModel)]="model.sub_tax_type1" [items]="listOfTaxTypes" bindLabel="desc_ar" bindValue="code"
+              [searchable]="true" formControlName="sub_tax_type1" placeholder="{{'Tax Type'|translate}}">
             </ng-select>
           </div>
         </div>
@@ -119,13 +118,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Type 2' | translate}}</label>
-            <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type2" [items]="listOfTaxTypes"
-              bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type2"
-              placeholder="{{'Tax Type 2'|translate}}">
-            </ng-select>
-            <ng-select *ngIf="translate.currentLang === 'ar'" [(ngModel)]="model.sub_tax_type2" [items]="listOfTaxTypes"
-              bindLabel="desc_ar" bindValue="code" [searchable]="true" formControlName="sub_tax_type2"
-              placeholder="{{'Tax Type 2'|translate}}">
+            <ng-select [(ngModel)]="model.sub_tax_type2" [items]="listOfTaxTypes" bindLabel="desc_ar" bindValue="code"
+              [searchable]="true" formControlName="sub_tax_type2" placeholder="{{'Tax Type 2'|translate}}">
             </ng-select>
           </div>
         </div>
@@ -147,13 +141,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{'Tax Type 3' | translate}}</label>
-            <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type3" [items]="listOfTaxTypes"
-              bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type3"
-              placeholder="{{'Tax Type'|translate}}">
-            </ng-select>
-            <ng-select *ngIf="translate.currentLang === 'ar'" [(ngModel)]="model.sub_tax_type3" [items]="listOfTaxTypes"
-              bindLabel="desc_ar" bindValue="code" [searchable]="true" formControlName="sub_tax_type3"
-              placeholder="{{'Tax Type'|translate}}">
+            <ng-select [(ngModel)]="model.sub_tax_type3" [items]="listOfTaxTypes" bindLabel="desc_ar" bindValue="code"
+              [searchable]="true" formControlName="sub_tax_type3" placeholder="{{'Tax Type'|translate}}">
             </ng-select>
           </div>
         </div>
