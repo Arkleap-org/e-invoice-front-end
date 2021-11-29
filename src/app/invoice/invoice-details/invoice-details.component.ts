@@ -29,6 +29,7 @@ import { InvoiceService } from '../../shared/services/invoice.service';
 import { ItemsService } from '../../shared/services/items.service';
 import { ReceiverService } from '../../shared/services/receiver.service';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-invoice-details',
@@ -277,7 +278,11 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   cancelAndRouteBack() {
-    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/invoice/list");
+    if (this.invoiceId) {
+      this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", `/invoice/view/${this.invoiceId}`);
+    } else {
+      this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/invoice/list");
+    }
   }
 
   getItemById(id: number, index: number) {
@@ -343,8 +348,20 @@ export class InvoiceDetailsComponent implements OnInit {
   deleteLine(line: LinesDto) {
     const index: number = this.newLineDetails.indexOf(line);
     if (index !== -1) {
-      this.newLineDetails.splice(index, 1);
-      this.calculateSummary();
+      Swal.fire({
+        title: 'Confirm Delete',
+        text: 'Are you sure you want to delete this line ?',
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "$success",
+        cancelButtonColor: "$secondary",
+        confirmButtonText: "Yes, I am sure!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.newLineDetails.splice(index, 1);
+          this.calculateSummary();
+        }
+      });
     }
   }
 

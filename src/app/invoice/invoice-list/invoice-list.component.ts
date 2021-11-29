@@ -114,7 +114,7 @@ export class InvoiceListComponent implements OnInit {
   submitInvoice(internalId: string) {
     this.invoiceService.submitInvoice(internalId).subscribe((response: ResponseDto) => {
       this.dialogService.savedSuccessfully('Your invoice is being Submitted...');
-      this.listInvoices();
+      setTimeout(() => this.listInvoices(), 3000);
     });
   }
 

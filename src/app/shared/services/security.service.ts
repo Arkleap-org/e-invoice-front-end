@@ -51,7 +51,7 @@ export class SecurityService {
     this.localStorageService.removeAll();
 
     // redirect to login page
-    this.router.navigate(["/"], { skipLocationChange: true });
+    this.router.navigate(["./login"], { skipLocationChange: true });
   }
 
 

@@ -158,8 +158,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let line of newLineDetails; let i=index;">
-          <td (click)="deleteLine(line)" class="td-pointer" [class.overlay]="line.id">
-            <mat-icon>delete</mat-icon>
+          <td>
+            <mat-icon class="td-pointer text-danger" (click)="deleteLine(line)">delete</mat-icon>
+            <mat-icon class="td-pointer text-primary">edit</mat-icon>
           </td> <!-- 1 -->
           <td>{{ line.item_name}} </td> <!-- 2 -->
           <td>{{line.description}}</td> <!-- 3 -->

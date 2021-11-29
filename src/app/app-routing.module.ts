@@ -27,13 +27,13 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuardService } from './shared/services/auth.guard.service';
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
+  { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   {
     path: "",
     component: LayoutComponent,
     children: [
-      { path: "home", canActivate: [AuthGuardService], component: HomeComponent },
+      { path: "", canActivate: [AuthGuardService], component: HomeComponent },
       { path: "user", canActivate: [AuthGuardService], component: AddUserComponent },
 
       { path: "issuer/details", canActivate: [AuthGuardService], component: IssuerDetailsComponent },
