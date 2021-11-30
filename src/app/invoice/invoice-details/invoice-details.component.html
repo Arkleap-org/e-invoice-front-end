@@ -11,7 +11,8 @@
               <div class="form-group">
                 <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}"
-                  formControlName="internal_id" [(ngModel)]="invoiceDetails.internal_id">
+                  formControlName="internal_id" [(ngModel)]="invoiceDetails.internal_id"
+                  [class.overlay]="invoiceDetails.invoice_status == 'Submitted'">
                 <small class="text-danger" *ngIf="isSubmitted && invoiceControls.internal_id.errors?.required">
                   {{'Internal ID is required'|translate}}.
                 </small>

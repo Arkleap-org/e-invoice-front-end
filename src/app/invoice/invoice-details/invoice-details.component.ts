@@ -338,11 +338,17 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   handleSaveInvoiceBtn(form: FormGroup) {
-    if (this.invoiceId) {
-      this.updateInvoice(this.invoiceId, form);
-    } else {
-      this.createInvoice(form);
-    }
+    let today = new Date();
+    form.value.date_time_issued = new Date(form.value.date_time_issued);
+    if (form.value.date_time_issued <= today) {
+      if (this.invoiceId) {
+        this.updateInvoice(this.invoiceId, form);
+      } else {
+        this.createInvoice(form);
+      }
+    } else { this.dialogService.alertMessege('Date Time Issued cannot be in the future!'); }
+
+
   }
 
   deleteLine(line: LinesDto) {

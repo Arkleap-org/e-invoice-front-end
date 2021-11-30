@@ -214,13 +214,21 @@ export class InvoiceListComponent implements OnInit {
   }
 
   uploadInvoiceExcelSheet(invoices: string[][]) {
+    let invalidDate: boolean = false;
     invoices = invoices.map(invoice => {
-      debugger
+      let today = new Date();
       const dt = new Date(invoice[1]);
+      if (dt > today) {
+        invalidDate = true;
+      }
       invoice[1] = this.datepipe.transform(dt, 'yyyy-MM-dd hh:mm:ss') || "";
       invoice[8] = this.listOfDocumentTypes.find(type => type.label === invoice[8])?.value || "";
       return invoice;
     })
+    if (invalidDate) {
+      this.dialogService.alertMessege('Date Time Issued cannot be in the future!');
+      return;
+    }
     this.invoiceService.uploadInvoiceExcelSheet(invoices).subscribe((res) => {
       this.dialogService.savedSuccessfully('Excel sheet has been uploaded successfully!');
       this.listInvoices();

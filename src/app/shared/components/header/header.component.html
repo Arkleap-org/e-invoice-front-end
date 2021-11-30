@@ -5,7 +5,7 @@
     <div class="row">
 
       <!-- logo -->
-      <span class="col-1 pointer" ngx-translate routerLink="home">
+      <span class="col-1 pointer" ngx-translate routerLink="/">
         <img src="../../../../assets/images/logo.png" width="40" alt="">
       </span>
 
@@ -44,7 +44,7 @@
 <!-- side menu -->
 <mat-menu #menu="matMenu">
   <ng-template matMenuContent>
-    <button mat-menu-item routerLink="/home"> {{'Dashboard' | translate}} </button>
+    <button mat-menu-item routerLink="/"> {{'Dashboard' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="receivers"> {{'Recievers' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="items"> {{'Items' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="invoices"> {{'Invoices' | translate}} </button>
