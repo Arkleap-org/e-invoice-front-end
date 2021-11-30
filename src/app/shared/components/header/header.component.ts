@@ -76,8 +76,9 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.localStorageService.removeAll();
-    this.router.navigate(['/'])
+    // this.localStorageService.removeAll();
+    // this.router.navigate(['/'])
+    this.securityService.logout();
   }
 
   // #endregion
