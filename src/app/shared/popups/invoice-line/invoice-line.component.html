@@ -33,7 +33,8 @@
         <div class="form-group">
           <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
           <input type="number" class="form-control" placeholder="{{'Quantity'|translate}}" formControlName="quantity"
-            [(ngModel)]="linesDetails.quantity" [readonly]='!itemDetails.item_desc'>
+            [(ngModel)]="linesDetails.quantity" [readonly]='!itemDetails.item_desc'
+            (ngModelChange)="calculateSalesTotal();calculateNetTotal(linesDetails.discount_amount)">
           <small class="text-danger" *ngIf="isSubmitted && linesForm.get('quantity')?.errors?.min">
             {{'Quantity should be 1 or more'|translate}}.
           </small>

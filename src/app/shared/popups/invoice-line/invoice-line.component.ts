@@ -138,15 +138,15 @@ export class InvoiceLineComponent implements OnInit {
   }
 
   calculateTaxTotal(): number {
-    const item1 = this.listOfItems.find(item => item.id === this.linesDetails.item);
+    const item1 = this.listOfItems.find(item => item.id === this.itemDetails.id);
     const type1 = this.listOfTaxTypes.find(type => item1?.sub_tax_type1 == type.code)
     const tax1 = Number(this.linesDetails.tax_amount1 || 0) * (type1?.taxtype_reference == "T4" ? -1 : 1);
 
-    const item2 = this.listOfItems.find(item => item.id === this.linesDetails.item);
+    const item2 = this.listOfItems.find(item => item.id === this.itemDetails.id);
     const type2 = this.listOfTaxTypes.find(type => item2?.sub_tax_type2 == type.code)
     const tax2 = Number(this.linesDetails.tax_amount2 || 0) * (type2?.taxtype_reference == "T4" ? -1 : 1);
 
-    const item3 = this.listOfItems.find(item => item.id === this.linesDetails.item);
+    const item3 = this.listOfItems.find(item => item.id === this.itemDetails.id);
     const type3 = this.listOfTaxTypes.find(type => item3?.sub_tax_type3 == type.code)
     const tax3 = Number(this.linesDetails.tax_amount3 || 0) * (type3?.taxtype_reference == "T4" ? -1 : 1);
 

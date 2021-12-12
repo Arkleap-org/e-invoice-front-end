@@ -1,7 +1,9 @@
 <mat-card>
   <!-- card title -->
-  <mat-card-title>{{model.id? ('Update Item'|translate ) : ('Create Item'|translate)}}</mat-card-title>
-  <br>
+  <mat-card-title>{{
+    model.id ? ("Update Item" | translate) : ("Create Item" | translate)
+  }}</mat-card-title>
+  <br />
   <!-- card content -->
   <mat-card-content>
     <div class="form" [formGroup]="itemsForm">
@@ -10,23 +12,47 @@
         <!-- Name -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Name' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" formControlName="item_name" [(ngModel)]="model.item_name"
-              placeholder="{{'Name'|translate}}">
-            <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.item_name.errors?.required">
-              {{'Name is required'|translate}}.
+            <label
+              >{{ "Name" | translate }}<span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="item_name"
+              [(ngModel)]="model.item_name"
+              placeholder="{{ 'Name' | translate }}"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                isSubmitted && itemsFormControls.item_name.errors?.required
+              "
+            >
+              {{ "Name is required" | translate }}.
             </small>
           </div>
-
         </div>
         <!-- description -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Description' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" formControlName="item_desc" [(ngModel)]="model.item_desc"
-              placeholder="{{'Description'|translate}}">
-            <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.item_desc.errors?.required">
-              {{'Item Description is required'|translate}}.
+            <label
+              >{{ "Description" | translate
+              }}<span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="item_desc"
+              [(ngModel)]="model.item_desc"
+              placeholder="{{ 'Description' | translate }}"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                isSubmitted && itemsFormControls.item_desc.errors?.required
+              "
+            >
+              {{ "Item Description is required" | translate }}.
             </small>
           </div>
         </div>
@@ -36,27 +62,56 @@
         <!-- internal code -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Internal Code' | translate}}<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" formControlName="internal_code" [(ngModel)]="model.internal_code"
-              placeholder="{{'Internal Code'|translate}}">
-            <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.internal_code.errors?.required">
-              {{'Internal Code is required'|translate}}.
+            <label
+              >{{ "Internal Code" | translate
+              }}<span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="internal_code"
+              [(ngModel)]="model.internal_code"
+              placeholder="{{ 'Internal Code' | translate }}"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                isSubmitted && itemsFormControls.internal_code.errors?.required
+              "
+            >
+              {{ "Internal Code is required" | translate }}.
             </small>
           </div>
         </div>
         <!-- unit type -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Unit Type' | translate}}<span class="text-danger">*</span></label>
-            <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfUnitTypes" bindLabel="desc_en"
-              bindValue="code" formControlName="unit_type" [(ngModel)]="model.unit_type" [searchable]="true"
-              placeholder="{{'Unit Type'|translate}}">
+            <label
+              >{{ "Unit Type" | translate
+              }}<span class="text-danger">*</span></label
+            >
+            <ng-select
+              *ngIf="translate.currentLang === 'en'"
+              [items]="listOfUnitTypes"
+              bindLabel="desc_en"
+              bindValue="code"
+              formControlName="unit_type"
+              [(ngModel)]="model.unit_type"
+              [searchable]="true"
+              placeholder="{{ 'Unit Type' | translate }}"
+            >
             </ng-select>
-            <ng-select *ngIf="translate.currentLang === 'ar'" [items]="listOfUnitTypes" bindLabel="desc_ar"
-              bindValue="code" formControlName="unit_type" [(ngModel)]="model.unit_type" [searchable]="true"
-              placeholder="{{'Unit Type'|translate}}">
+            <ng-select
+              *ngIf="translate.currentLang === 'ar'"
+              [items]="listOfUnitTypes"
+              bindLabel="desc_ar"
+              bindValue="code"
+              formControlName="unit_type"
+              [(ngModel)]="model.unit_type"
+              [searchable]="true"
+              placeholder="{{ 'Unit Type' | translate }}"
+            >
             </ng-select>
-
           </div>
         </div>
       </div>
@@ -66,21 +121,37 @@
         <!-- type -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Type' | translate}}</label>
-            <ng-select [(ngModel)]="model.item_type" [items]="listOfTypes" formControlName="item_type"
-              [searchable]="true" placeholder="{{'Activity Type'|translate}}">
+            <label>{{ "Type" | translate }}</label>
+            <ng-select
+              [(ngModel)]="model.item_type"
+              [items]="listOfTypes"
+              formControlName="item_type"
+              [searchable]="true"
+              placeholder="{{ 'Activity Type' | translate }}"
+            >
             </ng-select>
-
           </div>
         </div>
         <!-- code -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Code' | translate}}<span class="text-danger">*</span></label>
-            <input [(ngModel)]="model.item_code" type="text" class="form-control" formControlName="item_code"
-              placeholder="{{'Code'|translate}}">
-            <small class="text-danger" *ngIf="isSubmitted && itemsFormControls.item_code.errors?.required">
-              {{'Item Code is required'|translate}}.
+            <label
+              >{{ "Code" | translate }}<span class="text-danger">*</span></label
+            >
+            <input
+              [(ngModel)]="model.item_code"
+              type="text"
+              class="form-control"
+              formControlName="item_code"
+              placeholder="{{ 'Code' | translate }}"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                isSubmitted && itemsFormControls.item_code.errors?.required
+              "
+            >
+              {{ "Item Code is required" | translate }}.
             </small>
           </div>
         </div>
@@ -90,25 +161,53 @@
         <!-- tax type -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Type 1' | translate}}</label>
-            <!-- <ng-select *ngIf="translate.currentLang === 'en'" [(ngModel)]="model.sub_tax_type1" [items]="listOfTaxTypes"
-              bindLabel="desc_en" bindValue="code" [searchable]="true" formControlName="sub_tax_type1"
-              placeholder="{{'Tax Type'|translate}}">
-            </ng-select> -->
-            <ng-select [(ngModel)]="model.sub_tax_type1" [items]="listOfTaxTypes" bindLabel="desc_ar" bindValue="code"
-              [searchable]="true" formControlName="sub_tax_type1" placeholder="{{'Tax Type'|translate}}">
+            <label>{{ "Tax Type 1" | translate }}</label>
+            <ng-select
+              [(ngModel)]="model.sub_tax_type1"
+              [items]="listOfTaxTypes"
+              bindLabel="desc_ar"
+              bindValue="code"
+              [searchable]="true"
+              formControlName="sub_tax_type1"
+              placeholder="{{ 'Tax Type' | translate }}"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item.desc_ar + " / " + item.taxtype_reference_name_ar }}
+              </ng-template>
+                <ng-template ng-option-tmp  let-item="item">
+                {{ item.desc_ar + " / " + item.taxtype_reference_name_ar }}
+              </ng-template>
+
             </ng-select>
           </div>
         </div>
         <!-- tax rate -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Rate1' | translate}}<span *ngIf="model.sub_tax_type1" class="text-danger">*</span></label>
-            <input type="number" class="form-control" formControlName="sub_tax_rate1" [required]="model.sub_tax_type1"
-              [(ngModel)]="model.sub_tax_rate1" placeholder="{{'Tax Rate'|translate}}">
-            <small class="text-danger"
-              *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate1.errors?.min||itemsFormControls.sub_tax_rate1.errors?.max ) || model.sub_tax_type1)">
-              {{'Tax rate should be between 0 and 100'|translate}}.
+            <label
+              >{{ "Tax Rate1" | translate
+              }}<span *ngIf="model.sub_tax_type1" class="text-danger"
+                >*</span
+              ></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              formControlName="sub_tax_rate1"
+              [required]="model.sub_tax_type1"
+              [(ngModel)]="model.sub_tax_rate1"
+              placeholder="{{ 'Tax Rate' | translate }}"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                isSubmitted &&
+                (itemsFormControls.sub_tax_rate1.errors?.min ||
+                  itemsFormControls.sub_tax_rate1.errors?.max ||
+                  model.sub_tax_type1)
+              "
+            >
+              {{ "Tax rate should be between 0 and 100" | translate }}.
             </small>
           </div>
         </div>
@@ -117,21 +216,52 @@
         <!-- tax type -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Type 2' | translate}}</label>
-            <ng-select [(ngModel)]="model.sub_tax_type2" [items]="listOfTaxTypes" bindLabel="desc_ar" bindValue="code"
-              [searchable]="true" formControlName="sub_tax_type2" placeholder="{{'Tax Type 2'|translate}}">
+            <label>{{ "Tax Type 2" | translate }}</label>
+            <ng-select
+              [(ngModel)]="model.sub_tax_type2"
+              [items]="listOfTaxTypes"
+              bindLabel="desc_ar"
+              bindValue="code"
+              [searchable]="true"
+              formControlName="sub_tax_type2"
+              placeholder="{{ 'Tax Type 2' | translate }}"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item.desc_ar + " / " + item.taxtype_reference_name_ar }}
+              </ng-template>
+                <ng-template ng-option-tmp  let-item="item">
+                {{ item.desc_ar + " / " + item.taxtype_reference_name_ar }}
+              </ng-template>
             </ng-select>
           </div>
         </div>
         <!-- tax rate -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Rate' | translate}}<span *ngIf="model.sub_tax_type2" class="text-danger">*</span></label>
-            <input type="number" class="form-control" formControlName="sub_tax_rate2" [required]="model.sub_tax_type2"
-              [(ngModel)]="model.sub_tax_rate2" placeholder="{{'Tax Rate 2'|translate}}">
-            <small class="text-danger"
-              *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate2.errors?.min||itemsFormControls.sub_tax_rate2.errors?.max ) || model.sub_tax_type2)">
-              {{'Tax rate should be between 0 and 100'|translate}}.
+            <label
+              >{{ "Tax Rate" | translate
+              }}<span *ngIf="model.sub_tax_type2" class="text-danger"
+                >*</span
+              ></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              formControlName="sub_tax_rate2"
+              [required]="model.sub_tax_type2"
+              [(ngModel)]="model.sub_tax_rate2"
+              placeholder="{{ 'Tax Rate 2' | translate }}"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                isSubmitted &&
+                (itemsFormControls.sub_tax_rate2.errors?.min ||
+                  itemsFormControls.sub_tax_rate2.errors?.max ||
+                  model.sub_tax_type2)
+              "
+            >
+              {{ "Tax rate should be between 0 and 100" | translate }}.
             </small>
           </div>
         </div>
@@ -140,21 +270,52 @@
         <!-- tax type -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Type 3' | translate}}</label>
-            <ng-select [(ngModel)]="model.sub_tax_type3" [items]="listOfTaxTypes" bindLabel="desc_ar" bindValue="code"
-              [searchable]="true" formControlName="sub_tax_type3" placeholder="{{'Tax Type'|translate}}">
+            <label>{{ "Tax Type 3" | translate }}</label>
+            <ng-select
+              [(ngModel)]="model.sub_tax_type3"
+              [items]="listOfTaxTypes"
+              bindLabel="desc_ar"
+              bindValue="code"
+              [searchable]="true"
+              formControlName="sub_tax_type3"
+              placeholder="{{ 'Tax Type' | translate }}"
+            >
+           <ng-template ng-label-tmp let-item="item">
+                {{ item.desc_ar + " / " + item.taxtype_reference_name_ar }}
+              </ng-template>
+                <ng-template ng-option-tmp  let-item="item">
+                {{ item.desc_ar + " / " + item.taxtype_reference_name_ar }}
+              </ng-template>
             </ng-select>
           </div>
         </div>
         <!-- tax rate -->
         <div class="col-md-6">
           <div class="form-group">
-            <label>{{'Tax Rate' | translate}}<span *ngIf="model.sub_tax_type3" class="text-danger">*</span></label>
-            <input type="number" class="form-control" formControlName="sub_tax_rate3" [required]="model.sub_tax_type3"
-              [(ngModel)]="model.sub_tax_rate3" placeholder="{{'Tax Rate 3'|translate}}">
-            <small class="text-danger"
-              *ngIf="isSubmitted && ((itemsFormControls.sub_tax_rate3.errors?.min||itemsFormControls.sub_tax_rate3.errors?.max ) || model.sub_tax_type3)">
-              {{'Tax rate should be between 0 and 100'|translate}}.
+            <label
+              >{{ "Tax Rate" | translate
+              }}<span *ngIf="model.sub_tax_type3" class="text-danger"
+                >*</span
+              ></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              formControlName="sub_tax_rate3"
+              [required]="model.sub_tax_type3"
+              [(ngModel)]="model.sub_tax_rate3"
+              placeholder="{{ 'Tax Rate 3' | translate }}"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                isSubmitted &&
+                (itemsFormControls.sub_tax_rate3.errors?.min ||
+                  itemsFormControls.sub_tax_rate3.errors?.max ||
+                  model.sub_tax_type3)
+              "
+            >
+              {{ "Tax rate should be between 0 and 100" | translate }}.
             </small>
           </div>
         </div>
@@ -162,14 +323,23 @@
     </div>
   </mat-card-content>
 </mat-card>
-<br>
+<br />
 
 <!-- card actions -->
 <mat-card-actions class="text-center">
-  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">{{'Cancel'|
-    translate}}</button>
-  <button mat-button class="btn btn-info text-light" type="submit" (click)="itemSubmitAction(model.id)">
-    {{model.id? ('Update'|translate ) :
-    ('Create'|translate)}}
+  <button
+    mat-button
+    class="btn btn-secondary text-light"
+    (click)="cancelAndRouteBack()"
+  >
+    {{ "Cancel" | translate }}
+  </button>
+  <button
+    mat-button
+    class="btn btn-info text-light"
+    type="submit"
+    (click)="itemSubmitAction(model.id)"
+  >
+    {{ model.id ? ("Update" | translate) : ("Create" | translate) }}
   </button>
 </mat-card-actions>
