@@ -8,6 +8,12 @@
       <div class="col-6 form-group">
         <div class="row justify-content-end">
           <div class="col-1">
+            <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom"
+              title="{{'Delete Selected Invoices'|translate}}" (click)="deleteSelectedInvoices()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <div class="col-1">
             <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom"
               title="{{'Submit Selected Invoices'|translate}}" (click)="SubmitSelectedInvoices()">
               <mat-icon class="text-white">cloud_upload</mat-icon>
@@ -118,6 +124,11 @@
             <!-- cancel -->
             <button mat-menu-item *ngIf="row.portal_status === 'Valid'"
               (click)="openInvoiceCancelPopup(row.id,row.internal_id)">{{'Cancel' | translate}}</button>
+
+            <!-- delete -->
+            <button mat-menu-item *ngIf="row.invoice_status === 'Draft'"
+              (click)="deleteInvoices([row.id])">{{'Delete' | translate}}</button>
+
           </mat-menu>
         </td>
       </ng-container>

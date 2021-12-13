@@ -146,6 +146,8 @@
   "Item": "الصنف",
   "Unit Price": "سعر الوحدة",
   "Discount Amount": "قيمة الخصم",
+  "Discount Rate":"معدل الخصم",
+  "Items Discount":"الخصم على المنتجات",
   "Net Amount": "القيمة قبل الضريبة",
   "Tax Amount": "قيمة الضريبة",
   "Total Sales Amount": "اجمالي المبيعات",

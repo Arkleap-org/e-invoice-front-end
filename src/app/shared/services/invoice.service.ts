@@ -69,12 +69,17 @@ export class InvoiceService {
 
   updateInvoice(id: number, data: CreateInvoiceDto) {
     const url = `invoice/update/${id}`;
-    return this.http.put<ResponseDto>(url, data)
+    return this.http.put<ResponseDto>(url, data);
   }
 
   getInvoiceSubmission(id: number) {
     const url = `invoice/get-submission/${id}`;
-    return this.http.get<ResponseDto>(url)
+    return this.http.get<ResponseDto>(url);
+  }
+
+  deleteInvoices(ids: number[]) {
+    const url = `invoice/delete?invoices=${ids.toString()}`;
+    return this.http.delete<ResponseDto>(url);
   }
 
 }

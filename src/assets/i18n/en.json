@@ -154,6 +154,8 @@
   "Item": "Item",
   "Unit Price": "Unit Price",
   "Discount Amount": "Discount Amount",
+  "Discount Rate":"Discount Rate",
+  "Items Discount":"Items Discount",
   "Net Amount": "Net Amount",
   "Tax Amount": "Tax Amount",
   "Total Sales Amount": "Total Sales Amount",
