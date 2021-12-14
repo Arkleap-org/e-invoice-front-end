@@ -102,7 +102,7 @@ export class InvoiceLineComponent implements OnInit {
   loadControls() {
     this.listItems();
     this.listTaxTypes();
-   if (this.data) this.getItemById(this.data.item);
+   if (this.data?.item) this.getItemById(this.data.item);
   }
 
   listItems() {
