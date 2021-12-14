@@ -297,14 +297,20 @@ export class InvoiceDetailsComponent implements OnInit {
     this.hasQty = true;
   }
 
-  openLinesPopup() {
+  openLinesPopup(line?:LinesDto) {
     const dialogRef = this.dialog.open(InvoiceLineComponent, {
-      width: '100rem'
+      width: '100rem',
+      data: Object.assign({}, line),
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // get data
-        this.newLineDetails.push(result.model);
+        if (result.model.id) {
+          const lineIndex = this.newLineDetails.findIndex((line) => line.id === result.model.id);
+          this.newLineDetails[lineIndex] = result.model;
+        }
+        else this.newLineDetails.push(result.model);
+
         // append lines in form
         this.invoiceForm.value.lines = this.newLineDetails;
         // total calculations
