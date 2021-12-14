@@ -49,7 +49,6 @@ export class InvoiceDetailsComponent implements OnInit {
   hasQty: boolean;
   isSubmitted: boolean;
   minInvoiceDate: string;
-  maxInvoiceDate: string;
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -124,11 +123,8 @@ export class InvoiceDetailsComponent implements OnInit {
     const month = new Date().getMonth() + 1;
     let minDay = (new Date().getDate() - 7).toString();
     minDay = minDay.length === 1 ? `0${minDay}` : minDay;
-    let maxDay = (new Date().getDate()).toString();
-    maxDay = maxDay.length === 1 ? `0${maxDay}` : maxDay;
 
     this.minInvoiceDate = `${year}-${month}-${minDay}T00:00`;
-    this.maxInvoiceDate = `${year}-${month}-${maxDay}T00:00`;
 
     // init forms
     this.initForms();

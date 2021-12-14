@@ -25,7 +25,7 @@
                 <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
                 <input *ngIf="!invoiceDetails.id" type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
                 (keypress)="$event.preventDefault();"
-                [min]="minInvoiceDate" [max]="maxInvoiceDate" oninput="validity.valid||(value='');"
+                [min]="minInvoiceDate" oninput="validity.valid||(value='');"
                   formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
 
                 <input *ngIf="invoiceDetails.id" [class.overlay]="true" type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
