@@ -21,7 +21,7 @@ import { ListOfDocumentTypes } from '../../shared/constants/list.constant';
 import { ResponseDto } from '../../shared/models/api-response.model';
 import { ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
-import { CreateInvoiceDto, InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
+import {  InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
@@ -48,6 +48,8 @@ export class InvoiceDetailsComponent implements OnInit {
   hasItem: boolean
   hasQty: boolean;
   isSubmitted: boolean;
+  minInvoiceDate: string;
+  maxInvoiceDate: string;
 
   // names of lists
   listOfReceivers: ReceiverDto[];
@@ -105,17 +107,28 @@ export class InvoiceDetailsComponent implements OnInit {
     this.receiverDetails = new ReceiverDto;
 
 
-    const newItemDetail = new ListItemsResponseDto
+    const newItemDetail = new ListItemsResponseDto;
     this.itemDetails.push(newItemDetail);
 
     const newLine = new LinesDto;
-    this.linesDetails.push(newLine)
+    this.linesDetails.push(newLine);
 
     this.isReceiver = this.hasItem = this.hasQty = this.isSubmitted = false;
 
     this.resetTotals();
 
     this.invoiceDetails = new InvoiceDto;
+
+    // invoice date min / max
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    let minDay = (new Date().getDate() - 7).toString();
+    minDay = minDay.length === 1 ? `0${minDay}` : minDay;
+    let maxDay = (new Date().getDate()).toString();
+    maxDay = maxDay.length === 1 ? `0${maxDay}` : maxDay;
+
+    this.minInvoiceDate = `${year}-${month}-${minDay}T00:00`;
+    this.maxInvoiceDate = `${year}-${month}-${maxDay}T00:00`;
 
     // init forms
     this.initForms();

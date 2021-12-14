@@ -23,8 +23,14 @@
               <!-- issued date -->
               <div class="form-group">
                 <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
-                <input type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
+                <input *ngIf="!invoiceDetails.id" type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
+                (keypress)="$event.preventDefault();"
+                [min]="minInvoiceDate" [max]="maxInvoiceDate" oninput="validity.valid||(value='');"
                   formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
+
+                <input *ngIf="invoiceDetails.id" [class.overlay]="true" type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
+                  formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
+
                 <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
                   {{'Issued Date is required'|translate}}.
                 </small>
