@@ -86,9 +86,7 @@
             oninput="validity.valid||(value='');" class="form-control" placeholder="{{'Items Discount'|translate}}"
             formControlName="items_discount" [(ngModel)]="lineDetails.items_discount"
             [readonly]='!lineDetails.amount_egp' (ngModelChange)="calculateTotalLineAmount()">
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('items_discount')?.errors?.required">
-            {{'Items Discount required'|translate}}.
-          </small>
+
         </div>
       </div>
 
@@ -101,9 +99,6 @@
             formControlName="discount_rate" [(ngModel)]="lineDetails.discount_rate"
             [readonly]='!lineDetails.amount_egp'
             (ngModelChange)="calculateDiscountAmount(lineDetails.sales_total,$event)">
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('discount_rate')?.errors?.required">
-            {{'Discount Rate required'|translate}}.
-          </small>
         </div>
       </div>
 
@@ -115,9 +110,6 @@
             oninput="validity.valid||(value='');" class="form-control" placeholder="{{'Discount Amount'|translate}}"
             formControlName="discount_amount" (ngModelChange)="calculateNetTotal($event)"
             [(ngModel)]="lineDetails.discount_amount" [readonly]="true">
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('discount_amount')?.errors?.required">
-            {{'Discount Amount required'|translate}}.
-          </small>
         </div>
       </div>
 

@@ -56,9 +56,7 @@ export class LinesDto {
   item_code!: string;
 
   constructor() {
-    this.quantity = 0;
     this.net_total = 0;
-    this.amount_egp = 0;
     this.discount_amount = 0;
     this.discount_rate = 0;
     this.exchange_rate = 0;

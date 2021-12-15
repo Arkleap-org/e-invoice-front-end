@@ -71,6 +71,7 @@ export class InvoiceDetailsComponent implements OnInit {
   totalTaxTotals!: any;
   totalInvoiceAmount!: any;
   totalDiscountAmount!: any;
+  totalItemsDiscountAmount!: any;
 
   // name of route param
   invoiceId!: number;
@@ -227,6 +228,7 @@ export class InvoiceDetailsComponent implements OnInit {
   setInvoiceTotals() {
     this.totalSalesAmount = this.invoiceDetails.total_sales_amount;
     this.totalDiscountAmount = this.invoiceDetails.total_discount_amount;
+    this.totalItemsDiscountAmount = this.invoiceDetails.total_items_discount_amount;
     this.totalTaxTotals = this.invoiceDetails.tax_totals;
     this.totalInvoiceAmount = this.invoiceDetails.total_amount;
   }
@@ -245,6 +247,7 @@ export class InvoiceDetailsComponent implements OnInit {
     for (let i in this.newLineDetails) {
       this.totalSalesAmount += Number(this.newLineDetails[i].sales_total || 0);
       this.totalDiscountAmount += Number(this.newLineDetails[i].discount_amount || 0);
+      this.totalItemsDiscountAmount += Number(this.newLineDetails[i].items_discount || 0);
 
       taxTotals =
         Number(this.newLineDetails[i].tax_amount1 || 0) +
@@ -256,6 +259,7 @@ export class InvoiceDetailsComponent implements OnInit {
     }
     this.totalSalesAmount = this.totalSalesAmount.toFixed(5);
     this.totalDiscountAmount = this.totalDiscountAmount.toFixed(5);
+    this.totalItemsDiscountAmount = this.totalItemsDiscountAmount.toFixed(5);
     this.totalTaxTotals = this.totalTaxTotals.toFixed(5);
     this.totalInvoiceAmount = this.totalInvoiceAmount.toFixed(5);
   }
@@ -263,6 +267,7 @@ export class InvoiceDetailsComponent implements OnInit {
   resetTotals() {
     this.totalSalesAmount = 0;
     this.totalDiscountAmount = 0;
+    this.totalItemsDiscountAmount = 0;
     this.totalTaxTotals = 0;
     this.totalInvoiceAmount = 0;
   }
@@ -306,18 +311,16 @@ export class InvoiceDetailsComponent implements OnInit {
     this.hasQty = true;
   }
 
-  openLinesPopup(line?:LinesDto) {
+  openLinesPopup(index?: number) {
+    const line: LinesDto = Object.assign( {}, index || index === 0 ? this.newLineDetails[index] : null );
     const dialogRef = this.dialog.open(InvoiceLineComponent, {
       width: '100rem',
-      data: Object.assign({}, line),
+      data:line,
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // get data
-        if (result.model.id) {
-          const lineIndex = this.newLineDetails.findIndex((line) => line.id === result.model.id);
-          this.newLineDetails[lineIndex] = result.model;
-        }
+        if (index) { this.newLineDetails[index] = result.model; }
         else this.newLineDetails.push(result.model);
 
         // append lines in form

@@ -55,7 +55,7 @@ export class InvoiceLineComponent implements OnInit {
     this.listOfTaxTypes = [];
     this.itemDetails = new ItemDto();
     this.isSubmitted = false;
-    this.lineDetails =this.data ? this.data: new LinesDto();
+    this.lineDetails =this.data?.item ? this.data: new LinesDto();
 
     // init forms
     this.initForms();
@@ -84,9 +84,9 @@ export class InvoiceLineComponent implements OnInit {
       quantity: ['', [Validators.required, Validators.min(1)]],
       amount_egp: ['', [Validators.required, Validators.min(1)]],
       sales_total: [''],
-      items_discount: ['', Validators.required],
-      discount_rate: ['', Validators.required],
-      discount_amount: ['', Validators.required],
+      items_discount: [''],
+      discount_rate: [''],
+      discount_amount: [''],
       tax_amount1: [''],
       tax_amount2: [''],
       tax_amount3: [''],
@@ -206,6 +206,7 @@ export class InvoiceLineComponent implements OnInit {
 
   getItemById(id: number) {
     this.itemsService.getItemById(id).subscribe((response: ResponseDto) => {
+      debugger
       this.itemDetails = response.data;
     });
   }
@@ -215,6 +216,8 @@ export class InvoiceLineComponent implements OnInit {
     if (form.valid) {
       this.isSubmitted = false;
       const model: LinesDto = this.lineDetails;
+      model.item = this.itemDetails.id;
+      model.description = this.itemDetails.item_desc;
       model.item_name = this.itemDetails.item_name;
       model.amount_egp = Number(model.amount_egp).toFixed(5);
       model.items_discount = Number(model.items_discount).toFixed(5);
