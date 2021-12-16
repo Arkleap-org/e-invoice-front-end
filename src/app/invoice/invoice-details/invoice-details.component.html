@@ -23,13 +23,14 @@
               <!-- issued date -->
               <div class="form-group">
                 <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
-                <input *ngIf="!invoiceDetails.id" type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
-                (keypress)="$event.preventDefault();"
-                [min]="minInvoiceDate" oninput="validity.valid||(value='');"
-                  formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
+                <input *ngIf="!invoiceDetails.id" type="datetime-local" class="form-control"
+                  placeholder="{{'Issued Date'|translate}}" (keypress)="$event.preventDefault();" [min]="minInvoiceDate"
+                  oninput="validity.valid||(value='');" formControlName="date_time_issued"
+                  [(ngModel)]="invoiceDetails.date_time_issued">
 
-                <input *ngIf="invoiceDetails.id" [class.overlay]="true" type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
-                  formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
+                <input *ngIf="invoiceDetails.id" [class.overlay]="true" type="datetime-local" class="form-control"
+                  placeholder="{{'Issued Date'|translate}}" formControlName="date_time_issued"
+                  [(ngModel)]="invoiceDetails.date_time_issued">
 
                 <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
                   {{'Issued Date is required'|translate}}.
@@ -158,6 +159,7 @@
           <th scope="col">{{'Unit Price'|translate}}</th> <!-- 5 -->
           <th scope="col">{{'Sales Total'|translate}}</th> <!-- 6 -->
           <th scope="col">{{'Discount Amount'|translate}}</th> <!-- 7 -->
+          <th scope="col">{{'Items Discount Amount'|translate}}</th> <!-- 7 -->
           <th scope="col">{{'Net Amount'|translate}}</th> <!-- 8 -->
           <th scope="col">{{'Tax Amount'|translate}}</th> <!-- 9 -->
           <th scope="col">{{'Total Amount'|translate}}</th> <!-- 10 -->
@@ -167,7 +169,7 @@
         <tr *ngFor="let line of newLineDetails; let i=index;">
           <td>
             <mat-icon class="td-pointer text-danger" (click)="deleteLine(line)">delete</mat-icon>
-            <mat-icon class="td-pointer text-primary"  (click)="openLinesPopup(i)">edit</mat-icon>
+            <mat-icon class="td-pointer text-primary" (click)="openLinesPopup(i)">edit</mat-icon>
           </td> <!-- 1 -->
           <td>{{ line.item_name}} </td> <!-- 2 -->
           <td>{{line.description}}</td> <!-- 3 -->
@@ -175,6 +177,7 @@
           <td>{{line.amount_egp}}</td> <!-- 5 -->
           <td>{{line.sales_total}}</td> <!-- 6 -->
           <td>{{line.discount_amount}}</td> <!-- 7 -->
+          <td>{{line.items_discount}}</td> <!-- 7 -->
           <td>{{line.net_total}}</td> <!-- 8 -->
           <td>
             {{ getTaxAmount(line) }}

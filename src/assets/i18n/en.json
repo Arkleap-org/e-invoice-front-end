@@ -153,9 +153,10 @@
   "add line": "add line",
   "Item": "Item",
   "Unit Price": "Unit Price",
+  "Invoice Lines": "Invoice Lines",
   "Discount Amount": "Discount Amount",
-  "Discount Rate":"Discount Rate",
-  "Items Discount":"Items Discount",
+  "Discount Rate": "Discount Rate",
+  "Items Discount": "Items Discount",
   "Net Amount": "Net Amount",
   "Tax Amount": "Tax Amount",
   "Total Sales Amount": "Total Sales Amount",
@@ -213,6 +214,7 @@
   "Pre-Production": "Pre-Production",
   "Environment is required": "Environment is required",
   "Submit Selected Invoices": "Submit Selected Invoices",
-  "Invoice Lines": "Invoice Lines",
-  "Users List": "Users List"
+  "Users List": "Users List",
+  "Items Discount Amount": "Items Discount Amount",
+  "Total Items Discount Amount": "Total Items Discount Amount"
 }

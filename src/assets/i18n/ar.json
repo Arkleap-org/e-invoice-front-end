@@ -146,8 +146,9 @@
   "Item": "الصنف",
   "Unit Price": "سعر الوحدة",
   "Discount Amount": "قيمة الخصم",
-  "Discount Rate":"معدل الخصم",
-  "Items Discount":"الخصم على المنتجات",
+  "Invoice Lines": "تفاصيل الفاتورة",
+  "Discount Rate": "معدل الخصم",
+  "Items Discount": "الخصم على المنتجات",
   "Net Amount": "القيمة قبل الضريبة",
   "Tax Amount": "قيمة الضريبة",
   "Total Sales Amount": "اجمالي المبيعات",
@@ -206,6 +207,7 @@
   "Pre-Production": "البيئة التجريبية",
   "Environment is required": "البيئة مطلوبة",
   "Submit Selected Invoices": "إرسال الفواتير المحددة للمصلحة",
-  "Invoice Lines": "Invoice Lines",
-  "Users List": "قائمة المستخدمين"
+  "Users List": "قائمة المستخدمين",
+  "Items Discount Amount": "قيمة الخصم على السلع",
+  "Total Items Discount Amount": "إجمالي قيمة الخصم على السلع"
 }

@@ -4,7 +4,8 @@
   </div>
   <div class="col-1">
     <button class="btn btn-primary" *ngIf="invoiceDetails.portal_status !== 'Valid'"
-      (click)="submitInvoice(invoiceDetails.internal_id)">{{invoiceDetails.subm_uuid ? 'Resubmit' : 'Submit' | translate}}</button>
+      (click)="submitInvoice(invoiceDetails.internal_id)">{{invoiceDetails.subm_uuid ? 'Resubmit' : 'Submit' |
+      translate}}</button>
   </div>
   <div class="col-1">
     <button class="btn btn-warning" (click)="routeToInvoiceList()">{{'Back' | translate}}</button>
@@ -66,6 +67,8 @@
         <th scope="col">{{'Item Code'|translate}}</th>
         <th scope="col">{{'Description'|translate}}</th>
         <th scope="col">{{'Quantity'|translate}}</th>
+        <th scope="col">{{'Discount Amount'|translate}}</th> <!-- 7 -->
+        <th scope="col">{{'Items Discount Amount'|translate}}</th> <!-- 7 -->
         <th scope="col">{{'Amount EGP'|translate}}</th>
         <th scope="col">{{'Total Amount'|translate}}</th>
 
@@ -78,37 +81,39 @@
         <td>{{line.item_code}}</td>
         <td>{{line.description}}</td>
         <td>{{line.quantity}}</td>
+        <td>{{line.discount_amount}}</td> <!-- 7 -->
+        <td>{{line.items_discount}}</td> <!-- 7 -->
         <td>{{line.amount_egp}}</td>
         <td>{{line.total_amount}}</td>
       </tr>
       <br>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="6"></td>
         <td>{{'Total Sales Amount'|translate}}</td>
         <td>{{invoiceDetails.total_sales_amount}}</td>
       </tr>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="6"></td>
         <td>{{'Total Discount Amount'|translate}}</td>
         <td>{{invoiceDetails.total_discount_amount}}</td>
       </tr>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="6"></td>
         <td>{{'Total Items Discount Amount'|translate}}</td>
         <td>{{invoiceDetails.total_items_discount_amount}}</td>
       </tr>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="6"></td>
         <td>{{'Tax Total'|translate}}</td>
         <td>{{invoiceDetails.tax_totals}}</td>
       </tr>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="6"></td>
         <td>{{'Extra Discount Amount'|translate}}</td>
         <td>{{invoiceDetails.extra_discount_amount}}</td>
       </tr>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="6"></td>
         <td>{{'Total Amount'|translate}}</td>
         <td>{{invoiceDetails.total_amount}}</td>
       </tr>
