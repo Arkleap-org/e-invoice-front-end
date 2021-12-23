@@ -21,7 +21,7 @@ import { ListOfDocumentTypes } from '../../shared/constants/list.constant';
 import { ResponseDto } from '../../shared/models/api-response.model';
 import { ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
-import {  InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
+import { InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
 
 // services
 import { DialogService } from '../../shared/services/dialog.service';
@@ -312,15 +312,16 @@ export class InvoiceDetailsComponent implements OnInit {
   }
 
   openLinesPopup(index?: number) {
-    const line: LinesDto = Object.assign( {}, index || index === 0 ? this.newLineDetails[index] : null );
+    const line: LinesDto = Object.assign({}, index || index === 0 ? this.newLineDetails[index] : null);
     const dialogRef = this.dialog.open(InvoiceLineComponent, {
       width: '100rem',
-      data:line,
+      data: line,
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        debugger
         // get data
-        if (index) { this.newLineDetails[index] = result.model; }
+        if (index || index === 0) { this.newLineDetails[index] = result.model; }
         else this.newLineDetails.push(result.model);
 
         // append lines in form
