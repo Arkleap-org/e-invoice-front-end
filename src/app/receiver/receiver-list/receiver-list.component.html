@@ -1,12 +1,12 @@
 <mat-card>
   <mat-card-title>
     <div class="row">
-      <div class="col-6">
+      <div class="col-5">
         {{'Receivers List' | translate}}
       </div>
-      <div class="col-6 form-group">
+      <div class="col-7 form-group">
         <div class="row justify-content-end">
-          <div class="col-1">
+          <div class="col-1 px-1">
             <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
               title="{{'Upload Excel Sheet'|translate}}" (click)="fileInput.click()">
               <mat-icon>upload</mat-icon>
@@ -14,13 +14,13 @@
             <input type="file" [(ngModel)]="excelSheet" #fileInput hidden (change)="uploadExcelSheet($event)"
               accept=".xls,.xlsx" multiple="false">
           </div>
-          <div class="col-1">
+          <div class="col-1 px-1">
             <button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom"
               title="{{'Download Sheet Template'|translate}}" (click)="downloadExcelSheetTemplate()">
               <mat-icon>download</mat-icon>
             </button>
           </div>
-          <div class="col-1">
+          <div class="col-1 px-1">
             <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
               title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()">
               <mat-icon>add</mat-icon>
@@ -56,8 +56,8 @@
       </ng-container>
 
       <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Type' | translate}} </th>
-        <td mat-cell *matCellDef="let row" class="ellipsis" [title]="getRecieverType(row.type)">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-2"> {{'Type' | translate}} </th>
+        <td mat-cell *matCellDef="let row" class="ellipsis px-2" [title]="getRecieverType(row.type)">
           {{getRecieverType(row.type)}} </td>
       </ng-container>
 
