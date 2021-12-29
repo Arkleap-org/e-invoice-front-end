@@ -120,9 +120,11 @@ export class InvoiceDetailsComponent implements OnInit {
     this.invoiceDetails = new InvoiceDto;
 
     // invoice date min / max
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    let minDay = (new Date().getDate() - 7).toString();
+    const date = new Date();
+    date.setDate(date.getDate() - 7);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    let minDay = date.getDate().toString();
     minDay = minDay.length === 1 ? `0${minDay}` : minDay;
 
     this.minInvoiceDate = `${year}-${month}-${minDay}T00:00`;
@@ -319,7 +321,6 @@ export class InvoiceDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        debugger
         // get data
         if (index || index === 0) { this.newLineDetails[index] = result.model; }
         else this.newLineDetails.push(result.model);
@@ -337,10 +338,21 @@ export class InvoiceDetailsComponent implements OnInit {
     if (form.valid) {
       form.value.date_time_issued = new Date(form.value.date_time_issued);
       form.value.lines = this.newLineDetails;
-      this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
-        this.dialogService.successAndRouteTo('Invoice created successfully!', '/invoice/list');
-        this.isSubmitted = false;
-      });
+
+      // check on date not be in past
+      const date = new Date();
+      date.setDate(date.getDate() - 7);
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const minDay = date.getDate();
+
+      if (new Date(form.value.date_time_issued).getFullYear() !== year || new Date(form.value.date_time_issued).getMonth() !== month || new Date(form.value.date_time_issued).getDate() < minDay)
+        this.dialogService.alertMessege('Date Time Issued cannot be in the past more than 7 days!');
+      else
+        this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {
+          this.dialogService.successAndRouteTo('Invoice created successfully!', '/invoice/list');
+          this.isSubmitted = false;
+        });
     }
   }
 
@@ -359,13 +371,13 @@ export class InvoiceDetailsComponent implements OnInit {
   handleSaveInvoiceBtn(form: FormGroup) {
     let today = new Date();
     form.value.date_time_issued = new Date(form.value.date_time_issued);
-    if (form.value.date_time_issued <= today) {
-      if (this.invoiceId) {
-        this.updateInvoice(this.invoiceId, form);
-      } else {
-        this.createInvoice(form);
-      }
-    } else { this.dialogService.alertMessege('Date Time Issued cannot be in the future!'); }
+    if (this.invoiceId) {
+      this.updateInvoice(this.invoiceId, form);
+    } else {
+      this.createInvoice(form);
+    }
+    // if (form.value.date_time_issued <= today) {
+    // } else { this.dialogService.alertMessege('Date Time Issued cannot be in the future!'); }
 
 
   }
