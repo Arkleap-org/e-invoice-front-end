@@ -45,7 +45,7 @@
 <mat-menu #menu="matMenu">
   <ng-template matMenuContent>
     <button mat-menu-item routerLink="/"> {{'Dashboard' | translate}} </button>
-    <button mat-menu-item [matMenuTriggerFor]="receivers"> {{'Recievers' | translate}} </button>
+    <button mat-menu-item [matMenuTriggerFor]="receivers"> {{'Receivers' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="items"> {{'Items' | translate}} </button>
     <button mat-menu-item [matMenuTriggerFor]="invoices"> {{'Invoices' | translate}} </button>
 
@@ -63,7 +63,7 @@
 <!-- receivers dropdown -->
 <mat-menu #receivers="matMenu">
   <ng-template matMenuContent>
-    <button mat-menu-item routerLink="receiver/list">{{'Recievers List' | translate}}</button>
+    <button mat-menu-item routerLink="receiver/list">{{'Receivers List' | translate}}</button>
     <button mat-menu-item data-toggle="tooltip" data-placement="bottom" title="{{'Add Receiver'|translate}}"
       (click)="openReceiverPopup()"> {{'Add Receiver' | translate}}
     </button>
@@ -88,9 +88,10 @@
     <button mat-menu-item routerLink="user"
       *ngIf="securityService.user?.is_superuser || securityService.user?.is_staff">{{'Add User' | translate}}</button>
     <button mat-menu-item (click)="downloadWebAgent()"
-      *ngIf="securityService.user?.is_superuser || securityService.user?.is_staff">{{'Download Web Agent' | translate}}</button>
-    <button mat-menu-item routerLink="user/list"
-      *ngIf="securityService.user?.is_superuser">{{'User Management' | translate}}</button>
+      *ngIf="securityService.user?.is_superuser || securityService.user?.is_staff">{{'Download Web Agent' |
+      translate}}</button>
+    <button mat-menu-item routerLink="user/list" *ngIf="securityService.user?.is_superuser">{{'User Management' |
+      translate}}</button>
     <button mat-menu-item (click)="logout()">{{'Logout' | translate}}</button>
   </ng-template>
 </mat-menu>
