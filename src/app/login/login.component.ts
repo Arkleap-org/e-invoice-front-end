@@ -51,6 +51,7 @@ export class LoginComponent {
     this.listOfLang = ListOfLanguage;
     this.model = new LoginRequestDto;
     this.isSubmitted = false;
+    this.localStorageService.removeAll();
 
     // init forms
     this.initForm();
