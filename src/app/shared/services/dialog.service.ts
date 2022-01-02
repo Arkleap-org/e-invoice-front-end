@@ -80,6 +80,7 @@ export class DialogService {
     Swal.fire({
       icon: 'warning',
       title: title,
+      width: '80vw'
     });
   }
 

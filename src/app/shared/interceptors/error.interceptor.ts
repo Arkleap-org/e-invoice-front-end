@@ -5,11 +5,12 @@ import { retry, catchError } from "rxjs/operators";
 import { SecurityService } from "../services/security.service";
 import { NotificationMessageService } from "../services/notification.message.service";
 import { ErrorDto, WarningDto } from "../models/api-response.model";
+import { DialogService } from '../services/dialog.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private notificationService: NotificationMessageService, private securityService: SecurityService) { }
+  constructor(private notificationService: NotificationMessageService, private securityService: SecurityService, private dialogService: DialogService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -30,6 +31,10 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
             else if (errorModel.message) {
               this.notificationService.showErrorMessage(errorModel.message);
+            }
+            else if (errorModel.error_messages) {
+              const msg: string = this.handleErrorMessages(errorModel.error_messages);
+              this.dialogService.alertMessege(msg);
             }
             else {
               this.notificationService.showErrorMessage("Something went wrong please try again or call support.");
@@ -55,6 +60,15 @@ export class ErrorInterceptor implements HttpInterceptor {
     let msg = "";
     for (const key in warning) {
       msg += `${key.charAt(0).toUpperCase() + key.slice(1)} : ${warning[key]} \n`;
+    }
+    return msg;
+  }
+
+  handleErrorMessages(errors: string[]): string {
+    let msg = "";
+    for (let i = 0; i < errors.length; i++) {
+      msg += `${errors[i].charAt(0).toUpperCase() + errors[i].slice(1)} \n`;
+
     }
     return msg;
   }

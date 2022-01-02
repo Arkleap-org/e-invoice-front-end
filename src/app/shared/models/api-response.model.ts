@@ -9,6 +9,7 @@ export interface ErrorDto {
   message: string;
   warning: WarningDto;
   detail: string;
+  error_messages: string[];
 }
 
 export interface WarningDto {
