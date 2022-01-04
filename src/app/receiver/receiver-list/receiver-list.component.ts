@@ -105,6 +105,11 @@ export class ReceiverListComponent implements OnInit {
 
   // #region main action
 
+  getIndexOfRow(id: number): number {
+    const index = this.receiverDataSource.data.findIndex(receiver => receiver.id === id) + 1;
+    return index;
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.receiverDataSource.filter = filterValue.trim().toLowerCase();

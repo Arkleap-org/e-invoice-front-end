@@ -101,6 +101,11 @@ export class ItemListComponent implements OnInit {
 
   // #region main action
 
+  getIndexOfRow(id: number): number {
+    const index = this.itemDataSource.data.findIndex(item => item.id === id) + 1;
+    return index;
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.itemDataSource.filter = filterValue.trim().toLowerCase();
