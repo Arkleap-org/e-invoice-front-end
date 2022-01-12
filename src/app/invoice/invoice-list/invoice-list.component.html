@@ -5,40 +5,30 @@
       <div class="col-6">
         {{'Invoices List' | translate}}
       </div>
-      <div class="col-6 form-group">
-        <div class="row justify-content-end">
-          <div class="col-1">
-            <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom"
-              title="{{'Delete Selected Invoices'|translate}}" (click)="deleteSelectedInvoices()">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-          <div class="col-1">
-            <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom"
-              title="{{'Submit Selected Invoices'|translate}}" (click)="SubmitSelectedInvoices()">
-              <mat-icon class="text-white">cloud_upload</mat-icon>
-            </button>
-          </div>
-          <div class="col-1">
-            <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
-              title="{{'Upload Excel Sheet'|translate}}" (click)="fileInput.click()">
-              <mat-icon>upload</mat-icon>
-            </button>
-            <input type="file" [(ngModel)]="excelSheet" #fileInput hidden (change)="uploadExcelSheet($event)"
-              accept=".xls,.xlsx" multiple="false">
-          </div>
-          <div class="col-1">
-            <button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom"
+      <div class="form-group">
+        <div class="justify-content-end invoices-actions">
+          <button type="button" class="btn btn-danger mx-2" data-toggle="tooltip" data-placement="bottom"
+            title="{{'Delete Selected Invoices'|translate}}" (click)="deleteSelectedInvoices()">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button type="button" class="btn btn-info mx-2" data-toggle="tooltip" data-placement="bottom"
+            title="{{'Submit Selected Invoices'|translate}}" (click)="SubmitSelectedInvoices()">
+            <mat-icon class="text-white">cloud_upload</mat-icon>
+          </button>
+          <button type="button" class="btn btn-success mx-2" data-toggle="tooltip" data-placement="bottom"
+            title="{{'Upload Excel Sheet'|translate}}" (click)="fileInput.click()">
+            <mat-icon>upload</mat-icon>
+          </button>
+          <input type="file" [(ngModel)]="excelSheet" #fileInput hidden (change)="uploadExcelSheet($event)"
+            accept=".xls,.xlsx" multiple="false">
+            <button type="button" class="btn btn-warning mx-2" data-toggle="tooltip" data-placement="bottom"
               title="{{'Download Sheet Template'|translate}}" (click)="downloadExcelSheetTemplate()">
               <mat-icon>download</mat-icon>
             </button>
-          </div>
-          <div class="col-1">
-            <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
+            <button type="button" class="btn btn-primary mx-2" data-toggle="tooltip" data-placement="bottom"
               title="{{'Add Invoice'|translate}}" routerLink="/invoice/add">
               <mat-icon>add</mat-icon>
             </button>
-          </div>
         </div>
       </div>
     </div>
@@ -50,8 +40,8 @@
     <input matInput (keyup)="applyFilter($event)" #input>
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="invoiceDataSource" matSort>
+  <div class="mat-elevation-z8 table-container">
+    <table  mat-table [dataSource]="invoiceDataSource" matSort>
 
       <ng-container matColumnDef="isSelected">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'#' | translate}} </th>
