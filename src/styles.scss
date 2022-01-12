@@ -117,3 +117,22 @@ body {
 .mat-snack-bar-container {
   min-width: 500px !important;
 }
+.long_desc {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 21% !important;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  padding: 10px 0px !important;
+}
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  padding-right: 14px !important;
+  padding-left: 14px !important;
+}
+.table-container {
+  width: auto;
+  overflow: auto;
+}
