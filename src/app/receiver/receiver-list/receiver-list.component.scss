@@ -1,9 +1,16 @@
-.ellipsis {
-  max-width: 30px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: pre-line;
-}
-.receivers-actions {
-  float: right;
+:host  {
+  .ellipsis {
+    max-width: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre-line;
+  }
+  .receivers-actions {
+    float: right;
+    [dir=rtl] & {
+      clear: both;
+      float: left;
+    }
+  }
+
 }

@@ -1,14 +1,65 @@
-.card-title{
-    font-size: 10px;
-    text-align: center;
-}
+@import '../../assets/scss/variables.scss';
+:host {
+    .cards-container {
+        min-height: 31rem;
+    }
+    .card-title{
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 38px;
+        strong {
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            [dir="rtl"] & {
+                font-size: 20px;
+            }
+        }
+    }
+    
+    .card-icon{
+        font-size: 48px;
+    }
+    
+    .card-count{
+        font-size: 48px;
+        padding-top: 1.2rem;
+        text-align: end;
+    }
+    .recent_invoices {
+        text-align: right;
+        [dir="rtl"] & {
+            text-align: left;
+        }
+    }
+    .card-orange {
+        background-color: $orange-color;
+        box-shadow: $card-box-shadow;
+    }
+    .card-light-blue {
+        background-color: $light-blue-color;
+        box-shadow: $card-box-shadow;
+    }
+    .card-dark-blue {
+        background-color: $dark-blue-color;
+        box-shadow: $card-box-shadow;
+    }
+    .card-grey {
+        background-color: $grey-color;
+        box-shadow: $card-box-shadow;
+    }
+    .sub-header {
+        margin-top: 45px;
+    }
+    .btn-recent-invoices {
+        background-color: $success-btn;
+        border: 1px solid $success-btn;
+        padding: 7px 12px;
+        box-shadow: $btn-shadow;
+        transition: $btn-transition;
+        &:hover {
+            box-shadow: $btn-hover-shadow;
+        }
+    }
 
-.card-icon{
-    font-size: 48px;
-}
 
-.card-count{
-    font-size: 48px;
-    padding-top: 1.2rem;
-    text-align: end;
 }

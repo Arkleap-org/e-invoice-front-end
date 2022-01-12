@@ -1,5 +1,7 @@
+import { Direction } from '@angular/cdk/bidi';
 import { Component, ElementRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { AppStorageService } from './shared/services/app-storage.service';
 import { LoaderService } from './shared/services/loader.service';
 import { LocalStorageService } from './shared/services/local-storage.service';
 
@@ -13,6 +15,7 @@ export class AppComponent {
   // #region declare variables
 
   listOfSideMenu: any;
+  textDir: Direction = 'rtl';
 
   // #endregion
 
@@ -22,7 +25,8 @@ export class AppComponent {
     private elem: ElementRef,
     public loaderService: LoaderService,
     public translate: TranslateService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private appStoreService: AppStorageService
   ) {
     const lang = this.localStorageService.retrieve('lang') || 'en';
     this.translate.use(lang).subscribe(() => this.localStorageService.store('lang', lang));
@@ -37,6 +41,15 @@ export class AppComponent {
       inputs.forEach((input: HTMLElement) => {
         input.setAttribute('autocomplete', 'new-password');
       });
+    });
+
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.appStoreService.setLanguage(event.lang);
+      if (event.lang == 'ar') {
+        this.textDir = 'rtl';
+      } else {
+        this.textDir = 'ltr';
+      }
     });
 
   }
