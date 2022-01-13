@@ -1,8 +1,17 @@
-.header {
-  padding-left: 30px;
-  height: 80px;
+:host {
+  .header {
+    padding-left: 30px;
+    height: 80px;
+  }
+  
+  .decorator-none {
+    text-decoration: none;
+  }
+  .navbar-nav{
+    [dir=rtl] & {
+      margin-left: auto!important;
+      margin-right: 0px !important;
+    }
+  }
 }
 
-.decorator-none {
-  text-decoration: none;
-}

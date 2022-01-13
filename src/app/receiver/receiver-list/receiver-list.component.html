@@ -6,20 +6,21 @@
       </div>
       <div class="form-group">
         <div class="receivers-actions">
-          <button type="button" class="btn btn-success mx-2" data-toggle="tooltip" data-placement="bottom"
+          <button type="button" class="btn btn-add text-light mx-2" data-toggle="tooltip" data-placement="bottom"
+          title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()">
+          <mat-icon>add</mat-icon>
+        </button>
+          <button type="button" class="btn btn-upload text-light mx-2" data-toggle="tooltip" data-placement="bottom"
             title="{{'Upload Excel Sheet'|translate}}" (click)="fileInput.click()">
             <mat-icon>upload</mat-icon>
           </button>
           <input type="file" [(ngModel)]="excelSheet" #fileInput hidden (change)="uploadExcelSheet($event)"
             accept=".xls,.xlsx" multiple="false">
-          <button type="button" class="btn btn-warning mx-2" data-toggle="tooltip" data-placement="bottom"
+          <button type="button" class="btn btn-download text-light mx-2" data-toggle="tooltip" data-placement="bottom"
             title="{{'Download Sheet Template'|translate}}" (click)="downloadExcelSheetTemplate()">
             <mat-icon>download</mat-icon>
           </button>
-          <button type="button" class="btn btn-primary mx-2" data-toggle="tooltip" data-placement="bottom"
-            title="{{'Add Receiver'|translate}}" (click)="openReceiverPopup()">
-            <mat-icon>add</mat-icon>
-          </button>
+
         </div>
       </div>
     </div>
@@ -68,10 +69,10 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
         <td class="text-nowrap" mat-cell *matCellDef="let row" [width]="150">
-          <button class="btn btn-outline-secondary rounded mx-1 " (click)="openReceiverPopup(row.id)">
+          <button class="btn btn-edit rounded mx-1 " (click)="openReceiverPopup(row.id)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button class="btn btn-outline-danger rounded" (click)="deleteReceiver(row.id)">
+          <button class="btn btn-delete rounded" (click)="deleteReceiver(row.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

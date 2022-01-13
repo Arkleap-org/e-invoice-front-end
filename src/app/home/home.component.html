@@ -1,5 +1,5 @@
 <div>
-  <mat-card>
+  <mat-card class="cards-container">
     <mat-card-title class="text-mb-4">{{'Dashboard' | translate}}</mat-card-title>
 
     <br>
@@ -13,7 +13,7 @@
 
         <div class="d-flex justify-content-between">
           <div class="col-md-3 mb-5">
-            <mat-card class="text-white bg-warning">
+            <mat-card class="text-white card-orange">
               <div class="row card-title">
                 <div><strong>{{'Receivers Count'|translate}} </strong></div>
               </div>
@@ -32,7 +32,7 @@
           </div>
           <div class="col-md-3">
 
-            <mat-card class="text-white bg-success">
+            <mat-card class="text-white card-light-blue">
               <div class="row card-title">
                 <div><strong>{{ thisMonth | date:'MMMM'}}'s {{'Valid Invoices'|translate}} </strong></div>
               </div>
@@ -52,7 +52,7 @@
           </div>
 
           <div class="col-md-3">
-            <mat-card class="text-white bg-danger">
+            <mat-card class="text-white card-dark-blue">
               <div class="row card-title">
                 <div><strong>{{ thisMonth | date:'MMMM'}}'s {{'Invalid Invoices'|translate}}</strong></div>
               </div>
@@ -71,7 +71,7 @@
           </div>
           <div class="col-md-3">
 
-            <mat-card class="text-white bg-primary">
+            <mat-card class="text-white card-grey">
               <div class="row card-title">
                 <div><strong>{{'Total Invoices'|translate}} </strong></div>
               </div>
@@ -95,7 +95,7 @@
     <!-- recent invoices -->
     <br>
     <br>
-    <mat-card-title class="text-secondary mt-6">{{'Recent Invoices' | translate}}</mat-card-title>
+    <mat-card-title class="text-secondary mt-5">{{'Recent Invoices' | translate}}</mat-card-title>
     <div class="row">
       <div class="col-6">
         <mat-form-field appearance="standard">
