@@ -32,7 +32,7 @@
       <div class="col-3">
         <div class="form-group">
           <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" min="0" oninput="validity.valid||(value='');" class="form-control"
+          <input type="number" min="0" class="form-control"
             placeholder="{{'Quantity'|translate}}" formControlName="quantity" [(ngModel)]="lineDetails.quantity"
             [readonly]='!itemDetails.item_desc'
             (ngModelChange)="calculateSalesTotal();calculateNetTotal(lineDetails.discount_amount)">

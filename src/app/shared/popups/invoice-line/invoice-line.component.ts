@@ -206,7 +206,6 @@ export class InvoiceLineComponent implements OnInit {
 
   getItemById(id: number) {
     this.itemsService.getItemById(id).subscribe((response: ResponseDto) => {
-      debugger
       this.itemDetails = response.data;
     });
   }
