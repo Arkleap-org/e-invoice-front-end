@@ -1,1 +1,10 @@
+:host {
+    .items-action {
+        float: right;
+        [dir=rtl] & {
+            clear: both;
+            float: left;
+        }
+    }
 
+}

@@ -117,3 +117,99 @@ body {
 .mat-snack-bar-container {
   min-width: 500px !important;
 }
+.long_desc {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 21% !important;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  padding: 10px 0px !important;
+}
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  padding-right: 14px !important;
+  padding-left: 14px !important;
+}
+.table-container {
+  width: auto;
+  overflow: auto;
+}
+
+.btn-download {
+  background-color: $warning-btn;
+  box-shadow: $btn-shadow;
+  transition: $btn-transition;
+  color: #fff;
+  &:hover {
+    box-shadow: $btn-hover-shadow;
+  }
+}
+.btn-upload {
+  background-color: $primary-btn;
+  box-shadow: $btn-shadow;
+  transition: $btn-transition;
+  &:hover {
+    box-shadow: $btn-hover-shadow;
+  }
+}
+.btn-add {
+  background-color: $success-btn;
+  box-shadow: $btn-shadow;
+  transition: $btn-transition;
+  &:hover {
+    box-shadow: $btn-hover-shadow;
+  }
+}
+.btn-delete {
+  background-color: #fff;
+  color: $danger-btn;
+  border: 1px solid $danger-btn;
+  box-shadow: $btn-shadow;
+  transition: $btn-transition;
+  &:hover {
+    box-shadow: $btn-hover-shadow;
+    background-color: $danger-btn;
+    color: #fff;
+  }
+}
+.btn-edit {
+  background-color: #fff;
+  color: $default-btn;
+  border: 1px solid $default-btn;
+  box-shadow: $btn-shadow;
+  transition: $btn-transition;
+  &:hover {
+    box-shadow: $btn-hover-shadow;
+    background-color: $default-btn;
+    color: #fff;
+  }
+}
+.btn-preview {
+  background-color: $success-btn;
+}
+.btn-create {
+  background-color: $base-color;
+  border: 1px solid $base-color;
+  color: #fff;
+}
+.btn-pdf {
+  background-color: #fff;
+  color: #ff0000 ;
+  border: 1px solid #ff0000;
+  box-shadow: $btn-shadow;
+  transition: $btn-transition;
+  &:hover {
+    box-shadow: $btn-hover-shadow;
+    background-color: #ff0000 ;
+    color: #fff;
+  }
+}
+.btn-cloud-upload {
+  &:hover {
+    box-shadow: $btn-hover-shadow;
+    background-color: #0dcaf0;
+    color: #fff;
+  }
+}

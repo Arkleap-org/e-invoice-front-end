@@ -1,0 +1,11 @@
+
+:host {
+    .invoices-actions {
+        float: right;
+        [dir=rtl] & {
+            clear: both;
+            float: left;
+        }
+    }
+
+}
