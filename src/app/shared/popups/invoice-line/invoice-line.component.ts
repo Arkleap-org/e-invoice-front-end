@@ -55,7 +55,7 @@ export class InvoiceLineComponent implements OnInit {
     this.listOfTaxTypes = [];
     this.itemDetails = new ItemDto();
     this.isSubmitted = false;
-    this.lineDetails =this.data?.item ? this.data: new LinesDto();
+    this.lineDetails = this.data?.item ? this.data : new LinesDto();
 
     // init forms
     this.initForms();
@@ -102,15 +102,15 @@ export class InvoiceLineComponent implements OnInit {
   loadControls() {
     this.listItems();
     this.listTaxTypes();
-   if (this.data?.item) this.getItemById(this.data.item);
+    if (this.data?.item) this.getItemById(this.data.item);
   }
 
   listItems() {
-    this.itemsService.listItems().subscribe((response: ResponseDto) =>  this.listOfItems = response.data);
+    this.itemsService.listItems().subscribe((response: ResponseDto) => this.listOfItems = response.data);
   }
 
   listTaxTypes() {
-    this.itemsService.listTaxTypes().subscribe((res: ResponseDto) =>  this.listOfTaxTypes = res.data);
+    this.itemsService.listTaxTypes().subscribe((res: ResponseDto) => this.listOfTaxTypes = res.data);
   }
 
   // #endregion
