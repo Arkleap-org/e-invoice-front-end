@@ -82,5 +82,11 @@ export class InvoiceService {
     return this.http.delete<ResponseDto>(url);
   }
 
+
+  getInvoiceList() {
+    const url = `invoice/relatedInvoicesList`
+    return this.http.get<ResponseDto>(url);
+  }
+
 }
 
