@@ -177,6 +177,7 @@ export class InvoiceDetailsComponent implements OnInit {
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
       date_time_issued: [, Validators.required],
+      purchase_order_reference: ['',],
       purchase_order_description: ['',],
       lines: this.formBuilder.array([])
     });
