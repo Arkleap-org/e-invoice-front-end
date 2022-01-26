@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 // angular forms
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 // angular material dialog
 import { MatDialog } from '@angular/material/dialog';
@@ -30,6 +30,7 @@ import { ItemsService } from '../../shared/services/items.service';
 import { ReceiverService } from '../../shared/services/receiver.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AppStorageService } from 'src/app/shared/services/app-storage.service';
 
 @Component({
   selector: 'app-invoice-details',
@@ -49,10 +50,12 @@ export class InvoiceDetailsComponent implements OnInit {
   hasQty: boolean;
   isSubmitted: boolean;
   minInvoiceDate: string;
+  viewListInvoiceFlag!: boolean;
+  currentLang!: string
 
   // names of lists
   listOfReceivers: ReceiverDto[];
-  listOfDocumentTypes: { label: string, value: string }[];
+  listOfDocumentTypes: { labelEn: string, labelAr: string,value: string }[];
   listOfItems: ListItemsResponseDto[];
 
   // names of forms
@@ -65,6 +68,8 @@ export class InvoiceDetailsComponent implements OnInit {
   itemDetails: ListItemsResponseDto[];
   linesDetails: LinesDto[];
   newLineDetails: LinesDto[];
+  listOfInvoices: { id: number, internal_id: string }[];
+
 
   // names of total calculations
   totalSalesAmount!: any;
@@ -91,7 +96,8 @@ export class InvoiceDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private itemsService: ItemsService,
     public datepipe: DatePipe,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private appStorageService: AppStorageService
   ) {
     // init variables
 
@@ -100,8 +106,15 @@ export class InvoiceDetailsComponent implements OnInit {
     this.itemDetails = [];
     this.linesDetails = [];
     this.newLineDetails = [];
+    this.listOfInvoices = []
 
-    this.listOfDocumentTypes = ListOfDocumentTypes;
+    this.viewListInvoiceFlag = false;
+
+    this.listOfDocumentTypes = [
+      { labelEn: "Invoice" , labelAr: "فاتورة ضريبية",value: "I" },
+      { labelEn: "Credit Memo" ,  labelAr: "إشعار دائن" ,value: "C" },
+      { labelEn: "Debit Memo",  labelAr: "إشعار مدين" ,value: "D" }
+    ]
 
 
     this.receiverDetails = new ReceiverDto;
@@ -130,7 +143,11 @@ export class InvoiceDetailsComponent implements OnInit {
     this.minInvoiceDate = `${year}-${month}-${minDay}T00:00`;
 
     // init forms
+    this.isRelatedInvoiceRequired = this.isRelatedInvoiceRequired.bind(this);
     this.initForms();
+    this.appStorageService.getLanguage().subscribe(lang => 
+      this.currentLang = lang      
+    )
   }
 
   // #endregion
@@ -139,6 +156,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadControls();
+    this.getInvoiceList();
     this.invoiceId = this.route.snapshot.params['id'];
     if (this.invoiceId) this.getInvoiceById();
   }
@@ -154,10 +172,12 @@ export class InvoiceDetailsComponent implements OnInit {
   initInvoiceForm() {
     this.invoiceForm = this.formBuilder.group({
       document_type: [null, Validators.required],
+      related_invoice: [,[this.isRelatedInvoiceRequired]],
       receiver: [null, Validators.required],
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
       date_time_issued: [, Validators.required],
+      purchase_order_description: ['',],
       lines: this.formBuilder.array([])
     });
   }
@@ -170,6 +190,13 @@ export class InvoiceDetailsComponent implements OnInit {
     return this.invoiceForm.controls;
   }
 
+  isRelatedInvoiceRequired(control:FormControl) {
+    if((!control || !control.value) && this.invoiceDetails.document_type && this.invoiceDetails.document_type !== 'I') {
+      return {isRequired:true}
+    }
+    else return null
+  }
+
   // #endregion
 
   // #region load controls
@@ -178,6 +205,11 @@ export class InvoiceDetailsComponent implements OnInit {
     this.listReceivers();
   }
 
+  getInvoiceList() {
+    this.invoiceService.getInvoiceList().subscribe(
+      (response: ResponseDto) => this.listOfInvoices = response.data
+    )
+  }
   listReceivers() {
     this.receiverService.listReceivers().subscribe((response: ResponseDto) => {
       this.listOfReceivers = response.data;
@@ -285,6 +317,13 @@ export class InvoiceDetailsComponent implements OnInit {
     });
   }
 
+  viewListOfInvoices(event: any) {
+    if (event && event.value !== 'I') {
+      this.viewListInvoiceFlag = true
+    }
+    else this.viewListInvoiceFlag = false;
+  }
+
   openReceiverPopup() {
     const dialogRef = this.dialog.open(AddReceiverComponent);
 
@@ -332,6 +371,28 @@ export class InvoiceDetailsComponent implements OnInit {
       }
     });
   }
+
+
+  // getInvoiceId(invoice: any) {
+  //   if(invoice?.id) {
+  //     this.invoiceService.getInvoicesLinesByInvoiceId(invoice.id).subscribe((response: ResponseDto) => {
+  //       const dialogRef = this.dialog.open(InvoiceLinesListComponent, {  data: {list: response.data}   })
+  //       dialogRef.afterClosed().subscribe(result => {
+  //         if(result) {
+  //           this.newLineDetails =  result.data.map((line:any) => {
+  //             delete line['id']
+  //              return line;
+  //            });;  
+  //           this.calculateSummary()    ;  
+  //         }
+  //       }) 
+  //     })
+  //   }
+  //   else {
+  //     this.newLineDetails = [];
+  //     this.calculateSummary()    ;  
+  //   }
+  // }
 
   createInvoice(form: FormGroup) {
     this.isSubmitted = true;
