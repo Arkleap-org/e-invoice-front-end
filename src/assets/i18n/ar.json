@@ -212,5 +212,6 @@
     "Total Items Discount Amount": "إجمالي قيمة الخصم على السلع",
     "Update Item": "تعديل منتج",
     "Purchase Order Description": "وصف أمر الشراء",
-    "Invoice List": "قائمة الفواتير"
+    "Invoice List": "قائمة الفواتير",
+    "Purchase Order Number": "رقم أمر الشراء"
 }

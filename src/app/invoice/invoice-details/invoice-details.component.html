@@ -24,6 +24,13 @@
                                 <input type="text" class="form-control" placeholder="{{'Purchase Order Description'|translate}}" formControlName="purchase_order_description" [(ngModel)]="invoiceDetails.purchase_order_description" [class.overlay]="invoiceDetails.purchase_order_description == 'Submitted'">
                             </div>
                         </div>
+                        <!-- purchase order number -->
+                        <div class="col-6 pt-5">
+                            <div class="form-group">
+                                <label>{{'Purchase Order Number'|translate}}</label>
+                                <input type="text" class="form-control" placeholder="{{'Purchase Order Number'|translate}}" formControlName="purchase_order_reference" [(ngModel)]="invoiceDetails.purchase_order_reference" [class.overlay]="invoiceDetails.purchase_order_reference == 'Submitted'">
+                            </div>
+                        </div>
                         <div class="col-6 pt-5">
 
                             <!-- issued date -->
