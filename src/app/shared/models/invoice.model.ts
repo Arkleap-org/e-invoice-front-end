@@ -21,7 +21,10 @@ export class InvoiceDto {
   subm_uuid!: string;
   subm_id!: string;
   receiver!: number;
+  purchase_order_reference!: string;
+  purchase_order_description!: string;
   isSelected?: boolean;
+  related_invoice!: string;
 }
 
 export class CreateInvoiceDto {
