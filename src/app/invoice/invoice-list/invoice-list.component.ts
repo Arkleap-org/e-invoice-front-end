@@ -213,7 +213,7 @@ export class InvoiceListComponent implements OnInit {
 
   isHeaderMatchTemplate(headers: string[]): boolean {
     return (
-      headers.length === 10 && // check on header length
+      headers.length === 11 && // check on header length
       headers[0].includes('Invoice Id') &&
       headers[1].includes('Invoice Date') &&
       (headers[2].includes('Customer Regestration Number') ||
@@ -224,7 +224,8 @@ export class InvoiceListComponent implements OnInit {
       headers[6].includes('Quantity') &&
       headers[7].includes('Unit Price') &&
       headers[8].includes('Document Type') &&
-      headers[9].includes('Items Discount')
+      headers[9].includes('Items Discount') &&
+      headers[10].includes('Invoice Version')
     );
   }
 
@@ -270,7 +271,7 @@ export class InvoiceListComponent implements OnInit {
       .subscribe((res: ResponseDto) => this.listInvoices());
   }
 
-  hasSelectedInvoices():boolean {
+  hasSelectedInvoices(): boolean {
     const list: InvoiceDto[] = this.invoiceDataSource.data;
     return list.findIndex((invoice) => invoice.isSelected === true) > -1;
   }
@@ -278,12 +279,12 @@ export class InvoiceListComponent implements OnInit {
   deleteSelectedInvoices() {
     if (this.hasSelectedInvoices()) {
       if (this.isAllSelectedInvoicesDraft()) {
-        const ids: number[] = this.invoiceDataSource.data.filter((invoice) =>invoice.isSelected === true).map((invoice) => { return invoice.id; });
+        const ids: number[] = this.invoiceDataSource.data.filter((invoice) => invoice.isSelected === true).map((invoice) => { return invoice.id; });
         this.deleteInvoices(ids);
       }
       else this.dialogService.alertMessege('Only Draft Invoice can be deleted.');
-     }
-    else  this.dialogService.alertMessege( 'Please Select Invoices to be deleted.'  );
+    }
+    else this.dialogService.alertMessege('Please Select Invoices to be deleted.');
   }
 
   deleteInvoices(ids: number[]) {
@@ -295,8 +296,8 @@ export class InvoiceListComponent implements OnInit {
 
   isAllSelectedInvoicesDraft() {
     const list: InvoiceDto[] = this.invoiceDataSource.data.filter(
-      (invoice) => invoice.invoice_status != 'Draft' && invoice.isSelected  === true
-     );
+      (invoice) => invoice.invoice_status != 'Draft' && invoice.isSelected === true
+    );
     return list.length === 0;
   }
 
