@@ -5,6 +5,7 @@ export class ReceiverDto {
   governate!: string;
   id!: number;
   name!: string;
+  taxable_receiver_name!: string;
   reg_num!: string;
   regionCity!: string;
   street!: string;

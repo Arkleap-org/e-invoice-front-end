@@ -213,5 +213,8 @@
     "Update Item": "تعديل منتج",
     "Purchase Order Description": "وصف أمر الشراء",
     "Invoice List": "قائمة الفواتير",
-    "Purchase Order Number": "رقم أمر الشراء"
+    "Purchase Order Number": "رقم أمر الشراء",
+    "Receiver Taxable Name":"إسم العميل الضريبي",
+    "Feild is required":"هذا الحقل مطلوب",
+    "Passport":"جواز السفر"
 }
