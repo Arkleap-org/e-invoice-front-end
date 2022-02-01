@@ -1,6 +1,6 @@
 // angular modules
 import { Component, Inject, OnInit, Optional } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -31,6 +31,7 @@ export class AddReceiverComponent implements OnInit {
   // names of booleans
   isSubmitted: boolean;
 
+
   // names of lists
   listOfReceiverType: { label: string, value: string }[];
   listOfCountries: { code: string, desc_en: string, desc_ar: string }[];
@@ -58,6 +59,7 @@ export class AddReceiverComponent implements OnInit {
     this.isSubmitted = false;
 
     // init forms
+    this.handleRegistrationNumberValidation = this.handleRegistrationNumberValidation.bind(this);
     this.initForms();
 
   }
@@ -82,8 +84,9 @@ export class AddReceiverComponent implements OnInit {
     this.receiverForm = this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
+      taxable_receiver_name: ['', Validators.required],
       type: ['', Validators.required],
-      reg_num: ['', Validators.required],
+      reg_num: ['', [this.handleRegistrationNumberValidation]],
       country: ['', Validators.required],
       governate: ['', Validators.required],
       regionCity: ['', Validators.required],
@@ -94,6 +97,13 @@ export class AddReceiverComponent implements OnInit {
 
   get receiverFormControls() {
     return this.receiverForm.controls;
+  }
+
+  handleRegistrationNumberValidation(control: FormControl) {
+    if( (control && !control.value) && (this.receiverDetails.type == 'B' || this.receiverDetails.type == 'F')) {
+      return {isRequired : true}
+    }
+    else return null;
   }
 
   // #endregion
@@ -122,12 +132,14 @@ export class AddReceiverComponent implements OnInit {
 
   // #region main actions
 
+
   handleSaveReceiver(model: ReceiverDto) {
     this.isSubmitted = true;
     if (this.receiverForm.valid) {
       if (model.id) this.updateReceiver(model);
       else this.createReceiver(model);
     }
+
   }
 
   updateReceiver(model: ReceiverDto) {

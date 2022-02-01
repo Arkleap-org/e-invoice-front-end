@@ -20,13 +20,25 @@
       <div class="col-4">
         <div class="form-group">
           <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
-          <input type="text" class="form-control" placeholder="{{'Receiver Name'|translate}}"
+          <input (ngModelChange)="receiverDetails.taxable_receiver_name = $event" type="text" class="form-control" placeholder="{{'Receiver Name'|translate}}"
             [(ngModel)]="receiverDetails.name" formControlName="name">
           <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.name.errors?.required">
             {{'Name is required'|translate}}.
           </small>
         </div>
       </div>
+
+        <!-- Receiver Taxable Name -->
+        <div class="col-4">
+          <div class="form-group">
+            <label>{{'Receiver Taxable Name' | translate}}<span class="text-danger">*</span></label>
+            <input type="text"  class="form-control" placeholder="{{'Receiver Taxable Name'|translate}}"
+              [(ngModel)]="receiverDetails.taxable_receiver_name" formControlName="taxable_receiver_name">
+            <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.taxable_receiver_name.errors?.required">
+              {{'Receiver Taxable Name is required'|translate}}.
+            </small>
+          </div>
+        </div>
       <!-- type -->
       <div class="col-4">
         <div class="form-group">
@@ -39,14 +51,17 @@
           </small>
         </div>
       </div>
+      
       <!-- national id -->
-      <div class="col-4">
+      <div *ngIf="receiverDetails.type" class="col-4">
         <div class="form-group">
-          <label>{{'National ID' | translate}}<span class="text-danger">*</span></label>
-          <input type="number" class="form-control" placeholder="{{'National ID'|translate}}"
+          <label *ngIf="receiverDetails.type === 'B'">{{'Registration Number' | translate}}<span class="text-danger">*</span></label>
+          <label *ngIf="receiverDetails.type === 'P'">{{'National ID' | translate}}</label>
+          <label *ngIf="receiverDetails.type === 'F'">{{'Passport' | translate}}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control"
             [(ngModel)]="receiverDetails.reg_num" formControlName="reg_num">
-          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.reg_num.errors?.required">
-            {{'National ID is required'|translate}}.
+          <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.reg_num.errors?.isRequired">
+            {{'Feild is required'|translate}}.
           </small>
         </div>
       </div>
