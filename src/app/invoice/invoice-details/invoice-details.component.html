@@ -112,7 +112,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
-                                        <ng-select [items]="listOfReceivers" bindLabel="name" bindValue="id" [searchable]="true" placeholder="{{'Receiver Name'|translate}}" formControlName="receiver" [(ngModel)]="receiverId" (change)="getReceiver()">
+                                        <ng-select [items]="listOfReceivers" bindLabel="taxable_receiver_name" bindValue="id" [searchable]="true" placeholder="{{'Receiver Name'|translate}}" formControlName="receiver" [(ngModel)]="receiverId" (change)="getReceiver()">
                                         </ng-select>
                                     </div>
                                 </div>
