@@ -57,7 +57,7 @@ const routes: Routes = [
 
       { path: "user/list", canActivate: [AuthGuardService], component: UserManagementComponent },
       { path: "user/view/:id", canActivate: [AuthGuardService], component: UserViewComponent },
-      { path: "user/reset-password/:id", canActivate: [AuthGuardService], component: ResetPasswordComponent },
+      { path: "user/reset-password", canActivate: [AuthGuardService], component: ResetPasswordComponent },
 
 
 
