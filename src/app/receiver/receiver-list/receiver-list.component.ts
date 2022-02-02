@@ -189,16 +189,17 @@ export class ReceiverListComponent implements OnInit {
   }
 
   isHeaderMatchTemplate(headers: string[]): boolean {
-    return headers.length === 9 // check on header length
+    return headers.length === 10 // check on header length
       && headers[0].includes("Code")
       && headers[1].includes("Name")
-      && headers[2].includes("Type")
-      && (headers[3].includes("Registration Number") || headers[3].includes("Regestration Number"))
-      && headers[4].includes("Country")
-      && headers[5].includes("Governate")
-      && headers[6].includes("Region City")
-      && headers[7].includes("Street")
-      && headers[8].includes("Building Number")
+      && headers[2].includes("Receiver Taxable Name")
+      && headers[3].includes("Type")
+      && headers[4].includes("Registration Number")
+      && headers[5].includes("Country")
+      && headers[6].includes("Governate")
+      && headers[7].includes("Region City")
+      && headers[8].includes("Street")
+      && headers[9].includes("Building Number")
       ;
   }
 

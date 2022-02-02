@@ -213,19 +213,17 @@ export class InvoiceListComponent implements OnInit {
 
   isHeaderMatchTemplate(headers: string[]): boolean {
     return (
-      headers.length === 11 && // check on header length
+      headers.length === 10 && // check on header length
       headers[0].includes('Invoice Id') &&
       headers[1].includes('Invoice Date') &&
-      (headers[2].includes('Customer Regestration Number') ||
-        headers[2].includes('Customer Registration Number')) &&
-      headers[3].includes('Item Type') &&
-      headers[4].includes('Item Internal Code') &&
-      headers[5].includes('Line Description') &&
-      headers[6].includes('Quantity') &&
-      headers[7].includes('Unit Price') &&
-      headers[8].includes('Document Type') &&
-      headers[9].includes('Items Discount') &&
-      headers[10].includes('Invoice Version')
+      headers[2].includes('Customer Internal code') &&
+      headers[3].includes('Item Internal Code') &&
+      headers[4].includes('Quantity') &&
+      headers[5].includes('Unit Price') &&
+      headers[6].includes('Document Type') &&
+      headers[7].includes('Items Discount') &&
+      headers[8].includes('Items Discount Rate') &&
+      headers[9].includes('Invoice Version')
     );
   }
 

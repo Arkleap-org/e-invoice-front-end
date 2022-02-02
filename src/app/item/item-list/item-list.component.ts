@@ -174,12 +174,14 @@ export class ItemListComponent implements OnInit {
     return headers.length >= 6 // check on header length
       && headers[0].includes("Item Name")
       && headers[1].includes("Item Description")
-      && headers[2].includes("Item Type")
+      && headers[2].includes("Item Code Type")
       && headers[3].includes("Item Code")
       && headers[4].includes("Internal Code")
       && headers[5].includes("Unit Type")
-      && headers[6].includes("Tax Type")
-      && headers[7].includes("Tax Rate")
+      && headers[6].includes("Tax Type1")
+      && headers[7].includes("Tax Rate1")
+      && headers[8].includes("Tax Type2")
+      && headers[9].includes("Tax Rate2")
       ;
   }
 
