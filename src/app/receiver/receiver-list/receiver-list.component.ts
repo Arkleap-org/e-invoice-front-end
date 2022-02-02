@@ -179,8 +179,8 @@ export class ReceiverListComponent implements OnInit {
     else if (!this.checkAllFieldFilled(file)) this.dialogService.alertMessege("Please make sure to fill all field.");
     else {
       const recievers = file.map(reciever => {
-        reciever[2] = this.listOfReceiverType.find(type => type.label === reciever[2])?.value || "";
-        reciever[4] = this.listOfCountries.find(country => country.desc_ar === reciever[4])?.code || "";
+        reciever[3] = this.listOfReceiverType.find(type => type.label === reciever[3])?.value || "";
+        reciever[5] = this.listOfCountries.find(country => country.desc_ar === reciever[5])?.code || "";
         return reciever;
       });
       this.uploadReceiverExcelSheet(recievers);

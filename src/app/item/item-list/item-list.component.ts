@@ -163,6 +163,7 @@ export class ItemListComponent implements OnInit {
       const items = file.map(item => {
         item[5] = this.listOfUnitTypes.find(type => type.desc_en === item[5])?.code || "";
         item[6] = this.listOfTaxTypes.find(type => type.desc_ar === item[6])?.code || "";
+        if (item[8]) item[8] = this.listOfTaxTypes.find(type => type.desc_ar === item[8])?.code || "";
         return item;
       });
       this.uploadItemExcelSheet(items);

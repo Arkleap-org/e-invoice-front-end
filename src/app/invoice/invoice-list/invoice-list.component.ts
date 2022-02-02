@@ -244,8 +244,8 @@ export class InvoiceListComponent implements OnInit {
         invalidDate = true;
       }
       invoice[1] = this.datepipe.transform(dt, 'yyyy-MM-dd hh:mm:ss') || '';
-      invoice[8] =
-        this.listOfDocumentTypes.find((type) => type.label === invoice[8])
+      invoice[6] =
+        this.listOfDocumentTypes.find((type) => type.label === invoice[6])
           ?.value || '';
       return invoice;
     });
