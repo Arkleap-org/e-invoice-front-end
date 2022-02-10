@@ -55,7 +55,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
   // names of lists
   listOfReceivers: ReceiverDto[];
-  listOfDocumentTypes: { labelEn: string, labelAr: string,value: string }[];
+  listOfDocumentTypes: { labelEn: string, labelAr: string, value: string }[];
   listOfItems: ListItemsResponseDto[];
 
   // names of forms
@@ -111,9 +111,9 @@ export class InvoiceDetailsComponent implements OnInit {
     this.viewListInvoiceFlag = false;
 
     this.listOfDocumentTypes = [
-      { labelEn: "Invoice" , labelAr: "فاتورة ضريبية",value: "I" },
-      { labelEn: "Credit Memo" ,  labelAr: "إشعار دائن" ,value: "C" },
-      { labelEn: "Debit Memo",  labelAr: "إشعار مدين" ,value: "D" }
+      { labelEn: "Invoice", labelAr: "فاتورة ضريبية", value: "I" },
+      { labelEn: "Credit Memo", labelAr: "إشعار دائن", value: "C" },
+      { labelEn: "Debit Memo", labelAr: "إشعار مدين", value: "D" }
     ]
 
 
@@ -145,8 +145,8 @@ export class InvoiceDetailsComponent implements OnInit {
     // init forms
     this.isRelatedInvoiceRequired = this.isRelatedInvoiceRequired.bind(this);
     this.initForms();
-    this.appStorageService.getLanguage().subscribe(lang => 
-      this.currentLang = lang      
+    this.appStorageService.getLanguage().subscribe(lang =>
+      this.currentLang = lang
     )
   }
 
@@ -172,7 +172,7 @@ export class InvoiceDetailsComponent implements OnInit {
   initInvoiceForm() {
     this.invoiceForm = this.formBuilder.group({
       document_type: [null, Validators.required],
-      related_invoice: [,[this.isRelatedInvoiceRequired]],
+      related_invoice: [, [this.isRelatedInvoiceRequired]],
       receiver: [null, Validators.required],
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],
@@ -191,9 +191,9 @@ export class InvoiceDetailsComponent implements OnInit {
     return this.invoiceForm.controls;
   }
 
-  isRelatedInvoiceRequired(control:FormControl) {
-    if((!control || !control.value) && this.invoiceDetails.document_type && this.invoiceDetails.document_type !== 'I') {
-      return {isRequired:true}
+  isRelatedInvoiceRequired(control: FormControl) {
+    if ((!control || !control.value) && this.invoiceDetails.document_type && this.invoiceDetails.document_type !== 'I') {
+      return { isRequired: true }
     }
     else return null
   }
@@ -246,10 +246,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
   setReceiverData() {
     this.receiverId = this.invoiceDetails.receiver;
-    this.receiverDetails.id = this.invoiceDetails.receiver;
-    this.receiverDetails.reg_num = this.invoiceDetails.receiver_reg_num;
-    this.receiverDetails.name = this.invoiceDetails.receiver_name;
-    this.receiverDetails.receiver_address = this.invoiceDetails.receiver_address;
+    this.getReceiver();
   }
 
   setIssuedDate() {
@@ -383,15 +380,15 @@ export class InvoiceDetailsComponent implements OnInit {
   //           this.newLineDetails =  result.data.map((line:any) => {
   //             delete line['id']
   //              return line;
-  //            });;  
-  //           this.calculateSummary()    ;  
+  //            });;
+  //           this.calculateSummary()    ;
   //         }
-  //       }) 
+  //       })
   //     })
   //   }
   //   else {
   //     this.newLineDetails = [];
-  //     this.calculateSummary()    ;  
+  //     this.calculateSummary()    ;
   //   }
   // }
 
@@ -465,6 +462,13 @@ export class InvoiceDetailsComponent implements OnInit {
         }
       });
     }
+  }
+
+  handleRecieverTypeLabel(type: any): string {
+    if (!type) return '';
+    else if (type.length > 1) return type;
+    return type === "P" ? 'Natural Person' : type ===
+      "B" ? 'Business' : 'Foreigner'
   }
 
   // #endregion

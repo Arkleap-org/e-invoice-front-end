@@ -1,270 +1,292 @@
 <!-- receiver form -->
 <mat-card>
-    <div class="row" [formGroup]="invoiceForm">
-        <div class="col-6">
-            <fieldset>
-                <mat-card-content>
-                    <div class="row">
-                        <!-- Internal ID -->
-                        <div class="col-6 pt-5">
+  <div class="row" [formGroup]="invoiceForm">
+    <div class="col-6">
+      <fieldset>
+        <mat-card-content>
+          <div class="row">
+            <!-- Internal ID -->
+            <div class="col-6 pt-5">
 
-                            <div class="form-group">
-                                <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}" formControlName="internal_id" [(ngModel)]="invoiceDetails.internal_id" [class.overlay]="invoiceDetails.invoice_status == 'Submitted'">
-                                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.internal_id.errors?.required">
+              <div class="form-group">
+                <label>{{'Internal ID'|translate}}<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="{{'Internal ID'|translate}}"
+                  formControlName="internal_id" [(ngModel)]="invoiceDetails.internal_id"
+                  [class.overlay]="invoiceDetails.invoice_status == 'Submitted'">
+                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.internal_id.errors?.required">
                   {{'Internal ID is required'|translate}}.
                 </small>
-                            </div>
-                        </div>
-                        <!-- purchase order number -->
-                        <div class="col-6 pt-5">
-                            <div class="form-group">
-                                <label>{{'Purchase Order Number'|translate}}</label>
-                                <input type="text" class="form-control" placeholder="{{'Purchase Order Number'|translate}}" formControlName="purchase_order_reference" [(ngModel)]="invoiceDetails.purchase_order_reference" [class.overlay]="invoiceDetails.purchase_order_reference == 'Submitted'">
-                            </div>
-                        </div>
+              </div>
+            </div>
+            <!-- purchase order number -->
+            <div class="col-6 pt-5">
+              <div class="form-group">
+                <label>{{'Purchase Order Number'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Purchase Order Number'|translate}}"
+                  formControlName="purchase_order_reference" [(ngModel)]="invoiceDetails.purchase_order_reference"
+                  [class.overlay]="invoiceDetails.purchase_order_reference == 'Submitted'">
+              </div>
+            </div>
 
-                        <!-- Description -->
-                        <div class="col-6 pt-5">
-                            <div class="form-group">
-                                <label>{{'Purchase Order Description'|translate}}</label>
-                                <input type="text" class="form-control" placeholder="{{'Purchase Order Description'|translate}}" formControlName="purchase_order_description" [(ngModel)]="invoiceDetails.purchase_order_description" [class.overlay]="invoiceDetails.purchase_order_description == 'Submitted'">
-                            </div>
-                        </div>
+            <!-- Description -->
+            <div class="col-6 pt-5">
+              <div class="form-group">
+                <label>{{'Purchase Order Description'|translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Purchase Order Description'|translate}}"
+                  formControlName="purchase_order_description" [(ngModel)]="invoiceDetails.purchase_order_description"
+                  [class.overlay]="invoiceDetails.purchase_order_description == 'Submitted'">
+              </div>
+            </div>
 
-                        <div class="col-6 pt-5">
+            <div class="col-6 pt-5">
 
-                            <!-- issued date -->
-                            <div class="form-group">
-                                <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
-                                <input *ngIf="!invoiceDetails.id" type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}" [min]="minInvoiceDate" formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
+              <!-- issued date -->
+              <div class="form-group">
+                <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
+                <input *ngIf="!invoiceDetails.id" type="datetime-local" class="form-control"
+                  placeholder="{{'Issued Date'|translate}}" [min]="minInvoiceDate" formControlName="date_time_issued"
+                  [(ngModel)]="invoiceDetails.date_time_issued">
 
-                                <input *ngIf="invoiceDetails.id" [class.overlay]="true" type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}" formControlName="date_time_issued" [(ngModel)]="invoiceDetails.date_time_issued">
+                <input *ngIf="invoiceDetails.id" [class.overlay]="true" type="datetime-local" class="form-control"
+                  placeholder="{{'Issued Date'|translate}}" formControlName="date_time_issued"
+                  [(ngModel)]="invoiceDetails.date_time_issued">
 
-                                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
+                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
                   {{'Issued Date is required'|translate}}.
                 </small>
-                            </div>
-                        </div>
-                        <!-- document type -->
-                        <div class="col-6 pt-5 form-group">
-                            <label>{{'Document Type'|translate}}<span class="text-danger">*</span></label>
-                            <ng-select *ngIf="currentLang === 'en'; else arLabel" (change)="viewListOfInvoices($event)" [items]="listOfDocumentTypes" bindLabel="labelEn" bindValue="value" [searchable]="true" placeholder="{{'Document Type'|translate}}" formControlName="document_type"
-                                [(ngModel)]="invoiceDetails.document_type">
-                            </ng-select>
-                            <ng-template #arLabel>
-                                <ng-select (change)="viewListOfInvoices($event)" [items]="listOfDocumentTypes" bindLabel="labelAr" bindValue="value" [searchable]="true" placeholder="{{'Document Type'|translate}}" formControlName="document_type" [(ngModel)]="invoiceDetails.document_type">
-                                </ng-select>
-                            </ng-template>
-                            <small class="text-danger" *ngIf="isSubmitted && invoiceControls.document_type.errors?.required">
+              </div>
+            </div>
+            <!-- document type -->
+            <div class="col-6 pt-5 form-group">
+              <label>{{'Document Type'|translate}}<span class="text-danger">*</span></label>
+              <ng-select *ngIf="currentLang === 'en'; else arLabel" (change)="viewListOfInvoices($event)"
+                [items]="listOfDocumentTypes" bindLabel="labelEn" bindValue="value" [searchable]="true"
+                placeholder="{{'Document Type'|translate}}" formControlName="document_type"
+                [(ngModel)]="invoiceDetails.document_type">
+              </ng-select>
+              <ng-template #arLabel>
+                <ng-select (change)="viewListOfInvoices($event)" [items]="listOfDocumentTypes" bindLabel="labelAr"
+                  bindValue="value" [searchable]="true" placeholder="{{'Document Type'|translate}}"
+                  formControlName="document_type" [(ngModel)]="invoiceDetails.document_type">
+                </ng-select>
+              </ng-template>
+              <small class="text-danger" *ngIf="isSubmitted && invoiceControls.document_type.errors?.required">
                 {{'Document Type is required'|translate}}.
               </small>
-                        </div>
+            </div>
 
-                        <!-- Invoice List -->
-                        <div *ngIf="invoiceDetails.document_type !== 'I'" [hidden]="!viewListInvoiceFlag" class="col-6 pt-5 form-group">
-                            <label>{{'Invoice List'|translate}}<span class="text-danger">*</span></label>
-                            <ng-select [items]="listOfInvoices" bindLabel="internal_id" bindValue="id" [searchable]="true" placeholder="{{'Invoice List'|translate}}" formControlName="related_invoice" [(ngModel)]="invoiceDetails.related_invoice">
-                            </ng-select>
-                            <small class="text-danger" *ngIf="isSubmitted &&   invoiceControls.related_invoice.errors?.isRequired">
+            <!-- Invoice List -->
+            <div *ngIf="invoiceDetails.document_type !== 'I'" [hidden]="!viewListInvoiceFlag"
+              class="col-6 pt-5 form-group">
+              <label>{{'Invoice List'|translate}}<span class="text-danger">*</span></label>
+              <ng-select [items]="listOfInvoices" bindLabel="internal_id" bindValue="id" [searchable]="true"
+                placeholder="{{'Invoice List'|translate}}" formControlName="related_invoice"
+                [(ngModel)]="invoiceDetails.related_invoice">
+              </ng-select>
+              <small class="text-danger" *ngIf="isSubmitted &&   invoiceControls.related_invoice.errors?.isRequired">
                 {{'Invoice List is required'|translate}}.
               </small>
-                        </div>
+            </div>
 
 
-                        <!-- document type version -->
-                        <div class="col-6 pt-5">
-                            <div class="row">
-                                <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
-                                <div class="form-check col-6 pt-2">
-                                    <input class="form-check-input" type="radio" id="flexRadioDefault1" [value]="'0.9'" [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
-                                    <label class="form-check-label" for="flexRadioDefault1">
+            <!-- document type version -->
+            <div class="col-6 pt-5">
+              <div class="row">
+                <label>{{'Document Type Version'|translate}}<span class="text-danger">*</span></label>
+                <div class="form-check col-6 pt-2">
+                  <input class="form-check-input" type="radio" id="flexRadioDefault1" [value]="'0.9'"
+                    [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
+                  <label class="form-check-label" for="flexRadioDefault1">
                     {{'0.9'|translate}}
                   </label>
-                                </div>
-                                <div class="form-check col-6 pt-2">
-                                    <input class="form-check-input" type="radio" id="flexRadioDefault2" [value]="'1.0'" checked [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
-                                    <label class="form-check-label" for="flexRadioDefault2">
+                </div>
+                <div class="form-check col-6 pt-2">
+                  <input class="form-check-input" type="radio" id="flexRadioDefault2" [value]="'1.0'" checked
+                    [(ngModel)]="documentTypeVersion" formControlName="document_type_version">
+                  <label class="form-check-label" for="flexRadioDefault2">
                     {{'1.0'|translate}}
                   </label>
-                                </div>
+                </div>
 
-                            </div>
-                            <small class="text-danger" *ngIf="isSubmitted && invoiceControls.document_type_version.errors?.required">
+              </div>
+              <small class="text-danger" *ngIf="isSubmitted && invoiceControls.document_type_version.errors?.required">
                 {{'Document Type Version is required'|translate}}.
               </small>
-                        </div>
+            </div>
 
-                    </div>
-                </mat-card-content>
-            </fieldset>
-        </div>
-        <div class="col-6">
-            <div class="row d-flex flex-column">
+          </div>
+        </mat-card-content>
+      </fieldset>
+    </div>
+    <div class="col-6">
+      <div class="row d-flex flex-column">
 
-                <fieldset>
-                    <!-- receiver card data -->
-                    <mat-card-content>
-                        <div class="form">
-                            <!-- first row -->
-                            <div class="row d-flex align-items-center">
-                                <!-- name -->
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
-                                        <ng-select [items]="listOfReceivers" bindLabel="taxable_receiver_name" bindValue="id" [searchable]="true" placeholder="{{'Receiver Name'|translate}}" formControlName="receiver" [(ngModel)]="receiverId" (change)="getReceiver()">
-                                        </ng-select>
-                                    </div>
-                                </div>
-                                <!-- add btn -->
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="{{'add receiver'|translate}}" style="padding-top: 2rem;" (click)="openReceiverPopup()">
+        <fieldset>
+          <!-- receiver card data -->
+          <mat-card-content>
+            <div class="form">
+              <!-- first row -->
+              <div class="row d-flex align-items-center">
+                <!-- name -->
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>{{'Receiver Name' | translate}}<span class="text-danger">*</span></label>
+                    <ng-select [items]="listOfReceivers" bindLabel="taxable_receiver_name" bindValue="id"
+                      [searchable]="true" placeholder="{{'Receiver Name'|translate}}" formControlName="receiver"
+                      [(ngModel)]="receiverId" (change)="getReceiver()">
+                    </ng-select>
+                  </div>
+                </div>
+                <!-- add btn -->
+                <div class="col-3">
+                  <div class="form-group">
+                    <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom"
+                      title="{{'add receiver'|translate}}" style="padding-top: 2rem;" (click)="openReceiverPopup()">
                       <mat-icon>add</mat-icon>
                     </button>
-                                    </div>
-                                </div>
-                                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.receiver.errors?.required">
+                  </div>
+                </div>
+                <small class="text-danger" *ngIf="isSubmitted && invoiceControls.receiver.errors?.required">
                   {{'Receiver is required'|translate}}.
                 </small>
-                            </div>
+              </div>
 
-                        </div>
-                    </mat-card-content>
-                </fieldset>
-                <br>
-                <!-- receiver data -->
-                <fieldset>
-                    <div>
-                        <label>{{'Registration Number' | translate}}</label>:
-                        <span *ngIf="receiverDetails.id">{{receiverDetails.reg_num}}</span>
-                    </div>
-                    <div>
-                        <label>{{'Type' | translate}}</label>:
-                        <span *ngIf="receiverDetails.id">{{receiverDetails.type === "P" ? 'Natural Person': receiverDetails.type ===
-              "B"? 'Business' : 'Foreigner'}}</span>
-                    </div>
-                    <div>
-                        <label>{{'Address' | translate}}</label>:
-                        <span *ngIf="receiverDetails.id">{{receiverDetails.receiver_address}}</span>
-                    </div>
-                </fieldset>
             </div>
-        </div>
+          </mat-card-content>
+        </fieldset>
+        <br>
+        <!-- receiver data -->
+        <fieldset>
+          <div>
+            <label>{{'Registration Number' | translate}}</label>:
+            <span *ngIf="receiverDetails.id">{{receiverDetails.reg_num}}</span>
+          </div>
+          <div>
+            <label>{{'Type' | translate}}</label>:
+            <span *ngIf="receiverDetails.id">{{handleRecieverTypeLabel(receiverDetails.type)}}</span>
+          </div>
+          <div>
+            <label>{{'Address' | translate}}</label>:
+            <span *ngIf="receiverDetails.id">{{receiverDetails.receiver_address}}</span>
+          </div>
+        </fieldset>
+      </div>
     </div>
-    <br>
+  </div>
+  <br>
 
 </mat-card>
 <br>
 
 <!-- invoice form -->
 <mat-card [formGroup]="invoiceForm">
-    <mat-card-title>{{'Invoice Lines'|translate}}</mat-card-title>
-    <br>
-    <div class="form">
-        <!-- open popup -->
-        <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="{{'add line'|translate}}" (click)="openLinesPopup()">
+  <mat-card-title>{{'Invoice Lines'|translate}}</mat-card-title>
+  <br>
+  <div class="form">
+    <!-- open popup -->
+    <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
+      title="{{'add line'|translate}}" (click)="openLinesPopup()">
       <mat-icon>add</mat-icon>
     </button>
-        <!-- ------------------------------ -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">{{'Actions'|translate}}</th>
-                    <!-- 1 -->
-                    <th scope="col">{{'Item'|translate}}</th>
-                    <!-- 2 -->
-                    <th scope="col">{{'Description'|translate}}</th>
-                    <!-- 3 -->
-                    <th scope="col">{{'Quantity'|translate}}</th>
-                    <!-- 4 -->
-                    <th scope="col">{{'Unit Price'|translate}}</th>
-                    <!-- 5 -->
-                    <th scope="col">{{'Sales Total'|translate}}</th>
-                    <!-- 6 -->
-                    <th scope="col">{{'Discount Amount'|translate}}</th>
-                    <!-- 7 -->
-                    <th scope="col">{{'Items Discount Amount'|translate}}</th>
-                    <!-- 7 -->
-                    <th scope="col">{{'Net Amount'|translate}}</th>
-                    <!-- 8 -->
-                    <th scope="col">{{'Tax Amount'|translate}}</th>
-                    <!-- 9 -->
-                    <th scope="col">{{'Total Amount'|translate}}</th>
-                    <!-- 10 -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let line of newLineDetails; let i=index;">
-                    <td>
-                        <mat-icon class="td-pointer text-danger" (click)="deleteLine(line)">delete</mat-icon>
-                        <mat-icon class="td-pointer text-primary" (click)="openLinesPopup(i)">edit</mat-icon>
-                    </td>
-                    <!-- 1 -->
-                    <td>{{ line.item_name}} </td>
-                    <!-- 2 -->
-                    <td>{{line.description}}</td>
-                    <!-- 3 -->
-                    <td>{{line.quantity}}</td>
-                    <!-- 4 -->
-                    <td>{{line.amount_egp}}</td>
-                    <!-- 5 -->
-                    <td>{{line.sales_total}}</td>
-                    <!-- 6 -->
-                    <td>{{line.discount_amount}}</td>
-                    <!-- 7 -->
-                    <td>{{line.items_discount}}</td>
-                    <!-- 7 -->
-                    <td>{{line.net_total}}</td>
-                    <!-- 8 -->
-                    <td>
-                        {{ getTaxAmount(line) }}
-                    </td>
-                    <!-- 9 -->
-                    <td>{{line.total_amount}}</td>
-                    <!-- 10 -->
-                </tr>
-            </tbody>
-        </table>
-        <!-- ------------------------------ -->
-        <div class="row">
-            <div class="col-6"></div>
-            <div class="col-6">
-                <fieldset *ngIf="newLineDetails.length">
-                    <!-- total sales amount -->
-                    <div>
-                        <label>{{'Total Sales Amount'| translate}}({{'EGP'|translate}})</label>:
-                        <span>{{totalSalesAmount}}</span>
-                    </div>
-                    <!-- total discount amount -->
-                    <div>
-                        <label>{{'Total Discount Amount'| translate}}({{'EGP'|translate}})</label>:
-                        <span>{{totalDiscountAmount}}</span>
-                    </div>
-                    <!-- total items discount amount -->
-                    <div>
-                        <label>{{'Total Items Discount Amount'| translate}}({{'EGP'|translate}})</label>:
-                        <span>{{totalItemsDiscountAmount}}</span>
-                    </div>
-                    <!-- tax totals -->
-                    <div>
-                        <label>{{'Tax Totals'| translate}}({{'EGP'|translate}})</label>:
-                        <span>{{totalTaxTotals}}</span>
-                    </div>
-                    <!-- extra discount amount -->
-                    <!-- <div>
+    <!-- ------------------------------ -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">{{'Actions'|translate}}</th>
+          <!-- 1 -->
+          <th scope="col">{{'Item'|translate}}</th>
+          <!-- 2 -->
+          <th scope="col">{{'Description'|translate}}</th>
+          <!-- 3 -->
+          <th scope="col">{{'Quantity'|translate}}</th>
+          <!-- 4 -->
+          <th scope="col">{{'Unit Price'|translate}}</th>
+          <!-- 5 -->
+          <th scope="col">{{'Sales Total'|translate}}</th>
+          <!-- 6 -->
+          <th scope="col">{{'Discount Amount'|translate}}</th>
+          <!-- 7 -->
+          <th scope="col">{{'Items Discount Amount'|translate}}</th>
+          <!-- 7 -->
+          <th scope="col">{{'Net Amount'|translate}}</th>
+          <!-- 8 -->
+          <th scope="col">{{'Tax Amount'|translate}}</th>
+          <!-- 9 -->
+          <th scope="col">{{'Total Amount'|translate}}</th>
+          <!-- 10 -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let line of newLineDetails; let i=index;">
+          <td>
+            <mat-icon class="td-pointer text-danger" (click)="deleteLine(line)">delete</mat-icon>
+            <mat-icon class="td-pointer text-primary" (click)="openLinesPopup(i)">edit</mat-icon>
+          </td>
+          <!-- 1 -->
+          <td>{{ line.item_name}} </td>
+          <!-- 2 -->
+          <td>{{line.description}}</td>
+          <!-- 3 -->
+          <td>{{line.quantity}}</td>
+          <!-- 4 -->
+          <td>{{line.amount_egp}}</td>
+          <!-- 5 -->
+          <td>{{line.sales_total}}</td>
+          <!-- 6 -->
+          <td>{{line.discount_amount}}</td>
+          <!-- 7 -->
+          <td>{{line.items_discount}}</td>
+          <!-- 7 -->
+          <td>{{line.net_total}}</td>
+          <!-- 8 -->
+          <td>
+            {{ getTaxAmount(line) }}
+          </td>
+          <!-- 9 -->
+          <td>{{line.total_amount}}</td>
+          <!-- 10 -->
+        </tr>
+      </tbody>
+    </table>
+    <!-- ------------------------------ -->
+    <div class="row">
+      <div class="col-6"></div>
+      <div class="col-6">
+        <fieldset *ngIf="newLineDetails.length">
+          <!-- total sales amount -->
+          <div>
+            <label>{{'Total Sales Amount'| translate}}({{'EGP'|translate}})</label>:
+            <span>{{totalSalesAmount}}</span>
+          </div>
+          <!-- total discount amount -->
+          <div>
+            <label>{{'Total Discount Amount'| translate}}({{'EGP'|translate}})</label>:
+            <span>{{totalDiscountAmount}}</span>
+          </div>
+          <!-- total items discount amount -->
+          <div>
+            <label>{{'Total Items Discount Amount'| translate}}({{'EGP'|translate}})</label>:
+            <span>{{totalItemsDiscountAmount}}</span>
+          </div>
+          <!-- tax totals -->
+          <div>
+            <label>{{'Tax Totals'| translate}}({{'EGP'|translate}})</label>:
+            <span>{{totalTaxTotals}}</span>
+          </div>
+          <!-- extra discount amount -->
+          <!-- <div>
             <label>{{'Extra Discount Amount'| translate}}({{'EGP'|translate}})</label>:
             <span>lll</span>
           </div> -->
-                    <!-- total amount -->
-                    <div>
-                        <label>{{'Total Amount'| translate}}({{'EGP'|translate}})</label>:
-                        <span>{{totalInvoiceAmount}}</span>
-                    </div>
-                </fieldset>
-            </div>
-        </div>
+          <!-- total amount -->
+          <div>
+            <label>{{'Total Amount'| translate}}({{'EGP'|translate}})</label>:
+            <span>{{totalInvoiceAmount}}</span>
+          </div>
+        </fieldset>
+      </div>
     </div>
+  </div>
 
 
 </mat-card>
@@ -273,8 +295,8 @@
 <!-- card actions -->
 <!-- createInvoice(invoiceForm) -->
 <mat-card-actions class="text-center">
-    <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">{{'Cancel'|translate}}</button>
-    <button mat-button class="btn btn-info text-light" (click)="handleSaveInvoiceBtn(invoiceForm)">{{invoiceId?
+  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">{{'Cancel'|translate}}</button>
+  <button mat-button class="btn btn-info text-light" (click)="handleSaveInvoiceBtn(invoiceForm)">{{invoiceId?
     ('Update'|translate) :
     ('Create'|translate)}}</button>
 </mat-card-actions>
