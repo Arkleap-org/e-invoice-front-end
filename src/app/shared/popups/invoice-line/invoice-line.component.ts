@@ -197,7 +197,7 @@ export class InvoiceLineComponent implements OnInit {
 
   calculateDiscountAmount(sales_total: number, discount_rate: number) {
     this.lineDetails.discount_amount =
-      (Number(sales_total || 0) * Number(discount_rate || 0)) / 100;
+      ((Number(sales_total || 0) * Number(discount_rate || 0)) / 100).toFixed(5);
   }
 
   // #endregion
