@@ -172,7 +172,7 @@ export class InvoiceDetailsComponent implements OnInit {
   initInvoiceForm() {
     this.invoiceForm = this.formBuilder.group({
       document_type: [null, Validators.required],
-      related_invoice: [, [this.isRelatedInvoiceRequired]],
+      related_invoice: [], // [this.isRelatedInvoiceRequired]
       receiver: [null, Validators.required],
       document_type_version: ['', Validators.required],
       internal_id: ['', Validators.required],

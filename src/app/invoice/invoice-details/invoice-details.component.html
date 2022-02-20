@@ -43,13 +43,19 @@
               <!-- issued date -->
               <div class="form-group">
                 <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
-                <input *ngIf="!invoiceDetails.id" type="datetime-local" class="form-control"
-                  placeholder="{{'Issued Date'|translate}}" [min]="minInvoiceDate" formControlName="date_time_issued"
-                  [(ngModel)]="invoiceDetails.date_time_issued">
 
-                <input *ngIf="invoiceDetails.id" [class.overlay]="true" type="datetime-local" class="form-control"
+
+                <input *ngIf="invoiceDetails.id && invoiceDetails.invoice_status != 'Draft';else issuedDateDisabled"
+                  [class.overlay]="true" type="datetime-local" class="form-control"
                   placeholder="{{'Issued Date'|translate}}" formControlName="date_time_issued"
                   [(ngModel)]="invoiceDetails.date_time_issued">
+
+                <ng-template #issuedDateDisabled>
+                  <input type="datetime-local" class="form-control" placeholder="{{'Issued Date'|translate}}"
+                    [min]="minInvoiceDate" formControlName="date_time_issued"
+                    [(ngModel)]="invoiceDetails.date_time_issued">
+                </ng-template>
+
 
                 <small class="text-danger" *ngIf="isSubmitted && invoiceControls.date_time_issued.errors?.required">
                   {{'Issued Date is required'|translate}}.
@@ -78,14 +84,14 @@
             <!-- Invoice List -->
             <div *ngIf="invoiceDetails.document_type !== 'I'" [hidden]="!viewListInvoiceFlag"
               class="col-6 pt-5 form-group">
-              <label>{{'Invoice List'|translate}}<span class="text-danger">*</span></label>
+              <label>{{'Invoice List'|translate}}</label>
               <ng-select [items]="listOfInvoices" bindLabel="internal_id" bindValue="id" [searchable]="true"
                 placeholder="{{'Invoice List'|translate}}" formControlName="related_invoice"
                 [(ngModel)]="invoiceDetails.related_invoice">
               </ng-select>
-              <small class="text-danger" *ngIf="isSubmitted &&   invoiceControls.related_invoice.errors?.isRequired">
+              <!-- <small class="text-danger" *ngIf="isSubmitted &&   invoiceControls.related_invoice.errors?.isRequired">
                 {{'Invoice List is required'|translate}}.
-              </small>
+              </small> -->
             </div>
 
 
