@@ -11,4 +11,5 @@ export class ReceiverDto {
   street!: string;
   type!: string;
   receiver_address!: string;
+  is_taxable!: boolean
 }

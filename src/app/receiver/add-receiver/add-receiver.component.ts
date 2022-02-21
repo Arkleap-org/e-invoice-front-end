@@ -91,7 +91,8 @@ export class AddReceiverComponent implements OnInit {
       governate: ['', Validators.required],
       regionCity: ['', Validators.required],
       street: ['', Validators.required],
-      buildingNumber: ['', Validators.required]
+      buildingNumber: ['', Validators.required],
+      isTaxable: [false, Validators.required]
     });
   }
 
