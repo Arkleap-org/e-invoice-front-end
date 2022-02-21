@@ -223,5 +223,6 @@
     "Purchase Order Number": "Purchase Order Number",
     "Receiver Taxable Name":"Receiver Taxable Name",
     "Feild is required":"Feild is required",
-    "Passport":"Passport"
+    "Passport":"Passport",
+    "Is Taxable":"Is Taxable"
 }

@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TeraDataModule } from './teradata.module';
 import { ApiInterceptor } from '../interceptors/api.interceptor';
 import { AuthInterceptor } from '../interceptors/auth.interceptor';
@@ -32,6 +32,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserModule,
     BrowserAnimationsModule,
     TeraDataModule,
+    MatSlideToggleModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

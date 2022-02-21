@@ -216,5 +216,6 @@
     "Purchase Order Number": "رقم أمر الشراء",
     "Receiver Taxable Name":"إسم العميل الضريبي",
     "Feild is required":"هذا الحقل مطلوب",
-    "Passport":"جواز السفر"
+    "Passport":"جواز السفر",
+    "Is Taxable":"خاضع للضريبة"
 }
