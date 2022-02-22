@@ -81,7 +81,7 @@ export class InvoiceLineComponent implements OnInit {
     this.linesForm = this.formBuilder.group({
       item: [null, Validators.required],
       description: [''],
-      quantity: ['', [Validators.required, Validators.min(1)]],
+      quantity: ['', [Validators.required]],
       amount_egp: ['', [Validators.required]],
       sales_total: [''],
       items_discount: [''],

@@ -35,9 +35,6 @@
           <input type="number" min="0" class="form-control" placeholder="{{'Quantity'|translate}}"
             formControlName="quantity" [(ngModel)]="lineDetails.quantity" [readonly]='!itemDetails.item_desc'
             (ngModelChange)="calculateSalesTotal();calculateNetTotal(lineDetails.discount_amount)">
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('quantity')?.errors?.min">
-            {{'Quantity should be 1 or more'|translate}}.
-          </small>
           <small class="text-danger" *ngIf="isSubmitted && linesForm.get('quantity')?.errors?.required">
             {{'Quantity is required'|translate}}.
           </small>
