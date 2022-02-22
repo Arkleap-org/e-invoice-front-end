@@ -30,6 +30,7 @@ import { InvoiceCancelComponent } from './shared/popups/invoice-cancel/invoice-c
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/modules/shared.module";
 
+
 // services
 import { AuthService } from "./shared/services/auth.service";
 import { LocalStorageService } from "./shared/services/local-storage.service";
@@ -38,6 +39,7 @@ import { SecurityService } from "./shared/services/security.service";
 import { SessionStorageService } from "./shared/services/session-storage.service";
 import { ItemsService } from "./shared/services/items.service";
 import { InvoiceLineComponent } from './shared/popups/invoice-line/invoice-line.component';
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -65,11 +67,13 @@ import { InvoiceLineComponent } from './shared/popups/invoice-line/invoice-line.
     ResetPasswordComponent,
     InvoiceCancelComponent,
     InvoiceLineComponent,
+    
 
   ],
   imports: [
     SharedModule,
     AppRoutingModule,
+    MatSlideToggleModule,
   ],
   providers: [
     AuthService,
