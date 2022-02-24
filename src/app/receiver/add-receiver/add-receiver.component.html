@@ -133,7 +133,7 @@
         <!-- isTaxable -->
         <div class="col-4">
           <div class="form-group">
-            <mat-slide-toggle  [(ngModel)]="receiverDetails.is_taxable" formControlName="isTaxable">{{'Is Taxable'|translate}}<span class="text-danger">*</span></mat-slide-toggle>
+            <mat-slide-toggle   [(ngModel)]="receiverDetails.is_taxable" formControlName="isTaxable">{{'Is Taxable'|translate}}<span class="text-danger">*</span></mat-slide-toggle>
             <small class="text-danger" *ngIf="isSubmitted && receiverFormControls.isTaxable.errors?.required">
               {{'Is taxable is required'|translate}}.
             </small>
