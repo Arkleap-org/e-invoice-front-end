@@ -12,4 +12,7 @@ export class ReceiverDto {
   type!: string;
   receiver_address!: string;
   is_taxable!: boolean
+  constructor(){
+    this.is_taxable =true;
+  }
 }
