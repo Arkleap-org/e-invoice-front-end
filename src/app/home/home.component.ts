@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
     this.invoiceDataSource = new MatTableDataSource();
     this.dashboardCounts = new DashboardDto;
     this.thisMonth = Date.now();
-    this.displayedColumns = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
+    this.displayedColumns = ['issuerName', 'receiverName', 'documentTypeNamePrimaryLang', 'status', 'dateTimeIssued', 'dateTimeReceived', 'total', 'actions'];
     this.currentIssuer = this.securityService.user?.reg_num || "";
   }
 
