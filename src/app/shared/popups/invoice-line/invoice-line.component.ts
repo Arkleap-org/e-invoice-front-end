@@ -207,6 +207,7 @@ export class InvoiceLineComponent implements OnInit {
   getItemById(id: number) {
     this.itemsService.getItemById(id).subscribe((response: ResponseDto) => {
       this.itemDetails = response.data;
+      this.lineDetails.description = this.itemDetails.item_desc;
     });
   }
 
@@ -216,7 +217,6 @@ export class InvoiceLineComponent implements OnInit {
       this.isSubmitted = false;
       const model: LinesDto = this.lineDetails;
       model.item = this.itemDetails.id;
-      model.description = this.itemDetails.item_desc;
       model.item_name = this.itemDetails.item_name;
       model.amount_egp = Number(model.amount_egp).toFixed(5);
       model.items_discount = Number(model.items_discount).toFixed(5);
