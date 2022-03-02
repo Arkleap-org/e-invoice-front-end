@@ -1,7 +1,7 @@
 // angular core
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
   dashboardCounts: DashboardDto;
   thisMonth: number;
   currentIssuer: string;
+
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
 
   // #endregion
@@ -85,7 +89,19 @@ export class HomeComponent implements OnInit {
   }
 
   listRecentInvoices() {
-    this.dashboardService.listRecentInvoices().subscribe((response: ResponseDto) => this.invoiceDataSource.data = response.data);
+    this.dashboardService.listRecentInvoices(this.currentPage + 1, this.pageSize).subscribe((response: RecentInvoicesDto) => {
+      this.invoiceDataSource.data = response.result;
+      setTimeout(() => {
+        this.paginator.pageIndex = this.currentPage;
+        this.paginator.length = response.metadata.totalCount;
+      });
+    });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.listRecentInvoices();
   }
 
   // #endregion
@@ -120,12 +136,16 @@ export class HomeComponent implements OnInit {
     window.open(url, "_blank")
   }
 
-  getRecentInvoices() {
-    this.dashboardService.getRecentInvoices().subscribe((res) => {
-      this.listRecentInvoices();
-    });
-  }
-
   // #endregion
 
+}
+
+export class RecentInvoicesDto {
+  metadata!: MetaDataDto;
+  result!: any[];
+}
+
+export class MetaDataDto {
+  totalCount!: number
+  totalPages!: number
 }
