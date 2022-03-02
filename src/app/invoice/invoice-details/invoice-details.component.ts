@@ -407,8 +407,7 @@ export class InvoiceDetailsComponent implements OnInit {
       const issuedYear = new Date(form.value.date_time_issued).getFullYear();
       const issuedMonth = new Date(form.value.date_time_issued).getMonth();
       const issuedDay = new Date(form.value.date_time_issued).getDate();
-
-      if (issuedYear < year || issuedMonth < month || issuedDay < minDay)
+      if (new Date(`${issuedYear}-${issuedMonth}-${issuedDay}`) < new Date(`${year}-${month}-${minDay}`))
         this.dialogService.alertMessege('Date Time Issued cannot be in the past more than 7 days!');
       else
         this.invoiceService.createInvoice(form.value).subscribe((response: ResponseDto) => {

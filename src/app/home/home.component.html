@@ -103,11 +103,6 @@
           <input matInput (keyup)="applyFilter($event)" #input>
         </mat-form-field>
       </div>
-      <div class="col-6 text-right">
-        <button type="button" class="btn btn-primary" (click)="getRecentInvoices()" data-toggle="tooltip"
-          data-placement="bottom" title="{{'Get Recent Invoices'|translate}}"> {{'Get Recent Invoices'|translate}}
-        </button>
-      </div>
     </div>
 
     <div class="mat-elevation-z8">
@@ -173,8 +168,10 @@
         </tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50, (invoiceDataSource.data?invoiceDataSource.data.length:100)]"
-        aria-label="Select page of invoices"></mat-paginator>
+      <mat-paginator dir="ltr" #paginator [pageIndex]="currentPage" [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+      </mat-paginator>
+
     </div>
   </mat-card>
 </div>

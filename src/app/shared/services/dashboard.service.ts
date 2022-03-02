@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RecentInvoicesDto } from '../../home/home.component';
 import { ResponseDto } from '../models/api-response.model';
 
 @Injectable({
@@ -15,9 +16,9 @@ export class DashboardService {
     return this.http.get<ResponseDto>(url)
   }
 
-  listRecentInvoices() {
-    const url = `invoice/recent-documents/list`;
-    return this.http.get<ResponseDto>(url)
+  listRecentInvoices(pageNo: number, size: number) {
+    const url = `invoice/recent-documents/list?page=${pageNo}&size=${size}`;
+    return this.http.get<RecentInvoicesDto>(url)
   }
 
   getRecentInvoices() {
