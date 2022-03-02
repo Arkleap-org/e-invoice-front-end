@@ -224,5 +224,10 @@
     "Receiver Taxable Name":"Receiver Taxable Name",
     "Feild is required":"Feild is required",
     "Passport":"Passport",
-    "Is Taxable":"Is Taxable"
+    "Is Taxable":"Is Taxable",
+    "Entity":"Entity",
+    "Trace Message":"Trace Message",
+    "Data": "Data",
+    "Date Time":"Date Time",
+    "OS User":"OS User"
 }

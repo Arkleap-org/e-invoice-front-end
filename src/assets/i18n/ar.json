@@ -88,7 +88,6 @@
     "Item Code": "كود الصنف",
     "Quantity": "الكمية",
     "Amount EGP": "سعر الوحدة",
-    "Total Amount": "القيمة بعد الضريبة",
     "Valid Invoices": "فواتير صحيحة",
     "Invalid Invoices": "فواتير غير صحيحة",
     "Dashboard": "الصفحة الرئيسية",
@@ -217,5 +216,10 @@
     "Receiver Taxable Name":"إسم العميل الضريبي",
     "Feild is required":"هذا الحقل مطلوب",
     "Passport":"جواز السفر",
-    "Is Taxable":"خاضع للضريبة"
+    "Is Taxable":"خاضع للضريبة",
+    "Entity":"المؤسسة",
+    "Trace Message":"رسالة التتبع",
+    "Data": "المعلومات",
+    "Date Time":"التاريخ والوقت",
+    "OS User":""
 }

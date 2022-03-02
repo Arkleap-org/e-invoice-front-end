@@ -36,7 +36,7 @@ export class TraceLogComponent implements OnInit {
 
    // init variables
    this.traceLogDataSource = new MatTableDataSource();
-   this.displayedColumns = ['entity', 'trace_msg', 'data', 'url', 'date_time', 'os_user', 'user', ];
+   this.displayedColumns = ['entity', 'trace_msg', 'data', 'date_time', 'os_user', 'user', ];
  }
 
  // #endregion
@@ -82,34 +82,6 @@ export class TraceLogComponent implements OnInit {
       this.listLogTracres();
     }
  // #region main action
-
-//  deleteUser(user: UserRequestDto) {
-//    if (user.issuer) this.dialogService.alertMessege('User with issuer can\'t be deleted')
-//    else {
-//      this.dialogService.confirmDelete().then((result) => {
-//        if (result.isConfirmed) {
-//          this.userService.deleteUser(user.id).subscribe((response) => {
-//            this.dialogService.savedSuccessfully(user.username + 'deleted!')
-//            this.listUsers();
-//          });
-//        }
-//      });
-//    }
-//  }
-
-//  activateUser(user: UserRequestDto) {
-//    this.userService.activateUser(user.id).subscribe((response: ResponseDto) => {
-//      this.dialogService.savedSuccessfully(user.username + 'Activated')
-//      this.listUsers();
-//    });
-//  }
-
-//  deactivateUser(user: UserRequestDto) {
-//    this.userService.deactivateUser(user.id).subscribe((response: ResponseDto) => {
-//      this.dialogService.savedSuccessfully(user.username + 'Deactivated')
-//      this.listUsers();
-//    });
-//  }
 
  applyFilter(event: Event) {
    const filterValue = (event.target as HTMLInputElement).value;
