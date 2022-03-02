@@ -101,8 +101,11 @@ export class AddReceiverComponent implements OnInit {
   }
 
   handleRegistrationNumberValidation(control: FormControl) {
-    if( (control && !control.value) && (this.receiverDetails.type == 'B' || this.receiverDetails.type == 'F')) {
-      return {isRequired : true}
+    if ((control && !control.value) && (this.receiverDetails.type == 'B' || this.receiverDetails.type == 'F')) {
+      return { isRequired: true }
+    }
+    else if (control && control.value && (control.value).toString().length !== 14 && this.receiverDetails.type == 'P') {
+      return { lengthError: true }
     }
     else return null;
   }
