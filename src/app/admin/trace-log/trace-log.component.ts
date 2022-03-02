@@ -37,7 +37,7 @@ export class TraceLogComponent implements OnInit {
 
    // init variables
    this.traceLogDataSource = new MatTableDataSource();
-   this.displayedColumns = ['entity', 'trace_msg', 'data', 'date_time', 'user_name', ];
+   this.displayedColumns = ['entity', 'trace_msg', 'data', 'date_time', 'user_email'];
  }
 
  // #endregion
