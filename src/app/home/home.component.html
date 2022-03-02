@@ -173,7 +173,7 @@
         </tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50, invoiceDataSource.data.length]"
+      <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50, (invoiceDataSource.data?invoiceDataSource.data.length:100)]"
         aria-label="Select page of invoices"></mat-paginator>
     </div>
   </mat-card>
