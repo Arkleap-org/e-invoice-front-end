@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { UserRequestDto } from '../models/user.model';
 import { ResponseDto } from "../models/api-response.model";
 import { ResetPasswordDto } from '../models/reset-password.model';
+import { ContactUsDto } from '../models/contact-us.model';
 
 
 
@@ -83,4 +84,9 @@ export class UserService {
    
  }
  
+
+ contactUs(model:ContactUsDto) {
+   const url = `contact-us/create`
+   return this.http.post<ResponseDto>(url,model)
+ }
 }

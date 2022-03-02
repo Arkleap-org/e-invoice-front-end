@@ -1,0 +1,72 @@
+<mat-card>
+    <!-- address  -->
+    <mat-card-title class="text-center my-3">{{'Contact Us'|translate}}</mat-card-title>
+    <br>
+    <mat-card-content>
+      <div [formGroup]="contactUsForm" class="form">
+        <div class="row justify-content-center">
+          <!-- name -->
+          <div class="col-md-7">
+            <div class="form-group">
+              <label>{{'Name'|translate}}<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="{{'Name'|translate}}"
+                [(ngModel)]="contactUsDetails.customer_name" formControlName="name">
+              <small class="text-danger" *ngIf="isSubmitted && contsctUsFormControls.name.errors?.required">
+                {{'Name is required'|translate}}.
+              </small>
+            </div>
+          </div>
+          <!-- mobile -->
+          <div class="col-md-7">
+            <div class="form-group">
+              <label>{{'Mobile'|translate}}<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="{{'Mobile'|translate}}"
+                [(ngModel)]="contactUsDetails.mobile" formControlName="mobile">
+              <small class="text-danger" *ngIf="isSubmitted && contsctUsFormControls.mobile.errors?.required">
+                {{'Mobile is required'|translate}}.
+              </small>
+            </div>
+          </div>
+        <!-- reason -->
+          <div class="col-md-7">
+            <div class="form-group">
+              <label>{{'Reason'|translate}}<span class="text-danger">*</span></label>
+              <!-- for english lang -->
+              <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfReasons" [bindLabel]="'reason_en'"
+                bindValue="reason" [searchable]="true" placeholder="{{'Reason'|translate}}"
+                [(ngModel)]="contactUsDetails.reason" formControlName="reason">
+              </ng-select>
+             <!-- for arabic lang -->
+              <ng-select *ngIf="translate.currentLang === 'ar'" [items]="listOfReasons" [bindLabel]="'reason_ar'"
+                bindValue="reason" [searchable]="true" placeholder="{{'Reason'|translate}}"
+                [(ngModel)]="contactUsDetails.reason" formControlName="reason">
+              </ng-select>
+              <small class="text-danger" *ngIf="isSubmitted && contsctUsFormControls.reason.errors?.required">
+                {{'Reason is required'|translate}}.
+              </small>
+            </div>
+          </div>
+
+        <!-- message -->
+          <div class="col-md-7">
+                <div class="form-group">
+                    <label>{{'Message'|translate}}</label>:
+                    <textarea rows="10" formControlName="message_text_area" class="form-control"
+                    placeholder="{{'Enter your mesaage here...'|translate}}"></textarea>
+                    <small class="text-danger" *ngIf="isSubmitted && contsctUsFormControls.message_text_area.errors?.required">
+                    {{'Message is required'|translate}}.
+                    </small>
+                </div>
+          </div>
+        </div>  
+      </div>
+    </mat-card-content>
+  
+  
+  </mat-card>
+  <!-- card actions -->
+  <br>
+  <mat-card-actions class="text-center">
+    <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">{{'Cancel'|translate}}</button>
+    <button mat-button class="btn btn-info text-light" (click)="sendMessage()">{{'Send'|translate}}</button>
+  </mat-card-actions>

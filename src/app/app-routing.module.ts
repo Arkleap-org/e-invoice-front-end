@@ -10,6 +10,7 @@ import { ResetPasswordComponent } from './admin/reset-password/reset-password.co
 import { TraceLogComponent } from './admin/trace-log/trace-log.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { UserViewComponent } from './admin/user-view/user-view.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
 import { InvoiceDetailsComponent } from './invoice/invoice-details/invoice-details.component';
 import { InvoiceErrorsComponent } from './invoice/invoice-errors/invoice-errors.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
     children: [
       { path: "", canActivate: [AuthGuardService], component: HomeComponent },
       { path: "user", canActivate: [AuthGuardService], component: AddUserComponent },
+      { path: "contact-us", canActivate: [AuthGuardService], component: ContactUsComponent },
 
       { path: "issuer/details", canActivate: [AuthGuardService], component: IssuerDetailsComponent },
       { path: "issuer/address", canActivate: [AuthGuardService], component: IssuerAddressComponent },
