@@ -18,6 +18,7 @@ import { NotificationMessageService } from '../services/notification.message.ser
 import { SecurityService } from '../services/security.service';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { InternetInterceptor } from '../interceptors/internet.interceptor';
 
 
 // required for AOT compilation
@@ -48,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NotificationMessageService,
     DatePipe,
 
+    { provide: HTTP_INTERCEPTORS, useClass: InternetInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },

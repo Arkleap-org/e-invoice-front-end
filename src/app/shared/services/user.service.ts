@@ -20,7 +20,7 @@ export class UserService {
     return this.http.post<ResponseDto>(url, model);
   }
 
-  listUsers(){
+  listUsers() {
     const url = `user/list`;
     return this.http.get<ResponseDto>(url);
   }
@@ -30,14 +30,14 @@ export class UserService {
     return this.http.get<ResponseDto>(url);
   }
 
-  
-    updateUser(id: number, data:UserRequestDto) {
-      const url = `user/update/${id}`;
-      return this.http.put<ResponseDto>(url, data);
-    }
-  
 
-  deleteUser(id:number){
+  updateUser(id: number, data: UserRequestDto) {
+    const url = `user/update/${id}`;
+    return this.http.put<ResponseDto>(url, data);
+  }
+
+
+  deleteUser(id: number) {
     const url = `user/delete`;
 
     const options = {
@@ -49,44 +49,44 @@ export class UserService {
       },
     };
 
-    return this.http.delete<any>(url,options);
- }
+    return this.http.delete<any>(url, options);
+  }
 
- getUserById(id:number){
-   const url = `user/view/${id}`
+  getUserById(id: number) {
+    const url = `user/view/${id}`
 
-   return this.http.get<ResponseDto>(url)
- }
+    return this.http.get<ResponseDto>(url)
+  }
 
- activateUser(id:number){
-   const url = `user/activate`
-   const dto = {
-       users:[id]
-   }
-   return this.http.post<ResponseDto>(url,dto)
-
- }
-
- deactivateUser(id:number){
-  const url = `user/deactivate`
-   const dto = {
-       users:[id]
+  activateUser(id: number) {
+    const url = `user/activate`
+    const dto = {
+      users: [id]
     }
-   return this.http.post<ResponseDto>(url,{
-    users:[id]
-  })
+    return this.http.post<ResponseDto>(url, dto)
 
- }
+  }
 
- changePassword(model:ResetPasswordDto){
-   const url = `user/change-password`
-   return this.http.put<ResponseDto>(url,model)
-   
- }
- 
+  deactivateUser(id: number) {
+    const url = `user/deactivate`
+    const dto = {
+      users: [id]
+    }
+    return this.http.post<ResponseDto>(url, {
+      users: [id]
+    })
 
- contactUs(model:ContactUsDto) {
-   const url = `contact-us/create`
-   return this.http.post<ResponseDto>(url,model)
- }
+  }
+
+  changePassword(model: ResetPasswordDto) {
+    const url = `user/change-password`
+    return this.http.put<ResponseDto>(url, model)
+
+  }
+
+
+  contactUs(model: ContactUsDto) {
+    const url = `contact-us/create`
+    return this.http.post<ResponseDto>(url, model)
+  }
 }
