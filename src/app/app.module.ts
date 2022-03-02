@@ -41,6 +41,7 @@ import { ItemsService } from "./shared/services/items.service";
 import { InvoiceLineComponent } from './shared/popups/invoice-line/invoice-line.component';
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { TraceLogComponent } from './admin/trace-log/trace-log.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { TraceLogComponent } from './admin/trace-log/trace-log.component';
     InvoiceCancelComponent,
     InvoiceLineComponent,
     TraceLogComponent,
+    ContactUsComponent,
     
 
   ],

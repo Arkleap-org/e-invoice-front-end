@@ -221,6 +221,14 @@
     "Trace Message":"رسالة التتبع",
     "Data": "المعلومات",
     "Date Time":"التاريخ والوقت",
-    "Trace Log":"سجل المشاكل"
+    "Trace Log":"سجل المشاكل",
+    "Contact Us":"تواصل معنا",
+    "Mobile":"رقم الموبايل",
+    "Reason":"السبب",
+    "Mobile is required":"رقم الموبايل مطلوب",
+    "Reason is required":"السبب مطلوب",
+    "Message":"الرسالة",
+    "Message is required":"الرسالة مطلوبة",
+    "Enter your mesaage here...":"أكتب رسالتك هنا..."
     
 }

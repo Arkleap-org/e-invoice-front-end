@@ -229,5 +229,13 @@
     "Trace Message":"Trace Message",
     "Data": "Data",
     "Date Time":"Date Time",
-    "Trace Log":"Trace Log"
+    "Trace Log":"Trace Log",
+    "Contact Us":"Contact Us",
+    "Mobile":"Mobile",
+    "Reason":"Reason",
+    "Mobile is required":"Mobile is required",
+    "Reason is required":"Reason is required",
+    "Message":"Message",
+    "Message is required":"Message is required",
+    "Enter your mesaage here...":"Enter your mesaage here..."
 }
