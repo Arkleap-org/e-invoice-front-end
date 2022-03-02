@@ -2,6 +2,7 @@ export interface ResponseDto {
   response_id: number;
   data: any;
   message: string;
+  count: number;
 }
 
 export interface ErrorDto {

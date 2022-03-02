@@ -40,6 +40,7 @@ import { SessionStorageService } from "./shared/services/session-storage.service
 import { ItemsService } from "./shared/services/items.service";
 import { InvoiceLineComponent } from './shared/popups/invoice-line/invoice-line.component';
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { TraceLogComponent } from './admin/trace-log/trace-log.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     ResetPasswordComponent,
     InvoiceCancelComponent,
     InvoiceLineComponent,
+    TraceLogComponent,
     
 
   ],

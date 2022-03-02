@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 // components
 import { AddUserComponent } from './add-user/add-user.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
+import { TraceLogComponent } from './admin/trace-log/trace-log.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { UserViewComponent } from './admin/user-view/user-view.component';
 import { HomeComponent } from './home/home.component';
@@ -58,6 +59,7 @@ const routes: Routes = [
       { path: "user/list", canActivate: [AuthGuardService], component: UserManagementComponent },
       { path: "user/view/:id", canActivate: [AuthGuardService], component: UserViewComponent },
       { path: "user/reset-password", canActivate: [AuthGuardService], component: ResetPasswordComponent },
+      { path: "user/trace-log", canActivate: [AuthGuardService], component: TraceLogComponent },
 
 
 

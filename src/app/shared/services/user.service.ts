@@ -24,6 +24,11 @@ export class UserService {
     return this.http.get<ResponseDto>(url);
   }
 
+  listTraceLog(pageNo: number, size: number) {
+    const url = `trace-log/list?page=${pageNo}&size=${size}`;
+    return this.http.get<ResponseDto>(url);
+  }
+
   
     updateUser(id: number, data:UserRequestDto) {
       const url = `user/update/${id}`;
