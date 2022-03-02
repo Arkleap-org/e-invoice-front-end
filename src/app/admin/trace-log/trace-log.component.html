@@ -1,5 +1,7 @@
 <section>
     <mat-card>  
+      <mat-card-title>{{'Trace Log'|translate}}</mat-card-title>
+      <br>
       <mat-form-field appearance="standard">
         <mat-label>{{'Search' | translate}}</mat-label>
         <input matInput (keyup)="applyFilter($event)" #input>
@@ -29,36 +31,12 @@
             <td mat-cell *matCellDef="let row"> {{row.date_time | date:'dd/MM/yyyy hh:mm:ss a'}} </td>
           </ng-container>
   
-          <ng-container matColumnDef="os_user">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'OS User' | translate}} </th>
-            <td mat-cell *matCellDef="let row"> {{row.os_user}} </td>
-          </ng-container>
   
-          <ng-container matColumnDef="user">
+          <ng-container matColumnDef="user_name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'User' | translate}} </th>
-            <td mat-cell *matCellDef="let row"> {{row.user}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.user_name}} </td>
           </ng-container>
   
-  
-          <!-- <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Actions' | translate}} </th>
-            <td mat-cell *matCellDef="let row">
-              <button mat-button class="btn btn-primary" [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item [routerLink]="['/user/view', row.id]">{{'View' | translate}}</button>
-                <button *ngIf="!row.is_active" mat-menu-item (click)="activateUser(row)">{{'Activate' |
-                  translate}}</button>
-                <button *ngIf="row.is_active" mat-menu-item (click)="deactivateUser(row)">{{'Deactivate' |
-                  translate}}</button>
-                <button [routerLink]="['/user/reset-password']" mat-menu-item>{{'Reset Password' |
-                  translate}}</button>
-                <button mat-menu-item (click)="deleteUser(row)">{{'Delete' | translate}}</button>
-              </mat-menu>
-            </td>
-          </ng-container>
-   -->
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
