@@ -45,7 +45,8 @@
                 <label>{{'Issued Date'|translate}}<span class="text-danger">*</span></label>
 
 
-                <input *ngIf="invoiceDetails.id && invoiceDetails.invoice_status != 'Draft';else issuedDateDisabled"
+                <input
+                  *ngIf="invoiceDetails.id && (invoiceDetails.invoice_status != 'Draft' && invoiceDetails.invoice_status != 'Invalid');else issuedDateDisabled"
                   [class.overlay]="true" type="datetime-local" class="form-control"
                   placeholder="{{'Issued Date'|translate}}" formControlName="date_time_issued"
                   [(ngModel)]="invoiceDetails.date_time_issued">
