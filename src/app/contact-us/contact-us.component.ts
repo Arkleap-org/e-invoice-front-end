@@ -88,7 +88,7 @@ export class ContactUsComponent implements OnInit {
 
   // #region main actions
   cancelAndRouteBack() {
-    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/home");
+    this.dialogService.cancelAndRouteBack("Are you sure?", "You won't be able to revert this!", "/");
   }
 
   sendMessage() {
