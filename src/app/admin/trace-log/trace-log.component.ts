@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResponseDto } from 'src/app/shared/models/api-response.model';
 import { DialogService } from 'src/app/shared/services/dialog.service';
+import { NotificationMessageService } from 'src/app/shared/services/notification.message.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class TraceLogComponent implements OnInit {
 
  constructor(
    private userService: UserService,
-   private dialogService: DialogService
+   private dialogService: DialogService,
  ) {
 
    // init variables
@@ -82,6 +83,11 @@ export class TraceLogComponent implements OnInit {
       this.listLogTracres();
     }
  // #region main action
+
+ displayDataPopup(message: string) {
+   this.dialogService.alertMessege(message);
+   
+ }
 
  applyFilter(event: Event) {
    const filterValue = (event.target as HTMLInputElement).value;
