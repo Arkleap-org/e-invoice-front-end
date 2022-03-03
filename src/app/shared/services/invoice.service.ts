@@ -18,8 +18,8 @@ export class InvoiceService {
     private http: HttpClient
   ) { }
 
-  listInvoices() {
-    const url = `invoice/list`;
+  listInvoices(pageNo: number, size: number) {
+    const url = `invoice/list?page=${pageNo}&size=${size}`;
     return this.http.get<ResponseDto>(url)
   }
 

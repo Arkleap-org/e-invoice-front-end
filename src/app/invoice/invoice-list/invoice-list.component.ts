@@ -5,7 +5,7 @@ import * as XLSX from 'xlsx';
 
 // angular material
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -47,6 +47,10 @@ export class InvoiceListComponent implements OnInit {
   isFirstSubmit: boolean;
 
   excelSheet: any;
+
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   // #endregion
 
@@ -91,13 +95,24 @@ export class InvoiceListComponent implements OnInit {
     this.listInvoices();
   }
 
-  // get invoices list
   listInvoices() {
     this.invoiceService
-      .listInvoices()
+      .listInvoices(this.currentPage + 1, this.pageSize)
       .subscribe(
-        (response: ResponseDto) => (this.invoiceDataSource.data = response.data)
+        (response: any) => {
+          this.invoiceDataSource.data = response.data;
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = response.count;
+          });
+        }
       );
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.listInvoices();
   }
 
   // #endregion
