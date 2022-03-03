@@ -39,19 +39,19 @@ export class ContactUsComponent implements OnInit {
 
       this.listOfReasons = [
         {
-          reason: '',
-          reason_ar: '',
-          reason_en: ''
+          reason: 'complaint',
+          reason_en: 'complaint',
+          reason_ar: 'شكوى',
         },
         {
-          reason: '',
-          reason_ar: '',
-          reason_en: ''
+          reason: 'service_improvements',
+          reason_en: 'service_improvements',
+          reason_ar: 'تحسينات الخدمة',
         },
         {
-          reason: '',
-          reason_ar: 'أخرى',
-          reason_en: 'other'
+          reason: 'other',
+          reason_en: 'other',
+          reason_ar: 'أخرى'
         }
       ]
   }

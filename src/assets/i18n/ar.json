@@ -230,6 +230,7 @@
     "Message":"الرسالة",
     "Message is required":"الرسالة مطلوبة",
     "Enter your mesaage here...":"أكتب رسالتك هنا...",
-  "Feild should be 14 number": "لابد أن يكون 14 رقم",
-  "OS User": ""
+    "Feild should be 14 number": "لابد أن يكون 14 رقم",
+    "OS User": "جهاز المستخدم",
+    "Send":"إرسال"
 }
