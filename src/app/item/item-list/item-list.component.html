@@ -8,9 +8,9 @@
       <div class="form-group">
         <div class="items-action">
           <button type="button" class="btn btn-add text-light mx-2" data-toggle="tooltip" data-placement="bottom"
-          title="{{'Add Item'|translate}}" routerLink="/item/add">
-          <mat-icon>add</mat-icon>
-        </button>
+            title="{{'Add Item'|translate}}" routerLink="/item/add">
+            <mat-icon>add</mat-icon>
+          </button>
           <button type="button" class="btn btn-upload text-light mx-2" data-toggle="tooltip" data-placement="bottom"
             title="{{'Upload Excel Sheet'|translate}}" (click)="fileInput.click()">
             <mat-icon>upload</mat-icon>
@@ -91,6 +91,8 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[10, 20, 30, 40, 50, itemDataSource.data.length]" aria-label="Select page of items"></mat-paginator>
+    <mat-paginator dir="ltr" #paginator [pageIndex]="currentPage" [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+    </mat-paginator>
   </div>
 </mat-card>

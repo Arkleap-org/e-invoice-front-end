@@ -1,6 +1,6 @@
 // angular modules
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -36,6 +36,10 @@ export class ItemListComponent implements OnInit {
 
   listOfUnitTypes: ActivityCodeDto[];
   listOfTaxTypes: { code: string, desc_ar: string, desc_en: string, taxtype_reference: string }[];
+
+  pageSize = 5;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   // #endregion
 
@@ -82,7 +86,17 @@ export class ItemListComponent implements OnInit {
   listItems() {
     this.itemService.listItems().subscribe((res: ResponseDto) => {
       this.itemDataSource.data = res.data;
+      setTimeout(() => {
+        this.paginator.pageIndex = this.currentPage;
+        this.paginator.length = res.count;
+      });
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.listItems();
   }
 
   listUnitTypes() {
