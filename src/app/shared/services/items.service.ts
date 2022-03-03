@@ -28,8 +28,8 @@ export class ItemsService {
     return this.http.delete<ResponseDto>(url);
   }
 
-  listItems() {
-    const url = `issuer/item/list`
+  listItems(page: number, size: number) {
+    const url = `issuer/item/list?page=${page}&size=${size}`
     return this.http.get<ResponseDto>(url)
   }
 

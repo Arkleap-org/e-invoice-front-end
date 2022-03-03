@@ -84,7 +84,7 @@ export class ItemListComponent implements OnInit {
   }
 
   listItems() {
-    this.itemService.listItems().subscribe((res: ResponseDto) => {
+    this.itemService.listItems(this.currentPage + 1, this.pageSize).subscribe((res: ResponseDto) => {
       this.itemDataSource.data = res.data;
       setTimeout(() => {
         this.paginator.pageIndex = this.currentPage;

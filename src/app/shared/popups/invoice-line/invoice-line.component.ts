@@ -29,6 +29,8 @@ export class InvoiceLineComponent implements OnInit {
 
   // names of lists
   listOfItems: ItemDto[];
+  pageSize = 5;
+  currentPage = 0;
   listOfTaxTypes: {
     code: string;
     desc_ar: string;
@@ -106,7 +108,7 @@ export class InvoiceLineComponent implements OnInit {
   }
 
   listItems() {
-    this.itemsService.listItems().subscribe((response: ResponseDto) => this.listOfItems = response.data);
+    this.itemsService.listItems(this.currentPage + 1, this.pageSize).subscribe((response: ResponseDto) => this.listOfItems = response.data);
   }
 
   listTaxTypes() {
