@@ -8,7 +8,7 @@
           <!-- name -->
           <div class="col-md-7">
             <div class="form-group">
-              <label>{{'Name'|translate}}<span class="text-danger">*</span></label>
+              <label>{{'Name'|translate}} : <span class="text-danger">*</span></label>
               <input type="text" class="form-control" placeholder="{{'Name'|translate}}"
                 [(ngModel)]="contactUsDetails.customer_name" formControlName="name">
               <small class="text-danger" *ngIf="isSubmitted && contsctUsFormControls.name.errors?.required">
@@ -19,7 +19,7 @@
           <!-- mobile -->
           <div class="col-md-7">
             <div class="form-group">
-              <label>{{'Mobile'|translate}}<span class="text-danger">*</span></label>
+              <label>{{'Mobile'|translate}} : <span class="text-danger">*</span></label>
               <input type="text" class="form-control" placeholder="{{'Mobile'|translate}}"
                 [(ngModel)]="contactUsDetails.mobile" formControlName="mobile">
               <small class="text-danger" *ngIf="isSubmitted && contsctUsFormControls.mobile.errors?.required">
@@ -30,7 +30,7 @@
         <!-- reason -->
           <div class="col-md-7">
             <div class="form-group">
-              <label>{{'Reason'|translate}}<span class="text-danger">*</span></label>
+              <label>{{'Reason'|translate}} : <span class="text-danger">*</span></label>
               <!-- for english lang -->
               <ng-select *ngIf="translate.currentLang === 'en'" [items]="listOfReasons" [bindLabel]="'reason_en'"
                 bindValue="reason" [searchable]="true" placeholder="{{'Reason'|translate}}"
@@ -50,7 +50,7 @@
         <!-- message -->
           <div class="col-md-7">
                 <div class="form-group">
-                    <label>{{'Message'|translate}}</label>:
+                    <label>{{'Message'|translate}} : <span class="text-danger">*</span></label>
                     <textarea rows="10" formControlName="message_text_area" class="form-control"
                     placeholder="{{'Enter your mesaage here...'|translate}}"></textarea>
                     <small class="text-danger" *ngIf="isSubmitted && contsctUsFormControls.message_text_area.errors?.required">

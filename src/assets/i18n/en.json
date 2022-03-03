@@ -237,6 +237,7 @@
     "Message":"Message",
     "Message is required":"Message is required",
     "Enter your mesaage here...":"Enter your mesaage here...",
-  "Feild should be 14 number": "Feild should be 14 number",
-  "OS User": "OS User"
+    "Feild should be 14 number": "Feild should be 14 number",
+    "OS User": "OS User",
+    "Send":"Send"
 }
