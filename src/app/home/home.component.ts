@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
       this.invoiceDataSource.data = response.result;
       setTimeout(() => {
         this.paginator.pageIndex = this.currentPage;
-        this.paginator.length = response.metadata.totalCount;
+        if (response.metadata) this.paginator.length = response.metadata.totalCount;
       });
     });
   }
