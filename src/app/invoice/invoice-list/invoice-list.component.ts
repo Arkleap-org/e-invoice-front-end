@@ -252,6 +252,18 @@ export class InvoiceListComponent implements OnInit {
 
   uploadInvoiceExcelSheet(invoices: string[][]) {
     let invalidDate: boolean = false;
+
+    let hasInvalidDateFormate = false;
+    for (let i = 0; i < invoices.length; i++) {
+      // check if formate is mm/dd/yyyy
+      if (Number(invoices[i][1].split('/')[0]) > 11) {
+        this.dialogService.alertMessege('Date Issued should has the formate: MM/DD/YYYY ');
+        hasInvalidDateFormate = true;
+        break;
+      }
+    }
+    if (hasInvalidDateFormate) return;
+
     invoices = invoices.map((invoice) => {
       let today = new Date();
       const dt = new Date(invoice[1]);
