@@ -41,6 +41,8 @@ export class ItemListComponent implements OnInit {
   currentPage = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
+  filterModel: FilterDto;
+
   // #endregion
 
   // #region constructor
@@ -54,6 +56,7 @@ export class ItemListComponent implements OnInit {
     this.itemDataSource = new MatTableDataSource();
     this.listOfUnitTypes = this.listOfTaxTypes = [];
     this.displayedColumns = ['id', 'item_name', 'item_desc', 'item_type', 'item_code', 'internal_code', 'unit_type', 'actions'];
+    this.filterModel = new FilterDto;
   }
 
   // #endregion
@@ -84,7 +87,7 @@ export class ItemListComponent implements OnInit {
   }
 
   listItems() {
-    this.itemService.listItems(this.currentPage + 1, this.pageSize).subscribe((res: ResponseDto) => {
+    this.itemService.listItems(this.currentPage + 1, this.pageSize, this.filterModel).subscribe((res: ResponseDto) => {
       this.itemDataSource.data = res.data;
       setTimeout(() => {
         this.paginator.pageIndex = this.currentPage;
@@ -228,4 +231,10 @@ export class ItemListComponent implements OnInit {
 
   // #endregion
 
+}
+
+export class FilterDto {
+  item_name!: string;
+  item_code!: string;
+  internal_code!: string;
 }
