@@ -131,15 +131,6 @@ export class InvoiceListComponent implements OnInit {
 
   // #region main action
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.invoiceDataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.invoiceDataSource.paginator) {
-      this.invoiceDataSource.paginator.firstPage();
-    }
-  }
-
   submitInvoice(internalId: string) {
     this.invoiceService
       .submitInvoice(internalId)
