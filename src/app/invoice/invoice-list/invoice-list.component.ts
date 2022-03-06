@@ -52,6 +52,8 @@ export class InvoiceListComponent implements OnInit {
   currentPage = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
+  filterModel: FilterDto;
+
   // #endregion
 
   // #region constructor
@@ -77,6 +79,7 @@ export class InvoiceListComponent implements OnInit {
       'portal_status',
       'actions',
     ];
+    this.filterModel = new FilterDto;
   }
 
   // #endregion
@@ -97,7 +100,7 @@ export class InvoiceListComponent implements OnInit {
 
   listInvoices() {
     this.invoiceService
-      .listInvoices(this.currentPage + 1, this.pageSize)
+      .listInvoices(this.currentPage + 1, this.pageSize, this.filterModel)
       .subscribe(
         (response: any) => {
           this.invoiceDataSource.data = response.data;
@@ -365,4 +368,13 @@ export class InvoiceListComponent implements OnInit {
   }
 
   // #endregion
+}
+
+export class FilterDto {
+  receiver_name!: string;
+  internal_id!: number;
+  total_amount_from!: number;
+  total_amount_to!: number;
+  date_time_from!: string;
+  date_time_to!: string;
 }

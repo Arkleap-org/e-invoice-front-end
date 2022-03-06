@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { ResponseDto } from '../models/api-response.model';
 import { CreateInvoiceDto } from '../models/invoice.model';
 import { map } from 'rxjs/operators';
+import { FilterDto } from 'src/app/invoice/invoice-list/invoice-list.component';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,11 @@ export class InvoiceService {
     private http: HttpClient
   ) { }
 
-  listInvoices(pageNo: number, size: number) {
-    const url = `invoice/list?page=${pageNo}&size=${size}`;
+  listInvoices(pageNo: number, size: number, filter: FilterDto) {
+    let url = `invoice/list?page=${pageNo}&size=${size}`;
+    for (const [key, value] of Object.entries(filter)) {
+      if (value) url += `&${key}=${value}`;
+    }
     return this.http.get<ResponseDto>(url)
   }
 

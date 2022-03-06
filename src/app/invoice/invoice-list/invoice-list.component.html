@@ -32,6 +32,41 @@
           </button>
         </div>
       </div>
+      <div class="mat-elevation-z8">
+        <div class="row m-3">
+          <div class="col-4 form-group pt-3">
+            <label for="receiver_name">Customer Name</label>
+            <input type="text" id="receiver_name" class="form-control" [(ngModel)]="filterModel.receiver_name">
+          </div>
+          <div class="col-4 form-group pt-3">
+            <label for="total_amount_from">Total Amount From</label>
+            <input type="text" id="total_amount_from" class="form-control" [(ngModel)]="filterModel.total_amount_from">
+          </div>
+          <div class="col-4 form-group pt-3">
+            <label for="date_time_from">Date From</label>
+            <input type="date" id="date_time_from" class="form-control" [(ngModel)]="filterModel.date_time_from">
+          </div>
+          <div class="col-4 form-group pt-3">
+            <label for="internal_id">Internal ID</label>
+            <input type="text" id="internal_id" class="form-control" [(ngModel)]="filterModel.internal_id">
+          </div>
+
+          <div class="col-4 form-group pt-3">
+            <label for="total_amount_to">Total Amount To</label>
+            <input type="text" id="total_amount_to" class="form-control" [(ngModel)]="filterModel.total_amount_to">
+          </div>
+
+          <div class="col-4 form-group pt-3">
+            <label for="date_time_to">Date To</label>
+            <input type="date" id="date_time_to" class="form-control" [(ngModel)]="filterModel.date_time_to">
+          </div>
+        </div>
+        <div class="row justify-content-end m-3">
+          <div class="col-2">
+            <button class="btn btn-success w-100" (click)="listInvoices()">Search</button>
+          </div>
+        </div>
+      </div>
     </div>
 
   </mat-card-title>
