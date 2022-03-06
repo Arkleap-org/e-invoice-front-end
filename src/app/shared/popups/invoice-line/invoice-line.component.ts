@@ -29,6 +29,8 @@ export class InvoiceLineComponent implements OnInit {
 
   // names of lists
   listOfItems: ItemDto[];
+  pageSize = 5;
+  currentPage = 0;
   listOfTaxTypes: {
     code: string;
     desc_ar: string;
@@ -100,13 +102,13 @@ export class InvoiceLineComponent implements OnInit {
   // #region loadControls
 
   loadControls() {
-    this.listItems();
+    this.getInvoicelistItems();
     this.listTaxTypes();
     if (this.data?.item) this.getItemById(this.data.item);
   }
 
-  listItems() {
-    this.itemsService.listItems().subscribe((response: ResponseDto) => this.listOfItems = response.data);
+  getInvoicelistItems() {
+    this.itemsService.getInvoicelistItems().subscribe((response: ResponseDto) => this.listOfItems = response.data);
   }
 
   listTaxTypes() {
