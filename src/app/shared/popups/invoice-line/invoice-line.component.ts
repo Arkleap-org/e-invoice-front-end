@@ -102,13 +102,13 @@ export class InvoiceLineComponent implements OnInit {
   // #region loadControls
 
   loadControls() {
-    this.listItems();
+    this.getInvoicelistItems();
     this.listTaxTypes();
     if (this.data?.item) this.getItemById(this.data.item);
   }
 
-  listItems() {
-    this.itemsService.listItems(this.currentPage + 1, this.pageSize).subscribe((response: ResponseDto) => this.listOfItems = response.data);
+  getInvoicelistItems() {
+    this.itemsService.getInvoicelistItems().subscribe((response: ResponseDto) => this.listOfItems = response.data);
   }
 
   listTaxTypes() {

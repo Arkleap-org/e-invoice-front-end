@@ -33,6 +33,11 @@ export class ItemsService {
     return this.http.get<ResponseDto>(url)
   }
 
+  getInvoicelistItems() {
+    const url = `issuer/invoice-item/list`
+    return this.http.get<ResponseDto>(url)
+  }
+
   listUnitTypes() {
     const url = `codes/unit-types/list`
     return this.http.get<ResponseDto>(url)
