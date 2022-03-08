@@ -12,7 +12,6 @@ import { InvoiceCancelComponent } from '../shared/popups/invoice-cancel/invoice-
 
 // services
 import { DashboardService } from '../shared/services/dashboard.service';
-import { InvoiceService } from '../shared/services/invoice.service';
 import { SecurityService } from '../shared/services/security.service';
 
 @Component({
@@ -46,7 +45,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private dashboardService: DashboardService,
     private securityService: SecurityService,
-    private invoiceService: InvoiceService,
     public dialog: MatDialog,
   ) {
     // init variables
@@ -93,7 +91,7 @@ export class HomeComponent implements OnInit {
       this.invoiceDataSource.data = response.result;
       setTimeout(() => {
         this.paginator.pageIndex = this.currentPage;
-        this.paginator.length = response.metadata.totalCount;
+        if (response.metadata) this.paginator.length = response.metadata.totalCount;
       });
     });
   }

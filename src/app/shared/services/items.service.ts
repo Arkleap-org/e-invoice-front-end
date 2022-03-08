@@ -3,8 +3,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 // models
-import { CreateItemRequestDto, CreateItemResponseDto, ListItemsResponseDto } from "../models/items.model";
+import { CreateItemRequestDto } from "../models/items.model";
 import { ResponseDto } from "../models/api-response.model";
+import { FilterDto } from "../../item/item-list/item-list.component";
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,11 @@ export class ItemsService {
     return this.http.delete<ResponseDto>(url);
   }
 
-  listItems(page: number, size: number) {
-    const url = `issuer/item/list?page=${page}&size=${size}`
+  listItems(page: number, size: number, filter: FilterDto) {
+    let url = `issuer/item/list?page=${page}&size=${size}`;
+    for (const [key, value] of Object.entries(filter)) {
+      if (value) url += `&${key}=${value}`;
+    }
     return this.http.get<ResponseDto>(url)
   }
 

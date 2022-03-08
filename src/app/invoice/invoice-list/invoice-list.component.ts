@@ -52,6 +52,8 @@ export class InvoiceListComponent implements OnInit {
   currentPage = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
+  filterModel: FilterDto;
+
   // #endregion
 
   // #region constructor
@@ -77,6 +79,7 @@ export class InvoiceListComponent implements OnInit {
       'portal_status',
       'actions',
     ];
+    this.filterModel = new FilterDto;
   }
 
   // #endregion
@@ -97,7 +100,7 @@ export class InvoiceListComponent implements OnInit {
 
   listInvoices() {
     this.invoiceService
-      .listInvoices(this.currentPage + 1, this.pageSize)
+      .listInvoices(this.currentPage + 1, this.pageSize, this.filterModel)
       .subscribe(
         (response: any) => {
           this.invoiceDataSource.data = response.data;
@@ -127,15 +130,6 @@ export class InvoiceListComponent implements OnInit {
   // #endregion
 
   // #region main action
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.invoiceDataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.invoiceDataSource.paginator) {
-      this.invoiceDataSource.paginator.firstPage();
-    }
-  }
 
   submitInvoice(internalId: string) {
     this.invoiceService
@@ -219,7 +213,7 @@ export class InvoiceListComponent implements OnInit {
         'Template Titles should not change, make sure to work on uploaded template as it is.'
       );
     else if (!this.checkAllFieldFilled(invoices))
-      this.dialogService.alertMessege('Please make sure to fill all field.');
+      this.dialogService.alertMessege('Please make sure to fill all required fields: \nInvoice Id\nInvoice Date\nCustomer Internal code\nQuantity\nUnit Price\nDocument Type\nInvoice Version.');
     else {
       this.uploadInvoiceExcelSheet(invoices);
     }
@@ -229,29 +223,41 @@ export class InvoiceListComponent implements OnInit {
   isHeaderMatchTemplate(headers: string[]): boolean {
     return (
       headers.length === 10 && // check on header length
-      headers[0].includes('Invoice Id') &&
-      headers[1].includes('Invoice Date') &&
-      headers[2].includes('Customer Internal code') &&
-      headers[3].includes('Item Internal Code') &&
-      headers[4].includes('Quantity') &&
-      headers[5].includes('Unit Price') &&
-      headers[6].includes('Document Type') &&
+      headers[0].includes('Invoice Id') && //
+      headers[1].includes('Invoice Date') && //
+      headers[2].includes('Customer Internal code') && //
+      headers[3].includes('Item Internal Code') && //
+      headers[4].includes('Quantity') && //
+      headers[5].includes('Unit Price') && //
+      headers[6].includes('Document Type') && //
       headers[7].includes('Items Discount') &&
       headers[8].includes('Items Discount Rate') &&
-      headers[9].includes('Invoice Version')
+      headers[9].includes('Invoice Version') //
     );
   }
 
   checkAllFieldFilled(items: string[][]): boolean {
     let allFilled: boolean = true;
     items.forEach((item) => {
-      if (item.length < 7) allFilled = false;
+      if (item.length < 7 || (!item[0] || !item[1] || !item[2] || !item[3] || !item[4] || !item[5] || !item[6] || !item[9])) allFilled = false;
     });
     return allFilled;
   }
 
   uploadInvoiceExcelSheet(invoices: string[][]) {
     let invalidDate: boolean = false;
+
+    let hasInvalidDateFormate = false;
+    for (let i = 0; i < invoices.length; i++) {
+      // check if formate is mm/dd/yyyy
+      if (Number((invoices[i][1]).toString().split('/')[0]) > 11) {
+        this.dialogService.alertMessege('Date Issued should has the formate: MM/DD/YYYY ');
+        hasInvalidDateFormate = true;
+        break;
+      }
+    }
+    if (hasInvalidDateFormate) return;
+
     invoices = invoices.map((invoice) => {
       let today = new Date();
       const dt = new Date(invoice[1]);
@@ -353,4 +359,13 @@ export class InvoiceListComponent implements OnInit {
   }
 
   // #endregion
+}
+
+export class FilterDto {
+  receiver_name!: string;
+  internal_id!: number;
+  total_amount_from!: number;
+  total_amount_to!: number;
+  date_time_from!: string;
+  date_time_to!: string;
 }

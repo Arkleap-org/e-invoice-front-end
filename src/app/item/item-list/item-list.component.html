@@ -24,13 +24,32 @@
 
         </div>
       </div>
+
     </div>
   </mat-card-title>
 
-  <mat-form-field appearance="standard">
-    <mat-label>{{'Search' | translate}}</mat-label>
-    <input matInput (keyup)="applyFilter($event)" #input>
-  </mat-form-field>
+  <div class="mat-elevation-z8 py-3 my-3">
+    <div class="row m-3">
+      <div class="col-4 form-group pt-3">
+        <label for="item_name">Item Name</label>
+        <input type="text" id="item_name" class="form-control" [(ngModel)]="filterModel.item_name">
+      </div>
+      <div class="col-4 form-group pt-3">
+        <label for="item_code">Item Code</label>
+        <input type="text" id="item_code" class="form-control" [(ngModel)]="filterModel.item_code">
+      </div>
+      <div class="col-4 form-group pt-3">
+        <label for="internal_code">Internal Code</label>
+        <input type="text" id="internal_code" class="form-control" [(ngModel)]="filterModel.internal_code">
+      </div>
+
+    </div>
+    <div class="row justify-content-end m-3">
+      <div class="col-2">
+        <button class="btn btn-success w-100" (click)="listItems()">Search</button>
+      </div>
+    </div>
+  </div>
 
   <div class="mat-elevation-z8 table-container">
     <table mat-table [dataSource]="itemDataSource" matSort>
