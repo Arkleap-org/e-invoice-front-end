@@ -107,7 +107,7 @@ export class AddReceiverComponent implements OnInit {
     else if (control && control.value && (control.value).toString().length !== 14 && this.receiverDetails.type == 'P') {
       return { lengthError: true }
     }
-    else return null;
+    else return '';
   }
 
   // #endregion
