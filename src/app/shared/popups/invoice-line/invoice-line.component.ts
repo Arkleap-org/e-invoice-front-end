@@ -112,7 +112,11 @@ export class InvoiceLineComponent implements OnInit {
   }
 
   listTaxTypes() {
-    this.itemsService.listTaxTypes().subscribe((res: ResponseDto) => this.listOfTaxTypes = res.data);
+    this.itemsService.listTaxTypes().subscribe((res: ResponseDto) => {
+      this.listOfTaxTypes = res.data;
+      this.calculateTaxAmount();
+      this.calculateTotalLineAmount();
+    });
   }
 
   // #endregion
@@ -166,6 +170,7 @@ export class InvoiceLineComponent implements OnInit {
     const item2 = this.listOfItems.find(
       (item) => item.id === this.itemDetails.id
     );
+
     const type2 = this.listOfTaxTypes.find(
       (type) => item2?.sub_tax_type2 == type.code
     );

@@ -19,7 +19,7 @@ import { ListOfDocumentTypes } from '../../shared/constants/list.constant';
 
 // modals
 import { ResponseDto } from '../../shared/models/api-response.model';
-import { ListItemsResponseDto } from '../../shared/models/items.model';
+import { ItemDto, ListItemsResponseDto } from '../../shared/models/items.model';
 import { ReceiverDto } from '../../shared/models/receiver.model';
 import { InvoiceDto, LinesDto } from '../../shared/models/invoice.model';
 
@@ -31,6 +31,7 @@ import { ReceiverService } from '../../shared/services/receiver.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppStorageService } from 'src/app/shared/services/app-storage.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-details',
@@ -56,7 +57,13 @@ export class InvoiceDetailsComponent implements OnInit {
   // names of lists
   listOfReceivers: ReceiverDto[];
   listOfDocumentTypes: { labelEn: string, labelAr: string, value: string }[];
-  listOfItems: ListItemsResponseDto[];
+  listOfItems: ItemDto[];
+  listOfTaxTypes: {
+    code: string;
+    desc_ar: string;
+    desc_en: string;
+    taxtype_reference: string;
+  }[];
 
   // names of forms
   invoiceForm!: FormGroup
@@ -103,6 +110,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
     this.listOfReceivers = [];
     this.listOfItems = [];
+    this.listOfTaxTypes = [];
     this.itemDetails = [];
     this.linesDetails = [];
     this.newLineDetails = [];
@@ -204,6 +212,10 @@ export class InvoiceDetailsComponent implements OnInit {
 
   loadControls() {
     this.listReceivers();
+    forkJoin([this.itemsService.getInvoicelistItems(), this.itemsService.listTaxTypes()]).subscribe((res: any) => {
+      this.listOfItems = res[0].data;
+      this.listOfTaxTypes = res[1].data;
+    })
   }
 
   getInvoiceList() {
@@ -235,8 +247,6 @@ export class InvoiceDetailsComponent implements OnInit {
       // totals
       this.setInvoiceTotals();
 
-      this.calculateSummary();
-
     });
   }
 
@@ -265,28 +275,18 @@ export class InvoiceDetailsComponent implements OnInit {
     this.totalInvoiceAmount = this.invoiceDetails.total_amount;
   }
 
-  getTaxAmount(line: LinesDto) {
-    return Number(line.tax_amount1 || 0) + Number(line.tax_amount2 || 0) + Number(line.tax_amount3 || 0)
-  }
-
   // #endregion
 
   // #region invoice summary calculations
 
   calculateSummary() {
     this.resetTotals();
-    let taxTotals: number = 0;
     for (let i in this.newLineDetails) {
       this.totalSalesAmount += Number(this.newLineDetails[i].sales_total || 0);
       this.totalDiscountAmount += Number(this.newLineDetails[i].discount_amount || 0);
       this.totalItemsDiscountAmount += Number(this.newLineDetails[i].items_discount || 0);
 
-      taxTotals =
-        Number(this.newLineDetails[i].tax_amount1 || 0) +
-        Number(this.newLineDetails[i].tax_amount2 || 0) +
-        Number(this.newLineDetails[i].tax_amount3 || 0);
-
-      this.totalTaxTotals += Number(taxTotals);
+      this.totalTaxTotals += Number(this.calculateTaxTotal(this.newLineDetails[i]));
       this.totalInvoiceAmount += Number(this.newLineDetails[i].total_amount || 0);
     }
     this.totalSalesAmount = this.totalSalesAmount.toFixed(5);
@@ -302,6 +302,41 @@ export class InvoiceDetailsComponent implements OnInit {
     this.totalItemsDiscountAmount = 0;
     this.totalTaxTotals = 0;
     this.totalInvoiceAmount = 0;
+  }
+
+  calculateTaxTotal(line: LinesDto): number {
+    const item1 = this.listOfItems.find(
+      (item) => item.id === line.item
+    );
+    const type1 = this.listOfTaxTypes.find(
+      (type) => item1?.sub_tax_type1 == type.code
+    );
+    const tax1 =
+      Number(line.tax_amount1 || 0) *
+      (type1?.taxtype_reference == 'T4' ? -1 : 1);
+
+    const item2 = this.listOfItems.find(
+      (item) => item.id === line.item
+    );
+
+    const type2 = this.listOfTaxTypes.find(
+      (type) => item2?.sub_tax_type2 == type.code
+    );
+    const tax2 =
+      Number(line.tax_amount2 || 0) *
+      (type2?.taxtype_reference == 'T4' ? -1 : 1);
+
+    const item3 = this.listOfItems.find(
+      (item) => item.id === line.item
+    );
+    const type3 = this.listOfTaxTypes.find(
+      (type) => item3?.sub_tax_type3 == type.code
+    );
+    const tax3 =
+      Number(line.tax_amount3 || 0) *
+      (type3?.taxtype_reference == 'T4' ? -1 : 1);
+
+    return tax1 + tax2 + tax3;
   }
 
   // #endregion
@@ -369,28 +404,6 @@ export class InvoiceDetailsComponent implements OnInit {
       }
     });
   }
-
-
-  // getInvoiceId(invoice: any) {
-  //   if(invoice?.id) {
-  //     this.invoiceService.getInvoicesLinesByInvoiceId(invoice.id).subscribe((response: ResponseDto) => {
-  //       const dialogRef = this.dialog.open(InvoiceLinesListComponent, {  data: {list: response.data}   })
-  //       dialogRef.afterClosed().subscribe(result => {
-  //         if(result) {
-  //           this.newLineDetails =  result.data.map((line:any) => {
-  //             delete line['id']
-  //              return line;
-  //            });;
-  //           this.calculateSummary()    ;
-  //         }
-  //       })
-  //     })
-  //   }
-  //   else {
-  //     this.newLineDetails = [];
-  //     this.calculateSummary()    ;
-  //   }
-  // }
 
   createInvoice(form: FormGroup) {
     this.isSubmitted = true;

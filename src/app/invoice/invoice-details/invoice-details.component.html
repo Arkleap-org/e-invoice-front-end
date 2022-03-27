@@ -247,7 +247,7 @@
           <td>{{line.net_total}}</td>
           <!-- 8 -->
           <td>
-            {{ getTaxAmount(line) }}
+            {{ calculateTaxTotal(line) | number: '.5-5' }}
           </td>
           <!-- 9 -->
           <td>{{line.total_amount}}</td>
