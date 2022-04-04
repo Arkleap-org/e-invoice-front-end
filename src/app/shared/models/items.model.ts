@@ -67,3 +67,13 @@ export class ItemDto {
   sub_tax_type3!: string;
   unit_type!: string;
 }
+
+export class CurrencyDto {
+  code!: string
+  name!: string;
+  symbol!: string;
+  factor!: string;
+  is_active!: boolean;
+  is_base!: boolean;
+  is_default!: boolean;
+}

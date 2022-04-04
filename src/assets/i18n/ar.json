@@ -143,7 +143,7 @@
     "Receiver is required": "برجاء اختيار عميل اولا",
     "add line": "اضافة سطر جديد",
     "Item": "الصنف",
-    "Unit Price": "سعر الوحدة",
+    "Unit Price EGP": " سعر الوحدة بالمصري",
     "Discount Amount": "قيمة الخصم",
     "Invoice Lines": "تفاصيل الفاتورة",
     "Discount Rate": "معدل الخصم",
@@ -232,5 +232,12 @@
     "Enter your mesaage here...":"أكتب رسالتك هنا...",
     "Feild should be 14 number": "لابد أن يكون 14 رقم",
     "OS User": "جهاز المستخدم",
-    "Send":"إرسال"
+    "Send":"إرسال",
+    "Currency":"العملة",
+    "Exchange Rate":"سعر الصرف",
+    "Amount Sold":"سعر الوحدة بعملة الصرف",
+    "Exchange Rate required":"عملة الصرف مطلوبة",
+    "Currency is required":"العملة مطلوبة",
+    "Unit Price required":"وحدة العملة مطلوبة",
+    "Unit Price":"وحدة العملة"
 }

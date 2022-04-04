@@ -1,156 +1,394 @@
 <mat-card>
-  <mat-card-title>{{'Invoice Line'|translate}}</mat-card-title>
-  <br>
+  <mat-card-title>{{ "Invoice Line" | translate }}</mat-card-title>
+  <br />
   <div class="from" [formGroup]="linesForm">
     <div class="row">
-
       <!-- items -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Items'|translate}}<span class="text-danger">*</span></label>
-          <ng-select [items]="listOfItems" bindLabel="item_name" bindValue="id" [searchable]="true"
-            placeholder="{{'Items'|translate}}" formControlName="item" [(ngModel)]="itemDetails.id"
-            (change)="getItemById(itemDetails.id)">
+          <label
+            >{{ "Items" | translate }}<span class="text-danger">*</span></label
+          >
+          <ng-select
+            [items]="listOfItems"
+            bindLabel="item_name"
+            bindValue="id"
+            [searchable]="true"
+            placeholder="{{ 'Items' | translate }}"
+            formControlName="item"
+            [(ngModel)]="itemDetails.id"
+            (change)="getItemById(itemDetails.id)"
+          >
           </ng-select>
 
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('item')?.errors?.required">
-            {{'Item is required'|translate}}.
+          <small
+            class="text-danger"
+            *ngIf="isSubmitted && linesForm.get('item')?.errors?.required"
+          >
+            {{ "Item is required" | translate }}.
           </small>
         </div>
       </div>
 
       <!-- description -->
-      <div class="col-3">
+      <div class="col-9">
         <div class="form-group">
-          <label>{{'Description'|translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Description'|translate}}"
-            formControlName="description" [(ngModel)]="lineDetails.description">
+          <label>{{ "Description" | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="{{ 'Description' | translate }}"
+            formControlName="description"
+            [(ngModel)]="lineDetails.description"
+          />
         </div>
       </div>
 
       <!-- quantity -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Quantity'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Quantity'|translate}}"
-            formControlName="quantity" [(ngModel)]="lineDetails.quantity" [readonly]='!itemDetails.item_desc'
-            (ngModelChange)="calculateSalesTotal();calculateNetTotal(lineDetails.discount_amount)">
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('quantity')?.errors?.required">
-            {{'Quantity is required'|translate}}.
+          <label
+            >{{ "Quantity" | translate
+            }}<span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Quantity' | translate }}"
+            formControlName="quantity"
+            [(ngModel)]="lineDetails.quantity"
+            [readonly]="!itemDetails.item_desc"
+            (ngModelChange)="
+              calculateSalesTotal();
+              calculateNetTotal(lineDetails.discount_amount)
+            "
+          />
+          <small
+            class="text-danger"
+            *ngIf="isSubmitted && linesForm.get('quantity')?.errors?.required"
+          >
+            {{ "Quantity is required" | translate }}.
           </small>
         </div>
       </div>
 
-      <!-- unit price -->
+      <!-- Currency -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Unit Price'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Unit Price'|translate}}"
-            formControlName="amount_egp" [(ngModel)]="lineDetails.amount_egp"
-            (ngModelChange)="calculateSalesTotal();calculateNetTotal(lineDetails.discount_amount)"
-            [readonly]='!lineDetails.quantity'>
-          <small class="text-danger" *ngIf="isSubmitted && linesForm.get('amount_egp')?.errors?.required">
-            {{'Unit Price required'|translate}}.
+          <label
+            >{{ "Currency" | translate
+            }}<span class="text-danger">*</span></label
+          >
+          <ng-select
+            [items]="listOfCurrencies"
+            bindLabel="code"
+            bindValue="code"
+            [searchable]="true"
+            
+            placeholder="{{ 'Currency' | translate }}"
+            formControlName="currency"
+            [(ngModel)]="lineDetails.currency"
+          >
+          </ng-select>
+
+          <small
+            class="text-danger"
+            *ngIf="isSubmitted && linesForm.get('currency')?.errors?.required"
+          >
+            {{ "Currency is required" | translate }}.
           </small>
         </div>
       </div>
 
-    </div>
+      <!-- exchange rate -->
+      <div *ngIf="lineDetails.currency !== 'EGP'" class="col-3">
+        <div class="form-group">
+          <label
+            >{{ "Exchange Rate" | translate
+            }}<span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Exchange Rate' | translate }}"
+            formControlName="exchange_rate"
+            [(ngModel)]="lineDetails.exchange_rate"
+            (ngModelChange)="
+            calculateUnitPriceForNotEGP();
+          "
+          />
+          <small
+            class="text-danger"
+            *ngIf="
+              isSubmitted && linesForm.get('exchange_rate')?.errors?.isRequired
+            "
+          >
+            {{ "Exchange Rate required" | translate }}.
+          </small>
+        </div>
+      </div>
 
-    <div class="row">
+      <!-- amount sold -->
+      <div *ngIf="lineDetails.currency !== 'EGP'" class="col-3">
+        <div class="form-group">
+          <label
+            >{{ "Unit Price" | translate
+            }} <span *ngIf="lineDetails.currency"> {{ '  ' + lineDetails.currency }} </span> <span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Unit Price' | translate }}"
+            formControlName="amount_sold"
+            [(ngModel)]="lineDetails.amount_Sold"
+            (ngModelChange)="
+            calculateUnitPriceForNotEGP();
+          "
+          />
+          <small
+            class="text-danger"
+            *ngIf="
+              isSubmitted && linesForm.get('amount_sold')?.errors?.isAmountRequired
+            "
+          >
+            {{ "Unit Price required" | translate }}.
+          </small>
+        </div>
+      </div>
+
+      <!-- unit price for EGP -->
+      <div  class="col-3">
+        <div class="form-group">
+          <label
+            >{{ "Unit Price EGP" | translate
+            }}<span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Unit Price' | translate }}"
+            formControlName="amount_egp"
+            [(ngModel)]="lineDetails.amount_egp"
+            (ngModelChange)="
+              calculateSalesTotal();
+              calculateNetTotal(lineDetails.discount_amount)
+            "
+            [readonly]="!lineDetails.quantity"
+          />
+          <small
+            class="text-danger"
+            *ngIf="isSubmitted && linesForm.get('amount_egp')?.errors?.required"
+          >
+            {{ "Unit Price required" | translate }}.
+          </small>
+        </div>
+      </div>
+
+      <!-- unit price for NOT EGP -->
+      <!-- <ng-template #notEGP>
+        <div  class="col-3">
+          <div class="form-group">
+            <label
+              >{{ "Unit Price" | translate
+              }} <span class="text-danger">*</span></label
+            >
+            <input
+              type="number"
+              min="0"
+              class="form-control"
+              placeholder="{{ 'Unit Price' | translate }}"
+              formControlName="amount_egp"
+              [(ngModel)]="lineDetails.amount_egp"
+              (ngModelChange)="
+              calculateSalesTotal();
+              calculateNetTotal(lineDetails.discount_amount)
+            "
+              readonly
+            />
+            <small
+              class="text-danger"
+              *ngIf="isSubmitted && linesForm.get('amount_egp')?.errors?.required"
+            >
+              {{ "Unit Price required" | translate }}.
+            </small>
+          </div>
+        </div>  
+      </ng-template> -->
+      
 
       <!-- sales total -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Sales Total'|translate}}</label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Sales Total'|translate}}"
-            formControlName="sales_total" readonly="true" [(ngModel)]="lineDetails.sales_total"
-            (ngModelChange)="calculateDiscountAmount($event,lineDetails.discount_rate)">
+          <label>{{ "Sales Total" | translate }}</label>
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Sales Total' | translate }}"
+            formControlName="sales_total"
+            readonly="true"
+            [(ngModel)]="lineDetails.sales_total"
+            (ngModelChange)="
+              calculateDiscountAmount($event, lineDetails.discount_rate)
+            "
+          />
         </div>
       </div>
-
       <!-- item discount -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Items Discount'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Items Discount'|translate}}"
-            formControlName="items_discount" [(ngModel)]="lineDetails.items_discount"
-            [readonly]='!lineDetails.amount_egp' (ngModelChange)="calculateTotalLineAmount()">
-
+          <label
+            >{{ "Items Discount" | translate
+            }}<span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Items Discount' | translate }}"
+            formControlName="items_discount"
+            [(ngModel)]="lineDetails.items_discount"
+            [readonly]="!lineDetails.amount_egp"
+            (ngModelChange)="calculateTotalLineAmount()"
+          />
         </div>
       </div>
 
       <!-- discount rate -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Discount Rate'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Discount Rate'|translate}}"
-            formControlName="discount_rate" [(ngModel)]="lineDetails.discount_rate" [readonly]='!lineDetails.amount_egp'
-            (ngModelChange)="calculateDiscountAmount(lineDetails.sales_total,$event)">
+          <label
+            >{{ "Discount Rate" | translate
+            }}<span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Discount Rate' | translate }}"
+            formControlName="discount_rate"
+            [(ngModel)]="lineDetails.discount_rate"
+            [readonly]="!lineDetails.amount_egp"
+            (ngModelChange)="
+              calculateDiscountAmount(lineDetails.sales_total, $event)
+            "
+          />
         </div>
       </div>
 
       <!-- discount Amount -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Discount Amount'|translate}}<span class="text-danger">*</span></label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Discount Amount'|translate}}"
-            formControlName="discount_amount" (ngModelChange)="calculateNetTotal($event)"
-            [(ngModel)]="lineDetails.discount_amount" [readonly]="true">
+          <label
+            >{{ "Discount Amount" | translate
+            }}<span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Discount Amount' | translate }}"
+            formControlName="discount_amount"
+            (ngModelChange)="calculateNetTotal($event)"
+            [(ngModel)]="lineDetails.discount_amount"
+            [readonly]="true"
+          />
         </div>
       </div>
-
       <!-- net total -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Net Total'|translate}}</label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Net Amount'|translate}}"
-            formControlName="net_total" readonly="true" [(ngModel)]="lineDetails.net_total">
+          <label>{{ "Net Total" | translate }}</label>
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Net Amount' | translate }}"
+            formControlName="net_total"
+            readonly="true"
+            [(ngModel)]="lineDetails.net_total"
+          />
         </div>
       </div>
-
       <!-- tax amount 1 -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Tax Amount 1'|translate}}</label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Tax Amount1'|translate}}"
-            formControlName="tax_amount1" readonly="true" [(ngModel)]="lineDetails.tax_amount1">
+          <label>{{ "Tax Amount 1" | translate }}</label>
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Tax Amount1' | translate }}"
+            formControlName="tax_amount1"
+            readonly="true"
+            [(ngModel)]="lineDetails.tax_amount1"
+          />
         </div>
       </div>
 
       <!-- tax amount 2 -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Tax Amount 2'|translate}}</label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Tax Amount2'|translate}}"
-            formControlName="tax_amount2" readonly="true" [(ngModel)]="lineDetails.tax_amount2">
+          <label>{{ "Tax Amount 2" | translate }}</label>
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Tax Amount2' | translate }}"
+            formControlName="tax_amount2"
+            readonly="true"
+            [(ngModel)]="lineDetails.tax_amount2"
+          />
         </div>
       </div>
 
       <!-- tax amount 3 -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Tax Amount 3'|translate}}</label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Tax Amount3'|translate}}"
-            formControlName="tax_amount3" readonly="true" [(ngModel)]="lineDetails.tax_amount3">
+          <label>{{ "Tax Amount 3" | translate }}</label>
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Tax Amount3' | translate }}"
+            formControlName="tax_amount3"
+            readonly="true"
+            [(ngModel)]="lineDetails.tax_amount3"
+          />
         </div>
       </div>
 
       <!-- total Amount -->
       <div class="col-3">
         <div class="form-group">
-          <label>{{'Total Amount'|translate}}</label>
-          <input type="number" min="0" class="form-control" placeholder="{{'Total Amount'|translate}}"
-            formControlName="total_amount" readonly="true" [(ngModel)]="lineDetails.total_amount">
+          <label>{{ "Total Amount" | translate }}</label>
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            placeholder="{{ 'Total Amount' | translate }}"
+            formControlName="total_amount"
+            readonly="true"
+            [(ngModel)]="lineDetails.total_amount"
+          />
         </div>
       </div>
-
     </div>
-
   </div>
 </mat-card>
 <mat-card-actions class="text-center">
-  <button mat-button class="btn btn-secondary text-light" mat-dialog-close>{{'Cancel'|translate}}</button>
-  <button mat-button class="btn btn-info text-light"
-    (click)="closeAndSave(linesForm)">{{lineDetails.id?'Update':'Add'|translate}}</button>
+  <button mat-button class="btn btn-secondary text-light" mat-dialog-close>
+    {{ "Cancel" | translate }}
+  </button>
+  <button
+    mat-button
+    class="btn btn-info text-light"
+    (click)="closeAndSave(linesForm)"
+  >
+    {{ lineDetails.id ? "Update" : ("Add" | translate) }}
+  </button>
 </mat-card-actions>
