@@ -39,6 +39,7 @@ export class CreateInvoiceDto {
 export class LinesDto {
   amount_Sold!: number;
   amount_egp!: any;
+  currency!: string;
   currency_Sold!: number;
   description!: string;
   discount_amount!: any;

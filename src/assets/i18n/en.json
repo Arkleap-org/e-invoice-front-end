@@ -151,7 +151,7 @@
     "Receiver is required": "Receiver is required",
     "add line": "add line",
     "Item": "Item",
-    "Unit Price": "Unit Price",
+    "Unit Price EGP": "Unit Price EGP",
     "Invoice Lines": "Invoice Lines",
     "Discount Amount": "Discount Amount",
     "Discount Rate": "Discount Rate",
@@ -239,5 +239,12 @@
     "Enter your mesaage here...":"Enter your mesaage here...",
     "Feild should be 14 number": "Feild should be 14 number",
     "OS User": "OS User",
-    "Send":"Send"
+    "Send":"Send",
+    "Currency":"Currency",
+    "Exchange Rate":"Exchange Rate",
+    "Amount Sold":"Amount Sold",
+    "Unit Price":"Unit Price",
+    "Exchange Rate required":"Exchange Rate required",
+    "Currency is required":"Currency is required",
+    "Unit Price required":"Unit Price required"
 }

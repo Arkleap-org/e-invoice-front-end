@@ -1,6 +1,6 @@
 // angular modules
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewChecked, AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 // angular material
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // models
 import { ResponseDto } from '../../models/api-response.model';
 import { LinesDto } from '../../models/invoice.model';
-import { ItemDto } from '../../models/items.model';
+import { CurrencyDto, ItemDto } from '../../models/items.model';
 
 // services
 import { ItemsService } from '../../services/items.service';
@@ -18,7 +18,7 @@ import { ItemsService } from '../../services/items.service';
   templateUrl: './invoice-line.component.html',
   styleUrls: ['./invoice-line.component.scss'],
 })
-export class InvoiceLineComponent implements OnInit {
+export class InvoiceLineComponent implements OnInit, AfterViewChecked {
   // #region declare variables
 
   // names of booleans
@@ -29,6 +29,7 @@ export class InvoiceLineComponent implements OnInit {
 
   // names of lists
   listOfItems: ItemDto[];
+  listOfCurrencies: CurrencyDto[];
   pageSize = 5;
   currentPage = 0;
   listOfTaxTypes: {
@@ -55,11 +56,14 @@ export class InvoiceLineComponent implements OnInit {
     // init variables
     this.listOfItems = [];
     this.listOfTaxTypes = [];
+    this.listOfCurrencies = [];
     this.itemDetails = new ItemDto();
     this.isSubmitted = false;
     this.lineDetails = this.data?.item ? this.data : new LinesDto();
 
     // init forms
+    this.amountSolidIsRequired = this.amountSolidIsRequired.bind(this);
+    this.exchangeRateIsRequired = this.exchangeRateIsRequired.bind(this);
     this.initForms();
   }
 
@@ -84,6 +88,9 @@ export class InvoiceLineComponent implements OnInit {
       item: [null, Validators.required],
       description: [''],
       quantity: ['', [Validators.required]],
+      currency: ['', [Validators.required]],
+      exchange_rate: ['', this.exchangeRateIsRequired],
+      amount_sold: ['', this.amountSolidIsRequired],
       amount_egp: ['', [Validators.required]],
       sales_total: [''],
       items_discount: [''],
@@ -97,13 +104,29 @@ export class InvoiceLineComponent implements OnInit {
     });
   }
 
+  amountSolidIsRequired(control: FormControl) {
+    if ((!control || !control.value) && this.lineDetails.currency && this.lineDetails.currency !== 'EGP') {
+      return { isAmountRequired: true }
+    }
+    else return null
+  }
+
+  exchangeRateIsRequired(control: FormControl) {
+    if ((!control || !control.value) && this.lineDetails.currency && this.lineDetails.currency !== 'EGP') {
+      return { isRequired: true }
+    }
+    else return null
+  }
+
   // #endregion
 
   // #region loadControls
 
+
   loadControls() {
     this.getInvoicelistItems();
     this.listTaxTypes();
+    this.getListOfCurrencies();
     if (this.data?.item) this.getItemById(this.data.item);
   }
 
@@ -115,15 +138,37 @@ export class InvoiceLineComponent implements OnInit {
     this.itemsService.listTaxTypes().subscribe((res: ResponseDto) => this.listOfTaxTypes = res.data);
   }
 
+  getListOfCurrencies() {
+    this.itemsService.getCurrenciesList().subscribe((res: ResponseDto) => {
+      this.listOfCurrencies = res.data;      
+    })
+  }
+
   // #endregion
 
+  ngAfterViewChecked() {
+
+  }
+
   // #region line calculations
+
+  calculateUnitPriceForNotEGP() {
+    if(this.lineDetails.exchange_rate) {
+      if(this.lineDetails.amount_Sold) {
+        this.lineDetails.amount_egp = Number(
+          this.lineDetails.exchange_rate * this.lineDetails.amount_Sold
+        ).toFixed(5);
+      }
+    }
+  }
+
 
   calculateSalesTotal() {
     this.lineDetails.sales_total = (
       this.lineDetails.amount_egp * this.lineDetails.quantity
     ).toFixed(5);
   }
+
 
   calculateNetTotal(items_discount: number) {
     if (this.lineDetails.sales_total && items_discount >= 0) {
@@ -134,6 +179,8 @@ export class InvoiceLineComponent implements OnInit {
       this.calculateTotalLineAmount();
     }
   }
+
+
 
   calculateTaxAmount() {
     if (this.lineDetails.net_total) {

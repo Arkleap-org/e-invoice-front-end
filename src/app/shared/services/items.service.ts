@@ -71,5 +71,10 @@ export class ItemsService {
     return this.http.post<ResponseDto>(url, { items })
   }
 
+  getCurrenciesList() {
+    const url = `codes/currencies/list`
+    return this.http.get<ResponseDto>(url)
+  }
+
 
 }
