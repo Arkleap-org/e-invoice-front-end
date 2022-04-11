@@ -40,35 +40,35 @@
   <div class="mat-elevation-z8 py-3 my-3">
     <div class="row m-3">
       <div class="col-2 form-group pt-3">
-        <label for="internal_id">Invoice ID</label>
+        <label for="internal_id">{{'Invoice ID' | translate}}</label>
         <input type="text" id="internal_id" class="form-control" [(ngModel)]="filterModel.internal_id">
       </div>
       <div class="col-2 form-group pt-3">
-        <label for="receiver_name">Customer Name</label>
+        <label for="receiver_name">{{'Customer Name'| translate}}</label>
         <input type="text" id="receiver_name" class="form-control" [(ngModel)]="filterModel.receiver_name">
       </div>
 
       <div class="col-2 form-group pt-3">
-        <label for="total_amount_from">Total Amount From</label>
+        <label for="total_amount_from">{{'Total Amount From'|translate}}</label>
         <input type="text" id="total_amount_from" class="form-control" [(ngModel)]="filterModel.total_amount_from">
       </div>
       <div class="col-2 form-group pt-3">
-        <label for="total_amount_to">Total Amount To</label>
+        <label for="total_amount_to">{{'Total Amount To'|translate}}</label>
         <input type="text" id="total_amount_to" class="form-control" [(ngModel)]="filterModel.total_amount_to">
       </div>
       <div class="col-2 form-group pt-3">
-        <label for="date_time_from">Date From</label>
+        <label for="date_time_from">{{'Date From'|translate}}</label>
         <input type="date" id="date_time_from" class="form-control" [(ngModel)]="filterModel.date_time_from">
       </div>
       <div class="col-2 form-group pt-3">
-        <label for="date_time_to">Date To</label>
+        <label for="date_time_to">{{'Date To'|translate}}</label>
         <input type="date" id="date_time_to" class="form-control" [(ngModel)]="filterModel.date_time_to">
       </div>
 
     </div>
     <div class="row justify-content-end m-3">
       <div class="col-2">
-        <button class="btn btn-success w-100" (click)="listInvoices()">Search</button>
+        <button class="btn btn-success w-100" (click)="listInvoices()">{{'Search'|translate}}</button>
       </div>
     </div>
   </div>

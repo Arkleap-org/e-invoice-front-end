@@ -232,5 +232,12 @@
     "Enter your mesaage here...":"أكتب رسالتك هنا...",
     "Feild should be 14 number": "لابد أن يكون 14 رقم",
     "OS User": "جهاز المستخدم",
-    "Send":"إرسال"
+    "Send":"إرسال",
+    "Invoice Line":"بند الفاتورة",
+    "Invoice ID":"رقم الفاتورة",
+    "Total Amount From":"المبلغ الإجمالي ابتداءًا من",
+    "Total Amount To":"المبلغ الإجمالي كحد أقصى",
+    "Date From":"تاريخ الإنشاء من",
+    "Date To":"تاريخ الإنشاء إلى",
+    "Old Password":"كلمة المرور القديمة"
 }

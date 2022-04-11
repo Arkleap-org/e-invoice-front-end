@@ -31,22 +31,22 @@
   <div class="mat-elevation-z8 py-3 my-3">
     <div class="row m-3">
       <div class="col-4 form-group pt-3">
-        <label for="item_name">Item Name</label>
+        <label for="item_name">{{'Item Name'|translate}}</label>
         <input type="text" id="item_name" class="form-control" [(ngModel)]="filterModel.item_name">
       </div>
       <div class="col-4 form-group pt-3">
-        <label for="item_code">Item Code</label>
+        <label for="item_code">{{'Item Code'|translate}}</label>
         <input type="text" id="item_code" class="form-control" [(ngModel)]="filterModel.item_code">
       </div>
       <div class="col-4 form-group pt-3">
-        <label for="internal_code">Internal Code</label>
+        <label for="internal_code">{{'Internal Code'|translate}}</label>
         <input type="text" id="internal_code" class="form-control" [(ngModel)]="filterModel.internal_code">
       </div>
 
     </div>
     <div class="row justify-content-end m-3">
       <div class="col-2">
-        <button class="btn btn-success w-100" (click)="listItems()">Search</button>
+        <button class="btn btn-success w-100" (click)="listItems()">{{'Search'|translate}}</button>
       </div>
     </div>
   </div>

@@ -239,5 +239,12 @@
     "Enter your mesaage here...":"Enter your mesaage here...",
     "Feild should be 14 number": "Feild should be 14 number",
     "OS User": "OS User",
-    "Send":"Send"
+    "Send":"Send",
+    "Invoice Line":"Invoice Line",
+    "Invoice ID":"Invoice ID",
+    "Total Amount From":"Total Amount From",
+    "Total Amount To":"Total Amount To",
+    "Date From":"Date From",
+    "Date To":"Date To",
+    "Old Password":"Old Password"
 }
