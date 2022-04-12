@@ -1,0 +1,9 @@
+:host {
+  .subscription-action {
+    float: right;
+    [dir="rtl"] & {
+      clear: both;
+      float: left;
+    }
+  }
+}

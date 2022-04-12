@@ -1,0 +1,94 @@
+<mat-card>
+  <!-- card title -->
+  <mat-card-title>{{'Create Subscription'|translate}}</mat-card-title>
+  <br />
+  <!-- card content -->
+  <mat-card-content>
+    <div class="form" [formGroup]="subscriptionForm">
+      <!-- first row -->
+      <div class="row">
+        <!-- Issuer -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{ "Issuer" | translate }}<span class="text-danger">*</span></label>
+            <select class="form-control" formControlName="issuer" [(ngModel)]="model.issuer">
+              <option [value]="issuer.id" *ngFor="let issuer of listOfIssuers">{{issuer.name}}</option>
+            </select>
+            <small class="text-danger" *ngIf="
+                isSubmitted && subscriptionFormControls.issuer.errors?.required
+              ">
+              {{ "Issuer is required" | translate }}.
+            </small>
+          </div>
+        </div>
+
+        <!-- Plan -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{ "Plan" | translate }}<span class="text-danger">*</span></label>
+            <select class="form-control" formControlName="plan" [(ngModel)]="model.plan">
+              <option [value]="plan.id" *ngFor="let plan of listOfPlans">{{plan.name}}</option>
+            </select>
+            <small class="text-danger" *ngIf="
+                isSubmitted && subscriptionFormControls.plan.errors?.required
+              ">
+              {{ "Plan is required" | translate }}.
+            </small>
+          </div>
+        </div>
+
+        <!-- Start Date -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{ "Start Date" | translate }}<span class="text-danger">*</span></label>
+            <input type="date" class="form-control" formControlName="start_date" [(ngModel)]="model.start_date">
+            <small class="text-danger" *ngIf="
+                isSubmitted && subscriptionFormControls.start_date.errors?.required
+              ">
+              {{ "Start Date is required" | translate }}.
+            </small>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="row mt-5">
+        <!-- Is Active -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label" for="is_active">{{'Is Active'|translate}}</label>
+              <input class="form-check-input" type="checkbox" [(ngModel)]="model.is_active" formControlName="is_active"
+                id="is_active" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Is Paid -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label" for="is_paid">{{'Is Paid'|translate}}</label>
+              <input class="form-check-input" type="checkbox" [(ngModel)]="model.is_paid" formControlName="is_paid"
+                id="is_paid" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </mat-card-content>
+</mat-card>
+<br />
+
+<!-- card actions -->
+<mat-card-actions class="text-center">
+  <button mat-button class="btn btn-secondary text-light" (click)="cancelAndRouteBack()">
+    {{ "Cancel" | translate }}
+  </button>
+  <button mat-button class="btn btn-info text-light" type="submit" (click)="createSubscription(model)">
+    {{ "Create" | translate }}
+  </button>
+</mat-card-actions>

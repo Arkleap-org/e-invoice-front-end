@@ -27,6 +27,10 @@ import { RegisterComponent } from './register/register.component';
 
 // services
 import { AuthGuardService } from './shared/services/auth.guard.service';
+import { PlanListComponent } from './admin/plans/plan-list/plan-list.component';
+import { PlanDetailsComponent } from './admin/plans/plan-details/plan-details.component';
+import { SubscriptionListComponent } from './admin/subscriptions/subscription-list/subscription-list.component';
+import { SubscriptionDetailsComponent } from './admin/subscriptions/subscription-details/subscription-details.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -63,6 +67,12 @@ const routes: Routes = [
       { path: "user/reset-password", canActivate: [AuthGuardService], component: ResetPasswordComponent },
       { path: "user/trace-log", canActivate: [AuthGuardService], component: TraceLogComponent },
 
+      { path: "user/plan/list", canActivate: [AuthGuardService], component: PlanListComponent },
+      { path: "user/plan/add", canActivate: [AuthGuardService], component: PlanDetailsComponent },
+      { path: "user/plan/update/:id", canActivate: [AuthGuardService], component: PlanDetailsComponent },
+
+      { path: "user/subscription/list", canActivate: [AuthGuardService], component: SubscriptionListComponent },
+      { path: "user/subscription/add", canActivate: [AuthGuardService], component: SubscriptionDetailsComponent },
 
 
 

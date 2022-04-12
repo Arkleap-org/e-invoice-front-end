@@ -253,5 +253,11 @@
   "Unit Price": "Unit Price",
   "Exchange Rate required": "Exchange Rate required",
   "Currency is required": "Currency is required",
-  "Unit Price required": "Unit Price required"
+  "Unit Price required": "Unit Price required",
+  "Plans": "Plans",
+  "Subscriptions": "Subscriptions",
+  "Plan List": "Plan List",
+  "Add Plan": "Add Plan",
+  "Create Plan": "Create Plan",
+  "Update Plan": "Update Plan"
 }

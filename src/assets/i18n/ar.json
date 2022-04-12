@@ -246,5 +246,11 @@
   "Exchange Rate required": "عملة الصرف مطلوبة",
   "Currency is required": "العملة مطلوبة",
   "Unit Price required": "وحدة العملة مطلوبة",
-  "Unit Price": "وحدة العملة"
+  "Unit Price": "وحدة العملة",
+  "Plans": "خطط الإشتراك",
+  "Subscriptions": "الإشتراكات",
+  "Plan List": "قائمة خطط الإشتراك",
+  "Add Plan": "إضافة خطة",
+  "Create Plan": "إنشاء خطة",
+  "Update Plan": "تحديث الخطة"
 }

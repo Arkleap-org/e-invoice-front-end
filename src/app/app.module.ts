@@ -42,6 +42,10 @@ import { InvoiceLineComponent } from './shared/popups/invoice-line/invoice-line.
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { TraceLogComponent } from './admin/trace-log/trace-log.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { PlanDetailsComponent } from './admin/plans/plan-details/plan-details.component';
+import { PlanListComponent } from './admin/plans/plan-list/plan-list.component';
+import { SubscriptionDetailsComponent } from './admin/subscriptions/subscription-details/subscription-details.component';
+import { SubscriptionListComponent } from './admin/subscriptions/subscription-list/subscription-list.component';
 
 
 @NgModule({
@@ -71,6 +75,10 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     InvoiceLineComponent,
     TraceLogComponent,
     ContactUsComponent,
+    PlanDetailsComponent,
+    PlanListComponent,
+    SubscriptionDetailsComponent,
+    SubscriptionListComponent,
     
 
   ],

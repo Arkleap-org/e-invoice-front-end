@@ -83,12 +83,17 @@
       translate}}</button>
     <button mat-menu-item routerLink="user/list" *ngIf="securityService.user?.is_superuser">{{'User Management' |
       translate}}</button>
-      <button mat-menu-item routerLink="user/trace-log" *ngIf="securityService.user?.is_superuser">{{'Trace Log' |
-        translate}}</button>
-    <button mat-menu-item [routerLink]="['/user/reset-password']" mat-menu-item>{{'change Password' |
+    <button mat-menu-item routerLink="user/plan/list" *ngIf="securityService.user?.is_superuser">{{'Plans' |
       translate}}</button>
-      <button mat-menu-item routerLink="contact-us">{{'Contact Us' |
-        translate}}</button>
+    <button mat-menu-item routerLink="user/subscription/list"
+      *ngIf="securityService.user?.is_superuser">{{'Subscriptions' |
+      translate}}</button>
+    <button mat-menu-item routerLink="user/trace-log" *ngIf="securityService.user?.is_superuser">{{'Trace Log' |
+      translate}}</button>
+    <button mat-menu-item [routerLink]="['/user/reset-password']" mat-menu-item>{{'Change Password' |
+      translate}}</button>
+    <button mat-menu-item routerLink="contact-us">{{'Contact Us' |
+      translate}}</button>
     <button mat-menu-item (click)="logout()">{{'Logout' | translate}}</button>
   </ng-template>
 </mat-menu>
