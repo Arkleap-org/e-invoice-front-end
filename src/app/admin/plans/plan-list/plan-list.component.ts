@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from '../../../shared/services/admin.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-plan-list',
@@ -26,7 +25,6 @@ export class PlanListComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
-    public dialog: MatDialog,
   ) {
     // init variables
     this.displayedColumns = ['index', 'name', 'description', 'price', 'type', 'is_active', 'action'];

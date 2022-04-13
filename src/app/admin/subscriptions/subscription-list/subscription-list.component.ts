@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -29,7 +28,6 @@ export class SubscriptionListComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private dialogService: DialogService,
-    public dialog: MatDialog,
   ) {
     // init variables
     this.displayedColumns = ['index', 'issuer_name', 'plan_name', 'start_date', 'end_date', 'is_active', 'is_paid', 'action'];
